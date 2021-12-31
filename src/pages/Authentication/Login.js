@@ -1,0 +1,179 @@
+import PropTypes from "prop-types"
+import MetaTags from "react-meta-tags"
+import React, { useEffect, useState } from "react"
+import { withRouter, Link } from "react-router-dom"
+
+import { Row, Col, CardBody, Card, Alert, Container } from "reactstrap"
+
+//redux
+import { useSelector, useDispatch } from "react-redux"
+
+// availity-reactstrap-validation
+import { AvForm, AvField } from "availity-reactstrap-validation"
+
+// actions
+import { loginUser, apiError } from "../../store/actions"
+
+// import images
+import profile from "assets/images/profile-img.png"
+import logo from "assets/images/logo/loha_oa.png"
+
+import { Notification } from "../../components/Common/Notification"
+
+import "toastr/build/toastr.min.css"
+
+const Login = ({ history }) => {
+  const dispatch = useDispatch()
+  const [toggleShow, setToggleShow] = useState(false)
+  const { error, user, loading } = useSelector(state => ({
+    error: state.Login.error,
+    user: state.Login.user,
+    loading: state.Login.loading,
+  }))
+  // handleValidSubmit
+  const handleValidSubmit = values => {
+    dispatch(loginUser(values, history))
+  }
+
+  useEffect(() => {
+    dispatch(apiError(""))
+    if (user) {
+      Notification({
+        type: "success",
+        message: user?.response,
+        title: "",
+      })
+    }
+
+    if (user?.token) {
+      history.push("/dashboard")
+    }
+  }, [user])
+
+  return (
+    <React.Fragment>
+      <MetaTags>
+        <title>Login | Loha </title>
+      </MetaTags>
+
+      <div className="home-btn d-none d-sm-block">
+        <Link to="/" className="text-dark">
+          <i className="fas fa-home h2" />
+        </Link>
+      </div>
+      <div className="account-pages my-5 pt-sm-5">
+        <Container>
+          <Row className="justify-content-center">
+            <Col md={8} lg={6} xl={5}>
+              <Card className="overflow-hidden">
+                <div className="bg-primary bg-soft">
+                  <Row>
+                    <Col xs={7}>
+                      <div className="text-primary p-4">
+                        <h5 className="text-primary">Welcome Back !</h5>
+                        <p>Sign in to continue</p>
+                      </div>
+                    </Col>
+                    <Col className="col-5 align-self-end">
+                      <img src={profile} alt="" className="img-fluid" />
+                    </Col>
+                  </Row>
+                </div>
+                <CardBody className="pt-0">
+                  <div>
+                    <Link to="/" className="auth-logo-light">
+                      <div className="avatar-md profile-user-wid mb-4">
+                        <span className="avatar-title rounded-circle bg-light">
+                          <img src={logo} alt="" className="" height="20" />
+                        </span>
+                      </div>
+                    </Link>
+                  </div>
+                  <div className="p-2">
+                    <AvForm
+                      className="form-horizontal"
+                      onValidSubmit={(e, v) => {
+                        handleValidSubmit(v)
+                      }}
+                    >
+                      {error ? <Alert color="danger">{error}</Alert> : null}
+
+                      <div className="mb-3">
+                        <AvField
+                          name="username"
+                          label="Username"
+                          // value="admin@themesbrand.com"
+                          className="form-control"
+                          placeholder="Enter username"
+                          type="text"
+                          required
+                        />
+                      </div>
+
+                      <div className="mb-3">
+                        <AvField
+                          name="password"
+                          label="Password"
+                          type={`${toggleShow == true ? "text" : "password"}`}
+                          required
+                          placeholder="Enter Password"
+                          title="click to show passwoard"
+                          className="position-relative"
+                        />
+                        <span
+                          className={`${
+                            toggleShow ? "fas fa-eye-slash" : "fas fa-eye"
+                          } position-absolute right-0`}
+                          style={{
+                            right: "40px",
+                            bottom: "168px",
+                            fontSize: "1.2rem",
+                            cursor: "pointer",
+                          }}
+                          onClick={() => setToggleShow(!toggleShow)}
+                        ></span>
+                      </div>
+
+                      <div className="mt-3 d-grid">
+                        <button
+                          className="btn btn-primary btn-block"
+                          type="submit"
+                        >
+                          {loading && (
+                            <>
+                              <i className="bx bx-loader bx-spin font-size-16 align-middle me-2"></i>
+                            </>
+                          )}
+                          Log In
+                        </button>
+                      </div>
+
+                      <div className="mt-4 text-center">
+                        <Link to="/forgot-password" className="text-muted">
+                          <i className="mdi mdi-lock me-1" />
+                          Forgot your password?
+                        </Link>
+                      </div>
+                    </AvForm>
+                  </div>
+                </CardBody>
+              </Card>
+              <div className="mt-5 text-center">
+                <p>
+                  © {new Date().getFullYear()} Loha. All Rights Reserved |
+                  Developed by osperb
+                </p>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    </React.Fragment>
+  )
+}
+
+export default withRouter(Login)
+
+Login.propTypes = {
+  history: PropTypes.object,
+}
