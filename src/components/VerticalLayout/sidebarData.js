@@ -1,6 +1,19 @@
 function sidebardata() {
   return [
     {
+      heading: "General  Manager",
+      badgeClass: "",
+      badgeValue: "",
+      iconClass: "user-detail",
+      subTitles: [
+        { title: "All General  Managers", routeLink: "/generalmanagers" },
+        {
+          title: "Create General  Manager",
+          routeLink: "/generalmanager/create",
+        },
+      ],
+    },
+    {
       heading: "Production Manager",
       badgeClass: "",
       badgeValue: "",
@@ -10,6 +23,32 @@ function sidebardata() {
         {
           title: "Create Production Manager",
           routeLink: "/productionmanager/create",
+        },
+      ],
+    },
+    {
+      heading: "Store Manager",
+      badgeClass: "",
+      badgeValue: "",
+      iconClass: "user-detail",
+      subTitles: [
+        { title: "All Store Manager", routeLink: "/storemanagers" },
+        {
+          title: "Create Store Manager",
+          routeLink: "/storemanager/create",
+        },
+      ],
+    },
+    {
+      heading: "Quality Manager",
+      badgeClass: "",
+      badgeValue: "",
+      iconClass: "shield",
+      subTitles: [
+        { title: "All Quality Manager", routeLink: "/qualitycheckers" },
+        {
+          title: "Create Quality Manager",
+          routeLink: "/qualitychecker/create",
         },
       ],
     },
@@ -72,19 +111,7 @@ function sidebardata() {
         },
       ],
     },
-    {
-      heading: "Store Manager",
-      badgeClass: "",
-      badgeValue: "",
-      iconClass: "user-detail",
-      subTitles: [
-        { title: "All Store Manager", routeLink: "/storemanagers" },
-        {
-          title: "Create Store Manager",
-          routeLink: "/storemanager/create",
-        },
-      ],
-    },
+
     {
       heading: "Supervisor",
       badgeClass: "",
@@ -109,19 +136,6 @@ function sidebardata() {
         {
           title: "Create Dealers",
           routeLink: "/dealer/create",
-        },
-      ],
-    },
-    {
-      heading: "Quality Checker",
-      badgeClass: "",
-      badgeValue: "",
-      iconClass: "shield",
-      subTitles: [
-        { title: "All Quality Checker", routeLink: "/qualitycheckers" },
-        {
-          title: "Create Quality Checker",
-          routeLink: "/qualitychecker/create",
         },
       ],
     },

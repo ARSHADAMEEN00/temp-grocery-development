@@ -1,6 +1,6 @@
 import PropTypes from "prop-types"
 import React, { useState } from "react"
-import { connect } from "react-redux"
+import { connect, useDispatch } from "react-redux"
 import { Row, Col } from "reactstrap"
 import { Link } from "react-router-dom"
 
@@ -30,12 +30,13 @@ import {
 import { layoutTypes } from "../../constants/layout"
 
 //images
-import logo from "../../assets/images/logo/LOHA.png"
+import logo from "../../assets/images/logo/Indtech.png"
 
 import "react-drawer/lib/react-drawer.css"
 import "../../components/CommonForBoth/rightbar.scss"
 
 const Header = props => {
+  const dispatch = useDispatch()
   const [socialDrp, setsocialDrp] = useState(false)
 
   function toggleFullscreen() {
@@ -64,8 +65,10 @@ const Header = props => {
       }
     }
   }
+  const [state, setstate] = useState(true)
 
   function tToggle() {
+    setstate(!state)
     var body = document.body
     if (window.screen.width <= 998) {
       body.classList.toggle("sidebar-enable")
@@ -73,6 +76,7 @@ const Header = props => {
       body.classList.toggle("vertical-collpsed")
       body.classList.toggle("sidebar-enable")
     }
+    dispatch(toggleLeftmenu(state))
   }
 
   return (
@@ -104,7 +108,16 @@ const Header = props => {
             >
               <i className="fa fa-fw fa-bars" />
             </button>
+            {/* <Link
+              to="/dashboard"
+              className="logo logo-dark d-md-none d-lg-none d-sm-block"
+            >
+              <span className="logo-sm ">
+                <img src={logo} alt="logo" height="18" />
+              </span>
+            </Link> */}
           </div>
+
           <div className="d-flex">
             {/* <Dropdown
               className="d-none d-lg-inline-block ms-1"
@@ -185,7 +198,7 @@ const Header = props => {
               </button>
             </div>
 
-            <div className="dropdown ms-1">
+            <div className="dropdown d-none d-lg-inline-block ms-1">
               <button type="button" className="btn header-item noti-icon ">
                 <input
                   type="radio"

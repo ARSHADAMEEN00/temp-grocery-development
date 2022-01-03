@@ -13,7 +13,7 @@ const DefualtComponent = () => {
             <Col lg="9" sm="8">
               <div className="p-4">
                 <h5 className="text-primary">Welcome Back !</h5>
-                <p>Loha Factory Dashboard</p>
+                <p>Indtech Factory Dashboard</p>
 
                 <div className="text-muted">
                   <p className="mb-1">

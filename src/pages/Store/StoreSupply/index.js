@@ -9,7 +9,7 @@ function StoreSupply() {
   return (
     <>
       <MetaTags>
-        <title>All Store Supply | Loha </title>
+        <title>All Store Supply | Indtech </title>
       </MetaTags>
       <div className="page-content">
         <Breadcrumbs title="Dashboard" breadcrumbItem="All Store Supply" />

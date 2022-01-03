@@ -46,7 +46,7 @@ function index() {
     <React.Fragment>
       <div className="page-content">
         <MetaTags>
-          <title>Loha | Home</title>
+          <title>Indtech | Home</title>
         </MetaTags>
         <Container fluid>
           <h4>Dashboard</h4>

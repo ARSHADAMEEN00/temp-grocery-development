@@ -15,9 +15,9 @@ import {
 import PropTypes from "prop-types"
 
 //actions
-import { createProductionmngr } from "store/actions"
 
 import Breadcrumbs from "../../../components/Common/Breadcrumb"
+import { createProductionmngr } from "store/actions"
 
 const CreateProductionManager = ({ history }) => {
   const dispatch = useDispatch()
@@ -126,16 +126,6 @@ const CreateProductionManager = ({ history }) => {
                             type="text"
                             validate={{
                               required: { value: true },
-                              minLength: {
-                                value: 4,
-                                errorMessage:
-                                  "Your name must be between 3 and 16 characters",
-                              },
-                              maxLength: {
-                                value: 16,
-                                errorMessage:
-                                  "Your name must be between 3 and 16 characters",
-                              },
                             }}
                           />
                         </Col>

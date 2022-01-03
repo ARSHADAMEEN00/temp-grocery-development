@@ -16,7 +16,7 @@ import { loginUser, apiError } from "../../store/actions"
 
 // import images
 import profile from "assets/images/profile-img.png"
-import logo from "assets/images/logo/loha_oa.png"
+import logo from "assets/images/logo/Indtech_oa.png"
 
 import { Notification } from "../../components/Common/Notification"
 
@@ -53,7 +53,7 @@ const Login = ({ history }) => {
   return (
     <React.Fragment>
       <MetaTags>
-        <title>Login | Loha </title>
+        <title>Login | Indtech </title>
       </MetaTags>
 
       <div className="home-btn d-none d-sm-block">
@@ -120,18 +120,14 @@ const Login = ({ history }) => {
                           title="click to show passwoard"
                           className="position-relative"
                         />
-                        <span
-                          className={`${
-                            toggleShow ? "fas fa-eye-slash" : "fas fa-eye"
-                          } position-absolute right-0`}
-                          style={{
-                            right: "40px",
-                            bottom: "168px",
-                            fontSize: "1.2rem",
-                            cursor: "pointer",
-                          }}
+
+                        <input
+                          type="checkbox"
+                          checked={toggleShow ? true : false}
+                          className="mt-2"
                           onClick={() => setToggleShow(!toggleShow)}
-                        ></span>
+                        />
+                        <label className="mx-2 ">Show password</label>
                       </div>
 
                       <div className="mt-3 d-grid">
@@ -160,7 +156,7 @@ const Login = ({ history }) => {
               </Card>
               <div className="mt-5 text-center">
                 <p>
-                  © {new Date().getFullYear()} Loha. All Rights Reserved |
+                  © {new Date().getFullYear()} Indtech. All Rights Reserved |
                   Developed by osperb
                 </p>
               </div>

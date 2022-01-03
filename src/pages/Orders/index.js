@@ -9,7 +9,7 @@ function Orders() {
   return (
     <>
       <MetaTags>
-        <title>All Orders | Loha </title>
+        <title>All Orders | Indtech </title>
       </MetaTags>
       <div className="page-content">
         <Breadcrumbs title="Dashboard" breadcrumbItem="All Orders" />

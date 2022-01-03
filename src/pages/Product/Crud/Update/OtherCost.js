@@ -27,62 +27,58 @@ function OtherCost(myDisabled) {
   return (
     <>
       {otherCost?.length > 0 && (
-        <Row>
-          <Col lg={12}>
-            <Card>
-              <CardBody>
-                <CardTitle className="h4 mb-4">Other Cost </CardTitle>
-                {Productloading ? (
-                  <Spinner type="grow" color="gray" />
-                ) : (
-                  <Form className="repeater" encType="multipart/form-data">
-                    <div>
-                      {map(otherCost, (item, index) => (
-                        <Row key={index}>
-                          <Row className="text-muted mt-4">
-                            <Col lg={12} md={6}>
-                              <p>
-                                <i className="mdi mdi-chevron-right text-primary me-1" />
-                                <b>Description</b> : {item.note}
-                              </p>
-                            </Col>
+        <Card>
+          <CardBody>
+            <CardTitle className="h4 mb-4">Other Cost </CardTitle>
+            {Productloading ? (
+              <Spinner type="grow" color="gray" />
+            ) : (
+              <Form className="repeater" encType="multipart/form-data">
+                <div>
+                  {map(otherCost, (item, index) => (
+                    <Row key={index}>
+                      <Row className="text-muted mt-4">
+                        <Col lg={12} md={6}>
+                          <p>
+                            <i className="mdi mdi-chevron-right text-primary me-1" />
+                            <b>Description</b> : {item.note}
+                          </p>
+                        </Col>
 
-                            <Col lg={6} md={4}>
-                              <p>
-                                <b>Price</b> : {item.amount}
-                              </p>
-                            </Col>
-                            <Col
-                              lg={2}
-                              md={2}
-                              className="align-self-center mt-0 m-auto"
-                            >
-                              <div
-                                className="d-grid "
-                                style={{ maxWidth: "200px" }}
-                              >
-                                <i
-                                  style={{
-                                    color: "red",
-                                    opacity: "0.5",
-                                    cursor: "pointer",
-                                  }}
-                                  className="fas fa-trash"
-                                  title="remove"
-                                  onClick={() => onDeleteOtherCost(item.id)}
-                                ></i>
-                              </div>
-                            </Col>
-                          </Row>
-                        </Row>
-                      ))}
-                    </div>
-                  </Form>
-                )}
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+                        <Col lg={6} md={4}>
+                          <p>
+                            <b>Price</b> : {item.amount}
+                          </p>
+                        </Col>
+                        <Col
+                          lg={2}
+                          md={2}
+                          className="align-self-center mt-0 m-auto"
+                        >
+                          <div
+                            className="d-grid "
+                            style={{ maxWidth: "200px" }}
+                          >
+                            <i
+                              style={{
+                                color: "red",
+                                opacity: "0.5",
+                                cursor: "pointer",
+                              }}
+                              className="fas fa-trash"
+                              title="remove"
+                              onClick={() => onDeleteOtherCost(item.id)}
+                            ></i>
+                          </div>
+                        </Col>
+                      </Row>
+                    </Row>
+                  ))}
+                </div>
+              </Form>
+            )}
+          </CardBody>
+        </Card>
       )}
     </>
   )

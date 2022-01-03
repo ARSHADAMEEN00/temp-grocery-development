@@ -9,10 +9,10 @@ function QualityChecker() {
   return (
     <>
       <MetaTags>
-        <title>All Quality Checker | Loha </title>
+        <title>All Quality Manager | Indtech </title>
       </MetaTags>
       <div className="page-content">
-        <Breadcrumbs title="Dashboard" breadcrumbItem="All Quality Checker" />
+        <Breadcrumbs title="Dashboard" breadcrumbItem="All Quality Manager" />
         <Container fluid>
           <div className="container-fluid">
             <DatatableTables />

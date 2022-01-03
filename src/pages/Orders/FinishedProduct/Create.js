@@ -41,7 +41,7 @@ const CreateFinisedProduct = () => {
   return (
     <>
       <MetaTags>
-        <title>Product | Loha </title>
+        <title>Product | Indtech </title>
       </MetaTags>
 
       <Container fluid>

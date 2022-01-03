@@ -52,6 +52,7 @@ const ProductDetails = ({ history }) => {
       setroleHandle(true)
     }
   }, [roleHandle])
+
   return (
     <>
       <DeleteModal
@@ -60,7 +61,7 @@ const ProductDetails = ({ history }) => {
         onDeleteClick={handleDeleteEvent}
       />
       <MetaTags>
-        <title>Product | Loha </title>
+        <title>Product | Indtech </title>
       </MetaTags>
 
       <div className="page-content">

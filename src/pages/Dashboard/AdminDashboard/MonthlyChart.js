@@ -67,6 +67,8 @@ function MonthlyChart(props) {
 
   const totalWage = wageChart?.reduce((a, b) => a + b)
   const totalCols = colsChart?.reduce((a, b) => a + b)
+  const totalWageYear = yearWage?.reduce((a, b) => a + b)
+  const totalColsYear = yearCols?.reduce((a, b) => a + b)
 
   //YEARLY CHART
   const YearSeries = [
@@ -128,7 +130,7 @@ function MonthlyChart(props) {
             <div className="clearfix">
               <div className="float-end ">
                 <h4
-                  className="card-title mb-3 text-info"
+                  className="card-title mb-3 text-info col-md-12"
                   style={{ cursor: "pointer" }}
                   onClick={() => setToggle(!toggle)}
                 >
@@ -137,10 +139,7 @@ function MonthlyChart(props) {
                 </h4>
                 {toggle ? (
                   <>
-                    <div
-                      className="input-group input-group-sm "
-                      style={{ width: "200px" }}
-                    >
+                    <div className="input-group input-group-sm ">
                       <DatePicker
                         selected={yearChart}
                         onChange={date => setYearChart(date)}
@@ -151,10 +150,7 @@ function MonthlyChart(props) {
                     </div>
                   </>
                 ) : (
-                  <div
-                    className="input-group input-group-sm "
-                    style={{ width: "220px" }}
-                  >
+                  <div className="input-group input-group-sm ">
                     <DatePicker
                       selected={ChartDate}
                       onChange={date => setChartDate(date)}
@@ -170,7 +166,9 @@ function MonthlyChart(props) {
                   {toggle ? (
                     <>
                       {" "}
-                      <h4 className="card-title mb-0 ">Yearly Analytics </h4>
+                      <h4 className="card-title mb-0 d-inline-block pt-4">
+                        Yearly Analytics{" "}
+                      </h4>
                       <p className="text-gray mt-4 mb-1">
                         <i className="mdi mdi-circle align-middle font-size-10 me-2 text-warning"></i>
                         Total Wage Paid In this Year (
@@ -178,7 +176,7 @@ function MonthlyChart(props) {
                       </p>
                       <h5 className="text-info mx-2">
                         <i className="fas fa-rupee-sign mx-2"></i>
-                        {totalWage}
+                        {totalWageYear}
                       </h5>
                       <p className="text-gray mt-4 mb-1">
                         <i className="mdi mdi-circle align-middle font-size-10 me-2 text-warning"></i>
@@ -187,12 +185,14 @@ function MonthlyChart(props) {
                       </p>
                       <h5 className="text-info mx-2">
                         <i className="fas fa-rupee-sign mx-2"></i>
-                        {totalCols}
+                        {totalColsYear}
                       </h5>
                     </>
                   ) : (
                     <>
-                      <h4 className="card-title mb-0 ">Monthly Analytics </h4>
+                      <h4 className="card-title mb-0 d-inline-block pt-4">
+                        Monthly Analytics{" "}
+                      </h4>
                       <p className="text-gray mt-4 mb-1">
                         <i className="mdi mdi-circle align-middle font-size-10 me-2 text-warning"></i>
                         Total Wage Paid In this month (
@@ -215,7 +215,10 @@ function MonthlyChart(props) {
                   )}
                 </>
               ) : (
-                <h4 className="card-title mb-0 "> Analytics </h4>
+                <h4 className="card-title mb-0 d-inline-block pt-4">
+                  {" "}
+                  Analytics{" "}
+                </h4>
               )}
             </div>
             {loading ? (

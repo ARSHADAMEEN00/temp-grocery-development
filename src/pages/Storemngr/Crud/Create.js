@@ -33,7 +33,7 @@ const CreateStoreManager = ({ history }) => {
   return (
     <>
       <MetaTags>
-        <title>Store Manager | Loha </title>
+        <title>Store Manager | Indtech </title>
       </MetaTags>
 
       <div className="page-content">
@@ -126,16 +126,6 @@ const CreateStoreManager = ({ history }) => {
                             type="text"
                             validate={{
                               required: { value: true },
-                              minLength: {
-                                value: 4,
-                                errorMessage:
-                                  "Your name must be between 3 and 16 characters",
-                              },
-                              maxLength: {
-                                value: 16,
-                                errorMessage:
-                                  "Your name must be between 3 and 16 characters",
-                              },
                             }}
                           />
                         </Col>

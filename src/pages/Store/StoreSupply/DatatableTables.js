@@ -27,6 +27,8 @@ const Stores = () => {
   const [page, setPage] = useState(1)
   const [show, setShow] = useState({ table: false })
   const [rawMateril, setRawMateril] = useState({})
+  const [searchText, setSearchText] = useState("")
+
   const { storeSupply, loading } = useSelector(state => ({
     storeSupply: state.StoreItems.storeSupply,
     loading: state.StoreItems.loading,
@@ -37,7 +39,7 @@ const Stores = () => {
   const pages = range(1, totalPages + 1)
 
   const pageSend = () => {
-    if (page > pages.length) {
+    if (page >= pages.length) {
       return pages.length
     }
     if (page < 1) {
@@ -60,8 +62,8 @@ const Stores = () => {
   }
 
   useEffect(() => {
-    dispatch(getStoreSupply(pageSend()))
-  }, [dispatch, page])
+    dispatch(getStoreSupply(searchText, pageSend()))
+  }, [dispatch, page, searchText])
 
   const handleUpdate = storeSupply => {
     dispatch(updateStoreSupply({ status: "Provided" }, storeSupply.id))
@@ -144,7 +146,10 @@ const Stores = () => {
   const selectRow = {
     mode: "checkbox",
   }
-
+  const handleSearch = e => {
+    console.log(e)
+    setSearchText(e.target.value)
+  }
   return (
     <React.Fragment>
       <Row>
@@ -163,12 +168,16 @@ const Stores = () => {
                       <Col md="4">
                         <div className="search-box me-2 mb-2 d-inline-block">
                           <div className="position-relative">
-                            <form className="app-search d-lg-block">
+                            <form
+                              className="app-search d-lg-block"
+                              onChange={e => handleSearch(e)}
+                            >
                               <div className="position-relative">
                                 <input
                                   type="text"
                                   className="form-control"
-                                  placeholder="Search..."
+                                  placeholder="Search.. Id or Supervisor"
+                                  defaultValue={searchText}
                                 />
                                 <span className="bx bx-search-alt" />
                               </div>
@@ -208,22 +217,26 @@ const Stores = () => {
                               "
                           >
                             <div className="text-md-right ms-auto overflowScroll">
-                              <div
-                                className="btn-group me-0 "
-                                role="group"
-                                aria-label="First group"
-                              >
-                                <span
-                                  style={{
-                                    borderRadius: "50%",
-                                    border: "none",
-                                  }}
-                                  className="btn btn-outline-light text-info "
-                                  onClick={() => setPage(page - 1)}
+                              {page <= 1 ? (
+                                <></>
+                              ) : (
+                                <div
+                                  className="btn-group me-0 "
+                                  role="group"
+                                  aria-label="First group"
                                 >
-                                  <i className="fas fa-angle-left"></i>
-                                </span>
-                              </div>
+                                  <span
+                                    style={{
+                                      borderRadius: "50%",
+                                      border: "none",
+                                    }}
+                                    className="btn btn-outline-light text-info "
+                                    onClick={() => setPage(page - 1)}
+                                  >
+                                    <i className="fas fa-angle-left"></i>
+                                  </span>
+                                </div>
+                              )}
                               <div
                                 className="btn-group me-2 "
                                 role="group"
@@ -247,23 +260,27 @@ const Stores = () => {
                                     {item}
                                   </span>
                                 ))}
-                              </div>
-                              <div
-                                className="btn-group"
-                                role="group"
-                                aria-label="Third group"
-                              >
-                                <span
-                                  className="btn btn-outline-light text-info"
-                                  style={{
-                                    borderRadius: "50%",
-                                    border: "none",
-                                  }}
-                                  onClick={() => setPage(page + 1)}
+                              </div>{" "}
+                              {page >= pages.length ? (
+                                <></>
+                              ) : (
+                                <div
+                                  className="btn-group"
+                                  role="group"
+                                  aria-label="Third group"
                                 >
-                                  <i className="fas fa-angle-right"></i>
-                                </span>
-                              </div>
+                                  <span
+                                    className="btn btn-outline-light text-info"
+                                    style={{
+                                      borderRadius: "50%",
+                                      border: "none",
+                                    }}
+                                    onClick={() => setPage(page + 1)}
+                                  >
+                                    <i className="fas fa-angle-right"></i>
+                                  </span>
+                                </div>
+                              )}
                             </div>
                           </Col>
                         </Row>

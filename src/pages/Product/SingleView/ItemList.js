@@ -74,7 +74,7 @@ function ItemList() {
                       </td>
                       <td>
                         <h5 className="font-size-14 m-0">
-                          <Link to="" className="text-dark">
+                          <Link to="/stores" className="text-dark">
                             {item.name}
                           </Link>
                         </h5>

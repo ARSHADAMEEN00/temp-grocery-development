@@ -15,7 +15,7 @@ const MiniCards = props => {
 
   return (
     <>
-      {dealers?.count > 0 && (
+      {dashboardData?.next_supervisor_available_day && (
         <Col lg={4}>
           <Link to="/dealers">
             <Card className="mini-stats-wid">

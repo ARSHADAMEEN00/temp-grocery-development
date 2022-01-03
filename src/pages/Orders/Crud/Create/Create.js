@@ -19,52 +19,55 @@ import {
 import Select from "react-select"
 
 //actions
-import { createOrder, getProducts } from "store/actions"
+import { createOrder, getDealers, getProducts } from "store/actions"
 
 import Breadcrumbs from "../../../../components/Common/Breadcrumb"
 
 const CreateOrder = ({ history }) => {
   const dispatch = useDispatch()
   //redux state
-  const { products, loading, orderLoading } = useSelector(state => ({
+  const { products, loading, orderLoading, dealers } = useSelector(state => ({
     products: state.Products.products,
     loading: state.StoreItems.loading,
     orderLoading: state.Orders.loading,
+    dealers: state.Dealers.dealers,
   }))
 
   const [selectedOrder, setselectedOrder] = useState("Search a product")
+  const [selectedDealer, setselectedDealer] = useState("Search a Dealer")
+  const [searchDealerText, setSearchDealerText] = useState("")
   const [searchText, setSearchText] = useState("")
-  const [newOrders, setNewOrders] = useState([])
+  const [orderitem, setNewOrders] = useState([])
   const [rawData, setRawData] = useState({
-    product: "",
-    quantity: "",
-    productName: "",
+    dealer: "",
+    orderitem: [],
   })
 
+  console.log({ dealer: rawData.dealer, orderitem })
   useEffect(() => {
     dispatch(getProducts(searchText))
-  }, [searchText, dispatch])
+    dispatch(getDealers(searchDealerText, ""))
+  }, [searchText, dispatch, searchDealerText])
 
   const onAddFormRow = () => {
-    const modifiedRows = [...newOrders]
+    const modifiedRows = [...orderitem]
     modifiedRows.push({
       id: modifiedRows.length + 1,
-      ...rawData,
+      ...rawData.orderitem,
     })
     setNewOrders(modifiedRows)
   }
 
   const onDeleteFormRow = id => {
     if (id !== 0) {
-      var modifiedRows = [...newOrders]
+      var modifiedRows = [...orderitem]
       modifiedRows = modifiedRows.filter(x => x["id"] !== id)
       setNewOrders(modifiedRows)
     }
   }
-
+  // orderitem
   const onSubmitOrder = () => {
-    dispatch(createOrder(newOrders, history))
-    setRawData("")
+    dispatch(createOrder({ dealer: rawData.dealer, orderitem }, history))
   }
 
   //setore item from and search
@@ -72,8 +75,10 @@ const CreateOrder = ({ history }) => {
     setselectedOrder(event.label)
     setRawData({
       ...rawData,
-      ["product"]: event.value,
-      ["productName"]: event.label,
+      orderitem: {
+        ["product"]: event.value,
+        ["productName"]: event.label,
+      },
     })
   }
 
@@ -91,20 +96,43 @@ const CreateOrder = ({ history }) => {
     setSearchText(textEntered)
   }
 
+  function handlerDealerFinalValue(event) {
+    setselectedDealer(event.label)
+    setRawData({
+      ...rawData,
+      ["dealer"]: event.value,
+    })
+  }
+  const optionGroup2 = [
+    {
+      options: dealers?.results?.map((result, index) => ({
+        key: index,
+        label: result.account.username,
+        value: result.id,
+      })),
+    },
+  ]
+
+  const handleDealerEnters = textEntered => {
+    setSearchDealerText(textEntered)
+  }
+
+  const Role = sessionStorage.getItem("role")
+
   return (
     <>
       <MetaTags>
-        <title>Order | Loha </title>
+        <title>Order | Indtech </title>
       </MetaTags>
 
       <div className="page-content">
         <Breadcrumbs title="Orders" breadcrumbItem="Create Order" />
+
         <Container fluid>
           <div className="container-fluid">
             {/* uploading */}
             <Row>
-              <Col xl="1"></Col>
-              <Col lg={10}>
+              <Col lg={orderitem.length > 0 ? "6" : "12"}>
                 <Card>
                   <CardBody>
                     <CardTitle className="h4 mb-4">Add Order</CardTitle>
@@ -112,7 +140,30 @@ const CreateOrder = ({ history }) => {
                     <Form className="repeater" encType="multipart/form-data">
                       <div>
                         <Row>
-                          <Col lg={8} className="mb-3">
+                          {Role == "dealer" ? (
+                            <></>
+                          ) : (
+                            <Col lg={12} className="mb-3">
+                              <FormGroup className="mb-3">
+                                <Label>Dealer</Label>
+
+                                <div className="col-md-12"></div>
+                                <div className="mb-3 ajax-select mt-3 mt-lg-0 select2-container">
+                                  <Select
+                                    onInputChange={handleDealerEnters}
+                                    value={selectedDealer}
+                                    placeholder={selectedDealer}
+                                    onChange={handlerDealerFinalValue}
+                                    options={optionGroup2}
+                                    classNamePrefix="select2-selection"
+                                    isLoading={true}
+                                  />
+                                </div>
+                              </FormGroup>
+                            </Col>
+                          )}
+
+                          <Col lg={12} className="mb-3">
                             <FormGroup className="mb-3">
                               <Label>Products</Label>
 
@@ -131,7 +182,7 @@ const CreateOrder = ({ history }) => {
                             </FormGroup>
                           </Col>
 
-                          <Col lg={3} className="mb-3">
+                          <Col lg={8} className="mb-3">
                             <label htmlFor="resume">Quantity</label>
                             <input
                               type="number"
@@ -142,18 +193,29 @@ const CreateOrder = ({ history }) => {
                               onChange={e =>
                                 setRawData({
                                   ...rawData,
-                                  ["quantity"]: e.target.value,
+                                  orderitem: {
+                                    ...rawData.orderitem,
+                                    ["quantity"]: e.target.value,
+                                  },
                                 })
                               }
                             />
                           </Col>
-                          <Col lg={3}>
+                          <Col
+                            lg={4}
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "flex-end",
+                            }}
+                          >
                             <input
                               type="button"
-                              className="btn btn-dark mt-4 mr-lg-0 "
+                              className="btn btn-dark mr-lg-0 "
                               value="Add to Orders"
                               onClick={() => onAddFormRow()}
                               style={{
+                                marginTop: "1rem",
                                 pointerEvents:
                                   rawData.product == false && "none",
                               }}
@@ -165,12 +227,8 @@ const CreateOrder = ({ history }) => {
                   </CardBody>
                 </Card>
               </Col>
-              <Col xl="1"></Col>
-            </Row>
-            {newOrders.length > 0 && (
-              <Row>
-                <Col xl="1"></Col>
-                <Col lg={10}>
+              {orderitem.length > 0 && (
+                <Col lg={6}>
                   <Card>
                     <CardBody>
                       <CardTitle className="h4 mb-4">All Orders </CardTitle>
@@ -182,16 +240,16 @@ const CreateOrder = ({ history }) => {
                           encType="multipart/form-data"
                         >
                           <div>
-                            {map(newOrders, (item, index) => (
+                            {map(orderitem, (item, index) => (
                               <Row key={index}>
                                 <Row className="text-muted mt-4">
-                                  <Col lg={4} md={4}>
+                                  <Col lg={6} md={5}>
                                     <p>
                                       <i className="mdi mdi-chevron-right text-primary me-1" />
                                       Product : {item?.productName || ""}
                                     </p>
                                   </Col>
-                                  <Col lg={3} md={4}>
+                                  <Col lg={4} md={5}>
                                     <p>Quantity : {item?.quantity || ""}</p>
                                   </Col>
 
@@ -204,13 +262,10 @@ const CreateOrder = ({ history }) => {
                                       className="d-grid "
                                       style={{ maxWidth: "200px" }}
                                     >
-                                      <input
-                                        type="button"
-                                        className="btn btn-danger mt-0 mr-lg-0 mb-4"
-                                        value="Remove"
-                                        style={{ maxWidth: "100px" }}
+                                      <i
+                                        className="fa fa-trash mt-1 mr-lg-0 mb-4 text-danger"
                                         onClick={() => onDeleteFormRow(item.id)}
-                                      />
+                                      ></i>
                                     </div>
                                   </Col>
                                 </Row>
@@ -218,8 +273,8 @@ const CreateOrder = ({ history }) => {
                             ))}
                           </div>
                           <div>
-                            <Col sm="6">
-                              <div className="text-sm-end">
+                            <Col sm="12">
+                              <div className="text-sm-end mt-2">
                                 <Link
                                   to="#"
                                   className="btn btn-success"
@@ -242,9 +297,8 @@ const CreateOrder = ({ history }) => {
                     </CardBody>
                   </Card>
                 </Col>
-                <Col xl="1"></Col>
-              </Row>
-            )}
+              )}
+            </Row>
           </div>
         </Container>
       </div>

@@ -37,7 +37,7 @@ const CreateStore = ({ history }) => {
   return (
     <>
       <MetaTags>
-        <title>Dealer | Loha </title>
+        <title>Dealer | Indtech </title>
       </MetaTags>
 
       <div className="page-content">

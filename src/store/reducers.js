@@ -36,6 +36,9 @@ import Productionmngrs from "./productionmngr/reducer"
 //finished Prod Chart
 import Dashboard from "./Dashboard/reducer"
 
+//general manager
+import GeneralManager from "pages/GeneralManger"
+
 const rootReducer = combineReducers({
   // public
   Layout,
@@ -50,6 +53,7 @@ const rootReducer = combineReducers({
   Orders,
   Productionmngrs,
   Dashboard,
+  GeneralManager,
 })
 
 export default rootReducer

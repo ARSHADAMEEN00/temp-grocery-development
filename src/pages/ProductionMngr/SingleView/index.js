@@ -16,9 +16,9 @@ import { useParams } from "react-router-dom"
 import userProfile from "assets/images/logo/user.png"
 
 //actions
-import { deleteProductionmngr, getProductionmngrDetail } from "store/actions"
 import UpdateStoremanager from "../Crud/Update"
 import DeleteModal from "components/Common/DeleteModal"
+import { deleteProductionmngr, getProductionmngrDetail } from "store/actions"
 
 const ProductionManagerDetails = ({ history }) => {
   const dispatch = useDispatch()
@@ -80,7 +80,7 @@ const ProductionManagerDetails = ({ history }) => {
                                 {productionmngrDetail?.username}
                               </h5>
                               <p className="mb-0 text-capitalize">
-                                {productionmngrDetail?.account?.role}
+                                {productionmngrDetail?.role}
                               </p>
                             </div>
                           </Media>

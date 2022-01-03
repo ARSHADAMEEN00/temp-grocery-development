@@ -52,10 +52,10 @@ const UserProfile = props => {
     <React.Fragment>
       <div className="page-content">
         <MetaTags>
-          <title>Profile | Loha</title>
+          <title>Profile | Indtech</title>
         </MetaTags>
         <Container fluid>
-          <Breadcrumb title="Loha" breadcrumbItem="Profile" />
+          <Breadcrumb title="Indtech" breadcrumbItem="Profile" />
 
           <Row>
             <Col lg="12">

@@ -27,7 +27,7 @@ const FinishedProducts = () => {
   const pages = range(1, totalPages + 1)
 
   const pageSend = () => {
-    if (page > pages.length) {
+    if (page >= pages.length) {
       return pages.length
     }
     if (page < 1) {
@@ -200,22 +200,26 @@ const FinishedProducts = () => {
                               "
                           >
                             <div className="text-md-right ms-auto overflowScroll">
-                              <div
-                                className="btn-group me-0 "
-                                role="group"
-                                aria-label="First group"
-                              >
-                                <span
-                                  style={{
-                                    borderRadius: "50%",
-                                    border: "none",
-                                  }}
-                                  className="btn btn-outline-light text-info "
-                                  onClick={() => setPage(page - 1)}
+                              {page <= 1 ? (
+                                <></>
+                              ) : (
+                                <div
+                                  className="btn-group me-0 "
+                                  role="group"
+                                  aria-label="First group"
                                 >
-                                  <i className="fas fa-angle-left"></i>
-                                </span>
-                              </div>
+                                  <span
+                                    style={{
+                                      borderRadius: "50%",
+                                      border: "none",
+                                    }}
+                                    className="btn btn-outline-light text-info "
+                                    onClick={() => setPage(page - 1)}
+                                  >
+                                    <i className="fas fa-angle-left"></i>
+                                  </span>
+                                </div>
+                              )}
                               <div
                                 className="btn-group me-2 "
                                 role="group"
@@ -239,23 +243,27 @@ const FinishedProducts = () => {
                                     {item}
                                   </span>
                                 ))}
-                              </div>
-                              <div
-                                className="btn-group"
-                                role="group"
-                                aria-label="Third group"
-                              >
-                                <span
-                                  className="btn btn-outline-light text-info"
-                                  style={{
-                                    borderRadius: "50%",
-                                    border: "none",
-                                  }}
-                                  onClick={() => setPage(page + 1)}
+                              </div>{" "}
+                              {page >= pages.length ? (
+                                <></>
+                              ) : (
+                                <div
+                                  className="btn-group"
+                                  role="group"
+                                  aria-label="Third group"
                                 >
-                                  <i className="fas fa-angle-right"></i>
-                                </span>
-                              </div>
+                                  <span
+                                    className="btn btn-outline-light text-info"
+                                    style={{
+                                      borderRadius: "50%",
+                                      border: "none",
+                                    }}
+                                    onClick={() => setPage(page + 1)}
+                                  >
+                                    <i className="fas fa-angle-right"></i>
+                                  </span>
+                                </div>
+                              )}
                             </div>
                           </Col>
                         </Row>

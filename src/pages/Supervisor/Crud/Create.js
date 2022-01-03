@@ -36,7 +36,7 @@ const CreateSupervisor = ({ history }) => {
   return (
     <>
       <MetaTags>
-        <title>Supervisor | Loha </title>
+        <title>Supervisor | Indtech </title>
       </MetaTags>
 
       <div className="page-content">
@@ -130,16 +130,6 @@ const CreateSupervisor = ({ history }) => {
                             type="text"
                             validate={{
                               required: { value: true },
-                              minLength: {
-                                value: 4,
-                                errorMessage:
-                                  "Your name must be between 6 and 16 characters",
-                              },
-                              maxLength: {
-                                value: 16,
-                                errorMessage:
-                                  "Your name must be between 6 and 16 characters",
-                              },
                             }}
                           />
                         </Col>

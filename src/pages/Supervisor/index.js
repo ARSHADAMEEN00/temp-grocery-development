@@ -9,7 +9,7 @@ function Supervisors() {
   return (
     <>
       <MetaTags>
-        <title>All Supervisors | Loha </title>
+        <title>All Supervisors | Indtech </title>
       </MetaTags>
       <div className="page-content">
         <Breadcrumbs title="Dashboard" breadcrumbItem="All Supervisors" />

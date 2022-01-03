@@ -35,7 +35,7 @@ const getOrderDetailsAPi = orderId => {
   return get(`/order/order/${orderId}/`)
 }
 const createOrderApi = ({ order }) => {
-  return post("/order/order/", { orderitem: order })
+  return post("/order/order/", order)
 }
 const updateOrderApi = ({ orderId, order, statusUpdate }) => {
   if (statusUpdate) {
@@ -75,7 +75,7 @@ function* onCreateOrder({ payload }) {
       yield put(createOrderFail(response?.error_message))
     } else {
       yield put(createOrderSuccess(response))
-      payload.history("/orders")
+      payload.history.push("/orders")
     }
   } catch (error) {
     yield put(createOrderFail(error))

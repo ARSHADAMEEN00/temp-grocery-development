@@ -37,7 +37,7 @@ const UpdateQltChecker = () => {
   return (
     <>
       <MetaTags>
-        <title>Quality Checker | Loha </title>
+        <title>Quality Checker | Indtech </title>
       </MetaTags>
 
       <div className="page-content">
@@ -131,16 +131,6 @@ const UpdateQltChecker = () => {
                             type="text"
                             validate={{
                               required: { value: true },
-                              minLength: {
-                                value: 4,
-                                errorMessage:
-                                  "Your name must be between 6 and 16 characters",
-                              },
-                              maxLength: {
-                                value: 16,
-                                errorMessage:
-                                  "Your name must be between 6 and 16 characters",
-                              },
                             }}
                           />
                         </Col>

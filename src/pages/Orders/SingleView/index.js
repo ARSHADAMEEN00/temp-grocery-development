@@ -10,7 +10,7 @@ function OrderDetails() {
   return (
     <>
       <MetaTags>
-        <title>Order | Loha </title>
+        <title>Order | Indtech </title>
       </MetaTags>
 
       <div className="page-content">

@@ -77,7 +77,7 @@ function* onUpdateDealer({ payload }) {
   try {
     const response = yield call(updateDealerApi, payload)
     yield put(updateDealerSuccess(response))
-    payload.history.goBack()
+    payload.history.push("/dealers")
   } catch (error) {
     yield put(updateDealerFail(error))
   }

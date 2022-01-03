@@ -41,7 +41,7 @@ const UpdateDealer = ({ history }) => {
   return (
     <>
       <MetaTags>
-        <title>Dealer | Loha </title>
+        <title>Dealer | Indtech </title>
       </MetaTags>
 
       <div className="page-content">
@@ -138,16 +138,6 @@ const UpdateDealer = ({ history }) => {
                             type="text"
                             validate={{
                               required: { value: true },
-                              minLength: {
-                                value: 4,
-                                errorMessage:
-                                  "Your name must be between 6 and 16 characters",
-                              },
-                              maxLength: {
-                                value: 16,
-                                errorMessage:
-                                  "Your name must be between 6 and 16 characters",
-                              },
                             }}
                           />
                         </Col>

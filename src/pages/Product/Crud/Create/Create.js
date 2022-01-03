@@ -1,4 +1,5 @@
 import axios from "axios"
+import { API_URL } from "helpers/api_methods"
 import React, { useState } from "react"
 import { MetaTags } from "react-meta-tags"
 import { useDispatch, useSelector } from "react-redux"
@@ -68,7 +69,7 @@ const CreateProduct = () => {
     form_data.append("no_of_cols", state.no_of_cols)
     form_data.append("profit", state.profit)
 
-    let url = "http://192.168.1.4:3390/api/v1/store/product/"
+    let url = `${API_URL}/store/product/`
     axios
       .post(url, form_data, {
         headers: {
@@ -88,7 +89,7 @@ const CreateProduct = () => {
   return (
     <>
       <MetaTags>
-        <title>Product | Loha </title>
+        <title>Product | Indtech </title>
       </MetaTags>
 
       <div className="page-content">
@@ -187,7 +188,6 @@ const CreateProduct = () => {
                   type="file"
                   id="image"
                   accept="image/png, image/jpeg"
-                  required
                   className="form-control"
                   onChange={handleImageChange}
                 />

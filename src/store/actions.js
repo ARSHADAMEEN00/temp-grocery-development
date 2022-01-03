@@ -32,3 +32,6 @@ export * from "./productionmngr/actions"
 
 //finishedProdChart
 export * from "./Dashboard/actions"
+
+//general manager
+export * from "./generalmngr/actions"

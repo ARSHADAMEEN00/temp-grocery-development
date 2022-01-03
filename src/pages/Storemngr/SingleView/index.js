@@ -49,7 +49,7 @@ const StoreManagerDetails = ({ history }) => {
       />
 
       <MetaTags>
-        <title>Store Manager | Loha </title>
+        <title>Store Manager | Indtech </title>
       </MetaTags>
 
       <div className="page-content">

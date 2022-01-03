@@ -9,7 +9,7 @@ function Product() {
   return (
     <>
       <MetaTags>
-        <title>All Product | Loha </title>
+        <title>All Product | Indtech </title>
       </MetaTags>
       <div className="page-content">
         <Breadcrumbs title="Dashboard" breadcrumbItem="All Product" />

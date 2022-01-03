@@ -101,7 +101,7 @@ const SupervisorDetails = ({ history }) => {
         onDeleteClick={handleDeleteEvent}
       />
       <MetaTags>
-        <title>Supervisor | Loha </title>
+        <title>Supervisor | Indtech </title>
       </MetaTags>
 
       <div className="page-content">

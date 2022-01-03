@@ -23,7 +23,7 @@ import {
 } from "../../store/actions"
 
 // import images
-import logo from "../../assets/images/logo/LOHA.png"
+import logo from "../../assets/images/logo/Indtech.png"
 
 import "react-drawer/lib/react-drawer.css"
 import "../../components/CommonForBoth/rightbar.scss"
@@ -64,7 +64,7 @@ const Header = props => {
               <Link to="/" className="logo logo-dark">
                 <span className="logo-sm">
                   <img src={logo} alt="" height="22" />
-                  {/* <img src="/logo/LOHA.png" alt="logo" height="22" /> */}
+                  {/* <img src="/logo/Indtech.png" alt="logo" height="22" /> */}
                 </span>
                 <span className="logo-lg">
                   {/* <img src={logoDark} alt="" height="17" /> */}
@@ -74,6 +74,7 @@ const Header = props => {
 
               <Link to="/" className="logo logo-light">
                 <span className="logo-sm">
+                  {/* logolight */}
                   <img src={logo} alt="" height="22" />
                   {/* <img src={logoLightSvg} alt="" height="22" /> */}
                 </span>

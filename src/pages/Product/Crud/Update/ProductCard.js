@@ -1,26 +1,62 @@
 import { AvField, AvForm } from "availity-reactstrap-validation"
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
 
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router"
-import { Alert, Button, Card, CardBody, Col, Label } from "reactstrap"
-
+import { Alert, Button, Card, CardBody, Col, Label, Row } from "reactstrap"
+import { Link } from "react-router-dom"
 //actions
-import { getProductDetail, updateProduct } from "store/actions"
+import {
+  getProductDetail,
+  updateProduct,
+  updateProductFail,
+  updateProductSuccess,
+} from "store/actions"
+import { API_URL } from "helpers/api_methods"
+import axios from "axios"
+import { map } from "lodash"
 
 function ProductCard() {
   const dispatch = useDispatch()
   const params = useParams()
+  const [state, setstate] = useState({
+    image: null,
+  })
 
   const { productDetail, loading, createProducterror } = useSelector(state => ({
     createProducterror: state.Products.createProducterror,
     productDetail: state.Products.productDetail,
     loading: state.Products.loading,
   }))
-
+  console.log(state)
   function handleValidSubmit(values) {
-    dispatch(updateProduct(values, productDetail.id))
+    console.log(values)
+    const form_data = new FormData()
+    form_data.append("image", state.image, state.image.name)
+    form_data.append("name", values.name)
+    form_data.append("no_of_cols", values.no_of_cols)
+    form_data.append("profit", values.profit)
+
+    let url = `${API_URL}/store/product/${productDetail.id}/`
+    axios
+      .put(url, form_data, {
+        headers: {
+          "content-type": "multipart/form-data",
+          Authorization: "token " + sessionStorage.getItem("token"),
+        },
+      })
+      .then(res => {
+        dispatch(updateProductSuccess(res.data))
+      })
+      .catch(err => updateProductFail(err))
+  }
+
+  const handleImageChange = e => {
+    setstate({
+      ...state,
+      image: e.target.files[0],
+    })
   }
 
   useEffect(() => {
@@ -90,6 +126,50 @@ function ProductCard() {
                 />
               </Col>
             </div>
+            <div className="row mb-4">
+              <Label htmlFor="image" className="col-sm-3 col-form-label">
+                Product Images
+              </Label>
+              <Col sm={9}>
+                <input
+                  name="image"
+                  type="file"
+                  id="image"
+                  accept="image/png, image/jpeg"
+                  className="form-control"
+                  onChange={handleImageChange}
+                />
+              </Col>
+            </div>
+
+            {/* {map(state, (item, i) => (
+              <Card
+                className="mt-1 mb-0 shadow-none border dz-processing dz-image-preview dz-success dz-complete"
+                key={i + "-file"}
+              >
+                <div className="p-2">
+                  <Row className="align-items-center">
+                    <Col className="col-auto">
+                      <img
+                        data-dz-thumbnail=""
+                        height="80"
+                        className="avatar-sm rounded bg-light"
+                        alt={item?.name}
+                        src={productDetail?.image}
+                      />
+                    </Col>
+                    <Col>
+                      <Link to="#" className="text-muted font-weight-bold">
+                        {item.name}
+                      </Link>
+                      <p className="mb-0">
+                        <strong>{item.size}kb</strong>
+                      </p>
+                    </Col>
+                  </Row>
+                </div>
+              </Card>
+            ))} */}
 
             <div className="row justify-content-end">
               <Col sm={9}>

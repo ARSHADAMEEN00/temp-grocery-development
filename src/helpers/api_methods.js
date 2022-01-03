@@ -2,14 +2,14 @@ import axios from "axios"
 import { Notification } from "components/Common/Notification"
 
 //apply base url for axios
-// const API_URL = "https://api.fms.lohasteels.com/api/v1"
+// const API_URL = "https://api.fms.Indtechsteels.com/api/v1"
 // const API_URL = "http://192.168.0.124:8000/api/v1" //raspery
-const API_URL = "http://192.168.0.116:3390/api/v1" //naseem
+// const API_URL = "http://192.168.0.116:3390/api/v1" //naseem
 // const API_URL = "http://192.168.0.110:3390/api/v1" //naseem
 // const API_URL = "http://192.168.1.4:3390/api/v1" //naseem
 // const API_URL = "http://192.168.185.189:3390/api/v1" //naseem
 // const API_URL = "http://192.168.0.127:8000/api/v1" //Afnan/
-// const API_URL = "http://192.168.1.12:3333/api/v1" //Afnan/
+export const API_URL = "http://192.168.0.112:3390/api/v1" //naseem/
 //const API_URL = "http://192.168.0.100:8000/api/v1" //hashid/
 
 export const axiosApi = axios.create({
@@ -22,7 +22,6 @@ axiosApi.interceptors.request.use(
     if (token) {
       config.headers["Authorization"] =
         "token " + sessionStorage.getItem("token")
-      config["content-type"] = "multipart/form-data"
     }
 
     return config

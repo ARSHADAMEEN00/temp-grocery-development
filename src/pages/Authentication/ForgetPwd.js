@@ -36,7 +36,7 @@ const ForgetPwd = () => {
   return (
     <React.Fragment>
       <MetaTags>
-        <title>Forget Password | Loha</title>
+        <title>Forget Password | Indtech</title>
       </MetaTags>
       <div className="home-btn d-none d-sm-block">
         <Link to="/" className="text-dark">
@@ -135,7 +135,7 @@ const ForgetPwd = () => {
                   </Link>{" "}
                 </p>
                 <p>
-                  © {new Date().getFullYear()} Loha. All Rights Reserved |
+                  © {new Date().getFullYear()} Indtech. All Rights Reserved |
                   Developed by by Osperb
                 </p>
               </div>

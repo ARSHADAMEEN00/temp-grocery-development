@@ -28,7 +28,7 @@ const MiniWidget = () => {
       title: "Wage Paid Today",
       value: (
         <>
-          <i className="fas fa-rupee-sign mx-1"></i>
+          <i className="fas fa-rupee-sign mx-1 font-size-17 "></i>
           {dashboardData?.wage_paid_per_day}
         </>
       ),

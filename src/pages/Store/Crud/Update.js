@@ -44,7 +44,7 @@ const UpdateStore = ({ history }) => {
   return (
     <>
       <MetaTags>
-        <title>Store | Loha </title>
+        <title>Store | Indtech </title>
       </MetaTags>
 
       <div className="page-content">

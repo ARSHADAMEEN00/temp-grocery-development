@@ -9,17 +9,17 @@ const Breadcrumb = props => {
     <Row>
       <Col xs="12">
         <div className="page-title-box d-sm-flex align-items-center justify-content-between">
-          <h4 className="mb-0 font-size-18">
+          <h4 className="mb-2 font-size-18 d-flex">
             {" "}
             <i
-              className="fas fa-arrow-left mx-3"
+              className="fas fa-arrow-left mx-3 bx-fade-left"
               style={{ cursor: "pointer" }}
               onClick={() => history.goBack()}
             ></i>
             {props.breadcrumbItem}
           </h4>
           <div className="page-title-right">
-            <ol className="breadcrumb m-0">
+            <ol className="breadcrumb m-0 d-flex justify-content-end mt-4">
               <BreadcrumbItem>
                 <Link to="#">{props.title}</Link>
               </BreadcrumbItem>

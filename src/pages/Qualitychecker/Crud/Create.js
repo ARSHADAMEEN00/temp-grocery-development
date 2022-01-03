@@ -35,13 +35,13 @@ const CreateQltChecker = ({ history }) => {
   return (
     <>
       <MetaTags>
-        <title>Quality Checker | Loha </title>
+        <title>Quality Manager | Indtech </title>
       </MetaTags>
 
       <div className="page-content">
         <Breadcrumbs
-          title="Quality Checkers"
-          breadcrumbItem="Create Quality Checker"
+          title="Quality Managers"
+          breadcrumbItem="Create Quality Manager"
         />
         <Container fluid>
           <div className="container-fluid">
@@ -128,16 +128,6 @@ const CreateQltChecker = ({ history }) => {
                             type="text"
                             validate={{
                               required: { value: true },
-                              minLength: {
-                                value: 4,
-                                errorMessage:
-                                  "Your name must be between 3 and 16 characters",
-                              },
-                              maxLength: {
-                                value: 16,
-                                errorMessage:
-                                  "Your name must be between 3 and 16 characters",
-                              },
                             }}
                           />
                         </Col>

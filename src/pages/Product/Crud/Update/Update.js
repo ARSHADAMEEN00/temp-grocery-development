@@ -13,7 +13,7 @@ const UpdateProduct = () => {
   return (
     <>
       <MetaTags>
-        <title>Product | Loha </title>
+        <title>Product | Indtech </title>
       </MetaTags>
 
       <div className="page-content">

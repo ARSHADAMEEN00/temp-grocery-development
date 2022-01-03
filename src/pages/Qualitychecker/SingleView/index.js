@@ -52,7 +52,7 @@ const QltCheckerDetails = ({ history }) => {
       />
 
       <MetaTags>
-        <title>Quality Checker | Loha </title>
+        <title>Quality Checker | Indtech </title>
       </MetaTags>
 
       <div className="page-content">

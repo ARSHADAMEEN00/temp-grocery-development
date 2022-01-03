@@ -150,7 +150,7 @@ const Navbar = props => {
               <ul className="navbar-nav">
                 <li className="nav-item dropdown">
                   <Link
-                    className="nav-link dropdown-toggle arrow-none"
+                    className="nav-link dropdown-toggle arrow-none "
                     to="/dashboard"
                   >
                     <i className="bx bx-home-circle me-2"></i>

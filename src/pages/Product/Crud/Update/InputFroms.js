@@ -106,11 +106,7 @@ function PreviewCard() {
                 <AvForm className="repeater" encType="multipart/form-data">
                   <div>
                     <Row>
-                      <Col lg={3} className="mb-3">
-                        <label htmlFor="name">Raw Material:</label>
-                      </Col>
-
-                      <Col lg={3} className="mb-3">
+                      <Col lg={6} className="mb-3">
                         <FormGroup className="mb-3">
                           <Label>Store item</Label>
 
@@ -175,10 +171,10 @@ function PreviewCard() {
                 <Form className="repeater" encType="multipart/form-data">
                   <div>
                     <Row>
-                      <Col lg={3}></Col>
-                      <Col lg={3} className="mb-3">
+                      <Col lg={6} className="mb-3">
                         <label>Description</label>
-                        <input
+                        <textarea
+                          rows="1"
                           type="text"
                           className="form-control"
                           id="resume"

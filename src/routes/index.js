@@ -52,8 +52,10 @@ import ProductionManagerDetails from "pages/ProductionMngr/SingleView"
 import CreateProductionManager from "pages/ProductionMngr/Crud/Create"
 import StoreSupply from "pages/Store/StoreSupply"
 import ForgetPwd from "pages/Authentication/ForgetPwd"
-
-const Role = sessionStorage.getItem("role")
+import Tickets from "components/Pdf/report"
+import GeneralManager from "pages/GeneralManger"
+import GeneralManagerDetails from "pages/GeneralManger/SingleView"
+import GeneralManagerCreate from "pages/GeneralManger/Crud/Create"
 
 const commonRoute = [
   { path: "/dashboard", component: Dashboard },
@@ -72,6 +74,7 @@ const commonRoute = [
 
 //for admin only
 const AdminProtectedRoutes = [
+  { path: "/report", component: Tickets },
   { path: "/dashboard", component: Dashboard },
 
   // //profile
@@ -89,6 +92,10 @@ const AdminProtectedRoutes = [
   { path: "/supervisor/update/:id", component: UpdateSupervisor },
 
   { path: "/supervisor/dailywork", component: DailyWork },
+
+  { path: "/generalmanagers", component: GeneralManager },
+  { path: "/generalmanagers/:id", component: GeneralManagerDetails },
+  { path: "/generalmanager/create", component: GeneralManagerCreate },
 
   { path: "/storemanagers", component: StoreManager },
   { path: "/storemanagers/:id", component: StoreManagerDetails },

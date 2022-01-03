@@ -9,7 +9,7 @@ function Dealers() {
   return (
     <>
       <MetaTags>
-        <title>All Dealers | Loha </title>
+        <title>All Dealers | Indtech </title>
       </MetaTags>
       <div className="page-content">
         <Breadcrumbs title="Dashboard" breadcrumbItem="All Dealers" />

@@ -54,7 +54,7 @@ const DealerDetails = ({ history }) => {
       />
 
       <MetaTags>
-        <title>Dealer | Loha </title>
+        <title>Dealer | Indtech </title>
       </MetaTags>
 
       <div className="page-content">

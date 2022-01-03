@@ -9,7 +9,7 @@ function StoreManager() {
   return (
     <>
       <MetaTags>
-        <title>All Store Mangers | Loha </title>
+        <title>All Store Mangers | Indtech </title>
       </MetaTags>
       <div className="page-content">
         <Breadcrumbs title="Dashboard" breadcrumbItem="All Store Manager" />
