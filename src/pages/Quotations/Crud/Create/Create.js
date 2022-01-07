@@ -19,63 +19,68 @@ import {
 import Select from "react-select"
 
 //actions
-import { createOrder, getProducts } from "store/actions"
+import { getClients, createQuatation, getProducts, getQProductPrice } from "store/actions"
 
 import Breadcrumbs from "../../../../components/Common/Breadcrumb"
+import moment from "moment"
 
-const CreateOrder = ({ history }) => {
+const CreateQuotations = ({ history }) => {
   const dispatch = useDispatch()
   //redux state
-  const { products, loading, orderLoading } = useSelector(state => ({
-    products: state.Products.products,
+  const { loading, quotationLaoding, clients, products } = useSelector(state => ({
     loading: state.StoreItems.loading,
-    orderLoading: state.Orders.loading,
-    // dealers: state.Dealers.dealers,
-  }))
+    quotationLaoding: state.Orders.loading,
+    clients: state.Clients.clients,
+    products: state.Products.products,
 
-  const [selectedOrder, setselectedOrder] = useState("Search a product")
-  const [selectedDealer, setselectedDealer] = useState("Search a Dealer")
-  const [searchDealerText, setSearchDealerText] = useState("")
+  }))
+  const [selectedProduct, setSelectedProduct] = useState("Search a product")
+  const [selectedClient, setSelectedClient] = useState("Search a Client")
   const [searchText, setSearchText] = useState("")
-  const [orderitem, setNewOrders] = useState([])
+  const [searchClientText, setSearchClientText] = useState("")
+  const [quotationitems, setQuotationitems] = useState([])
   const [rawData, setRawData] = useState({
-    dealer: "",
-    orderitem: [],
+    client: "",
+    date: "",
+    quotationitem: [],
   })
 
-  console.log({ dealer: rawData.dealer, orderitem })
+  console.log("sended:", { client: rawData.client, date: rawData.date, quotationitems });
+
+
   useEffect(() => {
-    dispatch(getProducts(searchText))
-    // dispatch(getDealers(searchDealerText, ""))
-  }, [searchText, dispatch, searchDealerText])
+    dispatch(getProducts(searchText, ""))
+    dispatch(getClients(searchClientText, ""))
+  }, [dispatch, searchClientText])
 
   const onAddFormRow = () => {
-    const modifiedRows = [...orderitem]
+    const modifiedRows = [...quotationitems]
     modifiedRows.push({
       id: modifiedRows.length + 1,
-      ...rawData.orderitem,
+      ...rawData.quotationitem,
     })
-    setNewOrders(modifiedRows)
+    setQuotationitems(modifiedRows)
   }
 
   const onDeleteFormRow = id => {
     if (id !== 0) {
-      var modifiedRows = [...orderitem]
+      var modifiedRows = [...quotationitems]
       modifiedRows = modifiedRows.filter(x => x["id"] !== id)
-      setNewOrders(modifiedRows)
+      setQuotationitems(modifiedRows)
     }
   }
-  // orderitem
-  const onSubmitOrder = () => {
-    dispatch(createOrder({ dealer: rawData.dealer, orderitem }, history))
+  // quotationitems
+  const onSubmitQuotation = () => {
+    dispatch(createQuatation({ client: rawData.client, quotationitems }, history))
   }
 
   //setore item from and search
   function handlerFinalValue(event) {
-    setselectedOrder(event.label)
+    dispatch(getQProductPrice(event.value))
+    setSelectedProduct(event.label)
     setRawData({
       ...rawData,
-      orderitem: {
+      quotationitem: {
         ["product"]: event.value,
         ["productName"]: event.label,
       },
@@ -96,64 +101,90 @@ const CreateOrder = ({ history }) => {
     setSearchText(textEntered)
   }
 
-  function handlerDealerFinalValue(event) {
-    setselectedDealer(event.label)
+  function handlerClientFinalValue(event) {
+    setSelectedClient(event.label)
     setRawData({
       ...rawData,
-      ["dealer"]: event.value,
+      ["client"]: event.value,
     })
   }
-  // const optionGroup2 = [
-  //   {
-  //     options: dealers?.results?.map((result, index) => ({
-  //       key: index,
-  //       label: result.account.username,
-  //       value: result.id,
-  //     })),
-  //   },
-  // ]
+  const optionGroup2 = [
+    {
+      options: clients?.results?.map((result, index) => ({
+        key: index,
+        label: result.name,
+        value: result.id,
+      })),
+    },
+  ]
 
-  // const handleDealerEnters = textEntered => {
-  //   setSearchDealerText(textEntered)
-  // }
+  const handleClientEnters = textEntered => {
+    setSearchClientText(textEntered)
+  }
 
-  // const Role = sessionStorage.getItem("role")
+  const Role = sessionStorage.getItem("role")
+
+  const disabledBtn = () => {
+    if (rawData?.orderitem?.product && rawData.orderitem.quantity && rawData.client) {
+      return true
+    } else {
+      return false
+    }
+  }
 
   return (
     <>
       <MetaTags>
-        <title>Order | Indtech </title>
+        <title>Quotation | Indtech </title>
       </MetaTags>
 
       <div className="page-content">
-        <Breadcrumbs title="Orders" breadcrumbItem="Create Order" />
+        <Breadcrumbs title="Quotation" breadcrumbItem="Create Quotation" />
 
         <Container fluid>
           <div className="container-fluid">
             {/* uploading */}
             <Row>
-              <Col lg={orderitem.length > 0 ? "6" : "12"}>
+              <Col lg={quotationitems.length > 0 ? "6" : "12"}>
                 <Card>
                   <CardBody>
-                    <CardTitle className="h4 mb-4">Add Order</CardTitle>
+                    <CardTitle className="h4 mb-4">Add Quotation</CardTitle>
 
                     <Form className="repeater" encType="multipart/form-data">
                       <div>
                         <Row>
-                          {/* {Role == "dealer" ? (
+                          <Col className="mb-3">
+                            <Label>Date</Label>
+                            <input
+                              type="date"
+                              className="form-control mt-1 mt-lg-0"
+                              id="resume"
+                              requied="true"
+                              min={1}
+                              value={rawData.date}
+                              onChange={e => setRawData({
+                                ...rawData,
+                                date: e.target.value
+                              })
+                              }
+                            />
+                          </Col>
+
+                          {Role == "client" ? (
                             <></>
                           ) : (
+
                             <Col lg={12} className="mb-3">
                               <FormGroup className="mb-3">
-                                <Label>Dealer</Label>
+                                <Label>Client</Label>
 
                                 <div className="col-md-12"></div>
-                                <div className="mb-3 ajax-select mt-3 mt-lg-0 select2-container">
+                                <div className="mb-3 ajax-select mt-1 mt-lg-0 select2-container">
                                   <Select
-                                    onInputChange={handleDealerEnters}
-                                    value={selectedDealer}
-                                    placeholder={selectedDealer}
-                                    onChange={handlerDealerFinalValue}
+                                    onInputChange={handleClientEnters}
+                                    value={selectedClient}
+                                    placeholder={selectedClient}
+                                    onChange={handlerClientFinalValue}
                                     options={optionGroup2}
                                     classNamePrefix="select2-selection"
                                     isLoading={true}
@@ -162,18 +193,17 @@ const CreateOrder = ({ history }) => {
                                 </div>
                               </FormGroup>
                             </Col>
-                          )} */}
+                          )}
 
-                          <Col lg={12} className="mb-3">
+                          <Col lg={6} md={6} sm={12} className="mb-3">
                             <FormGroup className="mb-3">
                               <Label>Products</Label>
-
                               <div className="col-md-12"></div>
-                              <div className="mb-3 ajax-select mt-3 mt-lg-0 select2-container">
+                              <div className="ajax-select mt-1 mt-lg-0 select2-container">
                                 <Select
                                   onInputChange={handleEnters}
-                                  value={selectedOrder}
-                                  placeholder={selectedOrder}
+                                  value={selectedProduct}
+                                  placeholder={selectedProduct}
                                   onChange={handlerFinalValue}
                                   options={optionGroup1}
                                   classNamePrefix="select2-selection"
@@ -184,21 +214,20 @@ const CreateOrder = ({ history }) => {
                               </div>
                             </FormGroup>
                           </Col>
-
-                          <Col lg={8} className="mb-3">
+                          <Col lg={6} md={6} sm={12} className="">
                             <label htmlFor="resume">Quantity</label>
                             <input
                               type="number"
-                              className="form-control"
+                              className="form-control mt-1 mt-lg-0"
                               id="resume"
-                              requied
+                              requied="true"
                               min={1}
-                              value={rawData.quantity}
+                              value={rawData?.quantity}
                               onChange={e =>
                                 setRawData({
                                   ...rawData,
-                                  orderitem: {
-                                    ...rawData.orderitem,
+                                  quotationitem: {
+                                    ...rawData.quotationitem,
                                     ["quantity"]: e.target.value,
                                   },
                                 })
@@ -206,7 +235,7 @@ const CreateOrder = ({ history }) => {
                             />
                           </Col>
                           <Col
-                            lg={4}
+                            lg={12}
                             style={{
                               display: "flex",
                               alignItems: "center",
@@ -215,8 +244,9 @@ const CreateOrder = ({ history }) => {
                           >
                             <input
                               type="button"
-                              className="btn btn-dark mr-lg-0 "
-                              value="Add to Orders"
+
+                              className={`btn btn-dark mr-lg-0 ${disabledBtn() == false && "disabled"}`}
+                              value="Add to Quotation"
                               onClick={() => onAddFormRow()}
                               style={{
                                 marginTop: "1rem",
@@ -231,7 +261,7 @@ const CreateOrder = ({ history }) => {
                   </CardBody>
                 </Card>
               </Col>
-              {orderitem.length > 0 && (
+              {quotationitems?.length > 0 && (
                 <Col lg={6}>
                   <Card>
                     <CardBody>
@@ -244,23 +274,23 @@ const CreateOrder = ({ history }) => {
                           encType="multipart/form-data"
                         >
                           <div>
-                            {map(orderitem, (item, index) => (
+                            {map(quotationitems, (item, index) => (
                               <Row key={index}>
                                 <Row className="text-muted mt-4">
-                                  <Col lg={6} md={5}>
+                                  <Col lg={7} md={7}>
                                     <p>
                                       <i className="mdi mdi-chevron-right text-primary me-1" />
                                       Product : {item?.productName || ""}
                                     </p>
                                   </Col>
-                                  <Col lg={4} md={5}>
+                                  <Col lg={3} md={3}>
                                     <p>Quantity : {item?.quantity || ""}</p>
                                   </Col>
 
                                   <Col
                                     lg={2}
                                     md={2}
-                                    className="align-self-center m-auto"
+                                    className="align-self-start"
                                   >
                                     <div
                                       className="d-grid "
@@ -282,10 +312,10 @@ const CreateOrder = ({ history }) => {
                                 <Link
                                   to="#"
                                   className="btn btn-success"
-                                  onClick={onSubmitOrder}
+                                  onClick={onSubmitQuotation}
                                 >
-                                  Confirm Order
-                                  {orderLoading ? (
+                                  Confirm Quotation
+                                  {quotationLaoding ? (
                                     <>
                                       <i className="bx bx-loader bx-spin font-size-16 align-middle me-2"></i>
                                     </>
@@ -310,8 +340,8 @@ const CreateOrder = ({ history }) => {
   )
 }
 
-export default CreateOrder
+export default CreateQuotations
 
-CreateOrder.propTypes = {
+CreateQuotations.propTypes = {
   history: PropTypes.object,
 }

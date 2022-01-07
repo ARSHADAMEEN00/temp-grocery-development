@@ -97,23 +97,47 @@ const SidebarContent = props => {
 
   const Role = sessionStorage.getItem("role")
 
+  function PMSidebar() {
+    const sidebar = mySideBar?.forEach(bar => {
+      bar.subTitles = bar.subTitles?.filter(
+        subTitle => subTitle.title !== "Production Manager" &&
+          subTitle.title !== "General Manager"
+      )
+    })
+    return sidebar
+
+  }
+
+  function storeManagerSidebar() {
+    const sidebar = mySideBar?.filter(
+      sidebar => sidebar.heading == "Product" || sidebar.heading == "Store"
+    )
+    sidebar?.forEach(bar => {
+      bar.subTitles = bar.subTitles?.filter(
+        subTitle => subTitle.title !== "Create Product"
+      )
+    })
+    return sidebar
+  }
+
   function sidebarProtected() {
     let sidebar = []
     switch (Role) {
       case "admin":
         sidebar = mySideBar
         break
-      case "productionmanager":
-        sidebar = mySideBar?.filter(
-          sidebar => sidebar.heading !== "Production Manager"
+      case "generalmanager":
+        Routes = sidebar = mySideBar?.filter(
+          sidebar => sidebar.heading !== "General Manager"
         )
+      case "productionmanager":
+        sidebar = PMSidebar()
         break
       case "supervisor":
         sidebar = supervisorSidebar()
         break
       case "storemanager":
         sidebar = storeManagerSidebar()
-
         break
       case "dealer":
         sidebar = dealerSidebar()
@@ -130,52 +154,9 @@ const SidebarContent = props => {
     return sidebar
   }
 
-  function dealerSidebar() {
-    const sidebar = mySideBar?.filter(
-      sidebar => sidebar.heading == "Orders" || sidebar.heading == "Product"
-    )
-    sidebar?.forEach(bar => {
-      bar.subTitles = bar.subTitles?.filter(
-        subTitle => subTitle.title !== "Create Product"
-      )
-    })
-    const sideBarUpdated = {
-      ...sidebar[0],
-      badgeValue: dashboardData?.pending_orders,
-    }
 
-    return [{ ...sideBarUpdated }, { ...sidebar[1] }]
-  }
 
-  function storeManagerSidebar() {
-    const sidebar = mySideBar?.filter(
-      sidebar => sidebar.heading == "Product" || sidebar.heading == "Store"
-    )
-    sidebar?.forEach(bar => {
-      bar.subTitles = bar.subTitles?.filter(
-        subTitle => subTitle.title !== "Create Product"
-      )
-    })
-    return sidebar
-  }
 
-  function supervisorSidebar() {
-    const sidebar = mySideBar?.filter(
-      sidebar =>
-        sidebar.heading == "Product" || sidebar.heading == "Finished Products"
-    )
-    sidebar?.forEach(bar => {
-      bar.subTitles = bar.subTitles?.filter(
-        subTitle => subTitle.title !== "Create Product"
-      )
-    })
-    sidebar?.forEach(bar => {
-      bar.subTitles = bar.subTitles?.filter(
-        subTitle => subTitle.title !== "Add Finished Product"
-      )
-    })
-    return sidebar
-  }
 
   return (
     <React.Fragment>

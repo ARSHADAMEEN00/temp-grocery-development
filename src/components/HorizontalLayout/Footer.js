@@ -10,7 +10,9 @@ const Footer = () => {
             <Col md={6}>{new Date().getFullYear()} © Indtech.</Col>
             <Col md={6}>
               <div className="text-sm-end d-none d-sm-block">
-                Design & Develop by <a href="https://osperb.com/">Osperb</a>
+                Design & Develop by <a style={{ color: "#1781BB" }} href="https://osperb.com/">
+                  Osperb
+                </a>
               </div>
             </Col>
           </Row>

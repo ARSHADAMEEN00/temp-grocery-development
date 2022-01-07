@@ -2,17 +2,17 @@ import React from "react"
 import { Container } from "reactstrap"
 import { MetaTags } from "react-meta-tags"
 
-import DatatableTables from "./DatatableTables"
 import Breadcrumbs from "../../components/Common/Breadcrumb"
+import DatatableTables from "./DatatableTables"
 
-function Supervisors() {
+function Quotations() {
   return (
     <>
       <MetaTags>
-        <title>All Supervisors | Indtech </title>
+        <title>All Quotations | Indtech </title>
       </MetaTags>
       <div className="page-content">
-        <Breadcrumbs title="Dashboard" breadcrumbItem="All Supervisors" />
+        <Breadcrumbs title="Dashboard" breadcrumbItem="All Quotations" />
         <Container fluid>
           <div className="container-fluid">
             <DatatableTables />
@@ -23,4 +23,4 @@ function Supervisors() {
   )
 }
 
-export default Supervisors
+export default Quotations

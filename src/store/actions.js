@@ -6,8 +6,8 @@ export * from "./auth/login/actions"
 // profile
 export * from "./profile/actions"
 
-//dealer
-export * from "./dealers/actions"
+//General manager
+export * from "./generalmngr/actions"
 
 //supervisor
 export * from "./supervisor/actions"
@@ -33,5 +33,5 @@ export * from "./productionmngr/actions"
 //finishedProdChart
 export * from "./Dashboard/actions"
 
-//general manager
-export * from "./generalmngr/actions"
+//client
+export * from "./client/actions"

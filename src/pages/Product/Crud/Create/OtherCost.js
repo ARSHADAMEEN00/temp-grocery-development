@@ -135,10 +135,9 @@ function OtherCost(myDisabled) {
                         <label>Price</label>
                         <AvField
                           name="price"
-                          type="number"
+                          type="number" min={0}
                           className="form-control"
                           id="resume"
-                          min={0}
                           onChange={e =>
                             setRawData({
                               ...rawData,

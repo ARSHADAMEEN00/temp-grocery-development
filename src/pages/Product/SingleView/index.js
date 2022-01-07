@@ -56,7 +56,7 @@ const ProductDetails = ({ history }) => {
   return (
     <>
       <DeleteModal
-        show={isOpen && "show"}
+        show={isOpen}
         onCloseClick={() => setIsOpen(false)}
         onDeleteClick={handleDeleteEvent}
       />
@@ -126,9 +126,8 @@ const ProductDetails = ({ history }) => {
                           <div className="mt-4">
                             <Link
                               to={`/product/update/${productDetail?.id}`}
-                              className={`btn btn-secondary ${
-                                loading && "disabled"
-                              } btn-m`}
+                              className={`btn btn-secondary ${loading && "disabled"
+                                } btn-m`}
                             >
                               Edit{" "}
                               <i className="mdi mdi-arrow-right ms-1 bx-fade-right" />
@@ -141,9 +140,8 @@ const ProductDetails = ({ history }) => {
                             <Link
                               style={{ opacity: 0.8 }}
                               to="#"
-                              className={`btn btn-danger ${
-                                loading && "disabled"
-                              }  btn-m`}
+                              className={`btn btn-danger ${loading && "disabled"
+                                }  btn-m`}
                               onClick={handleDelete}
                             >
                               Remove
@@ -163,9 +161,8 @@ const ProductDetails = ({ history }) => {
                             <Link
                               style={{ opacity: 0.8 }}
                               to="/order/create"
-                              className={`btn text-light bg-success ${
-                                loading && "disabled"
-                              }  btn-m`}
+                              className={`btn text-light bg-success ${loading && "disabled"
+                                }  btn-m`}
                               onClick={handleDelete}
                             >
                               Order Now

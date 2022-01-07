@@ -4,7 +4,6 @@ import { all, fork } from "redux-saga/effects"
 import AuthSaga from "./auth/login/saga"
 import LayoutSaga from "./layout/saga"
 import contactsSaga from "./profile/saga"
-import dealersSaga from "./dealers/saga"
 import supervisorsSaga from "./supervisor/saga"
 import storeItemsSaga from "./storeItem/saga"
 import productsSaga from "./product/saga"
@@ -13,22 +12,24 @@ import storemngrsSaga from "./storemanager/saga"
 import qltcheckersSaga from "./qltchecker/saga"
 import productionmngrsSaga from "./productionmngr/saga"
 import finishedProdChartSaga from "./Dashboard/saga"
-import generalmngrsSaga from "./generalmngr/saga"
+import generalmngrSaga from "./generalmngr/saga"
+import ClientsSaga from "./client/saga"
+
 export default function* rootSaga() {
   yield all([
     //public
     fork(AuthSaga),
     fork(LayoutSaga),
     fork(contactsSaga),
-    fork(dealersSaga),
+    fork(generalmngrSaga),
     fork(supervisorsSaga),
     fork(storeItemsSaga),
+    fork(ClientsSaga),
     fork(productsSaga),
     fork(ordersSaga),
     fork(storemngrsSaga),
     fork(qltcheckersSaga),
     fork(productionmngrsSaga),
     fork(finishedProdChartSaga),
-    fork(generalmngrsSaga),
   ])
 }

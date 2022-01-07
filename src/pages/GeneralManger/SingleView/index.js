@@ -16,47 +16,47 @@ import { useParams } from "react-router-dom"
 import userProfile from "assets/images/logo/user.png"
 
 //actions
-import { deleteProductionmngr, getProductionmngrDetail } from "store/actions"
+import { deleteGeneralManager, getGeneralManagerDetail } from "store/actions"
 import UpdateStoremanager from "../Crud/Update"
 import DeleteModal from "components/Common/DeleteModal"
 
-const ProductionManagerDetails = ({ history }) => {
+const GeneralManagerDetails = ({ history }) => {
   const dispatch = useDispatch()
   const params = useParams()
   const [isOpen, setIsOpen] = useState(false)
 
-  const { detailLoading, loading, productionmngrDetail } = useSelector(
+  const { detailLoading, loading, GMDetail } = useSelector(
     state => ({
-      detailLoading: state.Productionmngrs.detailLoading,
-      loading: state.Productionmngrs.loading,
-      productionmngrDetail: state.Productionmngrs.productionmngrDetail,
+      detailLoading: state.GeneralMngr.detailLoading,
+      loading: state.GeneralMngr.loading,
+      GMDetail: state.GeneralMngr.GMDetail,
     })
   )
   const handleDelete = () => {
     setIsOpen(true)
   }
   const handleDeleteEvent = () => {
-    dispatch(deleteProductionmngr(productionmngrDetail.id, history))
+    dispatch(deleteGeneralManager(GMDetail.id, history))
     setIsOpen(false)
   }
   useEffect(() => {
-    dispatch(getProductionmngrDetail(params.id))
+    dispatch(getGeneralManagerDetail(params.id))
   }, [dispatch])
   return (
     <>
       <DeleteModal
-        show={isOpen && "show"}
+        show={isOpen}
         onCloseClick={() => setIsOpen(false)}
         onDeleteClick={handleDeleteEvent}
       />
       <MetaTags>
-        <title>Production Manager | Loha </title>
+        <title>General Manager | Loha </title>
       </MetaTags>
 
       <div className="page-content">
         <Breadcrumbs
-          title="Production Managers"
-          breadcrumbItem="Production Manager"
+          title="General Managers"
+          breadcrumbItem="General Manager"
         />
         <Container fluid>
           <div className="container-fluid">
@@ -77,10 +77,10 @@ const ProductionManagerDetails = ({ history }) => {
                           <Media className="align-self-center" body>
                             <div className="text-muted">
                               <h5 className="mb-1">
-                                {productionmngrDetail?.username}
+                                {GMDetail?.username}
                               </h5>
                               <p className="mb-0 text-capitalize">
-                                {productionmngrDetail?.role}
+                                {GMDetail?.role}
                               </p>
                             </div>
                           </Media>
@@ -95,10 +95,10 @@ const ProductionManagerDetails = ({ history }) => {
                             ) : (
                               <>
                                 <h5 className="mb-1">
-                                  {productionmngrDetail?.email}
+                                  {GMDetail?.email}
                                 </h5>
                                 <p className="mb-1">
-                                  {productionmngrDetail?.phone}
+                                  {GMDetail?.phone}
                                 </p>
                               </>
                             )}
@@ -111,9 +111,8 @@ const ProductionManagerDetails = ({ history }) => {
                           <Link
                             style={{ opacity: 0.8 }}
                             to="#"
-                            className={`btn btn-danger ${
-                              loading && "disabled"
-                            }  btn-sm`}
+                            className={`btn btn-danger ${loading && "disabled"
+                              }  btn-sm`}
                             onClick={handleDelete}
                           >
                             Block Account
@@ -134,8 +133,8 @@ const ProductionManagerDetails = ({ history }) => {
   )
 }
 
-export default ProductionManagerDetails
+export default GeneralManagerDetails
 
-ProductionManagerDetails.propTypes = {
+GeneralManagerDetails.propTypes = {
   history: PropTypes.object,
 }

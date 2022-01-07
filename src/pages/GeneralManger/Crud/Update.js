@@ -15,7 +15,7 @@ import {
 } from "reactstrap"
 
 //actions
-import { getProductionmngrDetail, updateProductionmngr } from "store/actions"
+import { getGeneralManagerDetail, updateGeneralManager } from "store/actions"
 
 //componets
 
@@ -24,23 +24,23 @@ const UpdateStoremanager = () => {
   const dispatch = useDispatch()
   const params = useParams()
 
-  const { loading, productionmngrDetail } = useSelector(state => ({
-    loading: state.Storemngrs.loading,
-    productionmngrDetail: state.Productionmngrs.productionmngrDetail,
+  const { loading, GMDetail } = useSelector(state => ({
+    loading: state.GeneralMngr.loading,
+    GMDetail: state.GeneralMngr.GMDetail,
   }))
   function handleValidSubmit(values) {
-    dispatch(updateProductionmngr(values, productionmngrDetail.id, history))
+    dispatch(updateGeneralManager(values, GMDetail.id, history))
     window.scroll(0, 0)
   }
 
   useEffect(() => {
-    dispatch(getProductionmngrDetail(params.id))
+    dispatch(getGeneralManagerDetail(params.id))
   }, [dispatch])
 
   return (
     <>
       <MetaTags>
-        <title>Store Manager | Loha </title>
+        <title>General Manager | Loha </title>
       </MetaTags>
 
       <div className="page-content">
@@ -71,7 +71,7 @@ const UpdateStoremanager = () => {
                             className="filePathClass"
                             name="username"
                             type="text"
-                            value={productionmngrDetail?.username}
+                            value={GMDetail?.username}
                             validate={{
                               required: { value: true },
                               minLength: {
@@ -99,7 +99,7 @@ const UpdateStoremanager = () => {
                           <AvField
                             id="horizontal-firstname-Input"
                             name="first_name"
-                            value={productionmngrDetail?.first_name}
+                            value={GMDetail?.first_name}
                             className="filePathClass"
                             type="text"
                             validate={{
@@ -129,7 +129,7 @@ const UpdateStoremanager = () => {
                           <AvField
                             id="horizontal-lastname-Input"
                             name="last_name"
-                            value={productionmngrDetail?.last_name}
+                            value={GMDetail?.last_name}
                             type="text"
                             validate={{
                               required: { value: true },
@@ -149,7 +149,7 @@ const UpdateStoremanager = () => {
                             name="phone"
                             className="form-control"
                             id="tel-input"
-                            value={productionmngrDetail?.phone}
+                            value={GMDetail?.phone}
                             type="mobile"
                             validate={{
                               required: {
@@ -181,7 +181,7 @@ const UpdateStoremanager = () => {
                           <AvField
                             id="horizontal-email-Input"
                             name="email"
-                            value={productionmngrDetail?.email}
+                            value={GMDetail?.email}
                             className="form-control"
                             type="email"
                             required

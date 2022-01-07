@@ -129,7 +129,7 @@ function PreviewCard() {
                         <label htmlFor="resume">Quantity</label>
                         <AvField
                           name="quantity"
-                          type="number"
+                          type="number" min={0}
                           className="form-control"
                           id="resume"
                           value={rawData.quantity}
@@ -190,7 +190,7 @@ function PreviewCard() {
                       <Col lg={3} className="mb-3">
                         <label>Price</label>
                         <input
-                          type="number"
+                          type="number" min={0}
                           className="form-control"
                           id="resume"
                           onChange={e =>

@@ -9,8 +9,8 @@ import Login from "./auth/login/reducer"
 //contacts
 import Contacts from "./profile/reducer"
 
-//Dealer
-import Dealers from "./dealers/reducer"
+//General manager
+import GeneralMngr from "./generalmngr/reducer"
 
 //supervisor
 import Supervisors from "./supervisor/reducer"
@@ -35,25 +35,24 @@ import Productionmngrs from "./productionmngr/reducer"
 
 //finished Prod Chart
 import Dashboard from "./Dashboard/reducer"
-
-//general manager
-import GeneralManager from "pages/GeneralManger"
+//client
+import Clients from "./client/reducer"
 
 const rootReducer = combineReducers({
   // public
   Layout,
   Login,
   Contacts,
-  Dealers,
+  GeneralMngr,
   Storemngrs,
   Supervisors,
   Qltcheckers,
+  Clients,
   StoreItems,
   Products,
   Orders,
   Productionmngrs,
   Dashboard,
-  GeneralManager,
 })
 
 export default rootReducer

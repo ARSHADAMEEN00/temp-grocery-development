@@ -9,7 +9,7 @@ import ToolkitProvider from "react-bootstrap-table2-toolkit"
 import { map, range } from "lodash"
 
 //actions
-import { getProductionmngrs } from "store/actions"
+import { getGeneralManagers } from "store/actions"
 
 import "../../assets/scss/datatables.scss"
 
@@ -18,13 +18,13 @@ const GeneralManagers = () => {
   const [searchText, setSearchText] = useState("")
   const [page, setPage] = useState(1)
 
-  const { productionmngrs, loading } = useSelector(state => ({
-    productionmngrs: state.Productionmngrs.productionmngrs,
-    loading: state.Productionmngrs.loading,
+  const { GeneralManagers, loading } = useSelector(state => ({
+    GeneralManagers: state.GeneralMngr.GeneralManagers,
+    loading: state.GeneralMngr.loading,
   }))
 
   //page
-  const totalPages = Math.ceil(productionmngrs?.count / 10)
+  const totalPages = Math.ceil(GeneralManagers?.count / 10)
   const pages = range(1, totalPages + 1)
 
   const pageSend = () => {
@@ -51,7 +51,7 @@ const GeneralManagers = () => {
   }
 
   useEffect(() => {
-    dispatch(getProductionmngrs(searchText, pageSend()))
+    dispatch(getGeneralManagers(searchText, pageSend()))
   }, [dispatch, page, searchText])
 
   const columns = [
@@ -74,7 +74,7 @@ const GeneralManagers = () => {
     },
   ]
 
-  const productionmngrsData = map(productionmngrs?.results, (item, index) => ({
+  const GeneralManagersData = map(GeneralManagers?.results, (item, index) => ({
     ...item,
     key: index,
 
@@ -112,7 +112,7 @@ const GeneralManagers = () => {
               <ToolkitProvider
                 keyField="id"
                 columns={columns}
-                data={productionmngrsData}
+                data={GeneralManagersData}
                 search
               >
                 {toolkitProps => (

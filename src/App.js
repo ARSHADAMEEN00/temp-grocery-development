@@ -12,11 +12,10 @@ import {
 import {
   publicRoutes,
   commonRoute,
-  AdminProtectedRoutes,
+  MDProtectedRoutes,
+  GMRoutes,
   productionManagerRoutes,
-  supervisorRoutes,
   storemanagerRoutes,
-  dealerRoutes,
   qualitycheckerRoutes,
 } from "./routes"
 
@@ -47,24 +46,21 @@ const App = props => {
   }
 
   const Role = sessionStorage.getItem("role")
+  const token = sessionStorage.getItem('token')
 
   function MyRoute() {
     let Routes = commonRoute
     switch (Role) {
       case "admin":
-        Routes = AdminProtectedRoutes
+        Routes = MDProtectedRoutes
         break
+      case "generalmanager":
+        Routes = GMRoutes
       case "productionmanager":
         Routes = productionManagerRoutes
         break
-      case "supervisor":
-        Routes = supervisorRoutes
-        break
       case "storemanager":
         Routes = storemanagerRoutes
-        break
-      case "dealer":
-        Routes = dealerRoutes
         break
       case "qualitychecker":
         Routes = qualitycheckerRoutes
@@ -101,6 +97,8 @@ const App = props => {
               exact
             />
           ))}
+          {!token && <Route render={() => <Redirect to={{ pathname: "/login" }} />} />}
+
           <Route render={() => <Redirect to={{ pathname: "/404" }} />} />,
         </Switch>
       </Router>

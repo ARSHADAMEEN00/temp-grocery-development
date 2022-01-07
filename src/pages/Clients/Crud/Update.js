@@ -10,52 +10,46 @@ import {
   CardTitle,
   Col,
   Container,
-  Input,
   Label,
   Row,
 } from "reactstrap"
 import PropTypes from "prop-types"
 
 //actions
-import { getDealerDetail, updateDealer } from "store/actions"
+import { getClientDetail, updateClient } from "store/actions"
 
-//componets
-import Breadcrumbs from "../../../components/Common/Breadcrumb"
-
-const UpdateDealer = ({ history }) => {
+const UpdateClient = () => {
   const dispatch = useDispatch()
   const params = useParams()
 
-  const { dealerDetail, loading } = useSelector(state => ({
-    dealerDetail: state.Dealers.dealerDetail,
-    loading: state.loading,
+  const { clientDetail } = useSelector(state => ({
+    clientDetail: state.Clients.clientDetail,
+
   }))
   function handleValidSubmit(values) {
-    dispatch(updateDealer(values, dealerDetail.id, history))
+    dispatch(updateClient(values, clientDetail.id))
+    window.scroll(0, 0)
   }
 
   useEffect(() => {
-    dispatch(getDealerDetail(params.id))
+    dispatch(getClientDetail(params.id))
   }, [])
 
   return (
     <>
       <MetaTags>
-        <title>Dealer | Indtech </title>
+        <title>Quality Checker | Indtech </title>
       </MetaTags>
 
       <div className="page-content">
-        <Breadcrumbs title="Dealers" breadcrumbItem="Update Dealer" />
         <Container fluid>
           <div className="container-fluid">
             <Row>
               <Col xl="3"></Col>
-              <Col lg={6}>
-                <Card>
+              <Col lg={12}>
+                <Card style={{ padding: "2rem" }}>
                   <CardBody>
-                    <CardTitle className="h4 mb-4">
-                      {/* Fill this form */}
-                    </CardTitle>
+                    <CardTitle className="h4 mb-4">Update Profile</CardTitle>
 
                     <AvForm
                       className="form-horizontal "
@@ -68,27 +62,22 @@ const UpdateDealer = ({ history }) => {
                           htmlFor="horizontal-username-Input"
                           className="col-sm-3 col-form-label"
                         >
-                          User name
+                          Name
                         </Label>
                         <Col sm={9}>
                           <AvField
                             id="horizontal-username-Input"
                             className="filePathClass"
-                            name="username"
+                            name="name"
                             type="text"
-                            value={dealerDetail?.account?.username}
+                            value={clientDetail?.name}
                             validate={{
                               required: { value: true },
                               minLength: {
                                 value: 4,
                                 errorMessage:
                                   "Your name must be between 6 and 16 characters",
-                              },
-                              maxLength: {
-                                value: 16,
-                                errorMessage:
-                                  "Your name must be between 6 and 16 characters",
-                              },
+                              }
                             }}
                           />
                         </Col>
@@ -98,13 +87,13 @@ const UpdateDealer = ({ history }) => {
                           htmlFor="horizontal-firstname-Input"
                           className="col-sm-3 col-form-label"
                         >
-                          First name
+                          Address
                         </Label>
                         <Col sm={9}>
                           <AvField
                             id="horizontal-firstname-Input"
-                            name="first_name"
-                            value={dealerDetail?.account?.first_name}
+                            name="address"
+                            value={clientDetail?.address}
                             className="filePathClass"
                             type="text"
                             validate={{
@@ -123,25 +112,7 @@ const UpdateDealer = ({ history }) => {
                           />
                         </Col>
                       </div>
-                      <div className="row mb-4">
-                        <Label
-                          htmlFor="horizontal-lastname-Input"
-                          className="col-sm-3 col-form-label"
-                        >
-                          Last name
-                        </Label>
-                        <Col sm={9}>
-                          <AvField
-                            id="horizontal-lastname-Input"
-                            name="last_name"
-                            value={dealerDetail?.account?.last_name}
-                            type="text"
-                            validate={{
-                              required: { value: true },
-                            }}
-                          />
-                        </Col>
-                      </div>
+
                       <div className="row mb-4">
                         <Label
                           htmlFor="tel-input"
@@ -154,7 +125,7 @@ const UpdateDealer = ({ history }) => {
                             name="phone"
                             className="form-control"
                             id="tel-input"
-                            value={dealerDetail?.account?.phone}
+                            value={clientDetail?.phone}
                             type="mobile"
                             validate={{
                               required: {
@@ -186,7 +157,7 @@ const UpdateDealer = ({ history }) => {
                           <AvField
                             id="horizontal-email-Input"
                             name="email"
-                            value={dealerDetail?.account?.email}
+                            value={clientDetail?.email}
                             className="form-control"
                             type="email"
                             required
@@ -195,41 +166,19 @@ const UpdateDealer = ({ history }) => {
                       </div>
                       <div className="row mb-4">
                         <Label
-                          htmlFor="horizontal-location-Input"
+                          htmlFor="horizontal-lastname-Input"
                           className="col-sm-3 col-form-label"
                         >
-                          Location
+                          Description
                         </Label>
                         <Col sm={9}>
                           <AvField
-                            name="location"
-                            type="text"
-                            value={dealerDetail?.location}
-                            className="form-control"
-                            id="horizontal-location-Input"
-                          />
-                        </Col>
-                      </div>
-                      <div className="row mb-4">
-                        <Label
-                          htmlFor="horizontal-profit-Input"
-                          className="col-sm-3 col-form-label"
-                        >
-                          Profit
-                        </Label>
-                        <Col sm={9}>
-                          <AvField
-                            name="profit"
-                            type="number"
-                            value={dealerDetail?.profit}
-                            className="form-control"
-                            id="horizontal-profit-Input"
+                            id="horizontal-lastname-Input"
+                            name="description"
+                            value={clientDetail?.description}
+                            type="textarea"
                             validate={{
-                              maxLength: {
-                                value: 3,
-                                errorMessage:
-                                  "Your number must be 10 characters",
-                              },
+                              required: { value: true },
                             }}
                           />
                         </Col>
@@ -243,7 +192,7 @@ const UpdateDealer = ({ history }) => {
                               color="success"
                               className="w-md"
                             >
-                              Submit
+                              Update
                             </Button>
                           </div>
                         </Col>
@@ -261,8 +210,8 @@ const UpdateDealer = ({ history }) => {
   )
 }
 
-export default UpdateDealer
+export default UpdateClient
 
-UpdateDealer.propTypes = {
+UpdateClient.propTypes = {
   history: PropTypes.object,
 }

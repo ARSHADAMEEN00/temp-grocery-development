@@ -2,20 +2,16 @@ import axios from "axios"
 import { Notification } from "components/Common/Notification"
 
 //apply base url for axios
-// const API_URL = "https://api.fms.Indtechsteels.com/api/v1"
-// const API_URL = "http://192.168.0.124:8000/api/v1" //raspery
-// const API_URL = "http://192.168.0.116:3390/api/v1" //naseem
-// const API_URL = "http://192.168.0.110:3390/api/v1" //naseem
-// const API_URL = "http://192.168.1.4:3390/api/v1" //naseem
-// const API_URL = "http://192.168.185.189:3390/api/v1" //naseem
-// const API_URL = "http://192.168.0.127:8000/api/v1" //Afnan/
-export const API_URL = "http://192.168.0.112:3390/api/v1" //naseem/
-//const API_URL = "http://192.168.0.100:8000/api/v1" //hashid/
+
+// export const API_URL = "http://api.fms.lohasteels.com/api/v1" //server/
+// export const API_URL = "http://192.168.0.112:3390/api/v1" //naseem/
+export const API_URL = "http://192.168.0.120:3333/api/v1" //hashid/
+
+
 
 export const axiosApi = axios.create({
   baseURL: API_URL,
 })
-
 axiosApi.interceptors.request.use(
   function (config) {
     const token = sessionStorage.getItem("token")
@@ -27,18 +23,20 @@ axiosApi.interceptors.request.use(
     return config
   },
   function (error) {
-    console.log("error", error)
+    console.log(error.response)
   }
 )
 
 axiosApi.interceptors.response.use(
   response => {
-    // console.log(response)
-    // console.log(response.status)
-    // console.log(response.config.url)
-    // console.log(response.config.method)
+    console.log(response)
+    console.log(response.status)
+    console.log(response.config.url)
+    console.log(response.config.method)
+
     const method = response.config.method
     const url = response.config.url
+
     if (method == "post") {
       switch (url) {
         case "/order/order/":
@@ -99,12 +97,28 @@ axiosApi.interceptors.response.use(
 
     return response
   },
-  error => {
-    // Notification({
-    //   type: "error",
-    //   message: "Somthing went wrong",
-    //   title: "",
-    // })
+  err => {
+    // const history = useHistory()
+    // history.push("/login")
+
+    if (err.response.status == 401) {
+      sessionStorage.clear("token")
+      window.location.reload(false);
+
+      Notification({
+        type: "error",
+        message: err?.response?.data?.detail,
+        title: err?.response?.statusText,
+      })
+    } else {
+      Notification({
+        type: "error",
+        message: err?.response?.data?.detail,
+        title: err?.response?.statusText,
+      })
+    }
+    console.log(err.response);
+
   }
 )
 

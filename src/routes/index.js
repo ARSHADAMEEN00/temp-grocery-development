@@ -9,16 +9,6 @@ import Login from "../pages/Authentication/Login"
 import Logout from "../pages/Authentication/Logout"
 
 //pages
-import Dealers from "../pages/Dealers"
-import DealerDetails from "../pages/Dealers/SingleView"
-import CreateDealer from "../pages/Dealers/Crud/Create"
-import UpdateDealer from "../pages/Dealers/Crud/Update"
-
-import Supervisors from "../pages/Supervisor"
-import SupervisorDetails from "../pages/Supervisor/SingleView"
-import CreateSupervisor from "pages/Supervisor/Crud/Create"
-import UpdateSupervisor from "pages/Supervisor/Crud/Update"
-import DailyWork from "pages/Supervisor/DailyWork"
 
 import StoreManager from "pages/Storemngr"
 import StoreManagerDetails from "pages/Storemngr/SingleView"
@@ -56,6 +46,11 @@ import Tickets from "components/Pdf/report"
 import GeneralManager from "pages/GeneralManger"
 import GeneralManagerDetails from "pages/GeneralManger/SingleView"
 import GeneralManagerCreate from "pages/GeneralManger/Crud/Create"
+import Client from "pages/Clients"
+import ClientDetails from "pages/Clients/SingleView"
+import CreateClient from "pages/Clients/Crud/Create"
+import Quotations from "pages/Quotations"
+import CreateQuotations from "pages/Quotations/Crud/Create/Create"
 
 const commonRoute = [
   { path: "/dashboard", component: Dashboard },
@@ -72,26 +67,13 @@ const commonRoute = [
   },
 ]
 
-//for admin only
-const AdminProtectedRoutes = [
+//for md(managing Director) only
+const MDProtectedRoutes = [
   { path: "/report", component: Tickets },
   { path: "/dashboard", component: Dashboard },
 
-  // //profile
+  // //profile Clients
   { path: "/profile", component: UserProfile },
-
-  //components
-  { path: "/dealers", component: Dealers },
-  { path: "/dealers/:id", component: DealerDetails },
-  { path: "/dealer/create", component: CreateDealer },
-  { path: "/dealer/update/:id", component: UpdateDealer },
-
-  { path: "/supervisors", component: Supervisors },
-  { path: "/supervisors/:id", component: SupervisorDetails },
-  { path: "/supervisor/create", component: CreateSupervisor },
-  { path: "/supervisor/update/:id", component: UpdateSupervisor },
-
-  { path: "/supervisor/dailywork", component: DailyWork },
 
   { path: "/generalmanagers", component: GeneralManager },
   { path: "/generalmanagers/:id", component: GeneralManagerDetails },
@@ -109,6 +91,10 @@ const AdminProtectedRoutes = [
   { path: "/qualitycheckers/:id", component: QltCheckerDetails },
   { path: "/qualitychecker/create", component: CreateQltChecker },
 
+  { path: "/clients", component: Client },
+  { path: "/clients/:id", component: ClientDetails },
+  { path: "/client/create", component: CreateClient },
+
   { path: "/stores", component: Store },
   { path: "/store/create", component: CreateStore },
   { path: "/store/update/:id", component: UpdateStore },
@@ -125,39 +111,32 @@ const AdminProtectedRoutes = [
   { path: "/orders/:id", component: OrderDetails },
   { path: "/order/create", component: CreateOrder },
 
+  { path: "/quotations", component: Quotations },
+  { path: "/quotation/create", component: CreateQuotations },
+
   // this route should be at the end of all other routes
   // eslint-disable-next-line react/display-name
   { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> },
 ]
 
+//for GM(general manager) only
+const GMRoutes = MDProtectedRoutes?.filter(
+  route =>
+    route.path !== "/generalmanagers" &&
+    route.path !== "/generalmanagers/:id" &&
+    route.path !== "/generalmanager/create"
+)
+
 //for productionManager only
-const productionManagerRoutes = AdminProtectedRoutes?.filter(
+const productionManagerRoutes = MDProtectedRoutes?.filter(
   route =>
     route.path !== "/productionmanagers" &&
     route.path !== "/productionmanagers/:id" &&
-    route.path !== "/productionmanager/create"
+    route.path !== "/productionmanager/create" &&
+    route.path !== "/generalmanagers" &&
+    route.path !== "/generalmanagers/:id" &&
+    route.path !== "/generalmanager/create"
 )
-
-// for supervisor only
-const supervisorRoutes = [
-  { path: "/dashboard", component: Dashboard },
-
-  { path: "/profile", component: UserProfile },
-
-  //components
-  { path: "/products", component: Product },
-  { path: "/products/:id", component: ProductDetails },
-
-  { path: "/product/finished", component: FinishedProduct },
-
-  {
-    path: "/",
-    exact: true,
-    component: function dashboard() {
-      return <Redirect to="/dashboard" />
-    },
-  },
-]
 
 //for storemanager only
 const storemanagerRoutes = [
@@ -176,29 +155,6 @@ const storemanagerRoutes = [
   { path: "/stores", component: Store },
   { path: "/store/create", component: CreateStore },
   { path: "/store/update/:id", component: UpdateStore },
-
-  {
-    path: "/",
-    exact: true,
-    component: function dashboard() {
-      return <Redirect to="/dashboard" />
-    },
-  },
-]
-
-//for dealer only
-const dealerRoutes = [
-  { path: "/dashboard", component: Dashboard },
-
-  { path: "/profile", component: UserProfile },
-
-  //components
-  { path: "/products", component: Product },
-  { path: "/products/:id", component: ProductDetails },
-
-  { path: "/orders", component: Orders },
-  { path: "/orders/:id", component: OrderDetails },
-  { path: "/order/create", component: CreateOrder },
 
   {
     path: "/",
@@ -240,11 +196,10 @@ const publicRoutes = [
 
 export {
   publicRoutes,
-  AdminProtectedRoutes,
-  dealerRoutes,
   commonRoute,
+  MDProtectedRoutes,
+  GMRoutes,
   productionManagerRoutes,
-  supervisorRoutes,
   storemanagerRoutes,
   qualitycheckerRoutes,
 }

@@ -1,28 +1,31 @@
 import React, { useEffect, useState } from "react"
-import { Row, Col, Card, CardBody, Spinner } from "reactstrap"
+import { Row, Col, Card, CardBody, Badge, Spinner } from "reactstrap"
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
+import { map, range } from "lodash"
 
 // datatable related plugins
 import BootstrapTable from "react-bootstrap-table-next"
-import { map, range } from "lodash"
 import ToolkitProvider from "react-bootstrap-table2-toolkit"
 
 //actions
-import { getSupervisors } from "store/actions"
+import { getQuotations } from "store/orders/actions"
 
 import "../../assets/scss/datatables.scss"
+import QuotationDetails from "./QuotationDetails"
 
-const Supervisors = () => {
+const Quotation = () => {
   const dispatch = useDispatch()
   const [page, setPage] = useState(1)
   const [searchText, setSearchText] = useState("")
-  const { supervisors, loading } = useSelector(state => ({
-    supervisors: state.Supervisors.supervisors,
-    loading: state.Supervisors.loading,
+  const [QDetails, setQDetails] = useState()
+  const { quotation, loading } = useSelector(state => ({
+    quotation: state.Orders.quotation,
+    loading: state.Orders.quotationLoading,
   }))
 
-  const totalPages = Math.ceil(supervisors?.count / 10)
+  //page
+  const totalPages = Math.ceil(quotation?.count / 10)
   const pages = range(1, totalPages + 1)
 
   const pageSend = () => {
@@ -49,32 +52,23 @@ const Supervisors = () => {
   }
 
   useEffect(() => {
-    dispatch(getSupervisors(searchText, pageSend()))
+    dispatch(getQuotations(searchText, pageSend()))
   }, [dispatch, page, searchText])
 
   const columns = [
     {
-      dataField: "name",
-      text: "Name",
+      dataField: "client_name",
+      text: "Client",
+    },
+    {
+      dataField: "date",
+      text: "Date",
       sort: true,
     },
+
     {
-      dataField: "phone",
-      text: "Phone",
-    },
-    {
-      dataField: "email",
-      text: "Email",
-    },
-    {
-      dataField: "cols_per_day",
-      // text: 'Column per Day',
-      text: "Frames per Day",
-    },
-    {
-      dataField: "cost_per_col",
-      // text: 'Cost per Col',
-      text: "Cost per Frame",
+      dataField: "status",
+      text: "Status",
     },
     {
       dataField: "action",
@@ -82,18 +76,51 @@ const Supervisors = () => {
     },
   ]
 
-  const supervisorsData = map(supervisors?.results, (item, index) => ({
+  const Status = status => {
+    if (status == "Pending") {
+      return "info"
+    }
+    if (status == "Approved") {
+      return "success"
+    }
+    if (status == "Canceled") {
+      return "danger"
+    }
+    if (status == "Delivered") {
+      return "success"
+    }
+
+  }
+
+  const quotationData = map(quotation?.results, (item, index) => ({
     ...item,
     key: index,
-    name: item.account.username,
-    phone: item.account.phone,
-    email: item.account.email,
-    action: (
-      <div>
-        <Link to={`/supervisors/${item?.id}`} className="btn-light btn-sm">
-          View
-        </Link>
+    status: (
+      <div
+        className="d-flex"
+        style={{
+          maxWidth: "120px",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Badge
+          className={"font-size-12 badge-soft-" + `${Status(item.status)}`}
+          pill
+        >
+          {item.status}
+        </Badge>
       </div>
+    ),
+    action: (
+      <Link
+        type="button"
+        className="btn-sm btn-info btn-rounded"
+        to="#"
+        onClick={() => setQDetails(item)}
+      >
+        View Details
+      </Link>
     ),
   }))
 
@@ -116,13 +143,13 @@ const Supervisors = () => {
   return (
     <React.Fragment>
       <Row>
-        <Col className="col-12">
+        <Col lg={`${QDetails ? "8" : "12"}`} >
           <Card>
             <CardBody>
               <ToolkitProvider
                 keyField="id"
                 columns={columns}
-                data={supervisorsData}
+                data={quotationData}
                 search
               >
                 {toolkitProps => (
@@ -144,7 +171,7 @@ const Supervisors = () => {
                                 />
                                 <span className="bx bx-search-alt" />
                               </div>
-                            </form>
+                            </form>{" "}
                           </div>
                         </div>
                       </Col>
@@ -155,7 +182,10 @@ const Supervisors = () => {
                       <>
                         <Row>
                           <Col xl="12">
-                            <div className="table-responsive">
+                            <div
+                              className="table-responsive"
+                              style={{ minHeight: "40vh" }}
+                            >
                               <BootstrapTable
                                 keyField={"id"}
                                 responsive
@@ -255,9 +285,13 @@ const Supervisors = () => {
             </CardBody>
           </Card>
         </Col>
+        <Col lg={4} >
+          <QuotationDetails QDetails={QDetails}
+          />
+        </Col>
       </Row>
     </React.Fragment>
   )
 }
 
-export default Supervisors
+export default Quotation

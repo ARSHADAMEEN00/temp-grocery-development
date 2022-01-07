@@ -46,7 +46,7 @@ const QltCheckerDetails = ({ history }) => {
   return (
     <>
       <DeleteModal
-        show={isOpen && "show"}
+        show={isOpen}
         onCloseClick={() => setIsOpen(false)}
         onDeleteClick={handleDeleteEvent}
       />
@@ -114,9 +114,8 @@ const QltCheckerDetails = ({ history }) => {
                           <Link
                             style={{ opacity: 0.8 }}
                             to="#"
-                            className={`btn btn-danger ${
-                              loading && "disabled"
-                            }  btn-sm`}
+                            className={`btn btn-danger ${loading && "disabled"
+                              }  btn-sm`}
                             onClick={handleDelete}
                           >
                             Block Acount

@@ -1,91 +1,92 @@
 import {
-  GET_GENERALMNGRS,
-  GET_GENERALMNGRS_SUCCESS,
-  GET_GENERALMNGRS_FAIL,
-  GET_GENERALMNGR_DETAIL,
-  GET_GENERALMNGR_DETAIL_SUCCESS,
-  GET_GENERALMNGR_DETAIL_FAIL,
-  CREATE_GENERALMNGR,
-  CREATE_GENERALMNGR_SUCCESS,
-  CREATE_GENERALMNGR_FAIL,
-  UPDATE_GENERALMNGR,
-  UPDATE_GENERALMNGR_SUCCESS,
-  UPDATE_GENERALMNGR_FAIL,
-  DELETE_GENERALMNGR,
-  DELETE_GENERALMNGR_SUCCESS,
-  DELETE_GENERALMNGR_FAIL,
+  GET_GEN_MANAGERS,
+  GET_GEN_MANAGERS_SUCCESS,
+  GET_GEN_MANAGERS_FAIL,
+  GET_GEN_MANAGER_DETAIL,
+  GET_GEN_MANAGER_DETAIL_SUCCESS,
+  GET_GEN_MANAGER_DETAIL_FAIL,
+  CREATE_GEN_MANAGER,
+  CREATE_GEN_MANAGER_SUCCESS,
+  CREATE_GEN_MANAGER_FAIL,
+  UPDATE_GEN_MANAGER,
+  UPDATE_GEN_MANAGER_SUCCESS,
+  UPDATE_GEN_MANAGER_FAIL,
+  DELETE_GEN_MANAGER,
+  DELETE_GEN_MANAGER_SUCCESS,
+  DELETE_GEN_MANAGER_FAIL,
 } from "./actionTypes"
 
-export const getGeneralmngrs = (searchText, page) => ({
-  type: GET_GENERALMNGRS,
+export const getGeneralManagers = (searchText, page) => ({
+  type: GET_GEN_MANAGERS,
   payload: { searchText, page },
 })
 
-export const getGeneralmngrsSuccess = generalmngrs => ({
-  type: GET_GENERALMNGRS_SUCCESS,
-  payload: generalmngrs,
+export const getGeneralManagersSuccess = gms => ({
+  type: GET_GEN_MANAGERS_SUCCESS,
+  payload: gms,
 })
-export const getGeneralmngrsFail = error => ({
-  type: GET_GENERALMNGRS_FAIL,
+export const getGeneralManagersFail = error => ({
+  type: GET_GEN_MANAGERS_FAIL,
   payload: error,
 })
 
-export const getGeneralmngrDetail = generalmngrId => ({
-  type: GET_GENERALMNGR_DETAIL,
-  generalmngrId,
+export const getGeneralManagerDetail = (gmId, page) => ({
+  type: GET_GEN_MANAGER_DETAIL,
+  payload: { gmId, page },
 })
 
-export const getGeneralmngrDetailSuccess = generalmngrDetail => ({
-  type: GET_GENERALMNGR_DETAIL_SUCCESS,
-  payload: generalmngrDetail,
+export const getGeneralManagerDetailSuccess = gmDetail => ({
+  type: GET_GEN_MANAGER_DETAIL_SUCCESS,
+  payload: gmDetail,
 })
 
-export const getGeneralmngrDetailFail = error => ({
-  type: GET_GENERALMNGR_DETAIL_FAIL,
+export const getGeneralManagerDetailFail = error => ({
+  type: GET_GEN_MANAGER_DETAIL_FAIL,
   payload: error,
 })
 
-export const createGeneralmngr = (generalmngr, history) => ({
-  type: CREATE_GENERALMNGR,
-  payload: { generalmngr, history },
+export const createGeneralManager = (gm, history) => ({
+  type: CREATE_GEN_MANAGER,
+  payload: { gm, history },
 })
 
-export const createGeneralmngrSuccess = generalmngr => ({
-  type: CREATE_GENERALMNGR_SUCCESS,
-  payload: generalmngr,
+export const createGeneralManagerSuccess = gm => ({
+  type: CREATE_GEN_MANAGER_SUCCESS,
+  payload: gm,
 })
 
-export const createGeneralmngrFail = error => ({
-  type: CREATE_GENERALMNGR_FAIL,
+export const createGeneralManagerFail = error => ({
+  type: CREATE_GEN_MANAGER_FAIL,
   payload: error,
 })
 
-export const updateGeneralmngr = (generalmngr, generalmngrId, history) => ({
-  type: UPDATE_GENERALMNGR,
-  payload: { generalmngr, generalmngrId, history },
+export const updateGeneralManager = (gm, gmId, history) => ({
+  type: UPDATE_GEN_MANAGER,
+  payload: { gm, gmId, history },
 })
 
-export const updateGeneralmngrSuccess = generalmngr => ({
-  type: UPDATE_GENERALMNGR_SUCCESS,
-  payload: generalmngr,
+export const updateGeneralManagerSuccess = gm => ({
+  type: UPDATE_GEN_MANAGER_SUCCESS,
+  payload: gm,
 })
 
-export const updateGeneralmngrFail = error => ({
-  type: UPDATE_GENERALMNGR_FAIL,
+export const updateGeneralManagerFail = error => ({
+  type: UPDATE_GEN_MANAGER_FAIL,
   payload: error,
 })
 
-export const deleteGeneralmngr = (generalmngrId, history) => ({
-  type: DELETE_GENERALMNGR,
-  payload: { generalmngrId, history },
+export const deleteGeneralManager = (gmId, history) => ({
+  type: DELETE_GEN_MANAGER,
+  gmId,
+  history,
 })
 
-export const deleteGeneralmngrSuccess = generalmngr => ({
-  type: DELETE_GENERALMNGR_SUCCESS,
-  payload: generalmngr,
+export const deleteGeneralManagerSuccess = gm => ({
+  type: DELETE_GEN_MANAGER_SUCCESS,
+  payload: gm,
 })
 
-export const deleteGeneralmngrFail = error => ({
-  type: DELETE_GENERALMNGR_FAIL,
+export const deleteGeneralManagerFail = error => ({
+  type: DELETE_GEN_MANAGER_FAIL,
   payload: error,
 })

@@ -16,7 +16,8 @@ export function Notification({ type, title, message }) {
         showMethod: "fadeIn",
         hideMethod: "fadeOut",
         showDuration: 300,
-        hideDuration: 300
+        hideDuration: type == "error" ? 500 : 300
+
     };
 
     if (type === "info") toastr.info(message, title);

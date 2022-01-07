@@ -5,14 +5,14 @@ import { MetaTags } from "react-meta-tags"
 import Breadcrumbs from "../../components/Common/Breadcrumb"
 import DatatableTables from "./DatatableTables"
 
-function Dealers() {
+function Client() {
   return (
     <>
       <MetaTags>
-        <title>All Dealers | Indtech </title>
+        <title>All Clients | Indtech </title>
       </MetaTags>
       <div className="page-content">
-        <Breadcrumbs title="Dashboard" breadcrumbItem="All Dealers" />
+        <Breadcrumbs title="Dashboard" breadcrumbItem="All Clients" />
         <Container fluid>
           <div className="container-fluid">
             <DatatableTables />
@@ -23,4 +23,4 @@ function Dealers() {
   )
 }
 
-export default Dealers
+export default Client

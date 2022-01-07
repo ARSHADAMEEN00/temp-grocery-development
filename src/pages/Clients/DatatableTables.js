@@ -9,20 +9,22 @@ import BootstrapTable from "react-bootstrap-table-next"
 import ToolkitProvider from "react-bootstrap-table2-toolkit"
 
 //actions
-import { getDealers } from "store/actions"
+import { getClients } from "store/actions"
 
 import "../../assets/scss/datatables.scss"
 
-const Dealers = () => {
+const AllClients = () => {
   const dispatch = useDispatch()
   const [searchText, setSearchText] = useState("")
   const [page, setPage] = useState(1)
-  const { dealers, loading } = useSelector(state => ({
-    dealers: state.Dealers.dealers,
-    loading: state.Dealers.loading,
+
+  const { clients, loading } = useSelector(state => ({
+    clients: state.Clients.clients,
+    loading: state.Clients.loading,
   }))
 
-  const totalPages = Math.ceil(dealers?.count / 10)
+  //pages
+  const totalPages = Math.ceil(clients?.count / 10)
   const pages = range(1, totalPages + 1)
 
   const pageSend = () => {
@@ -49,7 +51,7 @@ const Dealers = () => {
   }
 
   useEffect(() => {
-    dispatch(getDealers(searchText, pageSend()))
+    dispatch(getClients(searchText, pageSend()))
   }, [dispatch, page, searchText])
 
   const columns = [
@@ -59,6 +61,11 @@ const Dealers = () => {
       sort: true,
     },
     {
+      dataField: "address",
+      text: "Address",
+    },
+
+    {
       dataField: "phone",
       text: "Phone",
     },
@@ -67,28 +74,17 @@ const Dealers = () => {
       text: "Email",
     },
     {
-      dataField: "location",
-      text: "Location",
-    },
-    {
-      dataField: "profit",
-      text: "Profit",
-    },
-    {
       dataField: "action",
       text: "Action",
     },
   ]
 
-  const dealersData = map(dealers?.results, (item, index) => ({
+  const clientsData = map(clients?.results, (item, index) => ({
     ...item,
     key: index,
-    name: item && item.account && item.account.username,
-    phone: item && item.account && item.account.phone,
-    email: item && item.account && item.account.email,
     action: (
       <div>
-        <Link to={`/dealers/${item?.id}`} className="btn-light btn-sm">
+        <Link to={`/clients/${item?.id}`} className="btn-light btn-sm">
           View
         </Link>
       </div>
@@ -120,7 +116,7 @@ const Dealers = () => {
               <ToolkitProvider
                 keyField="id"
                 columns={columns}
-                data={dealersData}
+                data={clientsData}
                 search
               >
                 {toolkitProps => (
@@ -258,4 +254,4 @@ const Dealers = () => {
   )
 }
 
-export default Dealers
+export default AllClients

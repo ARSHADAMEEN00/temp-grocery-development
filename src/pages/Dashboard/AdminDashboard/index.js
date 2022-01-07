@@ -5,12 +5,9 @@ import { useDispatch } from "react-redux"
 //action
 import {
   getDashboardData,
-  getDealers,
   getFinishedProduct,
   getOrders,
   getProducts,
-  getQltcheckers,
-  getSupervisors,
 } from "store/actions"
 
 //components
@@ -27,9 +24,7 @@ function AdminDashboard() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getDealers())
-    dispatch(getSupervisors())
-    dispatch(getQltcheckers())
+
     dispatch(getFinishedProduct("", ""))
     dispatch(getOrders("", ""))
     dispatch(getProducts())

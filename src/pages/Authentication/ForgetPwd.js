@@ -105,7 +105,7 @@ const ForgetPwd = () => {
                       <Row className="mb-3">
                         <Col className="text-end">
                           {msg ==
-                          "Your new password has been sent to your email" ? (
+                            "Your new password has been sent to your email" ? (
                             <button
                               className="btn btn-success w-md"
                               type="submit"
@@ -136,7 +136,9 @@ const ForgetPwd = () => {
                 </p>
                 <p>
                   © {new Date().getFullYear()} Indtech. All Rights Reserved |
-                  Developed by by Osperb
+                  Developed by by <a style={{ color: "#1781BB" }} href="https://osperb.com/">
+                    Osperb
+                  </a>
                 </p>
               </div>
             </Col>

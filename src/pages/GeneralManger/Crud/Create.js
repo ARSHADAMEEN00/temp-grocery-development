@@ -15,7 +15,7 @@ import {
 import PropTypes from "prop-types"
 
 //actions
-import { createProductionmngr } from "store/actions"
+import { createGeneralManager } from "store/actions"
 
 import Breadcrumbs from "../../../components/Common/Breadcrumb"
 
@@ -28,7 +28,7 @@ const GeneralManagerCreate = ({ history }) => {
 
   // handleValidSubmit
   const handleValidSubmit = (onSubmitProps, values) => {
-    dispatch(createProductionmngr(values, history))
+    dispatch(createGeneralManager(values, history))
   }
   return (
     <>

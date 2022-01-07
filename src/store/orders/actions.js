@@ -17,7 +17,58 @@ import {
   UPDATE_ORDER_ITEM_FAIL,
   UPDATE_ORDER_ITEM_SUCCESS,
   UPDATE_ORDER_SUCCESS,
+  GET_QUOTATIONS,
+  GET_QUOTATIONS_SUCCESS,
+  GET_QUOTATIONS_FAIL,
+  CREATE_QUOTATION,
+  CREATE_QUOTATION_SUCCESS,
+  CREATE_QUOTATION_FAIL,
+  GET_QPRODUCTPRICE,
+  GET_QPRODUCTPRICE_SUCCESS,
+  GET_QPRODUCTPRICE_FAIL
 } from "./actionTypes"
+
+export const getQProductPrice = (prodId) => ({
+  type: GET_QPRODUCTPRICE,
+  payload: { prodId }
+})
+
+export const getQProductPriceSuccess = qProdPrice => ({
+  type: GET_QPRODUCTPRICE_SUCCESS,
+  payload: qProdPrice,
+})
+export const getQProductPriceFail = error => ({
+  type: GET_QPRODUCTPRICE_FAIL,
+  payload: error,
+})
+
+export const getQuotations = (searchText, page) => ({
+  type: GET_QUOTATIONS,
+  payload: { searchText, page },
+})
+
+export const getQuotationsSuccess = orders => ({
+  type: GET_QUOTATIONS_SUCCESS,
+  payload: orders,
+})
+export const getQuotationsFail = error => ({
+  type: GET_QUOTATIONS_FAIL,
+  payload: error,
+})
+export const createQuatation = (Quatation, history) => ({
+  type: CREATE_QUOTATION,
+  payload: { Quatation, history },
+})
+
+export const createQuatationSuccess = Quatation => ({
+  type: CREATE_QUOTATION_SUCCESS,
+  payload: Quatation,
+})
+
+export const createQuatationFail = error => ({
+  type: CREATE_QUOTATION_FAIL,
+  payload: error,
+})
 
 export const getOrders = (searchText, page) => ({
   type: GET_ORDERS,

@@ -12,6 +12,9 @@ import ToolkitProvider from "react-bootstrap-table2-toolkit"
 import { getProducts } from "store/actions"
 
 import "../../assets/scss/datatables.scss"
+import defualtProduct from "../../assets/images/product.jpeg"
+
+import MyPagination from "components/Common/MyPagination"
 
 const Products = () => {
   const dispatch = useDispatch()
@@ -36,19 +39,6 @@ const Products = () => {
       return page
     }
   }
-
-  const allPages = () => {
-    if (pages.length < 3) {
-      return pages
-    } else if (page >= pages.length) {
-      return range(page - 4, page)
-    } else if (page < 2) {
-      return range(page, page + 4)
-    } else {
-      return range(page - 2, page + 2)
-    }
-  }
-
   useEffect(() => {
     dispatch(getProducts(searchText, pageSend()))
   }, [dispatch, page, searchText])
@@ -86,7 +76,8 @@ const Products = () => {
     key: index,
     image: (
       <Link to={`products/${item?.id}`}>
-        <img src={item.image} alt={item.name} className="avatar-md" />,
+        <img src={item.image ? item.image : defualtProduct} alt={item.name && item.name} className="avatar-md" />
+
       </Link>
     ),
     action: (
@@ -113,6 +104,7 @@ const Products = () => {
   const handleSearch = e => {
     setSearchText(e.target.value)
   }
+  console.log(page);
 
   return (
     <React.Fragment>
@@ -171,83 +163,14 @@ const Products = () => {
                             </div>
                           </Col>
                         </Row>
-                        <Row
-                          className="align-items-md-center mt-30 "
-                          style={{ marginTop: "2rem" }}
-                        >
-                          <Col
-                            className="inner-custom-pagination d-flex
-                              pagination pagination-rounded justify-content-end mb-2 inner-custom-pagination
-                              "
-                          >
-                            <div className="text-md-right ms-auto overflowScroll">
-                              {page <= 1 ? (
-                                <></>
-                              ) : (
-                                <div
-                                  className="btn-group me-0 "
-                                  role="group"
-                                  aria-label="First group"
-                                >
-                                  <span
-                                    style={{
-                                      borderRadius: "50%",
-                                      border: "none",
-                                    }}
-                                    className="btn btn-outline-light text-info "
-                                    onClick={() => setPage(page - 1)}
-                                  >
-                                    <i className="fas fa-angle-left"></i>
-                                  </span>
-                                </div>
-                              )}
-                              <div
-                                className="btn-group me-2 "
-                                role="group"
-                                aria-label="Second group"
-                              >
-                                {map(allPages(), (item, index) => (
-                                  <span
-                                    key={index}
-                                    className="btn btn-outline-info"
-                                    onClick={() => setPage(item)}
-                                    style={{
-                                      borderRadius: "50%",
-                                      marginLeft: "5px",
-                                      marginRight: "5px",
-                                      border: "none",
-                                      backgroundColor:
-                                        pageSend() == item && "#66c2ff",
-                                      color: pageSend() == item && "#fff",
-                                    }}
-                                  >
-                                    {item}
-                                  </span>
-                                ))}
-                              </div>{" "}
-                              {page >= pages.length ? (
-                                <></>
-                              ) : (
-                                <div
-                                  className="btn-group"
-                                  role="group"
-                                  aria-label="Third group"
-                                >
-                                  <span
-                                    className="btn btn-outline-light text-info"
-                                    style={{
-                                      borderRadius: "50%",
-                                      border: "none",
-                                    }}
-                                    onClick={() => setPage(page + 1)}
-                                  >
-                                    <i className="fas fa-angle-right"></i>
-                                  </span>
-                                </div>
-                              )}
-                            </div>
-                          </Col>
-                        </Row>
+                        <MyPagination
+                          // onNextClick={() => setPage(page + 1)}
+                          // onPrevClick={() => setPage(page - 1)} 
+                          onNunClick={(item) => setPage(item)}
+                          pages={pages}
+                          clcickedPage={page}
+                          apiPage={pageSend}
+                        />
                       </>
                     )}
                   </React.Fragment>

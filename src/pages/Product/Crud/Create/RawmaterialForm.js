@@ -196,11 +196,10 @@ function RawmaterialForm(myDisabled) {
                       <label htmlFor="resume">Quantity</label>
                       <AvField
                         name="quantity"
-                        type="number"
+                        type="number" min={0}
                         className="form-control"
                         id="resume"
                         value={rawData.quantity}
-                        min={0}
                         onChange={e =>
                           setRawData({
                             ...rawData,

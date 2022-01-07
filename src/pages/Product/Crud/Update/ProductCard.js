@@ -119,7 +119,7 @@ function ProductCard() {
               <Col sm={9}>
                 <AvField
                   name="profit"
-                  type="number"
+                  type="number" min={0}
                   className="form-control"
                   id="horizontal-location-Input"
                   value={productDetail?.profit}

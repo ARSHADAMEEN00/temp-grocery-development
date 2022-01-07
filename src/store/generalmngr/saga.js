@@ -2,103 +2,104 @@ import { call, put, takeEvery } from "redux-saga/effects"
 
 // Crypto Redux States
 import {
-  GET_GENERALMNGRS,
-  GET_GENERALMNGR_DETAIL,
-  CREATE_GENERALMNGR,
-  UPDATE_GENERALMNGR,
-  DELETE_GENERALMNGR,
+  GET_GEN_MANAGERS,
+  GET_GEN_MANAGER_DETAIL,
+  CREATE_GEN_MANAGER,
+  UPDATE_GEN_MANAGER,
+  DELETE_GEN_MANAGER,
 } from "./actionTypes"
 import {
-  getGeneralmngrsSuccess,
-  getGeneralmngrsFail,
-  getGeneralmngrDetailSuccess,
-  getGeneralmngrDetailFail,
-  createGeneralmngrSuccess,
-  createGeneralmngrFail,
-  updateGeneralmngrSuccess,
-  updateGeneralmngrFail,
-  deleteGeneralmngrSuccess,
-  deleteGeneralmngrFail,
+  getGeneralManagersSuccess,
+  getGeneralManagersFail,
+  getGeneralManagerDetailSuccess,
+  getGeneralManagerDetailFail,
+  createGeneralManagerSuccess,
+  createGeneralManagerFail,
+  updateGeneralManagerSuccess,
+  updateGeneralManagerFail,
+  deleteGeneralManagerSuccess,
+  deleteGeneralManagerFail,
+  deleteGeneralManager
 } from "./actions"
 import { get, post, ApiPut, del, patch } from "helpers/api_methods"
 
-const getGeneralmngrsAPi = ({ searchText, page }) => {
+const getGmsAPi = ({ searchText, page }) => {
   if (searchText) {
     return get(`/account/general_manager/?search=${searchText && searchText}`)
   } else {
     return get(`/account/general_manager/?page=${page ? page : 1}`)
   }
 }
-const getGeneralmngrDetailsAPi = generalmngrId => {
-  return get(`/account/general_manager/${generalmngrId}/`)
+const getGmDetailsAPi = ({ gmId }) => {
+  return get(`/account/general_manager/${gmId}/`)
 }
-const createGeneralmngrApi = ({ generalmngr }) => {
-  return post("/account/general_manager/", generalmngr)
+const createGmApi = ({ gm }) => {
+  console.log(gm);
+  return post("/account/general_manager/", gm)
 }
-const updateGeneralmngrApi = ({ generalmngrId, generalmngr }) => {
-  return ApiPut(`/account/general_manager/${generalmngrId}/`, generalmngr)
+const updateGmApi = ({ gmId, gm }) => {
+  return ApiPut(`/account/general_manager/${gmId}/`, gm)
 }
-const deleteGeneralmngrApi = ({ generalmngrId }) => {
-  return del(`/account/general_manager/${generalmngrId}/`)
+const deleteGmApi = gmId => {
+  console.log(gmId);
+  return del(`/account/general_manager/${gmId}/`)
 }
 
-function* fetchGeneralmngrs({ payload }) {
+function* fetchGms({ payload }) {
   try {
-    const response = yield call(getGeneralmngrsAPi, payload)
-    yield put(getGeneralmngrsSuccess(response))
+    const response = yield call(getGmsAPi, payload)
+    yield put(getGeneralManagersSuccess(response))
   } catch (error) {
-    // yield put(getGeneralmngrsFail(error))
+    yield put(getGeneralManagersFail(error))
   }
 }
 
-function* fetchGeneralmngrDetail({ generalmngrId }) {
+function* fetchGMDetail({ payload }) {
   try {
-    const response = yield call(getGeneralmngrDetailsAPi, generalmngrId)
-    yield put(getGeneralmngrDetailSuccess(response))
+    const response = yield call(getGmDetailsAPi, payload)
+    yield put(getGeneralManagerDetailSuccess(response))
   } catch (error) {
-    yield put(getGeneralmngrDetailFail(error))
-  }
-}
-function* onCreateGeneralmngr({ payload }) {
-  try {
-    const response = yield call(createGeneralmngrApi, payload)
-    if (response?.error_message) {
-      yield put(createGeneralmngrFail(response?.error_message))
-    } else {
-      yield put(createGeneralmngrSuccess(response))
-      payload.history.push("/generalmanagers")
-    }
-  } catch (error) {
-    yield put(createGeneralmngrFail(error))
+    yield put(getGeneralManagerDetailFail(error))
   }
 }
 
-function* onUpdateGeneralmngr({ payload }) {
+function* onCreateGm({ payload }) {
+  console.log(payload);
   try {
-    const response = yield call(updateGeneralmngrApi, payload)
-    yield put(updateGeneralmngrSuccess(response))
+    const response = yield call(createGmApi, payload)
+    yield put(createGeneralManagerSuccess(response))
     payload.history.push("/generalmanagers")
   } catch (error) {
-    yield put(updateGeneralmngrFail(error))
+    yield put(createGeneralManagerFail(error))
   }
 }
 
-function* onDeleteGeneralmngr({ payload }) {
+function* onUpdateGm({ payload }) {
   try {
-    const response = yield call(deleteGeneralmngrApi, payload)
-    yield put(deleteGeneralmngrSuccess(response))
+    const response = yield call(updateGmApi, payload)
+    yield put(updateGeneralManagerSuccess(response))
     payload.history.push("/generalmanagers")
   } catch (error) {
-    yield put(deleteGeneralmngrFail(error))
+    yield put(updateGeneralManagerFail(error))
   }
 }
 
-function* generalmngrsSaga() {
-  yield takeEvery(GET_GENERALMNGRS, fetchGeneralmngrs)
-  yield takeEvery(GET_GENERALMNGR_DETAIL, fetchGeneralmngrDetail)
-  yield takeEvery(CREATE_GENERALMNGR, onCreateGeneralmngr)
-  yield takeEvery(UPDATE_GENERALMNGR, onUpdateGeneralmngr)
-  yield takeEvery(DELETE_GENERALMNGR, onDeleteGeneralmngr)
+function* onDeleteGm({ gmId, history }) {
+  try {
+    const response = yield call(deleteGmApi, gmId)
+    yield put(deleteGeneralManagerSuccess(response))
+    history.push("/generalmanagers")
+  } catch (error) {
+    yield put(deleteGeneralManagerFail(error))
+  }
 }
 
-export default generalmngrsSaga
+function* generalmngrSaga() {
+  yield takeEvery(GET_GEN_MANAGERS, fetchGms)
+  yield takeEvery(GET_GEN_MANAGER_DETAIL, fetchGMDetail)
+  yield takeEvery(CREATE_GEN_MANAGER, onCreateGm)
+  yield takeEvery(UPDATE_GEN_MANAGER, onUpdateGm)
+  yield takeEvery(DELETE_GEN_MANAGER, onDeleteGm)
+}
+
+export default generalmngrSaga

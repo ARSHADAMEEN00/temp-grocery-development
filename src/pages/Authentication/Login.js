@@ -1,9 +1,8 @@
-import PropTypes from "prop-types"
-import MetaTags from "react-meta-tags"
 import React, { useEffect, useState } from "react"
-import { withRouter, Link } from "react-router-dom"
-
-import { Row, Col, CardBody, Card, Alert, Container } from "reactstrap"
+import MetaTags from 'react-meta-tags';
+import { Link } from "react-router-dom"
+import { Col, Container, Form, Row, Input, Alert } from "reactstrap"
+import PropTypes from "prop-types"
 
 //redux
 import { useSelector, useDispatch } from "react-redux"
@@ -15,10 +14,10 @@ import { AvForm, AvField } from "availity-reactstrap-validation"
 import { loginUser, apiError } from "../../store/actions"
 
 // import images
-import profile from "assets/images/profile-img.png"
 import logo from "assets/images/logo/Indtech_oa.png"
 
 import { Notification } from "../../components/Common/Notification"
+import LoginDetails from "./LoginDetails";
 
 import "toastr/build/toastr.min.css"
 
@@ -49,116 +48,119 @@ const Login = ({ history }) => {
       history.push("/dashboard")
     }
   }, [user])
-
   return (
     <React.Fragment>
-      <MetaTags>
-        <title>Login | Indtech </title>
-      </MetaTags>
+      <div>
+        <MetaTags>
+          <title>Login | Indtech </title>
+        </MetaTags>
+        <Container fluid className="p-0">
+          <Row className="g-0">
+            <LoginDetails />
 
-      <div className="home-btn d-none d-sm-block">
-        <Link to="/" className="text-dark">
-          <i className="fas fa-home h2" />
-        </Link>
-      </div>
-      <div className="account-pages my-5 pt-sm-5">
-        <Container>
-          <Row className="justify-content-center">
-            <Col md={8} lg={6} xl={5}>
-              <Card className="overflow-hidden">
-                <div className="bg-primary bg-soft">
-                  <Row>
-                    <Col xs={7}>
-                      <div className="text-primary p-4">
+
+            <Col xl={4}>
+              <div className="auth-full-page-content p-md-5 p-4">
+                <div className="w-100">
+                  <div className="d-flex flex-column h-100">
+                    <div className="mb-4 mb-md-5">
+                      <Link to="/dashboard" className="d-block auth-logo">
+                        <img
+                          src={logo}
+                          alt=""
+                          height="18"
+                          className="auth-logo-dark"
+                        />
+                        <img
+                          src={logo}
+                          alt=""
+                          height="18"
+                          className="auth-logo-light"
+                        />
+                      </Link>
+                    </div>
+                    <div className="my-auto">
+                      <div>
                         <h5 className="text-primary">Welcome Back !</h5>
-                        <p>Sign in to continue</p>
-                      </div>
-                    </Col>
-                    <Col className="col-5 align-self-end">
-                      <img src={profile} alt="" className="img-fluid" />
-                    </Col>
-                  </Row>
-                </div>
-                <CardBody className="pt-0">
-                  <div>
-                    <Link to="/" className="auth-logo-light">
-                      <div className="avatar-md profile-user-wid mb-4">
-                        <span className="avatar-title rounded-circle bg-light">
-                          <img src={logo} alt="" className="" height="20" />
-                        </span>
-                      </div>
-                    </Link>
-                  </div>
-                  <div className="p-2">
-                    <AvForm
-                      className="form-horizontal"
-                      onValidSubmit={(e, v) => {
-                        handleValidSubmit(v)
-                      }}
-                    >
-                      {error ? <Alert color="danger">{error}</Alert> : null}
+                        <p className="text-muted">Sign in to continue</p>
 
-                      <div className="mb-3">
-                        <AvField
-                          name="username"
-                          label="Username"
-                          // value="admin@themesbrand.com"
-                          className="form-control"
-                          placeholder="Enter username"
-                          type="text"
-                          required
-                        />
                       </div>
 
-                      <div className="mb-3">
-                        <AvField
-                          name="password"
-                          label="Password"
-                          type={`${toggleShow == true ? "text" : "password"}`}
-                          required
-                          placeholder="Enter Password"
-                          title="click to show passwoard"
-                          className="position-relative"
-                        />
-
-                        <input
-                          type="checkbox"
-                          checked={toggleShow ? true : false}
-                          className="mt-2"
-                          onClick={() => setToggleShow(!toggleShow)}
-                        />
-                        <label className="mx-2 ">Show password</label>
-                      </div>
-
-                      <div className="mt-3 d-grid">
-                        <button
-                          className="btn btn-primary btn-block"
-                          type="submit"
+                      <div className="mt-4">
+                        <AvForm
+                          className="form-horizontal"
+                          onValidSubmit={(e, v) => {
+                            handleValidSubmit(v)
+                          }}
                         >
-                          {loading && (
-                            <>
-                              <i className="bx bx-loader bx-spin font-size-16 align-middle me-2"></i>
-                            </>
-                          )}
-                          Log In
-                        </button>
-                      </div>
+                          {error ? <Alert color="danger">{error}</Alert> : null}
 
-                      <div className="mt-4 text-center">
-                        <Link to="/forgot-password" className="text-muted">
-                          <i className="mdi mdi-lock me-1" />
-                          Forgot your password?
-                        </Link>
+                          <div className="mb-3">
+                            <AvField
+                              name="username"
+                              label="Username"
+                              // value="admin@themesbrand.com"
+                              className="form-control"
+                              placeholder="Enter username"
+                              type="text"
+                              required
+                            />
+                          </div>
+
+                          <div className="mb-3">
+                            <AvField
+                              name="password"
+                              label="Password"
+                              type={`${toggleShow == true ? "text" : "password"}`}
+                              required
+                              placeholder="Enter Password"
+                              title="click to show passwoard"
+                              className="position-relative"
+                            />
+
+                            <input
+                              type="checkbox"
+                              checked={toggleShow ? true : false}
+                              className="mt-2"
+                              onClick={() => setToggleShow(!toggleShow)}
+                            />
+                            <label className="mx-2 ">Show password</label>
+                          </div>
+
+                          <div className="mt-3 d-grid">
+                            <button
+                              className="btn btn-primary btn-block"
+                              type="submit"
+                            >
+                              {loading && (
+                                <>
+                                  <i className="bx bx-loader bx-spin font-size-16 align-middle me-2"></i>
+                                </>
+                              )}
+                              Log In
+                            </button>
+                          </div>
+
+                          <div className="mt-4 text-center">
+                            <Link to="/forgot-password" className="text-muted">
+                              <i className="mdi mdi-lock me-1" />
+                              Forgot your password?
+                            </Link>
+                          </div>
+                        </AvForm>
                       </div>
-                    </AvForm>
+                    </div>
+
+                    <div className="mt-4 mt-md-5 text-center">
+                      <p>
+                        © {new Date().getFullYear()} Indtech. All Rights Reserved |
+                        Developed by <a style={{ color: "#1781BB" }} href="https://osperb.com/">
+                          Osperb
+                        </a>
+                      </p>
+                    </div>
                   </div>
-                </CardBody>
-              </Card>
-              <div className="mt-5 text-center">
-                <p>
-                  © {new Date().getFullYear()} Indtech. All Rights Reserved |
-                  Developed by osperb
-                </p>
+                </div>
               </div>
             </Col>
           </Row>
@@ -168,7 +170,7 @@ const Login = ({ history }) => {
   )
 }
 
-export default withRouter(Login)
+export default Login
 
 Login.propTypes = {
   history: PropTypes.object,

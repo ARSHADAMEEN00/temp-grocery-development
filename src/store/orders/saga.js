@@ -8,6 +8,9 @@ import {
   CREATE_ORDER,
   DELETE_ORDER,
   UPDATE_ORDER_ITEM,
+  GET_QUOTATIONS,
+  CREATE_QUOTATION,
+  GET_QPRODUCTPRICE
 } from "./actionTypes"
 import {
   getOrdersSuccess,
@@ -20,6 +23,11 @@ import {
   updateOrderFail,
   deleteOrderSuccess,
   deleteOrderFail,
+  getQuotationsSuccess,
+  getQuotationsFail,
+  createQuatationFail,
+  createQuatationSuccess,
+  getQProductPriceFail,
 } from "./actions"
 import { get, post, ApiPut, del, patch } from "helpers/api_methods"
 import { updateOrderItemFail, updateOrderItemSuccess } from "store/actions"
@@ -31,6 +39,22 @@ function getOrdersAPi({ searchText, page }) {
     return get(`/order/order/?page=${page ? page : 1}`)
   }
 }
+function getQuotationsAPi({ searchText, page }) {
+  if (searchText) {
+    return get(`/quotation/quotation/?search=${searchText && searchText}`)
+  } else {
+    return get(`/quotation/quotation/?page=${page ? page : 1}`)
+  }
+}
+
+const getQProductPriceAPi = ({ prodId }) => {
+  return post(`/store/product-cost-id/`, { id: prodId })
+}
+const createQuotationApi = ({ quatation }) => {
+  console.log(quatation);
+  return post("/quotation/quotation/", quatation)
+}
+
 const getOrderDetailsAPi = orderId => {
   return get(`/order/order/${orderId}/`)
 }
@@ -49,6 +73,37 @@ const updateOrderItemApi = ({ order, orderItemId }) => {
 }
 const deleteOrderApi = orderId => {
   return del(`/order/order/${orderId}/`)
+}
+
+function* fetchQProductPrice({ payload }) {
+  console.log("sdgrjgbfwsjbj");
+  try {
+    const response = yield call(getQProductPriceAPi, payload)
+    yield put(getQProductPriceSuccess(response))
+    console.log("price");
+    console.log(response);
+  } catch (error) {
+    yield put(getQProductPriceFail(error))
+  }
+}
+
+function* fetchQuotations({ payload }) {
+  try {
+    const response = yield call(getQuotationsAPi, payload)
+    yield put(getQuotationsSuccess(response))
+  } catch (error) {
+    yield put(getQuotationsFail(error))
+  }
+}
+
+function* onCreateQuotation({ payload }) {
+  try {
+    const response = yield call(createQuotationApi, payload)
+    yield put(createQuatationSuccess(response))
+    payload.history.push("/quotations")
+  } catch (error) {
+    yield put(createQuatationFail(error))
+  }
 }
 
 function* fetchOrders({ payload }) {
@@ -121,6 +176,9 @@ function* ordersSaga() {
   yield takeEvery(UPDATE_ORDER, onUpdateOrder)
   yield takeEvery(DELETE_ORDER, onDeleteOrder)
   yield takeEvery(UPDATE_ORDER_ITEM, onUpdateOrderItem)
+  yield takeEvery(GET_QUOTATIONS, fetchQuotations)
+  yield takeEvery(CREATE_QUOTATION, onCreateQuotation)
+  yield takeEvery(GET_QPRODUCTPRICE, fetchQProductPrice)
 }
 
 export default ordersSaga

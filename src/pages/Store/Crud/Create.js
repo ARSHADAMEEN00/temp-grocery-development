@@ -122,7 +122,7 @@ const CreateStore = ({ history }) => {
                         <Col sm={9}>
                           <AvField
                             name="stock"
-                            type="number"
+                            type="number" min={0}
                             className="form-control"
                             id="horizontal-location-Input"
                             required
@@ -139,7 +139,7 @@ const CreateStore = ({ history }) => {
                         <Col sm={9}>
                           <AvField
                             name="price"
-                            type="number"
+                            type="number" min={0}
                             className="form-control"
                             id="horizontal-profit-Input"
                             required

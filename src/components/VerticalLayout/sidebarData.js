@@ -53,15 +53,28 @@ function sidebardata() {
       ],
     },
     {
-      heading: "Orders",
+      heading: "Work Orders",
       badgeClass: "danger",
       badgeValue: "",
       iconClass: "cart-alt",
       subTitles: [
-        { title: "All Orders", routeLink: "/orders" },
+        { title: "All Work Orders", routeLink: "/orders" },
         {
-          title: "Create Order",
+          title: "Create Work Order",
           routeLink: "/order/create",
+        },
+      ],
+    },
+    {
+      heading: "Quotations",
+      badgeClass: "danger",
+      badgeValue: "",
+      iconClass: "report",
+      subTitles: [
+        { title: "All Quotations", routeLink: "/quotations" },
+        {
+          title: "Create Quotation",
+          routeLink: "/quotation/create",
         },
       ],
     },
@@ -78,6 +91,19 @@ function sidebardata() {
         {
           title: "Add Finished Product",
           routeLink: "/product/finished?create",
+        },
+      ],
+    },
+    {
+      heading: "Clients",
+      badgeClass: "danger",
+      badgeValue: "",
+      iconClass: "group",
+      subTitles: [
+        { title: "All Clients", routeLink: "/clients" },
+        {
+          title: "Create Clients",
+          routeLink: "/client/create",
         },
       ],
     },
@@ -108,34 +134,6 @@ function sidebardata() {
         {
           title: "Create Product",
           routeLink: "/product/create",
-        },
-      ],
-    },
-
-    {
-      heading: "Supervisor",
-      badgeClass: "",
-      badgeValue: "",
-      iconClass: "user",
-      subTitles: [
-        { title: "All Supervisor", routeLink: "/supervisors" },
-        { title: "Daily Works", routeLink: "/supervisor/dailywork" },
-        {
-          title: "Create Supervisor",
-          routeLink: "/supervisor/create",
-        },
-      ],
-    },
-    {
-      heading: "Dealers",
-      badgeClass: "",
-      badgeValue: "",
-      iconClass: "analyse",
-      subTitles: [
-        { title: "All Dealers", routeLink: "/dealers" },
-        {
-          title: "Create Dealers",
-          routeLink: "/dealer/create",
         },
       ],
     },

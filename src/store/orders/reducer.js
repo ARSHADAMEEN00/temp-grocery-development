@@ -11,12 +11,21 @@ import {
   GET_ORDER_DETAIL,
   GET_ORDER_DETAIL_FAIL,
   GET_ORDER_DETAIL_SUCCESS,
+  GET_QUOTATIONS,
+  GET_QUOTATIONS_FAIL,
+  GET_QUOTATIONS_SUCCESS,
   UPDATE_ORDER,
   UPDATE_ORDER_FAIL,
   UPDATE_ORDER_ITEM,
   UPDATE_ORDER_ITEM_FAIL,
   UPDATE_ORDER_ITEM_SUCCESS,
   UPDATE_ORDER_SUCCESS,
+  CREATE_QUOTATION,
+  CREATE_QUOTATION_SUCCESS,
+  CREATE_QUOTATION_FAIL,
+  GET_QPRODUCTPRICE,
+  GET_QPRODUCTPRICE_SUCCESS,
+  GET_QPRODUCTPRICE_FAIL
 } from "./actionTypes"
 
 const INIT_STATE = {
@@ -31,10 +40,14 @@ const INIT_STATE = {
     status: "",
     orderitem: [],
   },
+  quotation: [],
+  QProductPrice: '',
   error: {},
   loading: false,
   orderitemLoading: false,
   createOrdererror: null,
+  quotationLoading: false,
+  QProductPriceLoading: false
 }
 
 const Orders = (state = INIT_STATE, action) => {
@@ -149,6 +162,55 @@ const Orders = (state = INIT_STATE, action) => {
         ...state,
         error: action.payload,
         orderitemLoading: false,
+      }
+    case GET_QUOTATIONS:
+    case CREATE_QUOTATION:
+      return {
+        ...state,
+        quotationLoading: true
+      }
+    case GET_QUOTATIONS_SUCCESS:
+      return {
+        ...state,
+        quotation: action.payload,
+        quotationLoading: false
+      }
+    case GET_QUOTATIONS_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+        quotationLoading: false
+      }
+    case CREATE_QUOTATION_SUCCESS:
+      return {
+        ...state,
+        quotation: action.payload,
+        quotationLoading: false,
+      }
+
+    case CREATE_QUOTATION_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+        quotationLoading: false,
+      }
+    case GET_QPRODUCTPRICE:
+      return {
+        ...state,
+        QProductPriceLoading: true
+      }
+    case GET_QPRODUCTPRICE_SUCCESS:
+      return {
+        ...state,
+        QProductPrice: action.payload,
+        QProductPriceLoading: false
+      }
+    case GET_QPRODUCTPRICE_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+        QProductPriceLoading: false
+
       }
 
     default:

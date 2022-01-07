@@ -22,6 +22,11 @@ const ProfileMenu = props => {
 
   const Roll = sessionStorage.getItem("role")
 
+  const handleLogout = async () => {
+    sessionStorage.clear("token")
+    window.location.reload(false);
+  }
+
   return (
     <React.Fragment>
       <Dropdown
@@ -61,8 +66,12 @@ const ProfileMenu = props => {
           <div className="dropdown-divider" />
           <Link to="/logout" className="dropdown-item">
             <i className="bx bx-power-off font-size-16 align-middle me-1 text-danger" />
-            <span>{props.t("Logout")}</span>
+            <span>{props.t("Logout All Devices")}</span>
           </Link>
+          <span className="dropdown-item" style={{ cursor: "pointer" }} onClick={handleLogout}>
+            <i className="bx bx-power-off font-size-16 align-middle me-1 text-danger" />
+            <span>{props.t("Logout On This Device")}</span>
+          </span>
         </DropdownMenu>
       </Dropdown>
     </React.Fragment>

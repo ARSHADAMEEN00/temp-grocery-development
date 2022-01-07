@@ -1,24 +1,24 @@
 import {
-  GET_GENERALMNGRS_SUCCESS,
-  GET_GENERALMNGRS_FAIL,
-  GET_GENERALMNGR_DETAIL_SUCCESS,
-  GET_GENERALMNGR_DETAIL_FAIL,
-  CREATE_GENERALMNGR_SUCCESS,
-  CREATE_GENERALMNGR_FAIL,
-  UPDATE_GENERALMNGR_SUCCESS,
-  UPDATE_GENERALMNGR_FAIL,
-  DELETE_GENERALMNGR_SUCCESS,
-  DELETE_GENERALMNGR_FAIL,
-  GET_GENERALMNGRS,
-  GET_GENERALMNGR_DETAIL,
-  UPDATE_GENERALMNGR,
-  CREATE_GENERALMNGR,
-  DELETE_GENERALMNGR,
+  GET_GEN_MANAGERS_SUCCESS,
+  GET_GEN_MANAGERS_FAIL,
+  GET_GEN_MANAGER_DETAIL_SUCCESS,
+  GET_GEN_MANAGER_DETAIL_FAIL,
+  CREATE_GEN_MANAGER_SUCCESS,
+  CREATE_GEN_MANAGER_FAIL,
+  UPDATE_GEN_MANAGER_SUCCESS,
+  UPDATE_GEN_MANAGER_FAIL,
+  DELETE_GEN_MANAGER_SUCCESS,
+  DELETE_GEN_MANAGER_FAIL,
+  GET_GEN_MANAGERS,
+  GET_GEN_MANAGER_DETAIL,
+  UPDATE_GEN_MANAGER,
+  CREATE_GEN_MANAGER,
+  DELETE_GEN_MANAGER,
 } from "./actionTypes"
 
 const INIT_STATE = {
-  generalmngrs: [],
-  generalmngrDetail: {
+  GeneralManagers: [],
+  GMDetail: {
     location: "",
     profit: "",
     account: {
@@ -33,61 +33,60 @@ const INIT_STATE = {
   error: {},
   loading: false,
   detailLoading: false,
-  // creategeneralmngrerror: "",
 }
 
-const Generalmngrs = (state = INIT_STATE, action) => {
+const GeneralManagers = (state = INIT_STATE, action) => {
   switch (action.type) {
-    case GET_GENERALMNGRS:
-    case UPDATE_GENERALMNGR:
-    case CREATE_GENERALMNGR:
-    case DELETE_GENERALMNGR:
+    case GET_GEN_MANAGERS:
+    case UPDATE_GEN_MANAGER:
+    case CREATE_GEN_MANAGER:
+    case DELETE_GEN_MANAGER:
       return {
         ...state,
         loading: true,
       }
-    case GET_GENERALMNGR_DETAIL:
+    case GET_GEN_MANAGER_DETAIL:
       return {
         ...state,
         loading: true,
         detailLoading: true,
       }
-    case GET_GENERALMNGRS_SUCCESS:
+    case GET_GEN_MANAGERS_SUCCESS:
       return {
         ...state,
-        generalmngrs: action.payload,
+        GeneralManagers: action.payload,
         loading: false,
       }
 
-    case GET_GENERALMNGRS_FAIL:
+    case GET_GEN_MANAGERS_FAIL:
       return {
         ...state,
         error: action.payload,
         loading: false,
       }
-    case CREATE_GENERALMNGR_SUCCESS:
+    case CREATE_GEN_MANAGER_SUCCESS:
       return {
         ...state,
-        generalmngrs: action.payload,
+        GeneralManagers: action.payload,
         loading: false,
       }
 
-    case CREATE_GENERALMNGR_FAIL:
+    case CREATE_GEN_MANAGER_FAIL:
       return {
         ...state,
         error: action.payload,
         loading: false,
       }
 
-    case GET_GENERALMNGR_DETAIL_SUCCESS:
+    case GET_GEN_MANAGER_DETAIL_SUCCESS:
       return {
         ...state,
-        generalmngrDetail: action.payload,
+        GMDetail: action.payload,
         loading: false,
         detailLoading: false,
       }
 
-    case GET_GENERALMNGR_DETAIL_FAIL:
+    case GET_GEN_MANAGER_DETAIL_FAIL:
       return {
         ...state,
         error: action.payload,
@@ -95,35 +94,34 @@ const Generalmngrs = (state = INIT_STATE, action) => {
         detailLoading: false,
       }
 
-    case UPDATE_GENERALMNGR_SUCCESS:
+    case UPDATE_GEN_MANAGER_SUCCESS:
       return {
         ...state,
-        generalmngrs: state.generalmngrs.map(generalmngr =>
-          generalmngr.id.toString() === action.payload.id.toString()
-            ? { generalmngr, ...action.payload }
-            : generalmngr
+        GeneralManagers: state.GeneralManagers.map(gm =>
+          gm.id.toString() === action.payload.id.toString()
+            ? { gm, ...action.payload }
+            : gm
         ),
         loading: false,
       }
 
-    case UPDATE_GENERALMNGR_FAIL:
+    case UPDATE_GEN_MANAGER_FAIL:
       return {
         ...state,
         error: action.payload,
         loading: false,
       }
 
-    case DELETE_GENERALMNGR_SUCCESS:
+    case DELETE_GEN_MANAGER_SUCCESS:
       return {
         ...state,
-        generalmngrs: state.generalmngrs.filter(
-          generalmngr =>
-            generalmngr.id.toString() !== action.payload.id.toString()
+        GeneralManagers: state.GeneralManagers.filter(
+          gm => gm.id.toString() !== action.payload.id.toString()
         ),
         loading: false,
       }
 
-    case DELETE_GENERALMNGR_FAIL:
+    case DELETE_GEN_MANAGER_FAIL:
       return {
         ...state,
         error: action.payload,
@@ -135,4 +133,4 @@ const Generalmngrs = (state = INIT_STATE, action) => {
   }
 }
 
-export default Generalmngrs
+export default GeneralManagers

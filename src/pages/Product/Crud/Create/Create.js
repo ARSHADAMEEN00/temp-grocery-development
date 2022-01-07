@@ -60,11 +60,11 @@ const CreateProduct = () => {
 
   const handleSubmit = e => {
     e.preventDefault()
-
+    dispatch(createProduct())
     // dispatch(createProduct(state))
 
     const form_data = new FormData()
-    form_data.append("image", state.image, state.image.name)
+    { state?.image?.name && form_data.append("image", state?.image, state?.image?.name) }
     form_data.append("name", state.name)
     form_data.append("no_of_cols", state.no_of_cols)
     form_data.append("profit", state.profit)
@@ -154,7 +154,7 @@ const CreateProduct = () => {
                   name="no_of_cols"
                   className="form-control"
                   id="no_of_cols"
-                  type="number"
+                  type="number" min={0}
                   required
                   value={state.no_of_cols}
                   onChange={handleChange}
@@ -169,7 +169,7 @@ const CreateProduct = () => {
               <Col sm={9}>
                 <input
                   name="profit"
-                  type="number"
+                  type="number" min={0}
                   className="form-control"
                   id="profit"
                   value={state.profit}
