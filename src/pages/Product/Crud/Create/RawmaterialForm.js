@@ -100,12 +100,75 @@ function RawmaterialForm(myDisabled) {
 
   return (
     <>
-      {/* succesfully uploaded */}
 
-      {newRawMaterials.length > 0 && (
-        <Row>
-          <Col xl="1"></Col>
-          <Col lg={10}>
+      <Row>
+        <Col lg={6}>
+          <Card>
+            <CardBody>
+              <CardTitle className="h4 mb-4">Add Raw Materials</CardTitle>
+
+              <AvForm className="repeater" encType="multipart/form-data">
+                <div>
+                  <Row>
+
+
+                    <Col lg={6} className="mb-3">
+                      <FormGroup className="mb-3">
+                        <Label>Store item</Label>
+
+                        <div className="col-md-12"></div>
+                        <div className="mb-3 ajax-select mt-3 mt-lg-0 select2-container">
+                          <Select
+                            onInputChange={handleEnters}
+                            value={selectedStore}
+                            placeholder={selectedStore}
+                            onChange={handlerFinalValue}
+                            options={optionGroup1}
+                            classNamePrefix="select2-selection"
+                            isLoading={true}
+                          />
+                        </div>
+                      </FormGroup>
+                    </Col>
+
+                    <Col lg={3} className="mb-3">
+                      <label htmlFor="resume">Quantity</label>
+                      <AvField
+                        name="quantity"
+                        type="number" min={0}
+                        className="form-control"
+                        id="resume"
+                        value={rawData.quantity}
+                        onChange={e =>
+                          setRawData({
+                            ...rawData,
+                            ["quantity"]: e.target.value,
+                          })
+                        }
+                        required
+                      />
+                    </Col>
+                    <Col lg={3}>
+                      <input
+                        type="button"
+                        className="btn btn-dark mt-4 mr-lg-0 "
+                        value="Add New"
+                        style={{
+                          pointerEvents:
+                            myDisabled.myDisabled === true && "none",
+                        }}
+                        onClick={() => onAddFormRow()}
+                      />
+                      <i className=""></i>
+                    </Col>
+                  </Row>
+                </div>
+              </AvForm>
+            </CardBody>
+          </Card>
+        </Col>
+        {newRawMaterials.length > 0 && (
+          <Col lg={6}>
             <Card>
               <CardBody>
                 <CardTitle className="h4 mb-4">
@@ -154,81 +217,9 @@ function RawmaterialForm(myDisabled) {
               </CardBody>
             </Card>
           </Col>
-          <Col xl="1"></Col>
-        </Row>
-      )}
-
-      {/* uploading */}
-      <Row>
-        <Col xl="1"></Col>
-        <Col lg={10}>
-          <Card>
-            <CardBody>
-              <CardTitle className="h4 mb-4">Add Raw Materials</CardTitle>
-
-              <AvForm className="repeater" encType="multipart/form-data">
-                <div>
-                  <Row>
-                    <Col lg={3} className="mb-3">
-                      <label htmlFor="name">Raw Material:</label>
-                    </Col>
-
-                    <Col lg={3} className="mb-3">
-                      <FormGroup className="mb-3">
-                        <Label>Store item</Label>
-
-                        <div className="col-md-12"></div>
-                        <div className="mb-3 ajax-select mt-3 mt-lg-0 select2-container">
-                          <Select
-                            onInputChange={handleEnters}
-                            value={selectedStore}
-                            placeholder={selectedStore}
-                            onChange={handlerFinalValue}
-                            options={optionGroup1}
-                            classNamePrefix="select2-selection"
-                            isLoading={true}
-                          />
-                        </div>
-                      </FormGroup>
-                    </Col>
-
-                    <Col lg={3} className="mb-3">
-                      <label htmlFor="resume">Quantity</label>
-                      <AvField
-                        name="quantity"
-                        type="number" min={0}
-                        className="form-control"
-                        id="resume"
-                        value={rawData.quantity}
-                        onChange={e =>
-                          setRawData({
-                            ...rawData,
-                            ["quantity"]: e.target.value,
-                          })
-                        }
-                        required
-                      />
-                    </Col>
-                    <Col lg={3}>
-                      <input
-                        type="button"
-                        className="btn btn-dark mt-4 mr-lg-0 "
-                        value="Add New"
-                        style={{
-                          pointerEvents:
-                            myDisabled.myDisabled === true && "none",
-                        }}
-                        onClick={() => onAddFormRow()}
-                      />
-                    </Col>
-                  </Row>
-                </div>
-              </AvForm>
-            </CardBody>
-          </Card>
-        </Col>
-        <Col xl="1"></Col>
+        )}
       </Row>
+
     </>
   )
 }

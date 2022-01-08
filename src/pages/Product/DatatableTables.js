@@ -164,11 +164,13 @@ const Products = () => {
                           </Col>
                         </Row>
                         <MyPagination
-                          // onNextClick={() => setPage(page + 1)}
-                          // onPrevClick={() => setPage(page - 1)} 
-                          onNunClick={(item) => setPage(item)}
                           pages={pages}
                           clcickedPage={page}
+                          onNunClick={(item) => setPage(item)}
+                          onNextClick={() => setPage(page + 1)}
+                          onPrevClick={() => setPage(page - 1)}
+                          onFastNextClick={() => setPage(pages.length)}
+                          onFastPrevClick={() => setPage(1)}
                           apiPage={pageSend}
                         />
                       </>

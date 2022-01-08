@@ -61,7 +61,6 @@ const CreateProduct = () => {
   const handleSubmit = e => {
     e.preventDefault()
     dispatch(createProduct())
-    // dispatch(createProduct(state))
 
     const form_data = new FormData()
     { state?.image?.name && form_data.append("image", state?.image, state?.image?.name) }
@@ -97,9 +96,7 @@ const CreateProduct = () => {
         <Container fluid>
           <div className="container-fluid">
             <Row>
-              <Col xl="1"></Col>
-              <Col lg={10}>{ProductForm()}</Col>
-              <Col xl="1"></Col>
+              <Col lg={12}>{ProductForm()}</Col>
             </Row>
           </div>
           {btnDisabled == false && (

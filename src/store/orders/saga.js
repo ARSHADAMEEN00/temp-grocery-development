@@ -28,6 +28,7 @@ import {
   createQuatationFail,
   createQuatationSuccess,
   getQProductPriceFail,
+  getQProductPriceSuccess,
 } from "./actions"
 import { get, post, ApiPut, del, patch } from "helpers/api_methods"
 import { updateOrderItemFail, updateOrderItemSuccess } from "store/actions"
@@ -47,12 +48,9 @@ function getQuotationsAPi({ searchText, page }) {
   }
 }
 
-const getQProductPriceAPi = ({ prodId }) => {
-  return post(`/store/product-cost-id/`, { id: prodId })
-}
-const createQuotationApi = ({ quatation }) => {
-  console.log(quatation);
-  return post("/quotation/quotation/", quatation)
+
+const createQuotationApi = ({ Quatation }) => {
+  return post("/quotation/quotation/", Quatation)
 }
 
 const getOrderDetailsAPi = orderId => {
@@ -75,13 +73,14 @@ const deleteOrderApi = orderId => {
   return del(`/order/order/${orderId}/`)
 }
 
+const getQProductPriceAPi = ({ prodId }) => {
+  return post(`/store/product-cost-id/`, { id: prodId })
+}
+
 function* fetchQProductPrice({ payload }) {
-  console.log("sdgrjgbfwsjbj");
   try {
     const response = yield call(getQProductPriceAPi, payload)
     yield put(getQProductPriceSuccess(response))
-    console.log("price");
-    console.log(response);
   } catch (error) {
     yield put(getQProductPriceFail(error))
   }
@@ -100,7 +99,7 @@ function* onCreateQuotation({ payload }) {
   try {
     const response = yield call(createQuotationApi, payload)
     yield put(createQuatationSuccess(response))
-    payload.history.push("/quotations")
+    // payload.history.push("/quotations")
   } catch (error) {
     yield put(createQuatationFail(error))
   }

@@ -41,7 +41,8 @@ const INIT_STATE = {
     orderitem: [],
   },
   quotation: [],
-  QProductPrice: '',
+  quotationCurd: {},
+  QProductPrice: {},
   error: {},
   loading: false,
   orderitemLoading: false,
@@ -185,7 +186,9 @@ const Orders = (state = INIT_STATE, action) => {
       return {
         ...state,
         quotation: action.payload,
+        quotationCurd: action.payload,
         quotationLoading: false,
+        QProductPrice: {}
       }
 
     case CREATE_QUOTATION_FAIL:

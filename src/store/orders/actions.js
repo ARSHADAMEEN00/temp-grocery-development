@@ -33,7 +33,7 @@ export const getQProductPrice = (prodId) => ({
   payload: { prodId }
 })
 
-export const getQProductPriceSuccess = qProdPrice => ({
+export const getQProductPriceSuccess = (qProdPrice) => ({
   type: GET_QPRODUCTPRICE_SUCCESS,
   payload: qProdPrice,
 })

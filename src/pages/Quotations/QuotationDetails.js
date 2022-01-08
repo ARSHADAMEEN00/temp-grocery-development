@@ -159,7 +159,7 @@ function QuotationDetails({ QDetails }) {
                   <Row className="task-dates">
                     <Col sm="8" xs='6' lg="10">
                       <Media className="overflow-hidden" body>
-                        <h5 className="text-truncate font-size-15">{QDetails?.date}</h5>
+                        <h5 className="text-truncate font-size-14">{moment(QDetails?.date_added).format("YYYY/MM/DD")}</h5>
                         <p className="text-muted">{QDetails?.client_name}</p>
                       </Media>
                     </Col>
@@ -179,35 +179,38 @@ function QuotationDetails({ QDetails }) {
                   </Row>
                 </Media>
 
-                <div className="text-muted mt-1">
+                <div className="text-muted mt-4">
                   <h4 className="font-size-14 text-muted mb-3">Quotation Items :</h4>
-                  {map(QDetails?.quotationitem, (Qitem, index) => (<>
-                    <div className="mb-3">
-                      <p key={index} className="mb-2 ">
-                        <i className="mdi mdi-chevron-right text-primary me-1" />
-                        Product Name :{" "}
-                        <span className="text-dark ">
-                          {Qitem?.product_name}
-                        </span>
-                      </p>
-                      <p className="mx-3">
-                        Price :
-                        <span className="text-info mx-2 font-size-16">
-                          <i className="bx bx-rupee" />
-                          {Qitem?.price}
-                        </span>
-                      </p>
-                    </div>
 
-                  </>
-                  ))}
+                  {QDetails?.quotationitem ?
+                    <>
+                      {map(QDetails?.quotationitem, (Qitem, index) => (<>
+                        <div className="mb-3">
+                          <p key={index} className="mb-2 ">
+                            <i className="mdi mdi-chevron-right text-primary me-1" />
+                            {/* Product Name :{" "} */}
+                            <span className="text-dark">
+                              {Qitem?.product_name}
+                            </span>
+                          </p>
+                          <p className="mx-3">
+                            Price :
+                            <span className="text-success mx-2 font-size-16">
+                              <i className="bx bx-rupee" />
+                              {Qitem?.price}
+                            </span>
+                          </p>
+                        </div>
+                      </>
+
+                      ))}</> : <p className="text-info">No Quatation Items</p>}
                 </div>
 
-                <CardTitle className="mb-4 font-size-14 text-muted mt-4">Update Status</CardTitle>
+                {/* <CardTitle className="mb-1 font-size-14 text-muted mt-4">Update Status</CardTitle>
                 {error?.response && (
                   <Alert color="danger">{error?.response}</Alert>
                 )}
-                <div className="mb-3 ajax-select mt-3 mt-lg-0 select2-container">
+                <div className="mb-3 ajax-select mt-2 mt-lg-0 select2-container">
                   {map(statusList(), (item, index) => (
                     <Button
                       key={index}
@@ -221,7 +224,7 @@ function QuotationDetails({ QDetails }) {
                       {item.text}
                     </Button>
                   ))}
-                </div>
+                </div> */}
               </>
             )}
 

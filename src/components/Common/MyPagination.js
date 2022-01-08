@@ -1,27 +1,22 @@
 import { map, range } from "lodash";
 import PropTypes from "prop-types"
-import React, { useEffect } from "react"
-import { Col, Modal, ModalBody, Row } from "reactstrap"
+import React from "react"
+import { Col, Row } from "reactstrap"
 
-const MyPagination = ({ pages, clcickedPage, onNunClick, onNextClick, onPrevClick, apiPage }) => {
+const MyPagination = ({ pages, clcickedPage, onNunClick, onNextClick, onPrevClick, apiPage, onFastPrevClick, onFastNextClick }) => {
 
-    console.log("clcickedPage", clcickedPage);
-    console.log(pages);
-    useEffect(() => {
 
-        const allPages = () => {
-            if (pages.length < 3) {
-                return pages
-            } else if (clcickedPage >= pages.length) {
-                return range(clcickedPage - 4, clcickedPage)
-            } else if (clcickedPage < 2) {
-                return range(clcickedPage, clcickedPage + 4)
-            } else {
-                return range(clcickedPage - 2, clcickedPage + 2)
-            }
+    const allPages = () => {
+        if (pages.length < 3) {
+            return pages
+        } else if (clcickedPage > pages.length) {
+            return range(clcickedPage - 4, clcickedPage)
+        } else if (clcickedPage < 2) {
+            return range(clcickedPage, clcickedPage + 4)
+        } else {
+            return range(clcickedPage - 2, clcickedPage + 2)
         }
-    }, [])
-    // const allPages = () => [1, 2, 3]
+    }
 
     return (
         <Row
@@ -34,9 +29,28 @@ const MyPagination = ({ pages, clcickedPage, onNunClick, onNextClick, onPrevClic
                   "
             >
                 <div className="text-md-right ms-auto overflowScroll">
-                    {/* {clcickedPage <= 1 ? (
+
+
+
+                    {clcickedPage <= 1 ? (
                         <></>
-                    ) : (
+                    ) : (<>
+                        <div
+                            className="btn-group"
+                            role="group"
+                            aria-label="Third group"
+                        >
+                            <span
+                                className="btn btn-outline-light text-info font-size-17"
+                                style={{
+                                    borderRadius: "50%",
+                                    border: "none",
+                                }}
+                                onClick={onFastPrevClick}
+                            >
+                                <i className="bx bx-chevrons-left"></i>
+                            </span>
+                        </div>
                         <div
                             className="btn-group me-0 "
                             role="group"
@@ -53,7 +67,8 @@ const MyPagination = ({ pages, clcickedPage, onNunClick, onNextClick, onPrevClic
                                 <i className="fas fa-angle-left"></i>
                             </span>
                         </div>
-                    )} */}
+                    </>
+                    )}
                     <div
                         className="btn-group me-2 "
                         role="group"
@@ -63,7 +78,7 @@ const MyPagination = ({ pages, clcickedPage, onNunClick, onNextClick, onPrevClic
                             <span
                                 key={index}
                                 className="btn btn-outline-info"
-                                onClick={onNunClick(item)}
+                                onClick={() => onNunClick(item)}
                                 style={{
                                     borderRadius: "50%",
                                     marginLeft: "5px",
@@ -78,9 +93,9 @@ const MyPagination = ({ pages, clcickedPage, onNunClick, onNextClick, onPrevClic
                             </span>
                         ))}
                     </div>
-                    {/* {clcickedPage >= pages.length ? (
+                    {clcickedPage >= pages?.length ? (
                         <></>
-                    ) : (
+                    ) : (<>
                         <div
                             className="btn-group"
                             role="group"
@@ -97,7 +112,25 @@ const MyPagination = ({ pages, clcickedPage, onNunClick, onNextClick, onPrevClic
                                 <i className="fas fa-angle-right"></i>
                             </span>
                         </div>
-                    )} */}
+                        <div
+                            className="btn-group"
+                            role="group"
+                            aria-label="Third group"
+                        >
+                            <span
+                                className="btn btn-outline-light text-info font-size-17"
+                                style={{
+                                    borderRadius: "50%",
+                                    border: "none",
+                                }}
+                                onClick={onFastNextClick}
+                            >
+                                <i className="bx bx-chevrons-right"></i>
+                            </span>
+                        </div>
+                    </>
+                    )}
+
                 </div>
             </Col>
         </Row>
@@ -110,7 +143,9 @@ MyPagination.propTypes = {
     onNunClick: PropTypes.func,
     pages: PropTypes.number,
     clcickedPage: PropTypes.number,
-    apiPage: PropTypes.number
+    apiPage: PropTypes.number,
+    onFastPrevClick: PropTypes.func,
+    onFastNextClick: PropTypes.func
 }
 
 export default MyPagination
