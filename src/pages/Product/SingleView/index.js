@@ -122,6 +122,7 @@ const ProductDetails = ({ history }) => {
 
                     {roleHandle && (
                       <Row className="task-dates">
+
                         <Col sm="4" xs="6">
                           <div className="mt-4">
                             <Link
@@ -134,6 +135,7 @@ const ProductDetails = ({ history }) => {
                             </Link>
                           </div>
                         </Col>
+
 
                         <Col sm="4" xs="6">
                           <div className="mt-4">
@@ -149,6 +151,8 @@ const ProductDetails = ({ history }) => {
                             </Link>
                           </div>
                         </Col>
+                        <Link to="/pdf" color="danger" className="btn btn-danger btn-sm mt-4" >Download Pdf</Link>
+
                       </Row>
                     )}
                     {Role == "dealer" && (

@@ -42,7 +42,6 @@ import ProductionManagerDetails from "pages/ProductionMngr/SingleView"
 import CreateProductionManager from "pages/ProductionMngr/Crud/Create"
 import StoreSupply from "pages/Store/StoreSupply"
 import ForgetPwd from "pages/Authentication/ForgetPwd"
-import Tickets from "components/Pdf/report"
 import GeneralManager from "pages/GeneralManger"
 import GeneralManagerDetails from "pages/GeneralManger/SingleView"
 import GeneralManagerCreate from "pages/GeneralManger/Crud/Create"
@@ -54,6 +53,7 @@ import CreateQuotations from "pages/Quotations/Crud/Create/Create"
 import Salesman from "pages/Salesman"
 import SalesmanDetails from "pages/Salesman/SingleView"
 import CreateSalesman from "pages/Salesman/Crud/Create"
+import PDFGenerator from "components/Pdf/report"
 
 const commonRoute = [
   { path: "/dashboard", component: Dashboard },
@@ -72,8 +72,8 @@ const commonRoute = [
 
 //for md(managing Director) only
 const MDProtectedRoutes = [
-  { path: "/report", component: Tickets },
   { path: "/dashboard", component: Dashboard },
+  { path: "/pdf", component: PDFGenerator },
 
   // //profile Clients
   { path: "/profile", component: UserProfile },
@@ -199,6 +199,7 @@ const publicRoutes = [
   { path: "/forgot-password", component: ForgetPwd },
   { path: "/404", component: Pages404 },
   { path: "/500", component: Pages500 },
+
 ]
 
 export {

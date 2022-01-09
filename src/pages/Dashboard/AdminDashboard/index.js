@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { Col, Row } from "reactstrap"
+import { Button, Col, Row } from "reactstrap"
 import { useDispatch } from "react-redux"
 
 //action
@@ -30,6 +30,7 @@ function AdminDashboard() {
     dispatch(getProducts())
     dispatch(getDashboardData())
   }, [dispatch])
+
 
   return (
     <Row>

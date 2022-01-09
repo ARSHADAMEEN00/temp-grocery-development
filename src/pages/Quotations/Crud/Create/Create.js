@@ -22,7 +22,6 @@ import Select from "react-select"
 import { getClients, createQuatation, getProducts, getQProductPrice } from "store/actions"
 
 import Breadcrumbs from "../../../../components/Common/Breadcrumb"
-import generatePDF from "components/Pdf/MyPdf"
 
 const CreateQuotations = ({ history }) => {
   const dispatch = useDispatch()
@@ -335,7 +334,7 @@ const CreateQuotations = ({ history }) => {
                           <div>
                             <Row>
                               <Col lg="6"></Col>
-                              <Col lg="3">
+                              {/* <Col lg="3">
                                 {quotationCurd?.id && <div className="text-sm-end mt-2">
                                   <Link
                                     to="#"
@@ -347,7 +346,7 @@ const CreateQuotations = ({ history }) => {
 
                                   </Link>
                                 </div>}
-                              </Col>
+                              </Col> */}
                               <Col lg="3">
                                 <div className="text-sm-end mt-2">
                                   <Link

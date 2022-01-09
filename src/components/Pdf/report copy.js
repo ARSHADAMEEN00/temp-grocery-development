@@ -1,37 +1,78 @@
-import React, { useEffect, useState } from "react"
-import generatePDF from "./MyPdf"
 
-const Tickets = () => {
-  const [tickets, setTickets] = useState([])
+import React, { useEffect } from "react";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+import { MetaTags } from "react-meta-tags";
+import { Card, CardBody, Col, Container, Row } from "reactstrap";
+import Breadcrumbs from "../Common/Breadcrumb"
 
+const PDFGenerator = () => {
   useEffect(() => {
-    const getAllTickets = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/tickets")
-        setTickets(response.data.tickets)
-      } catch (err) {
-        console.log("error")
-      }
+    const content = document.getElementById("myPDF");
+    window.html2canvas = html2canvas;
+    const doc = new jsPDF({
+      orientation: "landscape",
+      unit: "px"
+      // format: [4, 2]
+    })
+
+    if (content) {
+      doc.html(content, {
+        callback: function (doc) {
+          doc.save();
+        }
+      })
     }
-    getAllTickets()
   }, [])
 
-  const reportTickets = tickets.filter(ticket => ticket.status === "completed")
+  return (<>
 
-  return (
-    <div className="mt-4">
-      <div className="container mb-4 mt-4 p-3">
-        <div className="row">
-          <button
-            className="btn btn-primary"
-            onClick={() => generatePDF(reportTickets)}
-          >
-            Generate monthly report
-          </button>
+    <MetaTags>
+      <title>Product | Indtech </title>
+    </MetaTags>
+    <div className="page-content">
+      <Breadcrumbs title="Products" breadcrumbItem="Product" />
+      <Container fluid>
+        <div className="container-fluid">
+          <Row>
+            <Col>
+              <Card>
+                <div className="App content-22" id="myPDF">
+                  <h1>hi</h1>
+                </div>
+              </Card>
+            </Col>
+          </Row>
         </div>
-      </div>
+      </Container>
+
     </div>
-  )
+
+  </>)
 }
 
-export default Tickets
+export default PDFGenerator
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
