@@ -3,9 +3,9 @@ import { Notification } from "components/Common/Notification"
 
 //apply base url for axios
 
-// export const API_URL = "https://api.fms.lohasteels.com/api/v1" //server/
+export const API_URL = "https://api.fms.lohasteels.com/api/v1" //server//
 // export const API_URL = "http://192.168.0.112:3390/api/v1" //naseem/
-export const API_URL = "http://192.168.0.120:3333/api/v1" //hashid/
+// export const API_URL = "http://192.168.0.120:3333/api/v1" //hashid/
 
 
 

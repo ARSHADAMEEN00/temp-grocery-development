@@ -51,6 +51,9 @@ import ClientDetails from "pages/Clients/SingleView"
 import CreateClient from "pages/Clients/Crud/Create"
 import Quotations from "pages/Quotations"
 import CreateQuotations from "pages/Quotations/Crud/Create/Create"
+import Salesman from "pages/Salesman"
+import SalesmanDetails from "pages/Salesman/SingleView"
+import CreateSalesman from "pages/Salesman/Crud/Create"
 
 const commonRoute = [
   { path: "/dashboard", component: Dashboard },
@@ -90,6 +93,10 @@ const MDProtectedRoutes = [
   { path: "/qualitycheckers", component: QualityChecker },
   { path: "/qualitycheckers/:id", component: QltCheckerDetails },
   { path: "/qualitychecker/create", component: CreateQltChecker },
+
+  { path: "/salesmans", component: Salesman },
+  { path: "/salesmans/:id", component: SalesmanDetails },
+  { path: "/salesman/create", component: CreateSalesman },
 
   { path: "/clients", component: Client },
   { path: "/clients/:id", component: ClientDetails },

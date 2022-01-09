@@ -35,8 +35,12 @@ import Productionmngrs from "./productionmngr/reducer"
 
 //finished Prod Chart
 import Dashboard from "./Dashboard/reducer"
+
 //client
 import Clients from "./client/reducer"
+
+//salesman
+import Salesmans from "./salesman/reducer"
 
 const rootReducer = combineReducers({
   // public
@@ -47,6 +51,7 @@ const rootReducer = combineReducers({
   Storemngrs,
   Supervisors,
   Qltcheckers,
+  Salesmans,
   Clients,
   StoreItems,
   Products,

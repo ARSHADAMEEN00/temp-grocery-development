@@ -19,35 +19,39 @@ import {
 import Select from "react-select"
 
 //actions
-import { createOrder, getProducts } from "store/actions"
+import { createOrder, getClients, getProducts } from "store/actions"
 
 import Breadcrumbs from "../../../../components/Common/Breadcrumb"
 
 const CreateOrder = ({ history }) => {
   const dispatch = useDispatch()
   //redux state
-  const { products, loading, orderLoading } = useSelector(state => ({
+  const { products, loading, orderLoading, clients } = useSelector(state => ({
     products: state.Products.products,
     loading: state.StoreItems.loading,
     orderLoading: state.Orders.loading,
-    // dealers: state.Dealers.dealers,
+
+    // clients: state.Clients.clients,
+
   }))
 
-  const [selectedOrder, setselectedOrder] = useState("Search a product")
-  const [selectedDealer, setselectedDealer] = useState("Search a Dealer")
-  const [searchDealerText, setSearchDealerText] = useState("")
+  const [selectedOrder, setselectedOrder] = useState("Search a Product")
+  const [selectedClient, setSelectedClient] = useState("Search a Client")
+  const [searchClientText, setSearchClientText] = useState("")
   const [searchText, setSearchText] = useState("")
   const [orderitem, setNewOrders] = useState([])
   const [rawData, setRawData] = useState({
-    dealer: "",
+    client: "",
+    start_date: "",
+    end_date: "",
     orderitem: [],
   })
 
-  console.log({ dealer: rawData.dealer, orderitem })
+
   useEffect(() => {
     dispatch(getProducts(searchText))
-    // dispatch(getDealers(searchDealerText, ""))
-  }, [searchText, dispatch, searchDealerText])
+    dispatch(getClients(searchClientText, ""))
+  }, [searchText, dispatch, searchClientText])
 
   const onAddFormRow = () => {
     const modifiedRows = [...orderitem]
@@ -67,7 +71,7 @@ const CreateOrder = ({ history }) => {
   }
   // orderitem
   const onSubmitOrder = () => {
-    dispatch(createOrder({ dealer: rawData.dealer, orderitem }, history))
+    dispatch(createOrder({ client: rawData.client, orderitem }, history))
   }
 
   //setore item from and search
@@ -82,7 +86,7 @@ const CreateOrder = ({ history }) => {
     })
   }
 
-  const optionGroup1 = [
+  const productOptions = [
     {
       options: products?.results?.map((result, index) => ({
         key: index,
@@ -96,28 +100,28 @@ const CreateOrder = ({ history }) => {
     setSearchText(textEntered)
   }
 
-  function handlerDealerFinalValue(event) {
-    setselectedDealer(event.label)
+  function handlerClientFinalValue(event) {
+    setSelectedClient(event.label)
     setRawData({
       ...rawData,
-      ["dealer"]: event.value,
+      ["client"]: event.value,
     })
   }
-  // const optionGroup2 = [
-  //   {
-  //     options: dealers?.results?.map((result, index) => ({
-  //       key: index,
-  //       label: result.account.username,
-  //       value: result.id,
-  //     })),
-  //   },
-  // ]
+  const clientOptions = [
+    {
+      options: clients?.results?.map((result, index) => ({
+        key: index,
+        label: result.account.username,
+        value: result.id,
+      })),
+    },
+  ]
 
-  // const handleDealerEnters = textEntered => {
-  //   setSearchDealerText(textEntered)
-  // }
+  const handleClientEnters = textEntered => {
+    setSearchClientText(textEntered)
+  }
 
-  // const Role = sessionStorage.getItem("role")
+  const Role = sessionStorage.getItem("role")
 
   return (
     <>
@@ -140,21 +144,21 @@ const CreateOrder = ({ history }) => {
                     <Form className="repeater" encType="multipart/form-data">
                       <div>
                         <Row>
-                          {/* {Role == "dealer" ? (
+                          {Role == "client" ? (
                             <></>
                           ) : (
                             <Col lg={12} className="mb-3">
                               <FormGroup className="mb-3">
-                                <Label>Dealer</Label>
+                                <Label>Client</Label>
 
                                 <div className="col-md-12"></div>
                                 <div className="mb-3 ajax-select mt-3 mt-lg-0 select2-container">
                                   <Select
-                                    onInputChange={handleDealerEnters}
-                                    value={selectedDealer}
-                                    placeholder={selectedDealer}
-                                    onChange={handlerDealerFinalValue}
-                                    options={optionGroup2}
+                                    onInputChange={handleClientEnters}
+                                    value={selectedClient}
+                                    placeholder={selectedClient}
+                                    onChange={handlerClientFinalValue}
+                                    options={clientOptions}
                                     classNamePrefix="select2-selection"
                                     isLoading={true}
                                     requied
@@ -162,7 +166,41 @@ const CreateOrder = ({ history }) => {
                                 </div>
                               </FormGroup>
                             </Col>
-                          )} */}
+                          )}
+                          <Col lg={6} className="mb-3">
+                            <label htmlFor="date1">Start Date</label>
+                            <input
+                              type="date"
+                              className="form-control"
+                              id="date1"
+                              requied
+                              min={1}
+                              value={rawData.start_date}
+                              onChange={e =>
+                                setRawData({
+                                  ...rawData,
+                                  ["start_date"]: e.target.value,
+                                })
+                              }
+                            />
+                          </Col>
+                          <Col lg={6} className="mb-3">
+                            <label htmlFor="date2">End Date</label>
+                            <input
+                              type="date"
+                              className="form-control"
+                              id="date2"
+                              requied
+                              min={1}
+                              value={rawData.end_date}
+                              onChange={e =>
+                                setRawData({
+                                  ...rawData,
+                                  ["end_date"]: e.target.value,
+                                })
+                              }
+                            />
+                          </Col>
 
                           <Col lg={12} className="mb-3">
                             <FormGroup className="mb-3">
@@ -175,7 +213,7 @@ const CreateOrder = ({ history }) => {
                                   value={selectedOrder}
                                   placeholder={selectedOrder}
                                   onChange={handlerFinalValue}
-                                  options={optionGroup1}
+                                  options={productOptions}
                                   classNamePrefix="select2-selection"
                                   isLoading={true}
                                   requied

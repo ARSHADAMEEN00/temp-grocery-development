@@ -35,3 +35,7 @@ export * from "./Dashboard/actions"
 
 //client
 export * from "./client/actions"
+
+//salesman
+
+export * from "./salesman/actions"

@@ -191,9 +191,9 @@ function RawmaterialForm(myDisabled) {
                             <Col lg={3} md={4}>
                               <p>Quantity : {item?.quantity || ""}</p>
                             </Col>
-                            <Col lg={3} md={4}>
+                            {/* <Col lg={3} md={4}>
                               <p>Price : {item?.price || ""}</p>
-                            </Col>
+                            </Col> */}
                             <Col lg={2} className="align-self-center m-auto">
                               <div
                                 className="d-grid "

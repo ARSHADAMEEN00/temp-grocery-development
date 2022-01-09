@@ -14,54 +14,15 @@ function sidebardata() {
       ],
     },
     {
-      heading: "Production Manager",
-      badgeClass: "",
-      badgeValue: "",
-      iconClass: "user-detail",
-      subTitles: [
-        { title: "All Production Managers", routeLink: "/productionmanagers" },
-        {
-          title: "Create Production Manager",
-          routeLink: "/productionmanager/create",
-        },
-      ],
-    },
-    {
-      heading: "Store Manager",
-      badgeClass: "",
-      badgeValue: "",
-      iconClass: "user-detail",
-      subTitles: [
-        { title: "All Store Manager", routeLink: "/storemanagers" },
-        {
-          title: "Create Store Manager",
-          routeLink: "/storemanager/create",
-        },
-      ],
-    },
-    {
-      heading: "Quality Manager",
-      badgeClass: "",
-      badgeValue: "",
-      iconClass: "shield",
-      subTitles: [
-        { title: "All Quality Manager", routeLink: "/qualitycheckers" },
-        {
-          title: "Create Quality Manager",
-          routeLink: "/qualitychecker/create",
-        },
-      ],
-    },
-    {
-      heading: "Work Orders",
+      heading: "Clients",
       badgeClass: "danger",
       badgeValue: "",
-      iconClass: "cart-alt",
+      iconClass: "group",
       subTitles: [
-        { title: "All Work Orders", routeLink: "/orders" },
+        { title: "All Clients", routeLink: "/clients" },
         {
-          title: "Create Work Order",
-          routeLink: "/order/create",
+          title: "Create Clients",
+          routeLink: "/client/create",
         },
       ],
     },
@@ -78,32 +39,17 @@ function sidebardata() {
         },
       ],
     },
+
     {
-      heading: "Finished Products",
-      badgeClass: "",
-      badgeValue: "",
-      iconClass: "truck",
-      subTitles: [
-        {
-          title: "Products",
-          routeLink: "/product/finished",
-        },
-        {
-          title: "Add Finished Product",
-          routeLink: "/product/finished?create",
-        },
-      ],
-    },
-    {
-      heading: "Clients",
+      heading: "Work Orders",
       badgeClass: "danger",
       badgeValue: "",
-      iconClass: "group",
+      iconClass: "cart-alt",
       subTitles: [
-        { title: "All Clients", routeLink: "/clients" },
+        { title: "All Work Orders", routeLink: "/orders" },
         {
-          title: "Create Clients",
-          routeLink: "/client/create",
+          title: "Create Work Order",
+          routeLink: "/order/create",
         },
       ],
     },
@@ -137,6 +83,79 @@ function sidebardata() {
         },
       ],
     },
+    {
+      heading: "Finished Products",
+      badgeClass: "",
+      badgeValue: "",
+      iconClass: "truck",
+      subTitles: [
+        {
+          title: "Products",
+          routeLink: "/product/finished",
+        },
+        {
+          title: "Add Finished Product",
+          routeLink: "/product/finished?create",
+        },
+      ],
+    },
+    {
+      heading: "Production Manager",
+      badgeClass: "",
+      badgeValue: "",
+      iconClass: "user-detail",
+      subTitles: [
+        { title: "All Production Managers", routeLink: "/productionmanagers" },
+        {
+          title: "Create Production Manager",
+          routeLink: "/productionmanager/create",
+        },
+      ],
+    },
+    {
+      heading: "Store Manager",
+      badgeClass: "",
+      badgeValue: "",
+      iconClass: "user-detail",
+      subTitles: [
+        { title: "All Store Managers", routeLink: "/storemanagers" },
+        {
+          title: "Create Store Manager",
+          routeLink: "/storemanager/create",
+        },
+      ],
+    },
+    {
+      heading: "Quality Manager",
+      badgeClass: "",
+      badgeValue: "",
+      iconClass: "shield",
+      subTitles: [
+        { title: "All Quality Managers", routeLink: "/qualitycheckers" },
+        {
+          title: "Create Quality Manager",
+          routeLink: "/qualitychecker/create",
+        },
+      ],
+    },
+    {
+      heading: "Salesman",
+      badgeClass: "",
+      badgeValue: "",
+      iconClass: "user",
+      subTitles: [
+        { title: "All Salesmans", routeLink: "/salesmans" },
+        {
+          title: "Create Salesman",
+          routeLink: "/salesman/create",
+        },
+      ],
+    },
+
+
+
+
+
   ]
 }
 

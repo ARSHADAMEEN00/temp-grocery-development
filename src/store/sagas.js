@@ -14,7 +14,7 @@ import productionmngrsSaga from "./productionmngr/saga"
 import finishedProdChartSaga from "./Dashboard/saga"
 import generalmngrSaga from "./generalmngr/saga"
 import ClientsSaga from "./client/saga"
-
+import salesmansSaga from "./salesman/saga"
 export default function* rootSaga() {
   yield all([
     //public
@@ -29,7 +29,9 @@ export default function* rootSaga() {
     fork(ordersSaga),
     fork(storemngrsSaga),
     fork(qltcheckersSaga),
+    fork(salesmansSaga),
     fork(productionmngrsSaga),
     fork(finishedProdChartSaga),
+
   ])
 }

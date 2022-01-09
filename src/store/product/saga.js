@@ -64,7 +64,7 @@ const getProductDetailsAPi = productId => {
   return get(`/store/product/${productId}/`)
 }
 const createProductApi = product => {
-  return post("/store/product/", product)
+  // return post("/store/product/", product)
 }
 const updateProductApi = ({ productId, product }) => {
   return ApiPut(`/store/product/${productId}/`, product)

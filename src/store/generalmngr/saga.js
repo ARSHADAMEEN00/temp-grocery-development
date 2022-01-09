@@ -34,14 +34,12 @@ const getGmDetailsAPi = ({ gmId }) => {
   return get(`/account/general_manager/${gmId}/`)
 }
 const createGmApi = ({ gm }) => {
-  console.log(gm);
   return post("/account/general_manager/", gm)
 }
 const updateGmApi = ({ gmId, gm }) => {
   return ApiPut(`/account/general_manager/${gmId}/`, gm)
 }
 const deleteGmApi = gmId => {
-  console.log(gmId);
   return del(`/account/general_manager/${gmId}/`)
 }
 
@@ -64,7 +62,6 @@ function* fetchGMDetail({ payload }) {
 }
 
 function* onCreateGm({ payload }) {
-  console.log(payload);
   try {
     const response = yield call(createGmApi, payload)
     yield put(createGeneralManagerSuccess(response))
