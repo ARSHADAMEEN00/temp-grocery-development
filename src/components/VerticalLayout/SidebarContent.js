@@ -133,15 +133,10 @@ const SidebarContent = props => {
       case "productionmanager":
         sidebar = PMSidebar()
         break
-      case "supervisor":
-        sidebar = supervisorSidebar()
-        break
       case "storemanager":
         sidebar = storeManagerSidebar()
         break
-      case "dealer":
-        sidebar = dealerSidebar()
-        break
+
       case "qualitychecker":
         sidebar = mySideBar?.filter(
           sidebar => sidebar.heading == "Finished Products"

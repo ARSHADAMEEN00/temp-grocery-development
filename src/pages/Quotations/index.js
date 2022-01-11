@@ -6,6 +6,7 @@ import Breadcrumbs from "../../components/Common/Breadcrumb"
 import DatatableTables from "./DatatableTables"
 
 function Quotations() {
+
   return (
     <>
       <MetaTags>
@@ -17,6 +18,7 @@ function Quotations() {
           <div className="container-fluid">
             <DatatableTables />
           </div>
+
         </Container>
       </div>
     </>

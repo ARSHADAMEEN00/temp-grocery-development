@@ -13,8 +13,8 @@ function OrderDetail() {
         {/* <img src={img1} alt="" className="avatar-sm me-4" /> */}
 
         <Media className="overflow-hidden" body>
-          <p className="text-muted">{orderDetail?.dealer_name}</p>
           <h5 className="text-truncate font-size-15">{orderDetail?.auto_id}</h5>
+          <p className="text-muted">{orderDetail?.quotation_id}</p>
         </Media>
       </Media>
 
@@ -26,6 +26,10 @@ function OrderDetail() {
         <p>
           <i className="mdi mdi-chevron-right text-primary me-1" />
           Finish Date : {orderDetail.end_date}
+        </p>
+        <p>
+          <i className="mdi mdi-chevron-right text-primary me-1" />
+          Duration : {orderDetail.duration}
         </p>
         <p>
           <i className="mdi mdi-chevron-right text-primary me-1" />

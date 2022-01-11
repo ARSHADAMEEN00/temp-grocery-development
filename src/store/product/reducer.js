@@ -41,6 +41,13 @@ import {
   FINISHEDDETAILS_SUCCESS,
   FINISHEDDETAILS_FAIL,
   FINISHEDDETAILS,
+  GET_PRODUCTDETAILS_SUCCESS,
+  GET_PRODUCTDETAILS_FAIL,
+  CREATE_PRODUCTDETAIL_SUCCESS,
+  CREATE_PRODUCTDETAIL_FAIL,
+  DELETE_PRODUCTDETAIL_SUCCESS,
+  DELETE_PRODUCTDETAIL_FAIL,
+  //product deatails
 } from "./actionTypes"
 
 const INIT_STATE = {
@@ -55,6 +62,7 @@ const INIT_STATE = {
     price: "",
     rawmaterial: [],
     othercost: [],
+    productdetail: [],
     loading: false,
   },
   error: {},
@@ -63,6 +71,7 @@ const INIT_STATE = {
   createProducterror: null,
   createdOtherCost: {},
   createdRawMaterial: {},
+  createdProductDetail: {},
   finishedProdDetails: [],
   finishedDeatailLoading: false,
 }
@@ -244,7 +253,7 @@ const Products = (state = INIT_STATE, action) => {
     case CREATE_RAWMATERIAL_FAIL:
       return {
         ...state,
-        createRawmaterialerror: action.payload,
+        error: action.payload,
         loading: false,
       }
 
@@ -264,6 +273,61 @@ const Products = (state = INIT_STATE, action) => {
       }
 
     case DELETE_RAWMATERIAL_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      }
+
+
+    //product deatils
+    case GET_PRODUCTDETAILS_SUCCESS:
+      return {
+        ...state,
+        productdetail: action.payload,
+        loading: false,
+      }
+
+    case GET_PRODUCTDETAILS_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      }
+    case CREATE_PRODUCTDETAIL_SUCCESS:
+      return {
+        ...state,
+        createdProductDetail: action.payload,
+        productDetail: {
+          ...state.productDetail,
+          productdetail: [...state.productDetail.productdetail, action.payload],
+          loading: false,
+        },
+      }
+
+    case CREATE_PRODUCTDETAIL_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      }
+
+    case DELETE_PRODUCTDETAIL_SUCCESS:
+      return {
+        ...state,
+        createdProductDetail: {},
+        productDetail: {
+          ...state.productDetail,
+          productdetail: [
+            ...state.productDetail.productdetail.filter(
+              prodDetail => prodDetail.id !== action.payload.id
+            ),
+          ],
+        },
+        loading: false,
+      }
+
+    case DELETE_PRODUCTDETAIL_FAIL:
       return {
         ...state,
         error: action.payload,

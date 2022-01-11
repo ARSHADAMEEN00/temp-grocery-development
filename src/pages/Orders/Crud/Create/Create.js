@@ -19,31 +19,34 @@ import {
 import Select from "react-select"
 
 //actions
-import { createOrder, getClients, getProducts } from "store/actions"
+import { createOrder, getClients, getProducts, getQuotations } from "store/actions"
 
 import Breadcrumbs from "../../../../components/Common/Breadcrumb"
 
 const CreateOrder = ({ history }) => {
   const dispatch = useDispatch()
   //redux state
-  const { products, loading, orderLoading, clients } = useSelector(state => ({
+  const { products, loading, orderLoading, clients, quotation } = useSelector(state => ({
     products: state.Products.products,
     loading: state.StoreItems.loading,
     orderLoading: state.Orders.loading,
-
-    // clients: state.Clients.clients,
+    clients: state.Clients.clients,
+    quotation: state.Orders.quotation
 
   }))
-
   const [selectedOrder, setselectedOrder] = useState("Search a Product")
   const [selectedClient, setSelectedClient] = useState("Search a Client")
+  const [selectedQuotation, setSelectedQuotation] = useState("Search a Quotation")
   const [searchClientText, setSearchClientText] = useState("")
   const [searchText, setSearchText] = useState("")
+  const [searchQuotationText, setSearchQuotationText] = useState("")
   const [orderitem, setNewOrders] = useState([])
   const [rawData, setRawData] = useState({
     client: "",
     start_date: "",
     end_date: "",
+    quotation_id: null,
+    duration: "",
     orderitem: [],
   })
 
@@ -51,7 +54,8 @@ const CreateOrder = ({ history }) => {
   useEffect(() => {
     dispatch(getProducts(searchText))
     dispatch(getClients(searchClientText, ""))
-  }, [searchText, dispatch, searchClientText])
+    dispatch(getQuotations(searchQuotationText, ""))
+  }, [searchText, dispatch, searchClientText, searchQuotationText])
 
   const onAddFormRow = () => {
     const modifiedRows = [...orderitem]
@@ -71,8 +75,10 @@ const CreateOrder = ({ history }) => {
   }
   // orderitem
   const onSubmitOrder = () => {
-    dispatch(createOrder({ client: rawData.client, orderitem }, history))
+    dispatch(createOrder({ ...rawData, orderitem: orderitem }, history))
   }
+
+  console.log({ ...rawData, orderitem: orderitem });
 
   //setore item from and search
   function handlerFinalValue(event) {
@@ -111,7 +117,7 @@ const CreateOrder = ({ history }) => {
     {
       options: clients?.results?.map((result, index) => ({
         key: index,
-        label: result.account.username,
+        label: result.name,
         value: result.id,
       })),
     },
@@ -119,6 +125,31 @@ const CreateOrder = ({ history }) => {
 
   const handleClientEnters = textEntered => {
     setSearchClientText(textEntered)
+  }
+
+
+  //quotation
+  function handlerQuotationFinalValue(event) {
+    setSelectedQuotation(event.label)
+    setRawData({
+      ...rawData,
+      ["quotation_id"]: event.value,
+
+    })
+  }
+
+  const quotationOptions = [
+    {
+      options: quotation?.results?.map((result, index) => ({
+        key: index,
+        label: result.client_name,
+        value: result.auto_id,
+      })),
+    },
+  ]
+
+  const handleQuotationEnters = textEntered => {
+    setSearchQuotationText(textEntered)
   }
 
   const Role = sessionStorage.getItem("role")
@@ -144,6 +175,25 @@ const CreateOrder = ({ history }) => {
                     <Form className="repeater" encType="multipart/form-data">
                       <div>
                         <Row>
+                          <Col lg={12} className="mb-3">
+                            <FormGroup className="mb-3">
+                              <Label>Quotation</Label>
+
+                              <div className="col-md-12"></div>
+                              <div className="mb-3 ajax-select mt-3 mt-lg-0 select2-container">
+                                <Select
+                                  onInputChange={handleQuotationEnters}
+                                  value={selectedQuotation}
+                                  placeholder={selectedQuotation}
+                                  onChange={handlerQuotationFinalValue}
+                                  options={quotationOptions}
+                                  classNamePrefix="select2-selection"
+                                  isLoading={true}
+                                  requied="true"
+                                />
+                              </div>
+                            </FormGroup>
+                          </Col>
                           {Role == "client" ? (
                             <></>
                           ) : (
@@ -161,7 +211,7 @@ const CreateOrder = ({ history }) => {
                                     options={clientOptions}
                                     classNamePrefix="select2-selection"
                                     isLoading={true}
-                                    requied
+                                    requied="true"
                                   />
                                 </div>
                               </FormGroup>
@@ -173,7 +223,7 @@ const CreateOrder = ({ history }) => {
                               type="date"
                               className="form-control"
                               id="date1"
-                              requied
+                              requied="true"
                               min={1}
                               value={rawData.start_date}
                               onChange={e =>
@@ -190,7 +240,7 @@ const CreateOrder = ({ history }) => {
                               type="date"
                               className="form-control"
                               id="date2"
-                              requied
+                              requied="true"
                               min={1}
                               value={rawData.end_date}
                               onChange={e =>
@@ -203,11 +253,29 @@ const CreateOrder = ({ history }) => {
                           </Col>
 
                           <Col lg={12} className="mb-3">
+                            <label htmlFor="Duration">Duration</label>
+                            <input
+                              type="number"
+                              className="form-control"
+                              id="Duration"
+                              requied="true"
+                              min={1}
+                              value={rawData.duration}
+                              onChange={e =>
+                                setRawData({
+                                  ...rawData,
+                                  ["duration"]: e.target.value,
+                                })
+                              }
+                            />
+                          </Col>
+
+                          <Col lg={12} className="mb-3">
                             <FormGroup className="mb-3">
                               <Label>Products</Label>
 
                               <div className="col-md-12"></div>
-                              <div className="mb-3 ajax-select mt-3 mt-lg-0 select2-container">
+                              <div className="mb-3 ajax-select mt-lg-0 select2-container">
                                 <Select
                                   onInputChange={handleEnters}
                                   value={selectedOrder}
@@ -216,28 +284,49 @@ const CreateOrder = ({ history }) => {
                                   options={productOptions}
                                   classNamePrefix="select2-selection"
                                   isLoading={true}
-                                  requied
-
+                                  requied="true"
                                 />
                               </div>
                             </FormGroup>
                           </Col>
 
-                          <Col lg={8} className="mb-3">
+
+
+                          <Col lg={4} className="mb-3">
                             <label htmlFor="resume">Quantity</label>
                             <input
                               type="number"
                               className="form-control"
                               id="resume"
-                              requied
+                              requied="true"
                               min={1}
-                              value={rawData.quantity}
+                              // value={rawData.quantity}
                               onChange={e =>
                                 setRawData({
                                   ...rawData,
                                   orderitem: {
                                     ...rawData.orderitem,
                                     ["quantity"]: e.target.value,
+                                  },
+                                })
+                              }
+                            />
+                          </Col>
+                          <Col lg={4} className="mb-3">
+                            <label htmlFor="resume">Price</label>
+                            <input
+                              type="number"
+                              className="form-control"
+                              id="resume"
+                              requied="true"
+                              min={1}
+                              // value={rawData.quantity}
+                              onChange={e =>
+                                setRawData({
+                                  ...rawData,
+                                  orderitem: {
+                                    ...rawData.orderitem,
+                                    ["price"]: e.target.value,
                                   },
                                 })
                               }

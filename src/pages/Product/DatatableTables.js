@@ -54,10 +54,6 @@ const Products = () => {
       sort: true,
     },
     {
-      dataField: "no_of_cols",
-      text: "cols",
-    },
-    {
       dataField: "cost",
       text: "Cost",
     },
@@ -79,6 +75,14 @@ const Products = () => {
         <img src={item.image ? item.image : defualtProduct} alt={item.name && item.name} className="avatar-md" />
 
       </Link>
+    ),
+    name: (
+      <div style={{
+        whiteSpace: "pre-wrap",
+        maxWidth: "150px"
+      }}>
+        <p>{item.name}</p>
+      </div>
     ),
     action: (
       <div>

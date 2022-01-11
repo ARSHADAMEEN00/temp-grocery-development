@@ -188,7 +188,6 @@ const Orders = (state = INIT_STATE, action) => {
         quotation: action.payload,
         quotationCurd: action.payload,
         quotationLoading: false,
-        QProductPrice: {}
       }
 
     case CREATE_QUOTATION_FAIL:

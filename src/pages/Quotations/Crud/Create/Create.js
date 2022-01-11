@@ -31,11 +31,12 @@ const CreateQuotations = ({ history }) => {
     quotationLoading: state.Orders.quotationLoading,
     clients: state.Clients.clients,
     products: state.Products.products,
-    QProductPrice: state.Orders.QProductPrice.price,
+    QProductPrice: state.Orders.QProductPrice.cost,
     quotationCurd: state.Orders.quotationCurd
   }))
   const [selectedProduct, setSelectedProduct] = useState("Search a product")
   const [selectedClient, setSelectedClient] = useState("Search a Client")
+  const [productId, setProductId] = useState('')
   const [searchText, setSearchText] = useState("")
   const [searchClientText, setSearchClientText] = useState("")
   const [quotationitem, setQuotationitems] = useState([])
@@ -45,9 +46,12 @@ const CreateQuotations = ({ history }) => {
     quotationitem: [],
   })
 
-  const totelPriceCalc = (QProductPrice * percentage / 100) + QProductPrice
+  const ProductPrice = parseInt(QProductPrice)
 
-  console.log(quotationitem);
+  const totelPriceCalc = (ProductPrice * percentage / 100) + ProductPrice
+
+  // 14890
+
 
   useEffect(() => {
     setRawData({
@@ -90,6 +94,7 @@ const CreateQuotations = ({ history }) => {
   //setore item from and search
   function handlerFinalValue(event) {
     dispatch(getQProductPrice(event.value))
+    setProductId(event.value)
     setSelectedProduct(event.label)
     setRawData({
       ...rawData,
@@ -187,7 +192,7 @@ const CreateQuotations = ({ history }) => {
                                     options={optionGroup2}
                                     classNamePrefix="select2-selection"
                                     isLoading={true}
-                                    requied
+                                    required={"required"}
                                   />
                                 </div>
                               </FormGroup>
@@ -207,7 +212,7 @@ const CreateQuotations = ({ history }) => {
                                   options={optionGroup1}
                                   classNamePrefix="select2-selection"
                                   isLoading={true}
-                                  requied
+                                  required="required"
 
                                 />
                               </div>
@@ -334,19 +339,17 @@ const CreateQuotations = ({ history }) => {
                           <div>
                             <Row>
                               <Col lg="6"></Col>
-                              {/* <Col lg="3">
+                              <Col lg="3">
                                 {quotationCurd?.id && <div className="text-sm-end mt-2">
                                   <Link
-                                    to="#"
+                                    to={`/quotation/pdf/${productId}`}
                                     className="btn btn-dark"
-                                    onClick={() => generatePDF(quotationCurd)}
-
                                   >
                                     Quotation PDF
 
                                   </Link>
                                 </div>}
-                              </Col> */}
+                              </Col>
                               <Col lg="3">
                                 <div className="text-sm-end mt-2">
                                   <Link

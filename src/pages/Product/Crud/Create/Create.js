@@ -26,6 +26,7 @@ import {
 //components
 import Breadcrumbs from "../../../../components/Common/Breadcrumb"
 import OtherCost from "./OtherCost"
+import CrudProductDetail from "./ProductDetail"
 import RawmaterialForm from "./RawmaterialForm"
 
 const CreateProduct = () => {
@@ -39,7 +40,6 @@ const CreateProduct = () => {
 
   const [state, setstate] = useState({
     name: "",
-    no_of_cols: "",
     profit: "",
     image: null,
   })
@@ -57,7 +57,6 @@ const CreateProduct = () => {
       image: e.target.files[0],
     })
   }
-
   const handleSubmit = e => {
     e.preventDefault()
     dispatch(createProduct())
@@ -65,7 +64,6 @@ const CreateProduct = () => {
     const form_data = new FormData()
     { state?.image?.name && form_data.append("image", state?.image, state?.image?.name) }
     form_data.append("name", state.name)
-    form_data.append("no_of_cols", state.no_of_cols)
     form_data.append("profit", state.profit)
 
     let url = `${API_URL}/store/product/`
@@ -101,6 +99,9 @@ const CreateProduct = () => {
           </div>
           {btnDisabled == false && (
             <>
+              <div className="container-fluid">
+                <CrudProductDetail myDisabled={btnDisabled} />
+              </div>
               <div className="container-fluid">
                 <RawmaterialForm myDisabled={btnDisabled} />
               </div>
@@ -138,23 +139,6 @@ const CreateProduct = () => {
                   value={state.name}
                   onChange={handleChange}
                   required
-                />
-              </Col>
-            </div>
-
-            <div className="row mb-4">
-              <Label htmlFor="no_of_cols" className="col-sm-3 col-form-label">
-                Number of Columns
-              </Label>
-              <Col sm={9}>
-                <input
-                  name="no_of_cols"
-                  className="form-control"
-                  id="no_of_cols"
-                  type="number" min={0}
-                  required
-                  value={state.no_of_cols}
-                  onChange={handleChange}
                 />
               </Col>
             </div>

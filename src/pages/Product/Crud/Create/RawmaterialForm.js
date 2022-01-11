@@ -45,6 +45,7 @@ function RawmaterialForm(myDisabled) {
     store_item: "",
     quantity: "",
   })
+
   useEffect(() => {
     dispatch(getStoreItems("", ""))
     dispatch(getRawmaterials())
@@ -102,7 +103,7 @@ function RawmaterialForm(myDisabled) {
     <>
 
       <Row>
-        <Col lg={6}>
+        <Col lg={newRawMaterials.length > 0 ? "6" : "12"}>
           <Card>
             <CardBody>
               <CardTitle className="h4 mb-4">Add Raw Materials</CardTitle>
@@ -152,7 +153,7 @@ function RawmaterialForm(myDisabled) {
                       <input
                         type="button"
                         className="btn btn-dark mt-4 mr-lg-0 "
-                        value="Add New"
+                        value="Add"
                         style={{
                           pointerEvents:
                             myDisabled.myDisabled === true && "none",

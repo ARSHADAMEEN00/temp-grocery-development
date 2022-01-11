@@ -141,9 +141,9 @@ MyPagination.propTypes = {
     onNextClick: PropTypes.func,
     onPrevClick: PropTypes.func,
     onNunClick: PropTypes.func,
-    pages: PropTypes.number,
+    pages: PropTypes.array,
     clcickedPage: PropTypes.number,
-    apiPage: PropTypes.number,
+    apiPage: PropTypes.func,
     onFastPrevClick: PropTypes.func,
     onFastNextClick: PropTypes.func
 }

@@ -41,6 +41,16 @@ import {
   FINISHEDDETAILS,
   FINISHEDDETAILS_SUCCESS,
   FINISHEDDETAILS_FAIL,
+  //productdetails
+  GET_PRODUCTDETAILS,
+  GET_PRODUCTDETAILS_SUCCESS,
+  GET_PRODUCTDETAILS_FAIL,
+  CREATE_PRODUCTDETAIL,
+  CREATE_PRODUCTDETAIL_SUCCESS,
+  CREATE_PRODUCTDETAIL_FAIL,
+  DELETE_PRODUCTDETAIL,
+  DELETE_PRODUCTDETAIL_SUCCESS,
+  DELETE_PRODUCTDETAIL_FAIL,
 } from "./actionTypes"
 
 export const getProducts = (searchText, page) => ({
@@ -190,6 +200,51 @@ export const deleteRawmaterialFail = error => ({
   type: DELETE_RAWMATERIAL_FAIL,
   payload: error,
 })
+
+
+//product details
+export const getCurdProductDetails = () => ({
+  type: GET_PRODUCTDETAILS,
+})
+
+export const getCurdProductDetailsSuccess = ProductDetails => ({
+  type: GET_PRODUCTDETAILS_SUCCESS,
+  payload: ProductDetails,
+})
+export const getCurdProductDetailsFail = error => ({
+  type: GET_PRODUCTDETAILS_FAIL,
+  payload: error,
+})
+export const createCurdProductDetail = ProductDetail => ({
+  type: CREATE_PRODUCTDETAIL,
+  payload: ProductDetail,
+})
+
+export const createCurdProductDetailSuccess = ProductDetail => ({
+  type: CREATE_PRODUCTDETAIL_SUCCESS,
+  payload: ProductDetail,
+})
+
+export const createCurdProductDetailFail = error => ({
+  type: CREATE_PRODUCTDETAIL_FAIL,
+  payload: error,
+})
+
+export const deleteCurdProductDetail = ProductDetailId => ({
+  type: DELETE_PRODUCTDETAIL,
+  ProductDetailId,
+})
+
+export const deleteCurdProductDetailSuccess = ProductDetail => ({
+  type: DELETE_PRODUCTDETAIL_SUCCESS,
+  payload: ProductDetail,
+})
+
+export const deleteCurdProductDetailFail = error => ({
+  type: DELETE_PRODUCTDETAIL_FAIL,
+  payload: error,
+})
+
 
 // finishd product
 

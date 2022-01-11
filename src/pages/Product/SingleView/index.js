@@ -15,6 +15,7 @@ import { deleteProduct, getProductDetail } from "store/actions"
 import Breadcrumbs from "../../../components/Common/Breadcrumb"
 import ItemList from "./ItemList"
 import DeleteModal from "components/Common/DeleteModal"
+import { map } from "lodash"
 
 const ProductDetails = ({ history }) => {
   const dispatch = useDispatch()
@@ -52,6 +53,13 @@ const ProductDetails = ({ history }) => {
       setroleHandle(true)
     }
   }, [roleHandle])
+
+  const discription = productDetail?.productdetail?.filter((item => item.is_description == true))
+  const NotDiscription = productDetail?.productdetail?.filter((item => item.is_description == false))
+
+
+  console.log(discription);
+  console.log(NotDiscription);
 
   return (
     <>
@@ -100,22 +108,23 @@ const ProductDetails = ({ history }) => {
                           </Media>
                           <p>
                             <i className="mdi mdi-chevron-right text-primary me-1" />
-                            Number of Frames : {productDetail?.no_of_cols}
-                          </p>
-                          <p>
-                            <i className="mdi mdi-chevron-right text-primary me-1" />
                             Cost :
                             <span className="text-info mx-2 font-size-17">
                               <i className="bx bx-rupee" />
                               {productDetail?.cost}
                             </span>
                           </p>
-                          {roleHandle && (
-                            <p>
-                              <i className="mdi mdi-chevron-right text-primary me-1" />
-                              Profit : {productDetail?.profit}
-                            </p>
-                          )}
+
+                          {discription?.length > 0 && map(discription, (detail, key) => (
+                            <p key={key}>{detail.title}</p>
+                          ))}
+                          {NotDiscription?.length > 0 && map(NotDiscription, (detail, key) => (
+                            <div key={key}>
+                              <p className="text-muted">
+                                <i className="fa fa-caret-right  font-size-16 align-middle text-primary me-2"></i>
+                                {detail.title}</p>
+                            </div>
+                          ))}
                         </div>
                       </>
                     )}
@@ -151,8 +160,6 @@ const ProductDetails = ({ history }) => {
                             </Link>
                           </div>
                         </Col>
-                        <Link to="/pdf" color="danger" className="btn btn-danger btn-sm mt-4" >Download Pdf</Link>
-
                       </Row>
                     )}
                     {Role == "dealer" && (
@@ -185,7 +192,7 @@ const ProductDetails = ({ history }) => {
             </Row>
           </div>
         </Container>
-      </div>
+      </div >
     </>
   )
 }

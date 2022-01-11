@@ -18,6 +18,10 @@ import {
   GET_FINISHEDPRODUCT,
   CREATE_FINISHEDPRODUCT,
   FINISHEDDETAILS,
+  GET_PRODUCTDETAILS,
+  CREATE_PRODUCTDETAIL_SUCCESS,
+  CREATE_PRODUCTDETAIL,
+  DELETE_PRODUCTDETAIL,
 } from "./actionTypes"
 import {
   getProductsSuccess,
@@ -42,13 +46,21 @@ import {
   createRawmaterialFail,
   deleteRawmaterialSuccess,
   deleteRawmaterialFail,
+  //finished prodcut
   getFinishedProductSuccess,
   getFinishedProductFail,
   createFinishedProductFail,
   createFinishedProductSuccess,
   finishedDetailsSuccess,
   finishedDetailsFail,
-  //finished prodcut
+  getCurdProductDetailsSuccess,
+  getCurdProductDetailsFail,
+  createCurdProductDetailSuccess,
+  createCurdProductDetailFail,
+  deleteCurdProductDetailSuccess,
+  deleteCurdProductDetailFail,
+  //product detaails
+
 } from "./actions"
 import { get, post, ApiPut, del, patch } from "helpers/api_methods"
 
@@ -92,6 +104,18 @@ const createRawmaterialApi = rawmaterial => {
 
 const deleteRawmaterialApi = rawmaterialId => {
   return del(`/store/rawmaterial/${rawmaterialId}/`)
+}
+
+//product details
+function getCurdProductDetailsAPi() {
+  return get("/store/productdetail/")
+}
+const createCurdProductDetailApi = CurdProductDetail => {
+  return post("/store/productdetail/", CurdProductDetail)
+}
+
+const deleteCurdProductDetailApi = CurdProductDetailId => {
+  return del(`/store/productdetail/${CurdProductDetailId}/`)
 }
 
 //finished product
@@ -227,6 +251,35 @@ function* onDeleteRawmaterial({ rawmaterialId }) {
   }
 }
 
+
+//product deatils
+function* fetchCurdProductDetails() {
+  try {
+    const response = yield call(getCurdProductDetailsAPi)
+    yield put(getCurdProductDetailsSuccess(response))
+  } catch (error) {
+    yield put(getCurdProductDetailsFail(error))
+  }
+}
+
+function* onCreateCurdProductDetails({ payload: productDetal }) {
+  try {
+    const response = yield call(createCurdProductDetailApi, productDetal)
+    yield put(createCurdProductDetailSuccess(response))
+  } catch (error) {
+    yield put(createCurdProductDetailFail(error))
+  }
+}
+
+function* onDeleteCurdProductDetails({ productDetalId }) {
+  try {
+    const response = yield call(deleteCurdProductDetailApi, productDetalId)
+    yield put(deleteCurdProductDetailSuccess({ ...response, id: productDetalId }))
+  } catch (error) {
+    yield put(deleteCurdProductDetailFail(error))
+  }
+}
+
 //finished product
 function* fetchFinishedProduct({ payload }) {
   try {
@@ -263,10 +316,15 @@ function* productsSaga() {
   yield takeEvery(GET_RAWMATERIALS, fetchRawmaterials)
   yield takeEvery(CREATE_RAWMATERIAL, onCreateRawmaterial)
   yield takeEvery(DELETE_RAWMATERIAL, onDeleteRawmaterial)
+  //product deatils
+  yield takeEvery(GET_PRODUCTDETAILS, fetchCurdProductDetails)
+  yield takeEvery(CREATE_PRODUCTDETAIL, onCreateCurdProductDetails)
+  yield takeEvery(DELETE_PRODUCTDETAIL, onDeleteCurdProductDetails)
   //finshed product
   yield takeEvery(GET_FINISHEDPRODUCT, fetchFinishedProduct)
   yield takeEvery(CREATE_FINISHEDPRODUCT, onCreateFinishedProduct)
   yield takeEvery(FINISHEDDETAILS, fetchFinishedProductDeatil)
+
 }
 
 export default productsSaga

@@ -50,9 +50,16 @@ const Orders = () => {
       text: "Order Id",
     },
     {
-      dataField: "dealer_name",
-      text: "Dealer",
-      sort: true,
+      dataField: "quotation_id",
+      text: "Quotation Id",
+    },
+    {
+      dataField: "start_date",
+      text: "Start Date",
+    },
+    {
+      dataField: "duration",
+      text: "Duration",
     },
     {
       dataField: "bill_amount",
@@ -92,6 +99,9 @@ const Orders = () => {
   const ordersData = map(orders?.results, (item, index) => ({
     ...item,
     key: index,
+    quotation_id: (
+      <p>{item.quotation_id ? item.quotation_id : "Null"}</p>
+    ),
     status: (
       <div
         className="d-flex"
