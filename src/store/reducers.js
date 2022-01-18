@@ -42,6 +42,9 @@ import Clients from "./client/reducer"
 //salesman
 import Salesmans from "./salesman/reducer"
 
+//workstages
+import WorkStage from "./workStages/reducer"
+
 const rootReducer = combineReducers({
   // public
   Layout,
@@ -58,6 +61,7 @@ const rootReducer = combineReducers({
   Orders,
   Productionmngrs,
   Dashboard,
+  WorkStage
 })
 
 export default rootReducer

@@ -15,7 +15,6 @@ import Breadcrumb from "../Common/Breadcrumb"
 import { MetaTags } from "react-meta-tags"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
-import { getQProductPrice } from "store/actions"
 import moment from "moment"
 import { map } from "lodash"
 import { API_URL } from "helpers/api_methods"
@@ -131,43 +130,7 @@ const PDFGenerator = () => {
                           <td>{item?.cost}</td>
                         </tr>
                       ))}
-                      {/* <tr>
-                        <th scope="row">1</th>
-                        <td>
-                          <h3 className="text-info font-size-16">
-                            {QProductPrice?.name}
-                          </h3>
-                          <p>Description : </p>
-                          <ul>
-                            {map(is_description, (item, key) => (
-                              <li key={key} className="pb-2">
-                                <h6>{item.title}</h6>
-                                {item.detail}
-                              </li>
-                            ))}
-                            <div className="mt-4">
-                              {map(not_description, (item, key) => (
-                                <div key={key} className="pb-3">
-                                  <h6>{item.title}</h6>
-                                  <p>{item.detail}</p>
-                                </div>
-                              ))}
-                            </div>
-                          </ul>
-                        </td>
-                        <td>
-                          <img
-                            src={
-                              `${API_URL.split("api/v1")[0]}` +
-                              QProductPrice?.image
-                            }
-                            alt="product"
-                            id="expandedImg1"
-                            className="img-fluid mx-auto d-block"
-                          />
-                        </td>
-                        <td>{QProductPrice?.cost}</td>
-                      </tr> */}
+
                     </tbody>
                   </Table>
                 </div>

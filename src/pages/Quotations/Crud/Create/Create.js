@@ -243,7 +243,7 @@ const CreateQuotations = ({ history }) => {
                             />
                           </Col>
                           {totelPriceCalc ? <Col lg={3} md={3} sm={12} className="">
-                            <label htmlFor="resume">Totel Price</label>
+                            <label htmlFor="resume">Total Price</label>
                             <input
                               type="number"
                               className="form-control mt-1 mt-lg-0 text-warning"
@@ -327,6 +327,7 @@ const CreateQuotations = ({ history }) => {
                                       style={{ maxWidth: "200px" }}
                                     >
                                       <i
+                                        style={{ cursor: "pointer" }}
                                         className="fa fa-trash mt-1 mr-lg-0 mb-4 text-danger"
                                         onClick={() => onDeleteFormRow(item.id)}
                                       ></i>

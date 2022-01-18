@@ -15,6 +15,8 @@ import finishedProdChartSaga from "./Dashboard/saga"
 import generalmngrSaga from "./generalmngr/saga"
 import ClientsSaga from "./client/saga"
 import salesmansSaga from "./salesman/saga"
+import workStagesSaga from "./workStages/saga"
+
 export default function* rootSaga() {
   yield all([
     //public
@@ -32,6 +34,6 @@ export default function* rootSaga() {
     fork(salesmansSaga),
     fork(productionmngrsSaga),
     fork(finishedProdChartSaga),
-
+    fork(workStagesSaga)
   ])
 }

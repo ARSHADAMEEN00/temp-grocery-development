@@ -24,22 +24,22 @@ import { get, post, ApiPut, del, patch } from "helpers/api_methods"
 
 const getSalesmansAPi = ({ searchText, page }) => {
   if (searchText) {
-    return get(`/account/qualitychecker/?search=${searchText && searchText}`)
+    return get(`/account/slaesman/?search=${searchText && searchText}`)
   } else {
-    return get(`/account/qualitychecker/?page=${page ? page : 1}`)
+    return get(`/account/slaesman/?page=${page ? page : 1}`)
   }
 }
 const getSalesmanDetailsAPi = salesmanId => {
-  return get(`/account/qualitychecker/${salesmanId}/`)
+  return get(`/account/slaesman/${salesmanId}/`)
 }
 const createSalesmanApi = ({ salesman }) => {
-  return post("/account/qualitychecker/", salesman)
+  return post("/account/slaesman/", salesman)
 }
 const updateSalesmanApi = ({ salesmanId, salesman }) => {
-  return ApiPut(`/account/qualitychecker/${salesmanId}/`, salesman)
+  return ApiPut(`/account/slaesman/${salesmanId}/`, salesman)
 }
 const deleteSalesmanApi = ({ salesmanId }) => {
-  return del(`/account/qualitychecker/${salesmanId}/`)
+  return del(`/account/slaesman/${salesmanId}/`)
 }
 
 function* fetchSalesmans({ payload }) {

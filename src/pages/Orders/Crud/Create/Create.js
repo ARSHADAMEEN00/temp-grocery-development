@@ -15,6 +15,7 @@ import {
   CardTitle,
   FormGroup,
   Spinner,
+  Button
 } from "reactstrap"
 import Select from "react-select"
 
@@ -22,6 +23,7 @@ import Select from "react-select"
 import { createOrder, getClients, getProducts, getQuotations } from "store/actions"
 
 import Breadcrumbs from "../../../../components/Common/Breadcrumb"
+import CreateClientModal from "./CreateClientModal"
 
 const CreateOrder = ({ history }) => {
   const dispatch = useDispatch()
@@ -154,8 +156,19 @@ const CreateOrder = ({ history }) => {
 
   const Role = sessionStorage.getItem("role")
 
+  const [isOpen, setIsOpen] = useState(false)
+
+  const handleCreateCLient = () => {
+    setIsOpen(true)
+  }
+
   return (
     <>
+      <CreateClientModal
+        show={isOpen}
+        onCloseClick={() => setIsOpen(false)}
+        onDeleteClick={handleCreateCLient}
+      />
       <MetaTags>
         <title>Order | Indtech </title>
       </MetaTags>
@@ -189,17 +202,16 @@ const CreateOrder = ({ history }) => {
                                   options={quotationOptions}
                                   classNamePrefix="select2-selection"
                                   isLoading={true}
-                                  requied="true"
                                 />
                               </div>
                             </FormGroup>
                           </Col>
                           {Role == "client" ? (
                             <></>
-                          ) : (
-                            <Col lg={12} className="mb-3">
+                          ) : (<>
+                            <Col lg={10} className="mb-3" style={{ paddingRight: "0" }}>
                               <FormGroup className="mb-3">
-                                <Label>Client</Label>
+                                <Label>Select Client / Create Now </Label>
 
                                 <div className="col-md-12"></div>
                                 <div className="mb-3 ajax-select mt-3 mt-lg-0 select2-container">
@@ -211,11 +223,17 @@ const CreateOrder = ({ history }) => {
                                     options={clientOptions}
                                     classNamePrefix="select2-selection"
                                     isLoading={true}
-                                    requied="true"
+                                    className="custome_select_rad"
                                   />
                                 </div>
                               </FormGroup>
                             </Col>
+                            <Col lg={2} className="mt-1 mb-3 m-0 " style={{ paddingLeft: "0" }}>
+                              <button type="button" className="btn btn-light btn-label mt-4 custom_border_rad text-info"
+                                onClick={handleCreateCLient} >
+                                Create Client<i className="bx bx-user-plus label-icon text-info font-size-24"></i></button>
+                            </Col>
+                          </>
                           )}
                           <Col lg={6} className="mb-3">
                             <label htmlFor="date1">Start Date</label>

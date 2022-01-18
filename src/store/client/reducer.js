@@ -22,7 +22,7 @@ const INIT_STATE = {
   error: {},
   loading: false,
   detailLoading: false,
-  // createclienterror: "",
+  createdClient: {},
 }
 
 const Clients = (state = INIT_STATE, action) => {
@@ -58,6 +58,7 @@ const Clients = (state = INIT_STATE, action) => {
       return {
         ...state,
         clients: action.payload,
+        createdClient: action.payload,
         loading: false,
       }
 

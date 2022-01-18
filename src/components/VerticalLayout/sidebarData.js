@@ -27,6 +27,23 @@ function sidebardata() {
       ],
     },
     {
+      heading: "Production",
+      badgeClass: "",
+      badgeValue: "",
+      iconClass: "shopping-bags",
+      subTitles: [
+        { title: "All Order Items", routeLink: "/" },
+        {
+          title: "All Stages ",
+          routeLink: "/",
+        },
+        {
+          title: "Create Stages ",
+          routeLink: "/",
+        },
+      ],
+    },
+    {
       heading: "Quotations",
       badgeClass: "danger",
       badgeValue: "",
@@ -160,3 +177,6 @@ function sidebardata() {
 }
 
 export const mySideBar = sidebardata()
+
+
+//Prod

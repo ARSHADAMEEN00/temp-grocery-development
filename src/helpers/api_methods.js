@@ -4,8 +4,9 @@ import { Notification } from "components/Common/Notification"
 //apply base url for axios
 
 export const API_URL = "https://api.fms.lohasteels.com/api/v1" //server//
-// export const API_URL = "http://192.168.0.112:3390/api/v1" //naseem/
+// export const API_URL = "http://192.168.0.108:3390/api/v1" //naseem/
 // export const API_URL = "http://192.168.0.120:3333/api/v1" //afnan/
+// export const API_URL = "http://192.168.0.143:8000/api/v1" //hakeem/
 
 
 
@@ -19,7 +20,6 @@ axiosApi.interceptors.request.use(
       config.headers["Authorization"] =
         "token " + sessionStorage.getItem("token")
     }
-
     return config
   },
   function (error) {

@@ -90,6 +90,17 @@
   color: #fff;
   background-color: #444444 !important;
 }
+
+.btn.custom_border_rad {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  width: 100%;
+}
+.custome_select_rad .css-yk16xz-control {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
 @media screen and (max-width: 600px) {
   .d-none-smo {
     display: none;
