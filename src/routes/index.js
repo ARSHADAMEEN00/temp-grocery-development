@@ -54,6 +54,9 @@ import Salesman from "pages/Salesman"
 import SalesmanDetails from "pages/Salesman/SingleView"
 import CreateSalesman from "pages/Salesman/Crud/Create"
 import PDFGenerator from "components/Pdf/report"
+import ProductionOrder from "pages/ProductionStages/ProductionOrder"
+import ProductionStages from "pages/ProductionStages"
+import CreatStage from "pages/ProductionStages/Crud/Create/Create"
 
 const commonRoute = [
   { path: "/dashboard", component: Dashboard },
@@ -121,6 +124,9 @@ const MDProtectedRoutes = [
   { path: "/quotations", component: Quotations },
   { path: "/quotation/create", component: CreateQuotations },
 
+  { path: "/orderItems", component: ProductionOrder },
+  { path: "/stages", component: ProductionStages },
+  { path: "/stage/create", component: CreatStage },
   // this route should be at the end of all other routes
   // eslint-disable-next-line react/display-name
   { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> },

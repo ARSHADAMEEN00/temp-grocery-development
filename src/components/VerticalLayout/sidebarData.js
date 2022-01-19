@@ -32,14 +32,14 @@ function sidebardata() {
       badgeValue: "",
       iconClass: "shopping-bags",
       subTitles: [
-        { title: "All Order Items", routeLink: "/" },
+        { title: "All Order Items", routeLink: "/orderItems" },
         {
           title: "All Stages ",
-          routeLink: "/",
+          routeLink: "/stages",
         },
         {
           title: "Create Stages ",
-          routeLink: "/",
+          routeLink: "/stage/create",
         },
       ],
     },

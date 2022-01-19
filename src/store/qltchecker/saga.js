@@ -24,22 +24,22 @@ import { get, post, ApiPut, del, patch } from "helpers/api_methods"
 
 const getQltcheckersAPi = ({ searchText, page }) => {
   if (searchText) {
-    return get(`/account/qualitychecker/?search=${searchText && searchText}`)
+    return get(`/account/quality_checker/?search=${searchText && searchText}`)
   } else {
-    return get(`/account/qualitychecker/?page=${page ? page : 1}`)
+    return get(`/account/quality_checker/?page=${page ? page : 1}`)
   }
 }
 const getQltcheckerDetailsAPi = qltcheckerId => {
-  return get(`/account/qualitychecker/${qltcheckerId}/`)
+  return get(`/account/quality_checker/${qltcheckerId}/`)
 }
 const createQltcheckerApi = ({ qltchecker }) => {
-  return post("/account/qualitychecker/", qltchecker)
+  return post("/account/quality_checker/", qltchecker)
 }
 const updateQltcheckerApi = ({ qltcheckerId, qltchecker }) => {
-  return ApiPut(`/account/qualitychecker/${qltcheckerId}/`, qltchecker)
+  return ApiPut(`/account/quality_checker/${qltcheckerId}/`, qltchecker)
 }
 const deleteQltcheckerApi = ({ qltcheckerId }) => {
-  return del(`/account/qualitychecker/${qltcheckerId}/`)
+  return del(`/account/quality_checker/${qltcheckerId}/`)
 }
 
 function* fetchQltcheckers({ payload }) {

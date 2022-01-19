@@ -24,22 +24,22 @@ import { get, post, ApiPut, del, patch } from "helpers/api_methods"
 
 const getStoremngrsAPi = ({ searchText, page }) => {
   if (searchText) {
-    return get(`/account/storemanager/?search=${searchText && searchText}`)
+    return get(`/account/store_manager/?search=${searchText && searchText}`)
   } else {
-    return get(`/account/storemanager/?page=${page ? page : 1}`)
+    return get(`/account/store_manager/?page=${page ? page : 1}`)
   }
 }
 const getStoremngrDetailsAPi = storemngrId => {
-  return get(`/account/storemanager/${storemngrId}/`)
+  return get(`/account/store_manager/${storemngrId}/`)
 }
 const createStoremngrApi = ({ storemngr }) => {
-  return post("/account/storemanager/", storemngr)
+  return post("/account/store_manager/", storemngr)
 }
 const updateStoremngrApi = ({ storemngrId, storemngr }) => {
-  return ApiPut(`/account/storemanager/${storemngrId}/`, storemngr)
+  return ApiPut(`/account/store_manager/${storemngrId}/`, storemngr)
 }
 const deleteStoremngrApi = ({ storemngrId }) => {
-  return del(`/account/storemanager/${storemngrId}/`)
+  return del(`/account/store_manager/${storemngrId}/`)
 }
 
 function* fetchStoremngrs({ payload }) {

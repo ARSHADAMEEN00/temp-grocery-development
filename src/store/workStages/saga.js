@@ -24,22 +24,22 @@ import { get, post, ApiPut, del, patch } from "helpers/api_methods"
 
 const getWorkStagesAPi = ({ searchText, page }) => {
   if (searchText) {
-    return get(`/account/qualitychecker/?search=${searchText && searchText}`)
+    return get(`/stages/stages/?search=${searchText && searchText}`)
   } else {
-    return get(`/account/qualitychecker/?page=${page ? page : 1}`)
+    return get(`/stages/stages/?page=${page ? page : 1}`)
   }
 }
 const getWorkStageDetailsAPi = WorkStageId => {
-  return get(`/account/qualitychecker/${WorkStageId}/`)
+  return get(`/stages/stages/${WorkStageId}/`)
 }
 const createWorkStageApi = ({ workStage }) => {
-  return post("/account/qualitychecker/", workStage)
+  return post("/stages/stages/", workStage)
 }
 const updateWorkStageApi = ({ workStageId, workStage }) => {
-  return ApiPut(`/account/qualitychecker/${workStageId}/`, workStage)
+  return ApiPut(`/stages/stages/${workStageId}/`, workStage)
 }
 const deleteWorkStageApi = ({ workStageId }) => {
-  return del(`/account/qualitychecker/${workStageId}/`)
+  return del(`/stages/stages/${workStageId}/`)
 }
 
 function* fetchWorkStages({ payload }) {

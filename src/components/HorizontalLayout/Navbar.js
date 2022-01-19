@@ -86,7 +86,7 @@ const Navbar = props => {
         )
         break
       default:
-        sidebar = commonRoute
+        sidebar = sidebar
         break
     }
     return sidebar
