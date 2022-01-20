@@ -21,6 +21,7 @@ import {
   deleteWorkStageFail
 } from "./actions"
 import { get, post, ApiPut, del, patch } from "helpers/api_methods"
+import { Notification } from "components/Common/Notification"
 
 const getWorkStagesAPi = ({ searchText, page }) => {
   if (searchText) {
@@ -66,7 +67,11 @@ function* onCreateWorkStage({ payload }) {
       yield put(createWorkStageFail(response?.error_message))
     } else {
       yield put(createWorkStageSuccess(response))
-      payload.history.push("/qualitycheckers")
+      payload.history.push("/stages")
+      Notification({
+        title: "created",
+        type: "success"
+      })
     }
   } catch (error) {
     yield put(createWorkStageFail(error))
@@ -85,7 +90,7 @@ function* onUpdateWorkStage({ payload }) {
 function* onDeleteWorkStage({ payload }) {
   try {
     const response = yield call(deleteWorkStageApi, payload)
-    payload.history.push("/qualitycheckers")
+    payload.history.push("/stages")
     yield put(deleteWorkStageSuccess(response))
   } catch (error) {
     yield put(deleteWorkStageFail(error))

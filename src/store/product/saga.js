@@ -114,8 +114,8 @@ const createCurdProductDetailApi = CurdProductDetail => {
   return post("/store/productdetail/", CurdProductDetail)
 }
 
-const deleteCurdProductDetailApi = CurdProductDetailId => {
-  return del(`/store/productdetail/${CurdProductDetailId}/`)
+const deleteCurdProductDetailApi = ({ payload }) => {
+  return del(`/store/productdetail/${payload}/`)
 }
 
 //finished product
@@ -271,10 +271,10 @@ function* onCreateCurdProductDetails({ payload: productDetal }) {
   }
 }
 
-function* onDeleteCurdProductDetails({ productDetalId }) {
+function* onDeleteCurdProductDetails(payload) {
   try {
-    const response = yield call(deleteCurdProductDetailApi, productDetalId)
-    yield put(deleteCurdProductDetailSuccess({ ...response, id: productDetalId }))
+    const response = yield call(deleteCurdProductDetailApi, payload)
+    yield put(deleteCurdProductDetailSuccess({ ...response, id: payload.payload }))
   } catch (error) {
     yield put(deleteCurdProductDetailFail(error))
   }

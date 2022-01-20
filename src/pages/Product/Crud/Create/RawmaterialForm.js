@@ -189,13 +189,13 @@ function RawmaterialForm(myDisabled) {
                                 Store Item :{item?.name}
                               </p>
                             </Col>
-                            <Col lg={3} md={4}>
+                            <Col lg={4} md={4}>
                               <p>Quantity : {item?.quantity || ""}</p>
                             </Col>
                             {/* <Col lg={3} md={4}>
                               <p>Price : {item?.price || ""}</p>
                             </Col> */}
-                            <Col lg={2} className="align-self-center m-auto">
+                            {/* <Col lg={2} className="align-self-center m-auto">
                               <div
                                 className="d-grid "
                                 style={{ maxWidth: "200px" }}
@@ -207,6 +207,22 @@ function RawmaterialForm(myDisabled) {
                                   style={{ maxWidth: "120px" }}
                                   onClick={() => onDeleteFormRow(item.id)}
                                 />
+
+                              </div>
+                            </Col> */}
+                            <Col
+                              lg={2}
+                              md={2}
+                              className="align-self-center m-auto"
+                            >
+                              <div
+                                className="d-grid "
+                                style={{ maxWidth: "200px", cursor: "pointer" }}
+                              >
+                                <i
+                                  className="fa fa-trash mt-1 mr-lg-0 mb-4 text-danger"
+                                  onClick={() => onDeleteFormRow(item.id)}
+                                ></i>
                               </div>
                             </Col>
                           </Row>

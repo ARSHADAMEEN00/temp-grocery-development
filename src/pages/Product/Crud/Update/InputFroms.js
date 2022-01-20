@@ -25,6 +25,7 @@ import {
 
 import AvForm from "availity-reactstrap-validation/lib/AvForm"
 import AvField from "availity-reactstrap-validation/lib/AvField"
+import CrudProductDetail from "./ProductDetail"
 
 function PreviewCard() {
   const dispatch = useDispatch()
@@ -95,6 +96,7 @@ function PreviewCard() {
     <>
       {/* uploading */}
       {/* rawmaterial */}
+      <CrudProductDetail />
       <Row>
         <Col lg={12}>
           <Card>

@@ -8,6 +8,8 @@ import RawmaterialForm from "./RawmaterialForm"
 import InputFroms from "./InputFroms"
 import OtherCost from "./OtherCost"
 import ProductCard from "./ProductCard"
+import CrudProductDetail from "./ProductDetail"
+import ProductDetailList from "./ProductDetailList"
 
 const UpdateProduct = () => {
   return (
@@ -23,6 +25,7 @@ const UpdateProduct = () => {
             <Row>
               <Col lg={8} md={12}>
                 <ProductCard />
+                <ProductDetailList />
                 <InputFroms />
               </Col>
 

@@ -69,10 +69,10 @@ const Stages = () => {
   ]
 
   const Status = status => {
-    if (status == "Pending") {
+    if (status == "QC_Pending") {
       return "info"
     }
-    if (status == "Approved") {
+    if (status == "QC_Approved") {
       return "success"
     }
 

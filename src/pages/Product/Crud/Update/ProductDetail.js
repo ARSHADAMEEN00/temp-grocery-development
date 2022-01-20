@@ -53,7 +53,7 @@ function CrudProductDetail(myDisabled) {
   return (
     <>
       <Row>
-        <Col lg={newDetail.length > 0 ? "6" : "12"}>
+        <Col lg={"12"}>
           <Card>
             <CardBody>
               <CardTitle className="h4 mb-4">Product Details</CardTitle>
@@ -63,7 +63,7 @@ function CrudProductDetail(myDisabled) {
                 <AvForm className="repeater" encType="multipart/form-data">
                   <div>
                     <Row>
-                      <Col lg={newDetail.length > 0 ? "6" : "3"} className="mb-3">
+                      <Col lg={"3"} className="mb-3">
                         <label>Title</label>
                         <AvField
                           name="title"
@@ -81,7 +81,7 @@ function CrudProductDetail(myDisabled) {
                         />
                       </Col>
 
-                      <Col lg={newDetail.length > 0 ? "6" : "3"} className="mb-3">
+                      <Col lg={"3"} className="mb-3">
                         <label>Detail</label>
                         <AvField
                           name="detail"
@@ -98,7 +98,7 @@ function CrudProductDetail(myDisabled) {
                           required
                         />
                       </Col>
-                      <Col lg={newDetail.length > 0 ? "6" : "3"} className={`mb-3 ${newDetail.length > 0 ? "d-flex" : "d-block"}`} >
+                      <Col lg={"3"} className="mb-3" >
                         <label className="me-4">Description</label>
                         <AvField
                           name="is_description"
@@ -113,7 +113,6 @@ function CrudProductDetail(myDisabled) {
                           }
                         />
                       </Col>
-                      {newDetail.length > 0 && <Col lg={4}></Col>}
                       <Col lg={2}>
                         <input
                           type="button"
@@ -133,68 +132,7 @@ function CrudProductDetail(myDisabled) {
             </CardBody>
           </Card>
         </Col>
-        {newDetail.length > 0 && (
-          <Col lg={6}>
-            <Card>
-              <CardBody>
-                <CardTitle className="h4 mb-4">Uploaded Product Details </CardTitle>
-                <Form className="repeater" encType="multipart/form-data">
-                  <div>
-                    {map(newDetail, (item, index) => (
-                      <Row key={index}>
-                        <Row className="text-muted mt-4">
-                          <Col lg={4} md={5}>
-                            <p>
-                              <i className="mdi mdi-chevron-right text-primary me-1" />
-                              Discription : {item.detail}
-                            </p>
-                          </Col>
 
-                          <Col lg={4} md={4}>
-                            <p>Title : {item.title}</p>
-                          </Col>
-                          {/* <Col
-                            lg={3}
-                            md={3}
-                            className="align-self-center m-auto"
-                          >
-                            <div
-                              className="d-grid "
-                              style={{ maxWidth: "200px" }}
-                            >
-                              <input
-                                type="button"
-                                className="btn btn-danger mt-0 mr-lg-0 mb-4"
-                                style={{ maxWidth: "120px" }}
-                                value="Remove"
-                                onClick={() => onDeleteFormRow(item.id)}
-                              />
-                            </div>
-                          </Col> */}
-                          <Col
-                            lg={2}
-                            md={2}
-                            className="align-self-center m-auto"
-                          >
-                            <div
-                              className="d-grid "
-                              style={{ maxWidth: "200px", cursor: "pointer" }}
-                            >
-                              <i
-                                className="fa fa-trash mt-1 mr-lg-0 mb-4 text-danger"
-                                onClick={() => onDeleteFormRow(item.id)}
-                              ></i>
-                            </div>
-                          </Col>
-                        </Row>
-                      </Row>
-                    ))}
-                  </div>
-                </Form>
-              </CardBody>
-            </Card>
-          </Col>
-        )}
       </Row>
 
     </>

@@ -22,6 +22,7 @@ import {
   deleteGeneralManager
 } from "./actions"
 import { get, post, ApiPut, del, patch } from "helpers/api_methods"
+import { Notification } from "components/Common/Notification"
 
 const getGmsAPi = ({ searchText, page }) => {
   if (searchText) {
@@ -66,8 +67,18 @@ function* onCreateGm({ payload }) {
     const response = yield call(createGmApi, payload)
     yield put(createGeneralManagerSuccess(response))
     payload.history.push("/generalmanagers")
+    Notification({
+      type: "success",
+      message: "Successfully Created GM",
+      title: "Created!",
+    })
   } catch (error) {
     yield put(createGeneralManagerFail(error))
+    Notification({
+      type: "error",
+      message: "Something Went Wrong",
+      title: "",
+    })
   }
 }
 
@@ -76,8 +87,18 @@ function* onUpdateGm({ payload }) {
     const response = yield call(updateGmApi, payload)
     yield put(updateGeneralManagerSuccess(response))
     payload.history.push("/generalmanagers")
+    Notification({
+      type: "success",
+      message: "Successfully Updated GM",
+      title: "Updated!",
+    })
   } catch (error) {
     yield put(updateGeneralManagerFail(error))
+    Notification({
+      type: "error",
+      message: "Something Went Wrong",
+      title: "",
+    })
   }
 }
 
@@ -86,8 +107,14 @@ function* onDeleteGm({ gmId, history }) {
     const response = yield call(deleteGmApi, gmId)
     yield put(deleteGeneralManagerSuccess(response))
     history.push("/generalmanagers")
+
   } catch (error) {
     yield put(deleteGeneralManagerFail(error))
+    Notification({
+      type: "error",
+      message: "Something Went Wrong",
+      title: "",
+    })
   }
 }
 

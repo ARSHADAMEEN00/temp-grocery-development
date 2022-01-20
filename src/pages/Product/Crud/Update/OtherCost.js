@@ -24,8 +24,11 @@ function OtherCost(myDisabled) {
     dispatch(deleteOtherCost(id))
   }
 
+
+
   return (
     <>
+
       {otherCost?.length > 0 && (
         <Card>
           <CardBody>
@@ -80,6 +83,7 @@ function OtherCost(myDisabled) {
           </CardBody>
         </Card>
       )}
+
     </>
   )
 }

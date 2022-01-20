@@ -134,7 +134,7 @@ function OtherCost(myDisabled) {
                           <Col lg={4} md={4}>
                             <p>Price : {item.amount}</p>
                           </Col>
-                          <Col
+                          {/* <Col
                             lg={3}
                             md={3}
                             className="align-self-center m-auto"
@@ -150,6 +150,21 @@ function OtherCost(myDisabled) {
                                 value="Remove"
                                 onClick={() => onDeleteFormRow(item.id)}
                               />
+                            </div>
+                          </Col> */}
+                          <Col
+                            lg={2}
+                            md={2}
+                            className="align-self-center m-auto"
+                          >
+                            <div
+                              className="d-grid "
+                              style={{ maxWidth: "200px", cursor: "pointer" }}
+                            >
+                              <i
+                                className="fa fa-trash mt-1 mr-lg-0 mb-4 text-danger"
+                                onClick={() => onDeleteFormRow(item.id)}
+                              ></i>
                             </div>
                           </Col>
                         </Row>

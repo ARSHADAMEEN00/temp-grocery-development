@@ -22,6 +22,7 @@ import Select from "react-select"
 //actions
 import {
   createOrder,
+  createWorkStage,
   getClients,
   getProducts,
   getQltcheckers,
@@ -37,58 +38,45 @@ const CreatStage = ({ history }) => {
     loading: state.WorkStage.loading,
     qltcheckers: state.Qltcheckers.qltcheckers,
   }))
-  const [selectedQc, setSelectedQc] = useState("Search a Quotation")
+
+  const [selectedQc, setSelectedQc] = useState("Search a QC")
+  const [selectedStatus, setSelectedStatus] = useState("Select a Status")
+
   const [searchQltcheckerText, setSearchQltcheckerText] = useState("")
-  const [orderitem, setNewOrders] = useState([])
-  const [rawData, setRawData] = useState({
-    client: "",
-    start_date: "",
-    end_date: "",
-    quotation_id: null,
-    duration: "",
-    orderitem: [],
-  })
+
+  const [stagesData, setstagesData] = useState({
+    stage: "",
+    order_item_auto_id: "",
+    qualitychecker: "",
+    status: "",
+    note: ""
+  });
+  console.log(stagesData);
 
   useEffect(() => {
     dispatch(getQltcheckers(searchQltcheckerText, ""))
   }, [dispatch, searchQltcheckerText])
 
-  const onAddFormRow = () => {
-    const modifiedRows = [...orderitem]
-    modifiedRows.push({
-      id: modifiedRows.length + 1,
-      ...rawData.orderitem,
-    })
-    setNewOrders(modifiedRows)
+  // stage
+  const onFinalSubmitStage = () => {
+    dispatch(createWorkStage(stagesData, history))
   }
 
-  const onDeleteFormRow = id => {
-    if (id !== 0) {
-      var modifiedRows = [...orderitem]
-      modifiedRows = modifiedRows.filter(x => x["id"] !== id)
-      setNewOrders(modifiedRows)
-    }
-  }
-  // orderitem
-  const onSubmitOrder = () => {
-    dispatch(createOrder({ ...rawData, orderitem: orderitem }, history))
-  }
-
-  //quotation
-  function handlerQuotationFinalValue(event) {
+  const onHandleQcId = (event) => {
     setSelectedQc(event.label)
-    setRawData({
-      ...rawData,
-      ["qualitychecker"]: event.value,
+    setstagesData({
+      ...stagesData,
+      qualitychecker: event.value
     })
   }
+
 
   const qcOptions = [
     {
       options: qltcheckers?.results?.map((result, index) => ({
         key: index,
-        label: result.client_name,
-        value: result.auto_id,
+        label: result.username,
+        value: result.id,
       })),
     },
   ]
@@ -96,6 +84,35 @@ const CreatStage = ({ history }) => {
   const handleQltcheckerEnters = textEntered => {
     setSearchQltcheckerText(textEntered)
   }
+
+
+
+  const status = [
+    { id: 1001, status: "Started" },
+    { id: 1002, status: "QC_Pending" },
+    { id: 1003, status: "QC_Approved" },
+
+  ]
+
+  const statusOptions = [
+    {
+      options: status.map((result, index) => ({
+        key: index,
+        label: result.status,
+        value: result.id,
+      })),
+    },
+  ]
+  const onHandleStatus = (event) => {
+    setSelectedStatus(event.label)
+    setstagesData({
+      ...stagesData,
+      status: event.label
+    })
+  }
+
+
+
 
   return (
     <>
@@ -110,7 +127,7 @@ const CreatStage = ({ history }) => {
           <div className="container-fluid">
             {/* uploading */}
             <Row>
-              <Col lg={orderitem.length > 0 ? "6" : "12"}>
+              <Col lg={"12"}>
                 <Card>
                   <CardBody>
 
@@ -125,29 +142,26 @@ const CreatStage = ({ history }) => {
                               id="Duration"
                               requied="true"
                               min={1}
-                              value={rawData.duration}
-                              onChange={e =>
-                                setRawData({
-                                  ...rawData,
-                                  ["duration"]: e.target.value,
-                                })
-                              }
+                              value={stagesData.stage}
+                              onChange={e => setstagesData({
+                                ...stagesData,
+                                stage: e.target.value
+                              })}
                             />
                           </Col>
                           <Col lg={6} className="mb-3">
-                            <label htmlFor="Duration">Order item auto id</label>
+                            <label htmlFor="Duration">Order Item Id</label>
                             <input
-                              type="number"
+                              type="text"
                               className="form-control"
                               id="Duration"
                               requied="true"
                               min={1}
-                              value={rawData.duration}
-                              onChange={e =>
-                                setRawData({
-                                  ...rawData,
-                                  ["duration"]: e.target.value,
-                                })
+                              value={stagesData.order_item_auto_id}
+                              onChange={e => setstagesData({
+                                ...stagesData,
+                                order_item_auto_id: e.target.value
+                              })
                               }
                             />
                           </Col>
@@ -160,7 +174,7 @@ const CreatStage = ({ history }) => {
                                   onInputChange={handleQltcheckerEnters}
                                   value={selectedQc}
                                   placeholder={selectedQc}
-                                  onChange={handlerQuotationFinalValue}
+                                  onChange={onHandleQcId}
                                   options={qcOptions}
                                   classNamePrefix="select2-selection"
                                   isLoading={true}
@@ -175,10 +189,10 @@ const CreatStage = ({ history }) => {
                               <div className="mb-3 ajax-select mt-3 mt-lg-0 select2-container">
                                 <Select
                                   onInputChange={handleQltcheckerEnters}
-                                  value={selectedQc}
-                                  placeholder={selectedQc}
-                                  onChange={handlerQuotationFinalValue}
-                                  options={qcOptions}
+                                  value={selectedStatus}
+                                  placeholder={selectedStatus}
+                                  onChange={onHandleStatus}
+                                  options={statusOptions}
                                   classNamePrefix="select2-selection"
                                   isLoading={true}
                                 />
@@ -187,21 +201,22 @@ const CreatStage = ({ history }) => {
                           </Col>
 
                           <Col lg={12} className="mb-3">
-                            <label htmlFor="Duration">Note</label>
-                            <input
-                              type="number"
+                            <label htmlFor="note">Note</label>
+                            <textarea
                               className="form-control"
-                              id="Duration"
-                              requied="true"
-                              min={1}
-                              value={rawData.duration}
-                              onChange={e =>
-                                setRawData({
-                                  ...rawData,
-                                  ["duration"]: e.target.value,
-                                })
+                              id="note"
+                              row="3"
+                              onChange={e => setstagesData({
+                                ...stagesData,
+                                note: e.target.value
+                              })
                               }
-                            />
+                              defaultValue={stagesData.note}
+                            >
+                            </textarea>
+
+
+
                           </Col>
 
                           <Col
@@ -216,11 +231,11 @@ const CreatStage = ({ history }) => {
                               type="button"
                               className="btn btn-success mr-lg-0 "
                               value="Create Stage"
-                              onClick={() => onAddFormRow()}
+                              onClick={() => onFinalSubmitStage()}
                               style={{
                                 marginTop: "1rem",
                                 pointerEvents:
-                                  rawData.product == false && "none",
+                                  stagesData.OrderId == "" && "none",
                               }}
                             />
                           </Col>
@@ -230,77 +245,7 @@ const CreatStage = ({ history }) => {
                   </CardBody>
                 </Card>
               </Col>
-              {orderitem.length > 0 && (
-                <Col lg={6}>
-                  <Card>
-                    <CardBody>
-                      <CardTitle className="h4 mb-4">All Orders </CardTitle>
-                      {loading ? (
-                        <Spinner type="grow" color="gray" />
-                      ) : (
-                        <Form
-                          className="repeater"
-                          encType="multipart/form-data"
-                        >
-                          <div>
-                            {map(orderitem, (item, index) => (
-                              <Row key={index}>
-                                <Row className="text-muted mt-4">
-                                  <Col lg={6} md={5}>
-                                    <p>
-                                      <i className="mdi mdi-chevron-right text-primary me-1" />
-                                      Product : {item?.productName || ""}
-                                    </p>
-                                  </Col>
-                                  <Col lg={4} md={5}>
-                                    <p>Quantity : {item?.quantity || ""}</p>
-                                  </Col>
 
-                                  <Col
-                                    lg={2}
-                                    md={2}
-                                    className="align-self-center m-auto"
-                                  >
-                                    <div
-                                      className="d-grid "
-                                      style={{ maxWidth: "200px" }}
-                                    >
-                                      <i
-                                        className="fa fa-trash mt-1 mr-lg-0 mb-4 text-danger"
-                                        onClick={() => onDeleteFormRow(item.id)}
-                                      ></i>
-                                    </div>
-                                  </Col>
-                                </Row>
-                              </Row>
-                            ))}
-                          </div>
-                          <div>
-                            <Col sm="12">
-                              <div className="text-sm-end mt-2">
-                                <Link
-                                  to="#"
-                                  className="btn btn-success"
-                                  onClick={onSubmitOrder}
-                                >
-                                  Confirm Order
-                                  {orderLoading ? (
-                                    <>
-                                      <i className="bx bx-loader bx-spin font-size-16 align-middle me-2"></i>
-                                    </>
-                                  ) : (
-                                    <i className="mdi mdi-truck-fast mx-2" />
-                                  )}
-                                </Link>
-                              </div>
-                            </Col>
-                          </div>
-                        </Form>
-                      )}
-                    </CardBody>
-                  </Card>
-                </Col>
-              )}
             </Row>
           </div>
         </Container>

@@ -232,7 +232,7 @@ export const createCurdProductDetailFail = error => ({
 
 export const deleteCurdProductDetail = ProductDetailId => ({
   type: DELETE_PRODUCTDETAIL,
-  ProductDetailId,
+  payload: ProductDetailId,
 })
 
 export const deleteCurdProductDetailSuccess = ProductDetail => ({
