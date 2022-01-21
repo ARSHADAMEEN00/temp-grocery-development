@@ -18,6 +18,7 @@ import {
 
 //Include Both Helper File with needed methods
 import { ApiPut, get, post } from "helpers/api_methods"
+import { Notification } from "components/Common/Notification"
 
 function getUserProfileApi() {
   return get("/account/profile")
@@ -32,7 +33,6 @@ function onUpdateUserPassApi(userPass) {
 function* fetchUserProfile() {
   try {
     const response = yield call(getUserProfileApi)
-
     yield put(getUserProfileSuccess(response))
   } catch (error) {
     yield put(getUserProfileFail(error))
@@ -43,8 +43,10 @@ function* onUpdateUser({ payload: user }) {
   try {
     const response = yield call(updateUserApi, user)
     yield put(updateUserSuccess(response))
+    doneNotification()
   } catch (error) {
     yield put(updateUserFail(error))
+    errorNotification()
   }
 }
 
@@ -52,9 +54,27 @@ function* onUpdateUserPass({ payload: userPass }) {
   try {
     const response = yield call(onUpdateUserPassApi, userPass)
     yield put(updateUserPassSuccess(response))
+    doneNotification()
   } catch (error) {
     yield put(updateUserPassFail(error))
+    errorNotification()
   }
+}
+
+function errorNotification() {
+  Notification({
+    type: "error",
+    message: "Something Went Wrong",
+    title: "Try Again"
+  })
+}
+
+function doneNotification() {
+  Notification({
+    type: "success",
+    message: "Done",
+    title: ""
+  })
 }
 
 function* contactsSaga() {

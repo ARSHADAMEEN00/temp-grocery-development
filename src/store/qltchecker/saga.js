@@ -21,6 +21,7 @@ import {
   deleteQltcheckerFail,
 } from "./actions"
 import { get, post, ApiPut, del, patch } from "helpers/api_methods"
+import { Notification } from "components/Common/Notification"
 
 const getQltcheckersAPi = ({ searchText, page }) => {
   if (searchText) {
@@ -67,9 +68,16 @@ function* onCreateQltchecker({ payload }) {
     } else {
       yield put(createQltcheckerSuccess(response))
       payload.history.push("/qualitycheckers")
+      Notification({
+        type: "success",
+        message: "Successfully Created QC",
+        title: "Created!",
+      })
     }
   } catch (error) {
     yield put(createQltcheckerFail(error))
+    errorNotification()
+
   }
 }
 
@@ -77,8 +85,14 @@ function* onUpdateQltchecker({ payload }) {
   try {
     const response = yield call(updateQltcheckerApi, payload)
     yield put(updateQltcheckerSuccess(response))
+    Notification({
+      type: "success",
+      message: "Successfully Updated QC",
+      title: "Updated!",
+    })
   } catch (error) {
     yield put(updateQltcheckerFail(error))
+    errorNotification()
   }
 }
 
@@ -87,9 +101,27 @@ function* onDeleteQltchecker({ payload }) {
     const response = yield call(deleteQltcheckerApi, payload)
     payload.history.push("/qualitycheckers")
     yield put(deleteQltcheckerSuccess(response))
+    doneNotification()
   } catch (error) {
+    errorNotification()
     yield put(deleteQltcheckerFail(error))
   }
+}
+
+function errorNotification() {
+  Notification({
+    type: "error",
+    message: "Something Went Wrong",
+    title: "Try Again"
+  })
+}
+
+function doneNotification() {
+  Notification({
+    type: "success",
+    message: "Done",
+    title: ""
+  })
 }
 
 function* qltcheckersSaga() {

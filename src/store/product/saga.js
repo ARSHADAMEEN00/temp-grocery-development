@@ -63,6 +63,7 @@ import {
 
 } from "./actions"
 import { get, post, ApiPut, del, patch } from "helpers/api_methods"
+import { Notification } from "components/Common/Notification"
 
 //products
 function getProductsAPi({ searchText, page }) {
@@ -191,8 +192,10 @@ function* onDeleteProduct({ payload }) {
     const response = yield call(deleteProductApi, payload)
     yield put(deleteProductSuccess(response))
     payload.history.push("/products")
+    doneNotification()
   } catch (error) {
     yield put(deleteProductFail(error))
+    errorNotification()
   }
 }
 
@@ -301,6 +304,22 @@ function* onCreateFinishedProduct({ payload: product }) {
   } catch (error) {
     yield put(createProductFail(error))
   }
+}
+
+function errorNotification() {
+  Notification({
+    type: "error",
+    message: "Something Went Wrong",
+    title: "Try Again"
+  })
+}
+
+function doneNotification() {
+  Notification({
+    type: "success",
+    message: "Done",
+    title: ""
+  })
 }
 
 function* productsSaga() {

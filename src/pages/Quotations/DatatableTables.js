@@ -54,6 +54,10 @@ const Quotation = () => {
       sort: true,
     },
     {
+      dataField: "auto_id",
+      text: "Id",
+    },
+    {
       dataField: "date_added",
       text: "Date",
     },
@@ -109,7 +113,7 @@ const Quotation = () => {
         type="button"
         className="btn-sm btn-info btn-rounded"
         to="#"
-        onClick={() => setQDetails(item)}
+        onClick={() => setQDetails(item.id)}
       >
         View Details
       </Link>
@@ -209,10 +213,10 @@ const Quotation = () => {
             </CardBody>
           </Card>
         </Col>
-        <Col lg={4} >
-          <QuotationDetails QDetails={QDetails}
+        {QDetails && <Col lg={4} >
+          <QuotationDetails quotationId={QDetails}
           />
-        </Col>
+        </Col>}
       </Row>
     </React.Fragment>
   )

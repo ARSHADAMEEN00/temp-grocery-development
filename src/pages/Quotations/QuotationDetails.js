@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { Fragment, useEffect, useState } from "react"
 import {
   Badge,
   Card,
@@ -20,100 +20,27 @@ import { map } from "lodash"
 import PropTypes from "prop-types"
 
 //actions
-import { updateOrder } from "store/actions"
+import { getQuotationDetail, updateOrder } from "store/actions"
 
 
 //css
 import "react-datepicker/dist/react-datepicker.css"
 
 
-function QuotationDetails({ QDetails }) {
-  console.log(QDetails);
+function QuotationDetails({ quotationId }) {
   const dispatch = useDispatch()
-  const params = useParams()
-  const [startDate, setStartDate] = useState(Date.now())
-  const [newStatus, setNewStatus] = useState({
-    status: "",
-    start_date: moment(startDate).format("YYYY-MM-DD"),
-  })
-  const { loading, error } = useSelector(state => ({
-    error: state.Orders.error,
-    loading: state.Orders.quotationLoading,
 
+  const { loading, QDetails } = useSelector(state => ({
+    loading: state.Orders.quotationDetailLoading,
+    QDetails: state.Orders.quotationDetails
   }))
+  console.log(QDetails);
+
   useEffect(() => {
-    // dispatch(getOrderDetail(params.id))
-  }, [dispatch])
+    dispatch(getQuotationDetail(quotationId))
+  }, [dispatch, quotationId])
 
-  const status = [
-    {
-      id: 100,
-      statusText: "Pending",
-      class: "info",
-      text: "Pending",
-    },
-    {
-      id: 200,
-      statusText: "Approved",
-      class: "success",
-      text: "Approve",
-    },
-    {
-      id: 300,
-      statusText: "Canceled",
-      class: "danger",
-      text: "Cancel",
-    },
 
-    {
-      id: 400,
-      statusText: "Shipped",
-      class: "success",
-      text: "Shipped",
-    },
-    {
-      id: 500,
-      statusText: "Delivered",
-      class: "success",
-      text: "Delivered",
-    },
-  ]
-
-  function statusList() {
-    if (QDetails?.status == "Pending") {
-      return status?.slice(1, 3)
-    } else if (QDetails?.status == "Approved") {
-      return status?.filter(item => item.statusText == "Shipped")
-    } else if (QDetails?.status == "Shipped") {
-      return status?.filter(item => item.statusText == "Delivered")
-    } else if (QDetails?.status == "Started") {
-      return status?.filter(item => item.statusText == "Shipped")
-    }
-  }
-
-  function handlerFinalValue(event) {
-    setNewStatus({
-      ...newStatus,
-      ["status"]: event.target.value,
-    })
-    {
-      if (event.target.value == "Approved") {
-        dispatch(
-          updateOrder("", params.id, "", {
-            status: event.target.value,
-            start_date: moment(startDate).format("YYYY-MM-DD"),
-          })
-        )
-      } else {
-        dispatch(
-          updateOrder("", params.id, "", {
-            status: event.target.value,
-            start_date: "",
-          })
-        )
-      }
-    }
-  }
   const Status = status => {
     if (status == "Pending") {
       return "info"
@@ -129,25 +56,10 @@ function QuotationDetails({ QDetails }) {
     }
   }
 
-  const handleSubmit = () => {
-    dispatch(updateOrder("", params.id, "", newStatus))
-  }
-  const Role = sessionStorage.getItem("role")
 
-  const Handler = () => {
-    if (QDetails?.status == "Canceled") {
-      return false
-    } else if (Role == "dealer") {
-      return false
-    } else if (QDetails?.status == "Delivered") {
-      return false
-    } else {
-      return true
-    }
-  }
   return (
     <>
-      {QDetails && <Col lg={12}>
+      <Col lg={12}>
         <Card>
           <CardBody>
             {loading ? (
@@ -160,7 +72,8 @@ function QuotationDetails({ QDetails }) {
                     <Col sm="8" xs='6' lg="10">
                       <Media className="overflow-hidden" body>
                         <h5 className="text-truncate font-size-14">{moment(QDetails?.date_added).format("YYYY/MM/DD")}</h5>
-                        <p className="text-muted">{QDetails?.client_name}</p>
+                        <p className="text-muted mb-0">{QDetails?.client_name}</p>
+                        <p className="text-muted">{QDetails?.client_address}</p>
                       </Media>
                     </Col>
                     <Col sm="4" xs="6" lg="2">
@@ -184,54 +97,59 @@ function QuotationDetails({ QDetails }) {
 
                   {QDetails?.quotationitem ?
                     <>
-                      {map(QDetails?.quotationitem, (Qitem, index) => (<>
-                        <div className="mb-3">
-                          <p key={index} className="mb-2 ">
-                            <i className="mdi mdi-chevron-right text-primary me-1" />
-                            {/* Product Name :{" "} */}
-                            <span className="text-dark">
-                              {Qitem?.product_name}
-                            </span>
-                          </p>
-                          <p className="mx-3">
-                            Price :
-                            <span className="text-success mx-2 font-size-16">
-                              <i className="bx bx-rupee" />
-                              {Qitem?.price}
-                            </span>
-                          </p>
-                        </div>
-                      </>
+                      {map(QDetails?.quotationitem, (Qitem, index) => (
 
-                      ))}</> : <p className="text-info">No Quatation Items</p>}
+                        <div className=" py-3" key={index}>
+                          <div className="d-flex">
+                            <div className="me-3">
+                              <img
+                                src={Qitem.product.image}
+                                alt=""
+                                className="avatar-md h-auto d-block rounded"
+                              />
+                            </div>
+                            <div className="align-self-center overflow-hidden me-auto">
+                              <div>
+                                <h5 className="font-size-14 text-truncate">
+                                  <Link to={Qitem.product.id} className="text-dark">
+                                    {Qitem?.product.name}
+                                  </Link>
+                                </h5>
+                                <p className="text-success mb-0 font-size-16"> <i className="bx bx-rupee" />{Qitem?.price}</p>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      ))}
+                      <Link
+                        to="/quotation/pdf?singleView"
+                        type="button"
+                        className="btn btn-outline-light d-flex mt-4"
+                        style={{ marginLeft: "auto", alignItems: "center", width: "fit-content", border: "1px solid #cccc" }}
+                      >
+                        PDF
+                        <i className="mdi mdi-download d-block font-size-16 mx-1"></i>
+                      </Link>
+                    </> : <p className="text-info">No Quatation Items</p>}
                 </div>
 
-                {/* <CardTitle className="mb-1 font-size-14 text-muted mt-4">Update Status</CardTitle>
-                {error?.response && (
-                  <Alert color="danger">{error?.response}</Alert>
-                )}
-                <div className="mb-3 ajax-select mt-2 mt-lg-0 select2-container">
-                  {map(statusList(), (item, index) => (
-                    <Button
-                      key={index}
-                      type="submit"
-                      color={item.class}
-                      value={item.statusText}
+
+                {/* <Button
+                      color="success"
                       className="w-md mb-2 btn-sm "
                       style={{ marginRight: "1rem" }}
-                      onClick={e => handlerFinalValue(e)}
+                      // onClick={e => handlerFinalValue(e)}
                     >
-                      {item.text}
-                    </Button>
-                  ))}
-                </div> */}
+                      Download PDF
+                    </Button> */}
               </>
             )}
 
 
           </CardBody>
         </Card>
-      </Col>}
+      </Col>
 
     </>
   )
@@ -240,5 +158,5 @@ function QuotationDetails({ QDetails }) {
 export default QuotationDetails
 
 QuotationDetails.propTypes = {
-  QDetails: PropTypes.object,
+  quotationId: PropTypes.string,
 }

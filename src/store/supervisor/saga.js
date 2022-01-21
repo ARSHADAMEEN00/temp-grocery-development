@@ -42,6 +42,7 @@ import {
   deleteDailyWorkFail,
 } from "./actions"
 import { get, post, ApiPut, del, patch } from "helpers/api_methods"
+import { Notification } from "components/Common/Notification"
 
 function getDailyWorksApi() {
   return get("/supervisor/supervisor_daily_work/")
@@ -102,8 +103,10 @@ function* onUpdateDailyWorks({ payload }) {
   try {
     const response = yield call(updateDailyWorkApi, payload)
     yield put(updateDailyWorkSuccess(response))
+    doneNotification()
   } catch (error) {
     yield put(updateDailyWorkFail(error))
+    errorNotification()
   }
 }
 
@@ -111,15 +114,19 @@ function* onCreateDailyWorks({ payload }) {
   try {
     const response = yield call(createDailyWorkApi, payload)
     yield put(createDailyWorkSuccess(response))
+    doneNotification()
   } catch (error) {
     yield put(createDailyWorkFail(error))
+    errorNotification()
   }
 }
 function* onDeleteDailyWorks({ payload }) {
   try {
     const response = yield call(deleteDailyWorkApi, payload)
     yield put(deleteDailyWorkSuccess({ ...response, payload }))
+    doneNotification()
   } catch (error) {
+    errorNotification()
     yield put(deleteDailyWorkFail(error))
   }
 }
@@ -128,7 +135,9 @@ function* onWithdrawBalance({ payload }) {
   try {
     const response = yield call(withdrawBalanceApi, payload)
     yield put(balanceWithdrawSuccess(response))
+    doneNotification()
   } catch (error) {
+    errorNotification()
     yield put(balanceWithdrawFail(error))
   }
 }
@@ -176,9 +185,15 @@ function* onCreateSupervisor({ payload }) {
     } else {
       yield put(createSupervisorSuccess(response))
       payload.history.push("/supervisors")
+      Notification({
+        type: "success",
+        message: "Successfully Created StoreItem",
+        title: "Created!",
+      })
     }
   } catch (error) {
     yield put(createSupervisorFail(error))
+    errorNotification()
   }
 }
 
@@ -187,8 +202,14 @@ function* onUpdateSupervisor({ payload }) {
     const response = yield call(updateSupervisorApi, payload)
     yield put(updateSupervisorSuccess(response))
     payload.history.push("/supervisors")
+    Notification({
+      type: "success",
+      message: "Successfully Updated Supervisor",
+      title: "Updated!",
+    })
   } catch (error) {
     yield put(updateSupervisorFail(error))
+    errorNotification()
   }
 }
 
@@ -197,10 +218,30 @@ function* onDeleteSupervisor({ payload }) {
     const response = yield call(deleteSupervisorApi, payload)
     yield put(deleteSupervisorSuccess(response))
     payload.history.push("/supervisors")
+    doneNotification()
   } catch (error) {
+    errorNotification()
     yield put(deleteSupervisorFail(error))
   }
 }
+
+
+function errorNotification() {
+  Notification({
+    type: "error",
+    message: "Something Went Wrong",
+    title: "Try Again"
+  })
+}
+
+function doneNotification() {
+  Notification({
+    type: "success",
+    message: "Done",
+    title: ""
+  })
+}
+
 
 function* supervisorsSaga() {
   yield takeEvery(GET_SUPERVISORS, fetchSupervisors)

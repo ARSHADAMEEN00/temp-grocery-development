@@ -21,6 +21,7 @@ import {
   deleteStoremngrFail,
 } from "./actions"
 import { get, post, ApiPut, del, patch } from "helpers/api_methods"
+import { Notification } from "components/Common/Notification"
 
 const getStoremngrsAPi = ({ searchText, page }) => {
   if (searchText) {
@@ -47,7 +48,7 @@ function* fetchStoremngrs({ payload }) {
     const response = yield call(getStoremngrsAPi, payload)
     yield put(getStoremngrsSuccess(response))
   } catch (error) {
-    // yield put(getStoremngrsFail(error))
+    yield put(getStoremngrsFail(error))
   }
 }
 
@@ -67,9 +68,15 @@ function* onCreateStoremngr({ payload }) {
     } else {
       yield put(createStoremngrSuccess(response))
       payload.history.push("/storemanagers")
+      Notification({
+        type: "success",
+        message: "Successfully Created StoreItem",
+        title: "Created!",
+      })
     }
   } catch (error) {
-    // yield put(createStoremngrFail(error))
+    yield put(createStoremngrFail(error))
+    errorNotification()
   }
 }
 
@@ -77,9 +84,11 @@ function* onUpdateStoremngr({ payload }) {
   try {
     const response = yield call(updateStoremngrApi, payload)
     yield put(updateStoremngrSuccess(response))
-    // payload.history.push('/')
+    payload.history.push("/storemanagers")
+    doneNotification()
   } catch (error) {
     yield put(updateStoremngrFail(error))
+    errorNotification()
   }
 }
 
@@ -88,9 +97,27 @@ function* onDeleteStoremngr({ payload }) {
     const response = yield call(deleteStoremngrApi, payload)
     yield put(deleteStoremngrSuccess(response))
     payload.history.push("/storemanagers")
+    doneNotification()
   } catch (error) {
     yield put(deleteStoremngrFail(error))
+    errorNotification()
   }
+}
+
+function errorNotification() {
+  Notification({
+    type: "error",
+    message: "Something Went Wrong",
+    title: "Try Again"
+  })
+}
+
+function doneNotification() {
+  Notification({
+    type: "success",
+    message: "Done",
+    title: ""
+  })
 }
 
 function* storemngrsSaga() {

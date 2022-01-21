@@ -10,7 +10,8 @@ import {
   UPDATE_ORDER_ITEM,
   GET_QUOTATIONS,
   CREATE_QUOTATION,
-  GET_QPRODUCTPRICE
+  GET_QPRODUCTPRICE,
+  GET_QUOTATION_DETAIL
 } from "./actionTypes"
 import {
   getOrdersSuccess,
@@ -29,9 +30,12 @@ import {
   createQuatationSuccess,
   getQProductPriceFail,
   getQProductPriceSuccess,
+  getQuotationDetailSuccess,
+  getQuotationDetailFail,
 } from "./actions"
 import { get, post, ApiPut, del, patch } from "helpers/api_methods"
 import { updateOrderItemFail, updateOrderItemSuccess } from "store/actions"
+import { Notification } from "components/Common/Notification"
 
 function getOrdersAPi({ searchText, page }) {
   if (searchText) {
@@ -47,7 +51,9 @@ function getQuotationsAPi({ searchText, page }) {
     return get(`/quotation/quotation/?page=${page ? page : 1}`)
   }
 }
-
+const getQuotationDetailsAPi = (quotationId) => {
+  return get(`/quotation/quotation/${quotationId}/`)
+}
 
 const createQuotationApi = ({ Quatation }) => {
   return post("/quotation/quotation/", Quatation)
@@ -94,14 +100,28 @@ function* fetchQuotations({ payload }) {
     yield put(getQuotationsFail(error))
   }
 }
+function* fetchQuotationDetail({ quotationId }) {
+  try {
+    const response = yield call(getQuotationDetailsAPi, quotationId)
+    yield put(getQuotationDetailSuccess(response))
+  } catch (error) {
+    yield put(getQuotationDetailFail(error))
+  }
+}
 
 function* onCreateQuotation({ payload }) {
   try {
     const response = yield call(createQuotationApi, payload)
     yield put(createQuatationSuccess(response))
     // payload.history.push("/quotations")
+    Notification({
+      type: "success",
+      message: "Successfully Created Quotations",
+      title: "Created!",
+    })
   } catch (error) {
     yield put(createQuatationFail(error))
+    errorNotification()
   }
 }
 
@@ -125,14 +145,16 @@ function* fetchOrderDetail({ orderId }) {
 function* onCreateOrder({ payload }) {
   try {
     const response = yield call(createOrderApi, payload)
-    if (response?.error_message) {
-      yield put(createOrderFail(response?.error_message))
-    } else {
-      yield put(createOrderSuccess(response))
-      payload.history.push("/orders")
-    }
+    yield put(createOrderSuccess(response))
+    payload.history.push("/orders")
+    Notification({
+      type: "success",
+      message: "Successfully Created Order",
+      title: "Created!",
+    })
   } catch (error) {
     yield put(createOrderFail(error))
+    errorNotification()
   }
 }
 
@@ -143,6 +165,7 @@ function* onUpdateOrder({ payload }) {
       yield put(updateOrderFail(response))
     } else {
       yield put(updateOrderSuccess(response))
+
     }
   } catch (error) {
     yield put(updateOrderFail(error))
@@ -153,8 +176,14 @@ function* onUpdateOrderItem({ payload }) {
   try {
     const response = yield call(updateOrderItemApi, payload)
     yield put(updateOrderItemSuccess({ ...response, id: payload.orderItemId }))
+    Notification({
+      type: "success",
+      message: "Successfully Updated",
+      title: "Updated!",
+    })
   } catch (error) {
     yield put(updateOrderItemFail(error))
+    errorNotification()
   }
 }
 
@@ -163,9 +192,28 @@ function* onDeleteOrder({ orderId, history }) {
     const response = yield call(deleteOrderApi, orderId)
     yield put(deleteOrderSuccess(response))
     history.push("/orders")
+    doneNotification()
   } catch (error) {
     yield put(deleteOrderFail(error))
+    errorNotification()
   }
+}
+
+
+function errorNotification() {
+  Notification({
+    type: "error",
+    message: "Something Went Wrong",
+    title: "Try Again"
+  })
+}
+
+function doneNotification() {
+  Notification({
+    type: "success",
+    message: "Done",
+    title: ""
+  })
 }
 
 function* ordersSaga() {
@@ -176,6 +224,7 @@ function* ordersSaga() {
   yield takeEvery(DELETE_ORDER, onDeleteOrder)
   yield takeEvery(UPDATE_ORDER_ITEM, onUpdateOrderItem)
   yield takeEvery(GET_QUOTATIONS, fetchQuotations)
+  yield takeEvery(GET_QUOTATION_DETAIL, fetchQuotationDetail)
   yield takeEvery(CREATE_QUOTATION, onCreateQuotation)
   yield takeEvery(GET_QPRODUCTPRICE, fetchQProductPrice)
 }

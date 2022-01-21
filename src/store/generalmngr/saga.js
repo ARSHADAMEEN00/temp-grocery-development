@@ -74,13 +74,12 @@ function* onCreateGm({ payload }) {
     })
   } catch (error) {
     yield put(createGeneralManagerFail(error))
-    Notification({
-      type: "error",
-      message: "Something Went Wrong",
-      title: "",
-    })
+    errorNotification()
+
   }
 }
+
+
 
 function* onUpdateGm({ payload }) {
   try {
@@ -94,11 +93,7 @@ function* onUpdateGm({ payload }) {
     })
   } catch (error) {
     yield put(updateGeneralManagerFail(error))
-    Notification({
-      type: "error",
-      message: "Something Went Wrong",
-      title: "",
-    })
+    errorNotification()
   }
 }
 
@@ -107,15 +102,27 @@ function* onDeleteGm({ gmId, history }) {
     const response = yield call(deleteGmApi, gmId)
     yield put(deleteGeneralManagerSuccess(response))
     history.push("/generalmanagers")
-
+    doneNotification()
   } catch (error) {
     yield put(deleteGeneralManagerFail(error))
-    Notification({
-      type: "error",
-      message: "Something Went Wrong",
-      title: "",
-    })
+    errorNotification()
   }
+}
+
+function errorNotification() {
+  Notification({
+    type: "error",
+    message: "Something Went Wrong",
+    title: "Try Again"
+  })
+}
+
+function doneNotification() {
+  Notification({
+    type: "success",
+    message: "Done",
+    title: ""
+  })
 }
 
 function* generalmngrSaga() {

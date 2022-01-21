@@ -17,9 +17,13 @@ import {
   UPDATE_ORDER_ITEM_FAIL,
   UPDATE_ORDER_ITEM_SUCCESS,
   UPDATE_ORDER_SUCCESS,
+  //quotation
   GET_QUOTATIONS,
   GET_QUOTATIONS_SUCCESS,
   GET_QUOTATIONS_FAIL,
+  GET_QUOTATION_DETAIL,
+  GET_QUOTATION_DETAIL_SUCCESS,
+  GET_QUOTATION_DETAIL_FAIL,
   CREATE_QUOTATION,
   CREATE_QUOTATION_SUCCESS,
   CREATE_QUOTATION_FAIL,
@@ -55,6 +59,22 @@ export const getQuotationsFail = error => ({
   type: GET_QUOTATIONS_FAIL,
   payload: error,
 })
+
+export const getQuotationDetail = quotationId => ({
+  type: GET_QUOTATION_DETAIL,
+  quotationId,
+})
+export const getQuotationDetailSuccess = quotationDetail => ({
+  type: GET_QUOTATION_DETAIL_SUCCESS,
+  payload: quotationDetail,
+})
+
+export const getQuotationDetailFail = error => ({
+  type: GET_QUOTATION_DETAIL_FAIL,
+  payload: error,
+})
+
+
 export const createQuatation = (Quatation, history) => ({
   type: CREATE_QUOTATION,
   payload: { Quatation, history },

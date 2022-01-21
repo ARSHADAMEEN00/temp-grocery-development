@@ -21,6 +21,7 @@ import {
   deleteProductionmngrFail,
 } from "./actions"
 import { get, post, ApiPut, del, patch } from "helpers/api_methods"
+import { Notification } from "components/Common/Notification"
 
 const getProductionmngrsAPi = ({ searchText, page }) => {
   if (searchText) {
@@ -67,14 +68,17 @@ function* fetchProductionmngrDetail({ productionmngrId }) {
 function* onCreateProductionmngr({ payload }) {
   try {
     const response = yield call(createProductionmngrApi, payload)
-    if (response?.error_message) {
-      yield put(createProductionmngrFail(response?.error_message))
-    } else {
-      yield put(createProductionmngrSuccess(response))
-      payload.history.push("/productionmanagers")
-    }
+    yield put(createProductionmngrSuccess(response))
+    payload.history.push("/productionmanagers")
+    Notification({
+      type: "success",
+      message: "Successfully Created Production Manager",
+      title: "Created!",
+    })
   } catch (error) {
     yield put(createProductionmngrFail(error))
+    errorNotification()
+
   }
 }
 
@@ -83,8 +87,15 @@ function* onUpdateProductionmngr({ payload }) {
     const response = yield call(updateProductionmngrApi, payload)
     yield put(updateProductionmngrSuccess(response))
     payload.history.push("/productionmanagers")
+    Notification({
+      type: "success",
+      message: "Successfully Updated Production Manager",
+      title: "Updated!",
+    })
   } catch (error) {
     yield put(updateProductionmngrFail(error))
+    errorNotification()
+
   }
 }
 
@@ -93,9 +104,27 @@ function* onDeleteProductionmngr({ payload }) {
     const response = yield call(deleteProductionmngrApi, payload)
     yield put(deleteProductionmngrSuccess(response))
     payload.history.push("/productionmanagers")
+    doneNotification()
   } catch (error) {
     yield put(deleteProductionmngrFail(error))
+    errorNotification()
   }
+}
+
+function errorNotification() {
+  Notification({
+    type: "error",
+    message: "Something Went Wrong",
+    title: "Try Again"
+  })
+}
+
+function doneNotification() {
+  Notification({
+    type: "success",
+    message: "Done",
+    title: ""
+  })
 }
 
 function* productionmngrsSaga() {

@@ -25,7 +25,10 @@ import {
   CREATE_QUOTATION_FAIL,
   GET_QPRODUCTPRICE,
   GET_QPRODUCTPRICE_SUCCESS,
-  GET_QPRODUCTPRICE_FAIL
+  GET_QPRODUCTPRICE_FAIL,
+  GET_QUOTATION_DETAIL_SUCCESS,
+  GET_QUOTATION_DETAIL_FAIL,
+  GET_QUOTATION_DETAIL
 } from "./actionTypes"
 
 const INIT_STATE = {
@@ -43,12 +46,14 @@ const INIT_STATE = {
   quotation: [],
   quotationCurd: {},
   QProductPrice: {},
+  quotationDetails: {},
   AllQProducts: [],
   error: {},
   loading: false,
   orderitemLoading: false,
   createOrdererror: null,
   quotationLoading: false,
+  quotationDetailLoading: false,
   QProductPriceLoading: false
 }
 
@@ -171,6 +176,11 @@ const Orders = (state = INIT_STATE, action) => {
         ...state,
         quotationLoading: true
       }
+    case GET_QUOTATION_DETAIL:
+      return {
+        ...state,
+        quotationDetailLoading: true
+      }
     case GET_QUOTATIONS_SUCCESS:
       return {
         ...state,
@@ -183,6 +193,21 @@ const Orders = (state = INIT_STATE, action) => {
         error: action.payload,
         quotationLoading: false
       }
+
+    case GET_QUOTATION_DETAIL_SUCCESS:
+      return {
+        ...state,
+        quotationDetails: action.payload,
+        quotationDetailLoading: false,
+      }
+
+    case GET_QUOTATION_DETAIL_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+        quotationDetailLoading: false,
+      }
+
     case CREATE_QUOTATION_SUCCESS:
       return {
         ...state,

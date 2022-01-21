@@ -21,6 +21,7 @@ import {
   deleteSalesmanFail,
 } from "./actions"
 import { get, post, ApiPut, del, patch } from "helpers/api_methods"
+import { Notification } from "components/Common/Notification"
 
 const getSalesmansAPi = ({ searchText, page }) => {
   if (searchText) {
@@ -62,14 +63,14 @@ function* fetchSalesmanDetail({ salesmanId }) {
 function* onCreateSalesman({ payload }) {
   try {
     const response = yield call(createSalesmanApi, payload)
-    if (response?.error_message) {
-      yield put(createSalesmanFail(response?.error_message))
-    } else {
-      yield put(createSalesmanSuccess(response))
-      payload.history.push("/qualitycheckers")
-    }
+
+    yield put(createSalesmanSuccess(response))
+    payload.history.push("/qualitycheckers")
+    doneNotification()
   } catch (error) {
     yield put(createSalesmanFail(error))
+    errorNotification()
+
   }
 }
 
@@ -77,8 +78,11 @@ function* onUpdateSalesman({ payload }) {
   try {
     const response = yield call(updateSalesmanApi, payload)
     yield put(updateSalesmanSuccess(response))
+    doneNotification()
   } catch (error) {
     yield put(updateSalesmanFail(error))
+    errorNotification()
+
   }
 }
 
@@ -87,9 +91,27 @@ function* onDeleteSalesman({ payload }) {
     const response = yield call(deleteSalesmanApi, payload)
     payload.history.push("/qualitycheckers")
     yield put(deleteSalesmanSuccess(response))
+    doneNotification()
   } catch (error) {
     yield put(deleteSalesmanFail(error))
+    errorNotification()
   }
+}
+
+function errorNotification() {
+  Notification({
+    type: "error",
+    message: "Something Went Wrong",
+    title: "Try Again"
+  })
+}
+
+function doneNotification() {
+  Notification({
+    type: "success",
+    message: "Done",
+    title: ""
+  })
 }
 
 function* salesmansSaga() {

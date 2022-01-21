@@ -76,7 +76,7 @@ const commonRoute = [
 //for md(managing Director) only
 const MDProtectedRoutes = [
   { path: "/dashboard", component: Dashboard },
-  { path: "/quotation/pdf/:id", component: PDFGenerator },
+  { path: "/quotation/pdf", component: PDFGenerator },
 
   // //profile Clients
   { path: "/profile", component: UserProfile },

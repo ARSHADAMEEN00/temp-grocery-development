@@ -339,19 +339,22 @@ const CreateQuotations = ({ history }) => {
                           </div>
                           <div>
                             <Row>
-                              <Col lg="6"></Col>
-                              <Col lg="3">
+                              <Col lg="6" md="6"></Col>
+                              <Col lg="3" md="3">
                                 {quotationCurd?.id && <div className="text-sm-end mt-2">
                                   <Link
-                                    to={`/quotation/pdf/${productId}`}
-                                    className="btn btn-dark"
+                                    to="/quotation/pdf"
+                                    type="button"
+                                    className="btn btn-outline-light d-flex mt-4 w-auto"
+                                    style={{ marginLeft: "auto", alignItems: "center", width: "fit-content", border: "1px solid #cccc" }}
                                   >
-                                    Quotation PDF
-
+                                    PDF
+                                    <i className="mdi mdi-download d-block font-size-16 mx-1"></i>
                                   </Link>
-                                </div>}
+                                </div>
+                                }
                               </Col>
-                              <Col lg="3">
+                              <Col lg="3" md="3">
                                 <div className="text-sm-end mt-2">
                                   <Link
                                     to="#"

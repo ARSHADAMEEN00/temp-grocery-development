@@ -69,12 +69,14 @@ function* onCreateWorkStage({ payload }) {
       yield put(createWorkStageSuccess(response))
       payload.history.push("/stages")
       Notification({
-        title: "created",
-        type: "success"
+        type: "success",
+        message: "Successfully Created Stage",
+        title: "Created!"
       })
     }
   } catch (error) {
     yield put(createWorkStageFail(error))
+    errorNotification()
   }
 }
 
@@ -82,8 +84,10 @@ function* onUpdateWorkStage({ payload }) {
   try {
     const response = yield call(updateWorkStageApi, payload)
     yield put(updateWorkStageSuccess(response))
+    doneNotification()
   } catch (error) {
     yield put(updateWorkStageFail(error))
+    errorNotification()
   }
 }
 
@@ -92,9 +96,27 @@ function* onDeleteWorkStage({ payload }) {
     const response = yield call(deleteWorkStageApi, payload)
     payload.history.push("/stages")
     yield put(deleteWorkStageSuccess(response))
+    doneNotification()
   } catch (error) {
     yield put(deleteWorkStageFail(error))
+    errorNotification()
   }
+}
+
+function errorNotification() {
+  Notification({
+    type: "error",
+    message: "Something Went Wrong",
+    title: "Try Again"
+  })
+}
+
+function doneNotification() {
+  Notification({
+    type: "success",
+    message: "Done",
+    title: ""
+  })
 }
 
 function* workStagesSaga() {

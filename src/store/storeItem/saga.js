@@ -27,6 +27,7 @@ import {
   updateStoreSupplyFail,
 } from "./actions"
 import { get, post, ApiPut, del, patch } from "helpers/api_methods"
+import { Notification } from "components/Common/Notification"
 
 function getStoreItemsAPi({ searchText, page }) {
   if (searchText) {
@@ -93,9 +94,16 @@ function* onCreateStoreItem({ payload }) {
     } else {
       yield put(createStoreItemSuccess(response))
       payload.history.push("/stores")
+      Notification({
+        type: "success",
+        message: "Successfully Created StoreItem",
+        title: "Created!",
+      })
     }
+
   } catch (error) {
     yield put(createStoreItemFail(error))
+    errorNotification()
   }
 }
 
@@ -104,8 +112,14 @@ function* onUpdateStoreItem({ payload }) {
     const response = yield call(updateStoreItemApi, payload)
     yield put(updateStoreItemSuccess(response))
     payload.history.push("/stores")
+    Notification({
+      type: "success",
+      message: "Successfully Updated StoreItem",
+      title: "Updated!",
+    })
   } catch (error) {
     yield put(updateStoreItemFail(error))
+    errorNotification()
   }
 }
 
@@ -115,8 +129,10 @@ function* onUpdateStoreSupply({ payload }) {
     yield put(
       updateStoreSupplySuccess({ ...response, id: payload.storeSupplyId })
     )
+    doneNotification()
   } catch (error) {
     yield put(updateStoreSupplyFail(error))
+    errorNotification()
   }
 }
 
@@ -124,9 +140,27 @@ function* onDeleteStoreItem({ payload }) {
   try {
     const response = yield call(deleteStoreItemApi, payload)
     yield put(deleteStoreItemSuccess({ ...response, id: payload.storeItemId }))
+    doneNotification()
   } catch (error) {
+    errorNotification()
     yield put(deleteStoreItemFail(error))
   }
+}
+
+function errorNotification() {
+  Notification({
+    type: "error",
+    message: "Something Went Wrong",
+    title: "Try Again"
+  })
+}
+
+function doneNotification() {
+  Notification({
+    type: "success",
+    message: "Done",
+    title: ""
+  })
 }
 
 function* storeItemsSaga() {
