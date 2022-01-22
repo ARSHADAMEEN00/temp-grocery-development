@@ -1,26 +1,19 @@
 import React, { useEffect, useRef } from "react"
 import {
-  Button,
   Card,
   CardBody,
   CardSubtitle,
   CardTitle,
-  Col,
-  Container,
-  Row,
   Table,
 } from "reactstrap"
-import { PDFExport } from "@progress/kendo-react-pdf"
 import Breadcrumb from "../Common/Breadcrumb"
 import { MetaTags } from "react-meta-tags"
-import { useDispatch, useSelector } from "react-redux"
-import { useParams } from "react-router-dom"
+import {  useSelector } from "react-redux"
 import moment from "moment"
 import { map } from "lodash"
 import { API_URL } from "helpers/api_methods"
 
 const PDFGenerator = () => {
-  const PDFExpoertComponent = useRef(null)
 
   //redux state
   const { quotationCurd, AllQProducts, QuotationItems, quotationDetails } = useSelector(state => ({
@@ -36,10 +29,13 @@ const PDFGenerator = () => {
     })
   })
 
-  setTimeout(() => {
-    PDFExpoertComponent.current.save()
-    window.print()
-  }, 1000);
+
+  useEffect(() => {
+    setTimeout(() => {
+      window.print()
+    }, 1000);
+  }, []);
+  
 
 
   const IMG_API = API_URL?.split("/api/v1")[0]
@@ -55,7 +51,6 @@ const PDFGenerator = () => {
 
       <div className="page-content">
         <Breadcrumb title="Quotation" breadcrumbItem="Quotation PDF" />
-        <PDFExport ref={PDFExpoertComponent} paperSize="A3" >
           <Card className="">
             <CardBody>
               <CardTitle>Indtech</CardTitle>
@@ -202,7 +197,6 @@ const PDFGenerator = () => {
               </div>
             </CardBody>
           </Card>
-        </PDFExport>
       </div>
     </>
   )
