@@ -20,27 +20,27 @@ import {
   deleteSalesmanSuccess,
   deleteSalesmanFail,
 } from "./actions"
-import { get, post, ApiPut, del, patch } from "helpers/api_methods"
+import { get, post, ApiPut, del } from "helpers/api_methods"
 import { Notification } from "components/Common/Notification"
 
 const getSalesmansAPi = ({ searchText, page }) => {
   if (searchText) {
-    return get(`/account/slaesman/?search=${searchText && searchText}`)
+    return get(`/account/sales_man/?search=${searchText && searchText}`)
   } else {
-    return get(`/account/slaesman/?page=${page ? page : 1}`)
+    return get(`/account/sales_man/?page=${page ? page : 1}`)
   }
 }
 const getSalesmanDetailsAPi = salesmanId => {
-  return get(`/account/slaesman/${salesmanId}/`)
+  return get(`/account/sales_man/${salesmanId}/`)
 }
 const createSalesmanApi = ({ salesman }) => {
-  return post("/account/slaesman/", salesman)
+  return post("/account/sales_man/", salesman)
 }
 const updateSalesmanApi = ({ salesmanId, salesman }) => {
-  return ApiPut(`/account/slaesman/${salesmanId}/`, salesman)
+  return ApiPut(`/account/sales_man/${salesmanId}/`, salesman)
 }
 const deleteSalesmanApi = ({ salesmanId }) => {
-  return del(`/account/slaesman/${salesmanId}/`)
+  return del(`/account/sales_man/${salesmanId}/`)
 }
 
 function* fetchSalesmans({ payload }) {

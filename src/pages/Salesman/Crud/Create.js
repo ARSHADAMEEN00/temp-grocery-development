@@ -3,14 +3,12 @@ import React from "react"
 import { MetaTags } from "react-meta-tags"
 import { useDispatch, useSelector } from "react-redux"
 import {
-  Alert,
   Button,
   Card,
   CardBody,
   CardTitle,
   Col,
   Container,
-  Input,
   Label,
   Row,
 } from "reactstrap"
@@ -30,6 +28,7 @@ const CreateSalesman = ({ history }) => {
 
   // handleValidSubmit
   const handleValidSubmit = (onSubmitProps, values) => {
+    console.log(values);
     dispatch(createSalesman(values, history))
   }
   return (
@@ -72,11 +71,7 @@ const CreateSalesman = ({ history }) => {
                             type="text"
                             validate={{
                               required: { value: true },
-                              minLength: {
-                                value: 4,
-                                errorMessage:
-                                  "Your name must be between 6 and 16 characters",
-                              },
+                              
                               maxLength: {
                                 value: 16,
                                 errorMessage:
@@ -100,11 +95,7 @@ const CreateSalesman = ({ history }) => {
                             type="text"
                             validate={{
                               required: { value: true },
-                              minLength: {
-                                value: 4,
-                                errorMessage:
-                                  "Your name must be between 6 and 16 characters",
-                              },
+                              
                               maxLength: {
                                 value: 16,
                                 errorMessage:

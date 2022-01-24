@@ -23,34 +23,46 @@ const MiniWidget = () => {
       loading: dashboardLoading,
       linkPath: "/orders",
     },
-    {
-      icon: "bx bx-copy-alt",
-      title: "Wage Paid Today",
-      value: (
-        <>
-          <i className="fas fa-rupee-sign mx-1 font-size-17 "></i>
-          {dashboardData?.wage_paid_per_day}
-        </>
-      ),
-      badgeValue: dashboardData?.no_of_transactions,
-      color: "success",
-      desc: "Transaction",
-      warningMsg: "No Transaction Today",
-      msgColor: "info",
-      loading: dashboardLoading,
-      linkPath: "",
-    },
+    // {
+    //   icon: "bx bx-copy-alt",
+    //   title: "Wage Paid Today",
+    //   value: (
+    //     <>
+    //       <i className="fas fa-rupee-sign mx-1 font-size-17 "></i>
+    //       {dashboardData?.wage_paid_per_day}
+    //     </>
+    //   ),
+    //   badgeValue: dashboardData?.no_of_transactions,
+    //   color: "success",
+    //   desc: "Transaction",
+    //   warningMsg: "No Transaction Today",
+    //   msgColor: "info",
+    //   loading: dashboardLoading,
+    //   linkPath: "",
+    // },
     {
       icon: "bx bx-purchase-tag-alt",
       title: "Out Of Stock",
       value: dashboardData?.out_of_stock_items?.length,
-      badgeValue: dashboardData?.out_of_stock_items?.length,
-      color: "light",
-      desc: "",
-      warningMsg: "Stocks Available",
+      badgeValue: dashboardData?.total_store_item,
+      color: "success",
+      desc: "Stocks Available",
+      warningMsg: "",
       msgColor: "success",
       loading: dashboardLoading,
-      linkPath: "/sttore",
+      linkPath: "/store",
+    },
+    {
+      icon: "bx bx-copy-alt",
+      title: "Pending Quotation",
+      value: dashboardData?.pending_quotations,
+      badgeValue: dashboardData?.pending_quotations,
+      color: "light",
+      desc: "",
+      warningMsg: "",
+      msgColor: "info",
+      loading: dashboardLoading,
+      linkPath: "/orders",
     },
     // {
     //   icon: "bx bx-copy-alt",

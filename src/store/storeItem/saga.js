@@ -38,13 +38,13 @@ function getStoreItemsAPi({ searchText, page }) {
 }
 function getStoreSupplyApi({ searchText, page }) {
   if (searchText) {
-    return get(`/store/storemanagerview/?search=${searchText && searchText}`)
+    return get(`/order/storemanagerview/?search=${searchText && searchText}`)
   } else {
-    return get(`/store/storemanagerview/?page=${page ? page : 1}`)
+    return get(`/order/storemanagerview/?page=${page ? page : 1}`)
   }
 }
 const updateStoreSupplyApi = ({ storeSupplyId, storeSupply }) => {
-  return patch(`/store/storemanagerview/${storeSupplyId}/`, storeSupply)
+  return patch(`/order/storemanagerview/${storeSupplyId}/`, storeSupply)
 }
 const getStoreItemDetailsAPi = storeItemId => {
   return get(`/store/store/${storeItemId}/`)

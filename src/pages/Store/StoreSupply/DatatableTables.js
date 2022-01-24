@@ -35,6 +35,7 @@ const Stores = () => {
     loading: state.StoreItems.loading,
   }))
 
+  console.log(storeSupply)
   //page
   const totalPages = Math.ceil(storeSupply?.count / 10)
   const pages = range(1, totalPages + 1)
@@ -62,10 +63,6 @@ const Stores = () => {
     {
       dataField: "auto_id",
       text: "Id",
-    },
-    {
-      dataField: "supervisor",
-      text: "Supervisor",
     },
     {
       dataField: "product",

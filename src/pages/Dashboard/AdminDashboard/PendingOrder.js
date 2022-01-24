@@ -15,8 +15,8 @@ const PendingOrder = () => {
     orders: state.Orders.orders,
     loading: state.Orders.loading,
   }))
-  const pendingOrder = orders?.results?.filter(item => item.status == "Pending")
-  const pendingOrderNew = pendingOrder
+  const pendingOrder = orders?.results?.filter(item => item.status == "Approved")
+  const pendingOrderNew = pendingOrder?.slice(0,3)
 
   return (
     <React.Fragment>
@@ -39,7 +39,7 @@ const PendingOrder = () => {
                       </div>
                       <Media body>
                         <Link to="/orders" className="font-size-14 text-muted">
-                          Dealer : {item?.dealer_name}{" "}
+                          Client : {item?.dealer_name}{" "}
                         </Link>
                         <p className="text-muted font-size-14">
                           <i className="fas fa-rupee-sign mx-2"></i>

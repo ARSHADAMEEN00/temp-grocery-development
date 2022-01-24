@@ -47,17 +47,25 @@ function OrderItems() {
             <Table className="table align-middle table-nowrap">
               <thead className="table-light">
                 <tr>
+                <th>Order Item Id</th>
                   <th>Order item</th>
                   <th>Quantity</th>
-                  {Role == "dealer" ? <></> : <th>Cost</th>}
-                  <th>Total</th>
+                  
+                  <th>Price</th>
                 </tr>
               </thead>
               <tbody>
                 {map(orderitem, (item, index) => (
                   <tr key={index}>
-                    <td>
+                      <td>
                       <h5 className="font-size-13 m-0">
+                        <Link to="#" className="text-dark">
+                          {item.auto_id}
+                        </Link>
+                      </h5>
+                    </td>
+                    <td>
+                      <h5 className="font-size-13 m-0" style={{whiteSpace: "break-spaces"}}>
                         <Link to="#" className="text-dark">
                           {item.product_name}
                         </Link>
@@ -115,24 +123,16 @@ function OrderItems() {
                         </Row>
                       )}
                     </td>
-                    {Role == "dealer" ? (
-                      <></>
-                    ) : (
+                    
                       <td>
                         <h5 className="font-size-13 m-0">
                           <Link to="#" className="text-dark">
-                            {item.cost}
+                            {item.price}
                           </Link>
                         </h5>
                       </td>
-                    )}
-                    <td>
-                      <h5 className="font-size-13 m-0">
-                        <Link to="#" className="text-dark">
-                          {item.sub_total}
-                        </Link>
-                      </h5>
-                    </td>
+                  
+                   
                   </tr>
                 ))}
               </tbody>

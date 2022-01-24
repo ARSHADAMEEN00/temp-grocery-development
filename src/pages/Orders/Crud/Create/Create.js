@@ -4,7 +4,7 @@ import { map } from "lodash"
 import { Link } from "react-router-dom"
 import PropTypes from "prop-types"
 import { MetaTags } from "react-meta-tags"
-import { Container } from "reactstrap"
+import { Badge, Container } from "reactstrap"
 import {
   Row,
   Col,
@@ -20,7 +20,7 @@ import {
 import Select from "react-select"
 
 //actions
-import { createOrder, getClients, getProducts, getQuotations } from "store/actions"
+import { createOrder, getClients, getProducts, getQProductPrice, getQuotations } from "store/actions"
 
 import Breadcrumbs from "../../../../components/Common/Breadcrumb"
 import CreateClientModal from "./CreateClientModal"
@@ -28,12 +28,14 @@ import CreateClientModal from "./CreateClientModal"
 const CreateOrder = ({ history }) => {
   const dispatch = useDispatch()
   //redux state
-  const { products, loading, orderLoading, clients, quotation } = useSelector(state => ({
+  const { products, loading, orderLoading, clients, quotation,QProductPrice } = useSelector(state => ({
     products: state.Products.products,
     loading: state.StoreItems.loading,
     orderLoading: state.Orders.loading,
     clients: state.Clients.clients,
-    quotation: state.Orders.quotation
+    quotation: state.Orders.quotation,
+    QProductPrice: state.Orders.QProductPrice.cost,
+
 
   }))
   const [selectedOrder, setselectedOrder] = useState("Search a Product")
@@ -43,6 +45,8 @@ const CreateOrder = ({ history }) => {
   const [searchText, setSearchText] = useState("")
   const [searchQuotationText, setSearchQuotationText] = useState("")
   const [orderitem, setNewOrders] = useState([])
+  const [percentage, setPercentage] = useState(0)
+  const [qty, setQty] = useState(1);
   const [rawData, setRawData] = useState({
     client: "",
     start_date: "",
@@ -51,6 +55,21 @@ const CreateOrder = ({ history }) => {
     duration: "",
     orderitem: [],
   })
+
+  const ProductPrice = parseInt(QProductPrice)
+
+  const totelPriceCalc = (ProductPrice * percentage / 100) + ProductPrice * qty
+
+  useEffect(() => {
+      setRawData({
+        ...rawData,
+        orderitem: {
+          ...rawData.orderitem,
+          ["price"]: totelPriceCalc,
+        },
+      })
+  }, [totelPriceCalc]);
+  
 
 
   useEffect(() => {
@@ -84,6 +103,8 @@ const CreateOrder = ({ history }) => {
 
   //setore item from and search
   function handlerFinalValue(event) {
+    console.log(event);
+    dispatch(getQProductPrice(event.value))
     setselectedOrder(event.label)
     setRawData({
       ...rawData,
@@ -162,6 +183,17 @@ const CreateOrder = ({ history }) => {
     setIsOpen(true)
   }
 
+  const handleQty=(e)=>{
+    setQty(e.target.value),
+    setRawData({
+      ...rawData,
+      orderitem: {
+        ...rawData.orderitem,
+        ["quantity"]: e.target.value,
+      },
+    })
+  }
+
   return (
     <>
       <CreateClientModal
@@ -180,13 +212,11 @@ const CreateOrder = ({ history }) => {
           <div className="container-fluid">
             {/* uploading */}
             <Row>
-              <Col lg={orderitem.length > 0 ? "6" : "12"}>
+              <Col lg={12}>
+                    <Form className="repeater" encType="multipart/form-data">
                 <Card>
                   <CardBody>
                     <CardTitle className="h4 mb-4">Add Order</CardTitle>
-
-                    <Form className="repeater" encType="multipart/form-data">
-                      <div>
                         <Row>
                           <Col lg={12} className="mb-3">
                             <FormGroup className="mb-3">
@@ -209,12 +239,11 @@ const CreateOrder = ({ history }) => {
                           {Role == "client" ? (
                             <></>
                           ) : (<>
-                            <Col lg={10} className="mb-3" style={{ paddingRight: "0" }}>
+                            <Col lg={9} md={8} sm={6} xs={12} className="mb-3 createClintBtn"  >
                               <FormGroup className="mb-3">
                                 <Label>Select Client / Create Now </Label>
 
-                                <div className="col-md-12"></div>
-                                <div className="mb-3 ajax-select mt-3 mt-lg-0 select2-container">
+                                <div className="ajax-select mt-3 mt-lg-0 select2-container">
                                   <Select
                                     onInputChange={handleClientEnters}
                                     value={selectedClient}
@@ -228,8 +257,8 @@ const CreateOrder = ({ history }) => {
                                 </div>
                               </FormGroup>
                             </Col>
-                            <Col lg={2} className="mt-1 mb-3 m-0 " style={{ paddingLeft: "0" }}>
-                              <button type="button" className="btn btn-light btn-label mt-4 custom_border_rad text-info"
+                            <Col lg={3} md={4} sm={6} xs={12} className="m-0 createClintBtnCont " >
+                              <button type="button" className="btn btn-light btn-label  custom_border_rad text-info"
                                 onClick={handleCreateCLient} >
                                 Create Client<i className="bx bx-user-plus label-icon text-info font-size-24"></i></button>
                             </Col>
@@ -287,8 +316,15 @@ const CreateOrder = ({ history }) => {
                               }
                             />
                           </Col>
-
-                          <Col lg={12} className="mb-3">
+                      
+                          
+                        </Row>
+                        </CardBody>
+                </Card>
+                <Card >
+                <CardBody >
+                        <Row>
+                          <Col lg={6} md={6} sm={12} className="mb-3">
                             <FormGroup className="mb-3">
                               <Label>Products</Label>
 
@@ -305,12 +341,34 @@ const CreateOrder = ({ history }) => {
                                   requied="true"
                                 />
                               </div>
+                              {QProductPrice && <span className="mt-2 text-muted">
+                                Product Cost :
+                                <Badge
+                                  className={"font-size-14 p-2 mx-3 badge-soft-success"}
+                                  pill
+                                >
+                                 <i className="bx bx-rupee text-success font-size-14" /> {QProductPrice}
+                                </Badge>
+                              </span>}
+
                             </FormGroup>
                           </Col>
 
-
-
-                          <Col lg={4} className="mb-3">
+                          <Col lg={3} md={3} sm={12} className="">
+                            <label htmlFor="resume">Profit Percentage</label>
+                            <input
+                              type="number"
+                              className="form-control mt-1 mt-lg-0"
+                              id="resume"
+                              requied="true"
+                              min={1}
+                              value={percentage}
+                              onChange={e =>
+                                setPercentage(e.target.value)
+                              }
+                            />
+                          </Col>
+                          <Col lg={3} md={3} sm={12} className="mb-3">
                             <label htmlFor="resume">Quantity</label>
                             <input
                               type="number"
@@ -319,18 +377,32 @@ const CreateOrder = ({ history }) => {
                               requied="true"
                               min={1}
                               // value={rawData.quantity}
+                              onChange={handleQty}
+                            />
+                          </Col>
+                          {totelPriceCalc ? <Col lg={4} md={4} sm={12} className="">
+                            <label htmlFor="resume">Total Price </label>
+                            <input
+                              type="number"
+                              className="form-control mt-1 mt-lg-0 text-warning"
+                              id="resume"
+                              requied="true"
+                              min={1}
+                              value={totelPriceCalc}
                               onChange={e =>
                                 setRawData({
                                   ...rawData,
                                   orderitem: {
                                     ...rawData.orderitem,
-                                    ["quantity"]: e.target.value,
+                                    ["price"]: e.target.value,
                                   },
                                 })
                               }
                             />
-                          </Col>
-                          <Col lg={4} className="mb-3">
+                          </Col> : <></>}
+
+                      
+                          {/* <Col lg={4} className="mb-3">
                             <label htmlFor="resume">Price</label>
                             <input
                               type="number"
@@ -349,9 +421,11 @@ const CreateOrder = ({ history }) => {
                                 })
                               }
                             />
-                          </Col>
+                          </Col> */}
                           <Col
-                            lg={4}
+                            lg={8}
+                            md={8}
+                            sm={12}
                             style={{
                               display: "flex",
                               alignItems: "center",
@@ -371,13 +445,12 @@ const CreateOrder = ({ history }) => {
                             />
                           </Col>
                         </Row>
-                      </div>
-                    </Form>
                   </CardBody>
                 </Card>
+                    </Form>
               </Col>
               {orderitem.length > 0 && (
-                <Col lg={6}>
+                <Col lg={12}>
                   <Card>
                     <CardBody>
                       <CardTitle className="h4 mb-4">All Orders </CardTitle>
@@ -398,10 +471,13 @@ const CreateOrder = ({ history }) => {
                                       Product : {item?.productName || ""}
                                     </p>
                                   </Col>
-                                  <Col lg={4} md={5}>
+                                  <Col lg={2} md={5}>
                                     <p>Quantity : {item?.quantity || ""}</p>
                                   </Col>
-
+                                  <Col lg={2} md={5}>
+                                    <p >Price : <span className="font-size-14 text-info ">  <i className="bx bx-rupee text-info font-size-14" />{item?.price || ""}</span>
+                                    </p>
+                                  </Col>
                                   <Col
                                     lg={2}
                                     md={2}

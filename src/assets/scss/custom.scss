@@ -100,7 +100,22 @@
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-
+.createClintBtn {
+  padding-right: 0px;
+}
+.createClintBtnCont {
+  padding-left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media screen and (max-width: 986px) {
+  .createClintBtn,
+  .createClintBtnCont {
+    padding-right: calc(var(--bs-gutter-x) * 0.5);
+    padding-left: calc(var(--bs-gutter-x) * 0.5);
+  }
+}
 @media screen and (max-width: 600px) {
   .d-none-smo {
     display: none;

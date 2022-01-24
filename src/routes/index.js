@@ -205,7 +205,6 @@ const publicRoutes = [
   { path: "/forgot-password", component: ForgetPwd },
   { path: "/404", component: Pages404 },
   { path: "/500", component: Pages500 },
-
 ]
 
 export {

@@ -51,7 +51,6 @@ const CreateQuotations = ({ history }) => {
   const totelPriceCalc = (ProductPrice * percentage / 100) + ProductPrice
 
   // 14890
-  console.log({ client: rawData.client, quotationitem })
 
   useEffect(() => {
     setRawData({
@@ -62,7 +61,7 @@ const CreateQuotations = ({ history }) => {
       },
     })
 
-  }, [percentage,])
+  }, [totelPriceCalc])
 
 
   useEffect(() => {

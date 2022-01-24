@@ -127,9 +127,10 @@ const SidebarContent = props => {
         sidebar = mySideBar
         break
       case "generalmanager":
-        Routes = sidebar = mySideBar?.filter(
+        sidebar = mySideBar?.filter(
           sidebar => sidebar.heading !== "General Manager"
         )
+        break
       case "productionmanager":
         sidebar = PMSidebar()
         break

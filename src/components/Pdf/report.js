@@ -141,7 +141,7 @@ const PDFGenerator = () => {
 
                         {map(quotationDataCurd, (item, key) => (
                           <tr key={key}>
-                            <th scope="row">1</th>
+                          
                             <td>
                               <h3 className="text-info font-size-16">
                                 {item?.name}

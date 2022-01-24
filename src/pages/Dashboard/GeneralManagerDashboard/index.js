@@ -10,7 +10,7 @@ import NewProducts from "./NewProducts"
 import MiniWidget from "./mini-widget"
 import { Link } from "react-router-dom"
 
-function DealerDashboard() {
+function GeneralManagerDashboard() {
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -44,4 +44,4 @@ function DealerDashboard() {
   )
 }
 
-export default DealerDashboard
+export default GeneralManagerDashboard

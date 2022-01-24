@@ -25,7 +25,7 @@ function AdminDashboard() {
 
   useEffect(() => {
 
-    dispatch(getFinishedProduct("", ""))
+    // dispatch(getFinishedProduct("", ""))
     dispatch(getOrders("", ""))
     dispatch(getProducts())
     dispatch(getDashboardData())
@@ -37,7 +37,7 @@ function AdminDashboard() {
       <Col lx="4" lg="4">
         <PendingOrder />
         <OutOfStockItems />
-        <FinishedProductList />
+        {/* <FinishedProductList /> */}
       </Col>
       <Col lx="8" lg="8">
         <Row>
@@ -46,10 +46,10 @@ function AdminDashboard() {
         <Row>
           <MiniCards />
         </Row>
-        <MonthlyChart />
-        <YearlyChart />
+        {/* <MonthlyChart /> */}
+        {/* <YearlyChart /> */}
       </Col>
-      <Transaction />
+      {/* <Transaction /> */}
     </Row>
   )
 }

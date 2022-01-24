@@ -71,7 +71,7 @@ function* fetchMonthlyChart({ payload }) {
 }
 
 const getDashboardDataAPi = () => {
-  return get("/supervisor/dashboard-data/")
+  return get("/order/dashboard-data/")
 }
 
 function* fetchDashboardData() {

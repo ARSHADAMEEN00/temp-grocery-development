@@ -123,7 +123,7 @@ function QuotationDetails({ quotationId }) {
                         </div>
                       ))}
                       <Link
-                        to="/quotation/pdf?singleView"
+                        to="/quotation/pdf"
                         type="button"
                         className="btn btn-outline-light d-flex mt-4"
                         style={{ marginLeft: "auto", alignItems: "center", width: "fit-content", border: "1px solid #cccc" }}

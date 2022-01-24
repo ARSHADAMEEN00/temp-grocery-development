@@ -98,11 +98,7 @@ const GeneralManagerCreate = ({ history }) => {
                             type="text"
                             validate={{
                               required: { value: true },
-                              minLength: {
-                                value: 4,
-                                errorMessage:
-                                  "Your name must be between 6 and 16 characters",
-                              },
+                              
                               maxLength: {
                                 value: 16,
                                 errorMessage:

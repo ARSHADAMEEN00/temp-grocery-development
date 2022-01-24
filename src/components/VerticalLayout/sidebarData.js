@@ -1,7 +1,7 @@
 function sidebardata() {
   return [
     {
-      heading: "General  Manager",
+      heading: "General Manager",
       badgeClass: "",
       badgeValue: "",
       iconClass: "user-detail",
