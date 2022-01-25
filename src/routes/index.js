@@ -31,8 +31,6 @@ import Store from "pages/Store"
 import CreateStore from "pages/Store/Crud/Create"
 import UpdateStore from "pages/Store/Crud/Update"
 
-import FinishedProduct from "pages/Orders/FinishedProduct"
-
 // Dashboard
 import Dashboard from "../pages/Dashboard/index"
 import Pages500 from "pages/404/pages-500"
@@ -57,6 +55,9 @@ import PDFGenerator from "components/Pdf/report"
 import ProductionOrder from "pages/ProductionStages/ProductionOrder"
 import ProductionStages from "pages/ProductionStages"
 import CreatStage from "pages/ProductionStages/Crud/Create/Create"
+import OrderPDFGenerator from "components/Pdf/OrderReport"
+import OrderItemSingleView from "pages/ProductionStages/ProductionOrder/SingleView/index"
+import stageDetail from "pages/ProductionStages/SingleView"
 
 const commonRoute = [
   { path: "/dashboard", component: Dashboard },
@@ -77,6 +78,7 @@ const commonRoute = [
 const MDProtectedRoutes = [
   { path: "/dashboard", component: Dashboard },
   { path: "/quotation/pdf", component: PDFGenerator },
+  { path: "/order/pdf", component: OrderPDFGenerator },
 
   // //profile Clients
   { path: "/profile", component: UserProfile },
@@ -115,11 +117,10 @@ const MDProtectedRoutes = [
   { path: "/product/create", component: CreateProduct },
   { path: "/product/update/:id", component: UpdateProduct },
 
-  { path: "/product/finished", component: FinishedProduct },
-
   { path: "/orders", component: Orders },
   { path: "/orders/:id", component: OrderDetails },
   { path: "/order/create", component: CreateOrder },
+  { path: "/orderItem/:id", component: OrderItemSingleView },
 
   { path: "/quotations", component: Quotations },
   { path: "/quotation/create", component: CreateQuotations },
@@ -148,7 +149,9 @@ const productionManagerRoutes = MDProtectedRoutes?.filter(
     route.path !== "/productionmanager/create" &&
     route.path !== "/generalmanagers" &&
     route.path !== "/generalmanagers/:id" &&
-    route.path !== "/generalmanager/create"
+    route.path !== "/generalmanager/create" &&
+    route.path !== "/product/create" &&
+    route.path !== "/client/create"
 )
 
 //for storemanager only
@@ -160,8 +163,6 @@ const storemanagerRoutes = [
   //components
   { path: "/products", component: Product },
   { path: "/products/:id", component: ProductDetails },
-
-  { path: "/product/finished", component: FinishedProduct },
 
   { path: "/store", component: StoreSupply },
 
@@ -185,10 +186,12 @@ const qualitycheckerRoutes = [
   { path: "/profile", component: UserProfile },
 
   //components
-  { path: "/products", component: Product },
-  { path: "/products/:id", component: ProductDetails },
+  { path: "/orderItems", component: ProductionOrder },
+  { path: "/orderItem/:id", component: OrderItemSingleView },
 
-  { path: "/product/finished", component: FinishedProduct },
+  { path: "/stages", component: ProductionStages },
+  { path: "/stages/:id", component: stageDetail },
+
 
   {
     path: "/",

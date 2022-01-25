@@ -5,25 +5,23 @@ import { Link } from "react-router-dom"
 import { Col, Card, CardBody, Spinner } from "reactstrap"
 
 const MiniWidget = () => {
-  const { products, Productloading, finishedProduct } = useSelector(state => ({
-    products: state.Products.products,
-    Productloading: state.Products.loading,
-    finishedProduct: state.Products.finishedProduct,
+  const {  } = useSelector(state => ({
+
   }))
 
   const analatics = [
-    {
-      icon: "bx bx-archive-in",
-      title: "Total Products",
-      value: products?.count,
-      badgeValue: finishedProduct?.count,
-      color: "success",
-      desc: "Finished Products",
-      warningMsg: "No Finished Products Now",
-      msgColor: "info",
-      loading: Productloading,
-      linkPath: "/products",
-    },
+    // {
+    //   icon: "bx bx-archive-in",
+    //   title: "Total Products",
+    //   value: products?.count,
+    //   badgeValue: finishedProduct?.count,
+    //   color: "success",
+    //   desc: "Finished Products",
+    //   warningMsg: "No Finished Products Now",
+    //   msgColor: "info",
+    //   loading: Productloading,
+    //   linkPath: "/products",
+    // },
   ]
   return (
     <React.Fragment>

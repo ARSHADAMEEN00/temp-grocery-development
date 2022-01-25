@@ -34,24 +34,18 @@ import Breadcrumbs from "../../../../components/Common/Breadcrumb"
 const CreatStage = ({ history }) => {
   const dispatch = useDispatch()
   //redux state
-  const { loading, qltcheckers } = useSelector(state => ({
-    loading: state.WorkStage.loading,
-    qltcheckers: state.Qltcheckers.qltcheckers,
-  }))
 
-  const [selectedQc, setSelectedQc] = useState("Search a QC")
   const [selectedStatus, setSelectedStatus] = useState("Select a Status")
-
   const [searchQltcheckerText, setSearchQltcheckerText] = useState("")
 
   const [stagesData, setstagesData] = useState({
     stage: "",
-    order_item_auto_id: "",
-    qualitychecker: "",
+    order_item_auto_id: window.location.search
+      ? window.location.search.substring(1)
+      : "",
     status: "",
-    note: ""
-  });
-  console.log(stagesData);
+    note: "",
+  })
 
   useEffect(() => {
     dispatch(getQltcheckers(searchQltcheckerText, ""))
@@ -62,36 +56,14 @@ const CreatStage = ({ history }) => {
     dispatch(createWorkStage(stagesData, history))
   }
 
-  const onHandleQcId = (event) => {
-    setSelectedQc(event.label)
-    setstagesData({
-      ...stagesData,
-      qualitychecker: event.value
-    })
-  }
-
-
-  const qcOptions = [
-    {
-      options: qltcheckers?.results?.map((result, index) => ({
-        key: index,
-        label: result.username,
-        value: result.id,
-      })),
-    },
-  ]
-
   const handleQltcheckerEnters = textEntered => {
     setSearchQltcheckerText(textEntered)
   }
-
-
 
   const status = [
     { id: 1001, status: "Started" },
     { id: 1002, status: "QC_Pending" },
     { id: 1003, status: "QC_Approved" },
-
   ]
 
   const statusOptions = [
@@ -103,16 +75,13 @@ const CreatStage = ({ history }) => {
       })),
     },
   ]
-  const onHandleStatus = (event) => {
+  const onHandleStatus = event => {
     setSelectedStatus(event.label)
     setstagesData({
       ...stagesData,
-      status: event.label
+      status: event.label,
     })
   }
-
-
-
 
   return (
     <>
@@ -130,7 +99,6 @@ const CreatStage = ({ history }) => {
               <Col lg={"12"}>
                 <Card>
                   <CardBody>
-
                     <Form className="repeater" encType="multipart/form-data">
                       <div>
                         <Row>
@@ -143,10 +111,12 @@ const CreatStage = ({ history }) => {
                               requied="true"
                               min={1}
                               value={stagesData.stage}
-                              onChange={e => setstagesData({
-                                ...stagesData,
-                                stage: e.target.value
-                              })}
+                              onChange={e =>
+                                setstagesData({
+                                  ...stagesData,
+                                  stage: e.target.value,
+                                })
+                              }
                             />
                           </Col>
                           <Col lg={6} className="mb-3">
@@ -158,34 +128,18 @@ const CreatStage = ({ history }) => {
                               requied="true"
                               min={1}
                               value={stagesData.order_item_auto_id}
-                              onChange={e => setstagesData({
-                                ...stagesData,
-                                order_item_auto_id: e.target.value
-                              })
+                              onChange={e =>
+                                setstagesData({
+                                  ...stagesData,
+                                  order_item_auto_id: e.target.value,
+                                })
                               }
                             />
                           </Col>
-                          <Col lg={6} className="mb-3">
-                            <FormGroup className="mb-3">
-                              <Label>Quality Checker</Label>
-                              <div className="col-md-12"></div>
-                              <div className="mb-3 ajax-select mt-3 mt-lg-0 select2-container">
-                                <Select
-                                  onInputChange={handleQltcheckerEnters}
-                                  value={selectedQc}
-                                  placeholder={selectedQc}
-                                  onChange={onHandleQcId}
-                                  options={qcOptions}
-                                  classNamePrefix="select2-selection"
-                                  isLoading={true}
-                                />
-                              </div>
-                            </FormGroup>
-                          </Col>
+
                           <Col lg={6} className="mb-3">
                             <FormGroup className="mb-3">
                               <Label>Status</Label>
-                              <div className="col-md-12"></div>
                               <div className="mb-3 ajax-select mt-3 mt-lg-0 select2-container">
                                 <Select
                                   onInputChange={handleQltcheckerEnters}
@@ -200,23 +154,20 @@ const CreatStage = ({ history }) => {
                             </FormGroup>
                           </Col>
 
-                          <Col lg={12} className="mb-3">
+                          <Col lg={6} className="mb-3">
                             <label htmlFor="note">Note</label>
                             <textarea
                               className="form-control"
                               id="note"
-                              row="3"
-                              onChange={e => setstagesData({
-                                ...stagesData,
-                                note: e.target.value
-                              })
+                              rows={1}
+                              onChange={e =>
+                                setstagesData({
+                                  ...stagesData,
+                                  note: e.target.value,
+                                })
                               }
                               defaultValue={stagesData.note}
-                            >
-                            </textarea>
-
-
-
+                            ></textarea>
                           </Col>
 
                           <Col
@@ -245,7 +196,6 @@ const CreatStage = ({ history }) => {
                   </CardBody>
                 </Card>
               </Col>
-
             </Row>
           </div>
         </Container>

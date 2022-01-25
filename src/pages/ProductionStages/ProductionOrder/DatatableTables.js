@@ -9,7 +9,7 @@ import BootstrapTable from "react-bootstrap-table-next"
 import ToolkitProvider from "react-bootstrap-table2-toolkit"
 
 //actions
-import { getOrders } from "store/orders/actions"
+import { getOrderItems } from "store/orders/actions"
 
 import "../../../assets/scss/datatables.scss"
 import MyPagination from "components/Common/MyPagination"
@@ -18,13 +18,13 @@ const Orders = () => {
   const dispatch = useDispatch()
   const [page, setPage] = useState(1)
   const [searchText, setSearchText] = useState("")
-  const { orders, loading } = useSelector(state => ({
-    orders: state.Orders.orders,
+  const { orderItems, loading } = useSelector(state => ({
+    orderItems: state.Orders.orderItems,
     loading: state.Orders.loading,
   }))
 
   //page
-  const totalPages = Math.ceil(orders?.count / 10)
+  const totalPages = Math.ceil(orderItems?.count / 10)
   const pages = range(1, totalPages + 1)
 
   const pageSend = () => {
@@ -41,7 +41,7 @@ const Orders = () => {
 
 
   useEffect(() => {
-    dispatch(getOrders(searchText, pageSend()))
+    dispatch(getOrderItems(searchText, pageSend()))
   }, [dispatch, page, searchText])
 
   const columns = [
@@ -49,81 +49,43 @@ const Orders = () => {
       dataField: "auto_id",
       text: "Order Id",
     },
+  
     {
-      dataField: "quotation_id",
-      text: "Quotation Id",
+      dataField: "product_name",
+      text: "Product",
     },
     {
-      dataField: "start_date",
-      text: "Start Date",
+      dataField: "quantity",
+      text: "Qty",
     },
     {
-      dataField: "duration",
-      text: "Duration",
+      dataField: "price",
+      text: "Price",
     },
-    {
-      dataField: "bill_amount",
-      text: "Total Amount",
-    },
-    {
-      dataField: "status",
-      text: "Status",
-    },
+  
     {
       dataField: "action",
       text: "Action",
     },
   ]
 
-  const Status = status => {
-    if (status == "Pending") {
-      return "info"
-    }
-    if (status == "Approved") {
-      return "success"
-    }
-    if (status == "Canceled") {
-      return "danger"
-    }
-    if (status == "Shipped") {
-      return "success"
-    }
-    if (status == "Delivered") {
-      return "success"
-    }
-    if (status == "Started") {
-      return "warning"
-    }
-  }
+ 
 
-  const ordersData = map(orders?.results, (item, index) => ({
+  const orderItemData = map(orderItems?.results, (item, index) => ({
     ...item,
     key: index,
     quotation_id: (
       <p>{item.quotation_id ? item.quotation_id : "Null"}</p>
     ),
-    status: (
-      <div
-        className="d-flex"
-        style={{
-          maxWidth: "120px",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <Badge
-          className={"font-size-12 badge-soft-" + `${Status(item.status)}`}
-          pill
-        >
-          {item.status}
-        </Badge>
-      </div>
+    product_name:(
+      <h6 style={{whiteSpace:"break-spaces", maxWidth:"250px"}}>{item.product_name}</h6>
     ),
+    
     action: (
       <Link
         type="button"
         className="btn-sm btn-info btn-rounded"
-        to={`/orders/${item?.id}`}
+        to={`/orderItem/${item?.id}`}
       >
         View
       </Link>
@@ -155,7 +117,7 @@ const Orders = () => {
               <ToolkitProvider
                 keyField="id"
                 columns={columns}
-                data={ordersData}
+                data={orderItemData}
                 search
               >
                 {toolkitProps => (

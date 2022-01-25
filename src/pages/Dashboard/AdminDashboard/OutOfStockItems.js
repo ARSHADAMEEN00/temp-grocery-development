@@ -1,9 +1,11 @@
 import { map } from "lodash"
-import React from "react"
+import React, { Fragment } from "react"
 import { useSelector } from "react-redux"
+import { Link, useHistory } from "react-router-dom"
 import { Card, CardBody, CardTitle } from "reactstrap"
 
 const OutOfStockItems = () => {
+  const history = useHistory()
   const { dashboardData } = useSelector(state => ({
     dashboardData: state.Dashboard.dashboardData,
   }))
@@ -28,12 +30,12 @@ const OutOfStockItems = () => {
 
           <div className="table-responsive mt-4 p-2">
             {map(dashboardData?.out_of_stock_items, (prod, index) => (
-              <>
-                <p key={index} className="mb-3">
+              <Fragment key={index}>
+                <p className="mb-3" style={{ cursor: "pointer" }} onClick={() => history.push("/stores?outOffStock")}>
                   <i className="mdi mdi-circle align-middle font-size-10 me-2 text-warning"></i>
                   {prod}
                 </p>
-              </>
+              </Fragment>
             ))}
           </div>
         </CardBody>

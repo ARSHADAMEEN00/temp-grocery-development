@@ -56,6 +56,7 @@ const App = props => {
         break
       case "generalmanager":
         Routes = GMRoutes
+        break
       case "productionmanager":
         Routes = productionManagerRoutes
         break

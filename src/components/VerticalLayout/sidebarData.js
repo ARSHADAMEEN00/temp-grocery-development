@@ -38,7 +38,7 @@ function sidebardata() {
           routeLink: "/stages",
         },
         {
-          title: "Create Stages ",
+          title: "Create Stages",
           routeLink: "/stage/create",
         },
       ],
@@ -100,22 +100,7 @@ function sidebardata() {
         },
       ],
     },
-    {
-      heading: "Finished Products",
-      badgeClass: "",
-      badgeValue: "",
-      iconClass: "truck",
-      subTitles: [
-        {
-          title: "Products",
-          routeLink: "/product/finished",
-        },
-        {
-          title: "Add Finished Product",
-          routeLink: "/product/finished?create",
-        },
-      ],
-    },
+
     {
       heading: "Production Manager",
       badgeClass: "",

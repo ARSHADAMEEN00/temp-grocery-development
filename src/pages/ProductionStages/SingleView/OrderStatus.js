@@ -9,6 +9,7 @@ import {
   Spinner,
   Button,
   Alert,
+  Media,
 } from "reactstrap"
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
@@ -20,8 +21,6 @@ import { map } from "lodash"
 //actions
 import { getOrderDetail, updateOrder } from "store/actions"
 
-//componetns
-import OrderDetail from "./OrderDetail"
 
 //css
 import "react-datepicker/dist/react-datepicker.css"
@@ -34,10 +33,11 @@ function OrderStatus() {
     status: "",
     start_date: moment(startDate).format("YYYY-MM-DD"),
   })
-  const { orderDetail, loading, error } = useSelector(state => ({
+  const { orderDetail, loading, error, workStageDetail } = useSelector(state => ({
     orderDetail: state.Orders.orderDetail,
     error: state.Orders.error,
     loading: state.Orders.loading,
+    workStageDetail: state.WorkStage.workStageDetail,
   }))
   useEffect(() => {
     dispatch(getOrderDetail(params.id))
@@ -151,14 +151,33 @@ function OrderStatus() {
   }
   return (
     <>
-      <Col lg={`${Handler() ? "8" : "12"}`}>
+      <Col lg={12}>
         <Card>
           <CardBody>
             {loading ? (
               <Spinner type="grow" color="gray" />
             ) : (
               <>
-                <OrderDetail />
+                <Media>
+                  {/* <img src={img1} alt="" className="avatar-sm me-4" /> */}
+
+                  <Media className="overflow-hidden" body>
+                    <h5 className="text-truncate font-size-15">{workStageDetail?.stage}</h5>
+                    <p className="text-muted">{workStageDetail?.order_item_auto_id}</p>
+                  </Media>
+                </Media>
+
+                <div className="text-muted mt-4">
+                  <p>
+                    <i className="mdi mdi-chevron-right text-primary me-1" />
+                    QC Name: {workStageDetail.qc_name}
+                  </p>
+                  <p>
+                    <i className="mdi mdi-chevron-right text-primary me-1" />
+                    Note : {workStageDetail.note}
+                  </p>
+
+                </div>
               </>
             )}
 
@@ -176,81 +195,37 @@ function OrderStatus() {
                   </Badge>
                 </div>
               </Col>
-              <Col lg={4}></Col>
-              <Col lg={4} sm="4" xs="6">
-                <Link
-                  to="/order/pdf"
-                  type="button"
-                  className="btn btn-outline-light d-flex mt-4"
-                  style={{
-                    marginLeft: "auto",
-                    alignItems: "center",
-                    width: "fit-content",
-                    border: "1px solid #cccc",
-                  }}
-                >
-                  PDF
-                  <i className="mdi mdi-download d-block font-size-16 mx-1"></i>
-                </Link>
-              </Col>
+
             </Row>
           </CardBody>
         </Card>
       </Col>
-      {Handler() && (
-        <Col lg="4">
-          <Card>
-            <CardBody>
-              {orderDetail?.status == "Pending" && (
-                <>
-                  <Col className="mb-4 position-relative">
-                    <label htmlFor="resume">Start Date</label>
-                    <DatePicker
-                      selected={startDate}
-                      onChange={date => setStartDate(date)}
-                      minDate={moment().toDate()}
-                      dateFormat="yyyy-MM-dd"
-                      className="form-control"
-                    />
-                    <Button
-                      type="submit"
-                      color="success"
-                      className="w-md mb-2 btn-sm"
-                      style={{
-                        position: "absolute",
-                        right: "0",
-                        height: "36px",
-                      }}
-                      onClick={handleSubmit}
-                    >
-                      Submit
-                    </Button>
-                  </Col>
-                </>
-              )}
-              <CardTitle className="mb-4">Update Status</CardTitle>
-              {error?.response && (
-                <Alert color="danger">{error?.response}</Alert>
-              )}
-              <div className="mb-3 ajax-select mt-3 mt-lg-0 select2-container">
-                {map(statusList(), (item, index) => (
-                  <Button
-                    key={index}
-                    type="submit"
-                    color={item.class}
-                    value={item.statusText}
-                    className="w-md mb-2 btn-sm "
-                    style={{ marginRight: "1rem" }}
-                    onClick={e => handlerFinalValue(e)}
-                  >
-                    {item.text}
-                  </Button>
-                ))}
-              </div>
-            </CardBody>
-          </Card>
-        </Col>
-      )}
+      <Col lg="4">
+        <Card>
+          <CardBody>
+
+            <CardTitle className="mb-4">Update Status</CardTitle>
+            {error?.response && (
+              <Alert color="danger">{error?.response}</Alert>
+            )}
+            <div className="mb-3 ajax-select mt-3 mt-lg-0 select2-container">
+              {map(statusList(), (item, index) => (
+                <Button
+                  key={index}
+                  type="submit"
+                  color={item.class}
+                  value={item.statusText}
+                  className="w-md mb-2 btn-sm "
+                  style={{ marginRight: "1rem" }}
+                  onClick={e => handlerFinalValue(e)}
+                >
+                  {item.text}
+                </Button>
+              ))}
+            </div>
+          </CardBody>
+        </Card>
+      </Col>
     </>
   )
 }

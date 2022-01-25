@@ -39,11 +39,18 @@ const Stores = () => {
 
   useEffect(() => {
     dispatch(getStoreItems(searchText, pageSend()))
+
+
+
   }, [dispatch, page, searchText])
 
   const handleDelete = storeItemId => {
     dispatch(deleteStoreItem(storeItemId))
   }
+
+
+
+
 
   const columns = [
     {
@@ -113,6 +120,10 @@ const Stores = () => {
     setSearchText(e.target.value)
   }
 
+  const storeDataNew = storeData?.filter(item => item.stock == 0)
+
+
+
   return (
     <React.Fragment>
       <Row>
@@ -122,7 +133,7 @@ const Stores = () => {
               <ToolkitProvider
                 keyField="id"
                 columns={columns}
-                data={storeData}
+                data={window.location.search ? storeDataNew : storeData}
                 search
               >
                 {toolkitProps => (
@@ -139,14 +150,28 @@ const Stores = () => {
                                 <input
                                   type="text"
                                   className="form-control"
-                                  placeholder="Search"
+                                  placeholder="Search Store Item"
                                   defaultValue={searchText}
                                 />
                                 <span className="bx bx-search-alt" />
                               </div>
-                            </form>{" "}
+                            </form>
                           </div>
                         </div>
+                      </Col>
+                      <Col md="4"></Col>
+                      <Col md="4" style={{
+                        display: "flex",
+                        justifyContent: "flex-end",
+                        alignItems: "center"
+                      }}>
+                        {window.location.search && <Link
+                          to="/stores"
+                          className="btn btn-light btn-sm"
+                        >
+                          See All
+                          <i className="bx bx-right "></i>
+                        </Link>}
                       </Col>
                     </Row>
                     {loading ? (

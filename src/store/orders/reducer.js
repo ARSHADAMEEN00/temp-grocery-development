@@ -28,11 +28,18 @@ import {
   GET_QPRODUCTPRICE_FAIL,
   GET_QUOTATION_DETAIL_SUCCESS,
   GET_QUOTATION_DETAIL_FAIL,
-  GET_QUOTATION_DETAIL
+  GET_QUOTATION_DETAIL,
+  GET_ORDERSITEMS,
+  GET_ORDERSITEMS_SUCCESS,
+  GET_ORDERSITEMS_FAIL,
+  GET_ORDERSITEMS_DETAIL_SUCCESS,
+  GET_ORDERSITEMS_DETAIL_FAIL,
+  GET_ORDERSITEMS_DETAIL,
 } from "./actionTypes"
 
 const INIT_STATE = {
   orders: [],
+  orderItems: [],
   orderDetail: {
     id: "",
     auto_id: "",
@@ -43,6 +50,7 @@ const INIT_STATE = {
     status: "",
     orderitem: [],
   },
+  orderItemDetail:{},
   quotation: [],
   quotationCurd: {},
   QProductPrice: {},
@@ -54,7 +62,7 @@ const INIT_STATE = {
   createOrdererror: null,
   quotationLoading: false,
   quotationDetailLoading: false,
-  QProductPriceLoading: false
+  QProductPriceLoading: false,
 }
 
 const Orders = (state = INIT_STATE, action) => {
@@ -64,11 +72,14 @@ const Orders = (state = INIT_STATE, action) => {
     case UPDATE_ORDER:
     case CREATE_ORDER:
     case DELETE_ORDER:
+    case GET_ORDERSITEMS:
+      
       return {
         ...state,
         loading: true,
       }
     case UPDATE_ORDER_ITEM:
+      case GET_ORDERSITEMS_DETAIL:
       return {
         ...state,
         orderitemLoading: true,
@@ -86,6 +97,21 @@ const Orders = (state = INIT_STATE, action) => {
         error: action.payload,
         loading: false,
       }
+
+    case GET_ORDERSITEMS_SUCCESS:
+      return {
+        ...state,
+        orderItems: action.payload,
+        loading: false,
+      }
+
+    case GET_ORDERSITEMS_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      }
+
     case CREATE_ORDER_SUCCESS:
       return {
         ...state,
@@ -114,6 +140,20 @@ const Orders = (state = INIT_STATE, action) => {
         error: action.payload,
         loading: false,
       }
+
+      case GET_ORDERSITEMS_DETAIL_SUCCESS:
+        return {
+          ...state,
+          orderItemDetail: action.payload,
+          orderitemLoading: false,
+        }
+  
+      case GET_ORDERSITEMS_DETAIL_FAIL:
+        return {
+          ...state,
+          error: action.payload,
+          orderitemLoading: false,
+        }
 
     case UPDATE_ORDER_SUCCESS:
       return {
@@ -174,24 +214,24 @@ const Orders = (state = INIT_STATE, action) => {
     case CREATE_QUOTATION:
       return {
         ...state,
-        quotationLoading: true
+        quotationLoading: true,
       }
     case GET_QUOTATION_DETAIL:
       return {
         ...state,
-        quotationDetailLoading: true
+        quotationDetailLoading: true,
       }
     case GET_QUOTATIONS_SUCCESS:
       return {
         ...state,
         quotation: action.payload,
-        quotationLoading: false
+        quotationLoading: false,
       }
     case GET_QUOTATIONS_FAIL:
       return {
         ...state,
         error: action.payload,
-        quotationLoading: false
+        quotationLoading: false,
       }
 
     case GET_QUOTATION_DETAIL_SUCCESS:
@@ -225,21 +265,20 @@ const Orders = (state = INIT_STATE, action) => {
     case GET_QPRODUCTPRICE:
       return {
         ...state,
-        QProductPriceLoading: true
+        QProductPriceLoading: true,
       }
     case GET_QPRODUCTPRICE_SUCCESS:
       return {
         ...state,
         QProductPrice: action.payload,
         AllQProducts: [...state.AllQProducts, action.payload],
-        QProductPriceLoading: false
+        QProductPriceLoading: false,
       }
     case GET_QPRODUCTPRICE_FAIL:
       return {
         ...state,
         error: action.payload,
-        QProductPriceLoading: false
-
+        QProductPriceLoading: false,
       }
 
     default:

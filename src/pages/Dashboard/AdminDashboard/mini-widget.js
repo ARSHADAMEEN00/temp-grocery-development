@@ -5,9 +5,10 @@ import { Link } from "react-router-dom"
 import { Col, Card, CardBody, Spinner } from "reactstrap"
 
 const MiniWidget = () => {
-  const { dashboardLoading, dashboardData } = useSelector(state => ({
+  const { dashboardLoading, dashboardData, Quoatations } = useSelector(state => ({
     dashboardLoading: state.Dashboard.dashboardLoading,
     dashboardData: state.Dashboard.dashboardData,
+    Quoatations: state.Orders.quotation.count
   }))
 
   const analatics = [
@@ -15,10 +16,10 @@ const MiniWidget = () => {
       icon: "bx bx-copy-alt",
       title: "Chartered Orders",
       value: dashboardData?.chartered_orders,
-      badgeValue: dashboardData?.chartered_orders,
-      color: "light",
-      desc: "Chartered Works Today",
-      warningMsg: "No Chartered Work Today",
+      badgeValue: dashboardData?.total_orders,
+      color: "success",
+      desc: "Orders ",
+      warningMsg: "No Order ",
       msgColor: "info",
       loading: dashboardLoading,
       linkPath: "/orders",
@@ -56,10 +57,10 @@ const MiniWidget = () => {
       icon: "bx bx-copy-alt",
       title: "Pending Quotation",
       value: dashboardData?.pending_quotations,
-      badgeValue: dashboardData?.pending_quotations,
-      color: "light",
-      desc: "",
-      warningMsg: "",
+      badgeValue: 0,
+      color: "success",
+      desc: "Quotations",
+      warningMsg: <>{`${dashboardData?.pending_quotations} - ${"Pending Quotations"}`} </>,
       msgColor: "info",
       loading: dashboardLoading,
       linkPath: "/orders",
@@ -133,10 +134,9 @@ const MiniWidget = () => {
                       <span
                         className={
                           "badge badge-soft-" +
-                          `${
-                            report.badgeValue > 0
-                              ? report.color
-                              : report.msgColor
+                          `${report.badgeValue > 0
+                            ? report.color
+                            : report.msgColor
                           }` +
                           " font-size-12"
                         }

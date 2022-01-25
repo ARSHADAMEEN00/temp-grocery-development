@@ -2,7 +2,7 @@ import { map } from "lodash"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useParams } from "react-router-dom"
-import { Button, Card, CardBody, CardTitle, Col, Row, Table } from "reactstrap"
+import { Badge, Button, Card, CardBody, CardTitle, Col, Row, Table } from "reactstrap"
 
 //ations
 import { getOrderDetail, updateOrderItem } from "store/actions"
@@ -52,6 +52,8 @@ function OrderItems() {
                   <th>Quantity</th>
                   
                   <th>Price</th>
+                  <th>Order Item Detail</th>
+
                 </tr>
               </thead>
               <tbody>
@@ -59,15 +61,19 @@ function OrderItems() {
                   <tr key={index}>
                       <td>
                       <h5 className="font-size-13 m-0">
-                        <Link to="#" className="text-dark">
+                        <Link 
+                        to={`/orderItem/${item?.id}`}
+                        className="text-dark">
                           {item.auto_id}
                         </Link>
                       </h5>
                     </td>
                     <td>
                       <h5 className="font-size-13 m-0" style={{whiteSpace: "break-spaces"}}>
-                        <Link to="#" className="text-dark">
-                          {item.product_name}
+                        <Link 
+                         to={`/products/${item?.product.id}`}
+                         className="text-dark">
+                          {item.product.name}
                         </Link>
                       </h5>
                     </td>
@@ -88,7 +94,7 @@ function OrderItems() {
                           ></i>
                         )}
                       </div>
-                      {toggleEdit == item.id && (
+                      {/* {toggleEdit == item.id && (
                         <Row style={{ alignItems: "baseline" }}>
                           <Col lg={3} md={3}>
                             <input
@@ -121,7 +127,7 @@ function OrderItems() {
                             </Button>
                           </Col>
                         </Row>
-                      )}
+                      )} */}
                     </td>
                     
                       <td>
@@ -131,7 +137,23 @@ function OrderItems() {
                           </Link>
                         </h5>
                       </td>
-                  
+                      <td>
+                        <h5 className="font-size-13 m-0">
+                          <Link 
+                           to={`/orderItem/${item?.id}`}
+                          className="text-success">
+                          <Badge
+                    className={
+                      "font-size-14 p-2 badge-soft-success" 
+                    }
+                    pill
+                  >
+                   View
+                  </Badge>
+                          </Link>
+                        </h5>
+                      </td>
+                     
                    
                   </tr>
                 ))}

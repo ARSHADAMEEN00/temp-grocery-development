@@ -29,18 +29,18 @@ const MiniWidget = () => {
       linkPath: "/orders",
       button: "Add New Item",
     },
-    {
-      icon: "bx bx-archive-in",
-      title: "Total Products",
-      value: products?.count,
-      badgeValue: finishedProduct?.count,
-      color: "success",
-      desc: "Finished Products",
-      warningMsg: "No Finished Products yet!",
-      msgColor: "info",
-      loading: Productloading,
-      linkPath: "/products",
-    },
+    // {
+    //   icon: "bx bx-archive-in",
+    //   title: "Total Products",
+    //   value: products?.count,
+    //   badgeValue: finishedProduct?.count,
+    //   color: "success",
+    //   desc: "Finished Products",
+    //   warningMsg: "No Finished Products yet!",
+    //   msgColor: "info",
+    //   loading: Productloading,
+    //   linkPath: "/products",
+    // },
   ]
   return (
     <React.Fragment>
@@ -72,10 +72,9 @@ const MiniWidget = () => {
                       <span
                         className={
                           "badge badge-soft-" +
-                          `${
-                            report.badgeValue > 0
-                              ? report.color
-                              : report.msgColor
+                          `${report.badgeValue > 0
+                            ? report.color
+                            : report.msgColor
                           }` +
                           " font-size-12"
                         }

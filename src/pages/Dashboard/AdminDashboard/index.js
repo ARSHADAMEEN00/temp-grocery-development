@@ -5,29 +5,23 @@ import { useDispatch } from "react-redux"
 //action
 import {
   getDashboardData,
-  getFinishedProduct,
   getOrders,
-  getProducts,
+  getQuotations,
 } from "store/actions"
 
 //components
 import OutOfStockItems from "./OutOfStockItems"
-import FinishedProductList from "./FinishedProduct"
-import Transaction from "../Common/Transation"
 import MiniWidget from "./mini-widget"
 import PendingOrder from "./PendingOrder"
-import MiniCards from "./mini-card"
-import MonthlyChart from "./MonthlyChart"
-import YearlyChart from "./YearlyChart"
+import NewQuotation from "./NewQuotations"
 
 function AdminDashboard() {
   const dispatch = useDispatch()
 
   useEffect(() => {
 
-    // dispatch(getFinishedProduct("", ""))
     dispatch(getOrders("", ""))
-    dispatch(getProducts())
+    dispatch(getQuotations("", ""))
     dispatch(getDashboardData())
   }, [dispatch])
 
@@ -36,20 +30,17 @@ function AdminDashboard() {
     <Row>
       <Col lx="4" lg="4">
         <PendingOrder />
-        <OutOfStockItems />
-        {/* <FinishedProductList /> */}
+        <NewQuotation />
       </Col>
       <Col lx="8" lg="8">
         <Row>
           <MiniWidget />
         </Row>
-        <Row>
-          <MiniCards />
-        </Row>
-        {/* <MonthlyChart /> */}
-        {/* <YearlyChart /> */}
+
+        <Col lg={4}>
+          <OutOfStockItems />
+        </Col>
       </Col>
-      {/* <Transaction /> */}
     </Row>
   )
 }

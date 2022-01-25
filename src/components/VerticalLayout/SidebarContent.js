@@ -2,7 +2,6 @@ import PropTypes from "prop-types"
 import React, { useEffect, useRef } from "react"
 import { map } from "lodash"
 import { mySideBar } from "./sidebarData"
-import { useSelector } from "react-redux"
 
 // //Import Scrollbar
 import SimpleBar from "simplebar-react"
@@ -18,9 +17,7 @@ import { withTranslation } from "react-i18next"
 const SidebarContent = props => {
   const ref = useRef()
 
-  const { dashboardData } = useSelector(state => ({
-    dashboardData: state.Dashboard.dashboardData,
-  }))
+
 
   // Use ComponentDidMount and ComponentDidUpdate method symultaniously
   useEffect(() => {
@@ -97,16 +94,7 @@ const SidebarContent = props => {
 
   const Role = sessionStorage.getItem("role")
 
-  function PMSidebar() {
-    const sidebar = mySideBar?.forEach(bar => {
-      bar.subTitles = bar.subTitles?.filter(
-        subTitle => subTitle.title !== "Production Manager" &&
-          subTitle.title !== "General Manager"
-      )
-    })
-    return sidebar
 
-  }
 
   function storeManagerSidebar() {
     const sidebar = mySideBar?.filter(
@@ -120,6 +108,31 @@ const SidebarContent = props => {
     return sidebar
   }
 
+  function productionManagerSidebar() {
+    const sidebar = mySideBar?.filter(
+      sidebar => sidebar.heading !== "Production Manager" && sidebar.heading !== "General Manager"
+    )
+    sidebar?.forEach(bar => {
+      bar.subTitles = bar.subTitles?.filter(
+        subTitle => subTitle.title !== "Create Product" && subTitle.title !== "Create Clients"
+      )
+    })
+    return sidebar
+  }
+
+  function qcSidebar() {
+    const sidebar = mySideBar?.filter(
+      sidebar => sidebar.heading == "Production"
+    )
+    sidebar?.forEach(bar => {
+      bar.subTitles = bar.subTitles?.filter(
+        subTitle => subTitle.title !== "Create Stages"
+      )
+    })
+    return sidebar
+  }
+
+
   function sidebarProtected() {
     let sidebar = []
     switch (Role) {
@@ -132,16 +145,14 @@ const SidebarContent = props => {
         )
         break
       case "productionmanager":
-        sidebar = PMSidebar()
+        sidebar = productionManagerSidebar()
         break
       case "storemanager":
         sidebar = storeManagerSidebar()
         break
 
       case "qualitychecker":
-        sidebar = mySideBar?.filter(
-          sidebar => sidebar.heading == "Finished Products"
-        )
+        sidebar = qcSidebar()
         break
       default:
         sidebar = []

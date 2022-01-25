@@ -4,7 +4,6 @@ import { Container } from "reactstrap"
 
 //componetns
 import AdminDashboard from "./AdminDashboard"
-import GeneralManagerDashboard from "./GeneralManagerDashboard"
 import DefualtComponent from "./DefualtComponent"
 import QCDashboard from "./QcDashboard"
 import StoreManagerDashboard from "./StoreManagerDashboard"
@@ -29,7 +28,7 @@ function index() {
         Dashboard = <StoreManagerDashboard />
         break
       case "generalmanager":
-        Dashboard = <GeneralManagerDashboard />
+        Dashboard = <AdminDashboard />
         break
       case "qualitychecker":
         Dashboard = <QCDashboard />

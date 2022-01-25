@@ -25,6 +25,8 @@ const Stages = () => {
     loading: state.WorkStage.loading,
   }))
 
+  const Role = sessionStorage.getItem("role")
+
   //page
   const totalPages = Math.ceil(workStages?.count / 10)
   const pages = range(1, totalPages + 1)
@@ -66,6 +68,10 @@ const Stages = () => {
       dataField: "note",
       text: "Note",
     },
+    {
+      dataField: "action",
+      text: "Update Status",
+    },
   ]
 
   const Status = status => {
@@ -104,11 +110,11 @@ const Stages = () => {
         </Badge>
       </div>
     ),
-    action: (
+    action: (Role == "qualitychecker" &&
       <Link
         type="button"
-        className="btn-sm btn-info btn-rounded"
-        to={`/orders/${item?.id}`}
+        className="btn-sm btn-secondary btn-rounded"
+        to={`/stages/${item?.id}`}
       >
         View
       </Link>

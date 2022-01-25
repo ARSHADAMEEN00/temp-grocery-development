@@ -14,8 +14,7 @@ import {
   Label,
   CardTitle,
   FormGroup,
-  Spinner,
-  Button
+  Spinner
 } from "reactstrap"
 import Select from "react-select"
 
@@ -40,7 +39,7 @@ const CreateOrder = ({ history }) => {
   }))
   const [selectedOrder, setselectedOrder] = useState("Search a Product")
   const [selectedClient, setSelectedClient] = useState("Search a Client")
-  const [selectedQuotation, setSelectedQuotation] = useState("Search a Quotation")
+  const [selectedQuotation, setSelectedQuotation] = useState("Search a Quotation Id")
   const [searchClientText, setSearchClientText] = useState("")
   const [searchText, setSearchText] = useState("")
   const [searchQuotationText, setSearchQuotationText] = useState("")
@@ -165,7 +164,7 @@ const CreateOrder = ({ history }) => {
     {
       options: quotation?.results?.map((result, index) => ({
         key: index,
-        label: result.client_name,
+        label: result.auto_id,
         value: result.auto_id,
       })),
     },

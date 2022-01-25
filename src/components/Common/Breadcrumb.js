@@ -12,7 +12,7 @@ const Breadcrumb = props => {
           <h4 className="mb-2 font-size-18 d-flex">
             {" "}
             <i
-              className="fas fa-arrow-left mx-3 bx-fade-left"
+              className="fas fa-arrow-left mx-3"
               style={{ cursor: "pointer" }}
               onClick={() => history.goBack()}
             ></i>

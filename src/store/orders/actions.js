@@ -29,8 +29,28 @@ import {
   CREATE_QUOTATION_FAIL,
   GET_QPRODUCTPRICE,
   GET_QPRODUCTPRICE_SUCCESS,
-  GET_QPRODUCTPRICE_FAIL
+  GET_QPRODUCTPRICE_FAIL,
+  GET_ORDERSITEMS,
+  GET_ORDERSITEMS_SUCCESS,
+  GET_ORDERSITEMS_FAIL,
+  GET_ORDERSITEMS_DETAIL_SUCCESS,
+  GET_ORDERSITEMS_DETAIL,
+  GET_ORDERSITEMS_DETAIL_FAIL
 } from "./actionTypes"
+
+export const getOrderItems = (searchText, page) => ({
+  type: GET_ORDERSITEMS,
+  payload: { searchText, page },
+})
+
+export const getOrderItemsSuccess = orders => ({
+  type: GET_ORDERSITEMS_SUCCESS,
+  payload: orders,
+})
+export const getOrderItemsFail = error => ({
+  type: GET_ORDERSITEMS_FAIL,
+  payload: error,
+})
 
 export const getQProductPrice = (prodId) => ({
   type: GET_QPRODUCTPRICE,
@@ -116,6 +136,21 @@ export const getOrderDetailSuccess = orderDetail => ({
 
 export const getOrderDetailFail = error => ({
   type: GET_ORDER_DETAIL_FAIL,
+  payload: error,
+})
+
+export const getOrderItemDetail = orderItemId => ({
+  type: GET_ORDERSITEMS_DETAIL,
+  orderItemId,
+})
+
+export const getOrderItemDetailSuccess = orderItemDetail => ({
+  type: GET_ORDERSITEMS_DETAIL_SUCCESS,
+  payload: orderItemDetail,
+})
+
+export const getOrderItemDetailFail = error => ({
+  type: GET_ORDERSITEMS_DETAIL_FAIL,
   payload: error,
 })
 

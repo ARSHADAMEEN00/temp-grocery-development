@@ -11,7 +11,9 @@ import {
   GET_QUOTATIONS,
   CREATE_QUOTATION,
   GET_QPRODUCTPRICE,
-  GET_QUOTATION_DETAIL
+  GET_QUOTATION_DETAIL,
+  GET_ORDERSITEMS,
+  GET_ORDERSITEMS_DETAIL
 } from "./actionTypes"
 import {
   getOrdersSuccess,
@@ -32,10 +34,26 @@ import {
   getQProductPriceSuccess,
   getQuotationDetailSuccess,
   getQuotationDetailFail,
+  getOrderItemsSuccess,
+  getOrderItemsFail,
+  getOrderItemDetailSuccess,
+  getOrderItemDetailFail,
 } from "./actions"
 import { get, post, ApiPut, del, patch } from "helpers/api_methods"
 import { updateOrderItemFail, updateOrderItemSuccess } from "store/actions"
 import { Notification } from "components/Common/Notification"
+
+
+function getOrdersItemsAPi({ searchText, page }) {
+  if (searchText) {
+    return get(`/order/orderitem/?search=${searchText && searchText}`)
+  } else {
+    return get(`/order/orderitem/?page=${page ? page : 1}`)
+  }
+}
+const getOrderItemDetailsAPi = orderItemId => {
+  return get(`/order/orderitem/${orderItemId}/`)
+}
 
 function getOrdersAPi({ searchText, page }) {
   if (searchText) {
@@ -62,6 +80,8 @@ const createQuotationApi = ({ Quatation }) => {
 const getOrderDetailsAPi = orderId => {
   return get(`/order/order/${orderId}/`)
 }
+
+
 const createOrderApi = ({ order }) => {
   return post("/order/order/", order)
 }
@@ -133,6 +153,14 @@ function* fetchOrders({ payload }) {
     yield put(getOrdersFail(error))
   }
 }
+function* fetchOrderItems({ payload }) {
+  try {
+    const response = yield call(getOrdersItemsAPi, payload)
+    yield put(getOrderItemsSuccess(response))
+  } catch (error) {
+    yield put(getOrderItemsFail(error))
+  }
+}
 
 function* fetchOrderDetail({ orderId }) {
   try {
@@ -142,6 +170,15 @@ function* fetchOrderDetail({ orderId }) {
     yield put(getOrderDetailFail(error))
   }
 }
+function* fetchOrderItemDetail({ orderItemId }) {
+  try {
+    const response = yield call(getOrderItemDetailsAPi, orderItemId)
+    yield put(getOrderItemDetailSuccess(response))
+  } catch (error) {
+    yield put(getOrderItemDetailFail(error))
+  }
+}
+
 function* onCreateOrder({ payload }) {
   try {
     const response = yield call(createOrderApi, payload)
@@ -227,6 +264,8 @@ function* ordersSaga() {
   yield takeEvery(GET_QUOTATION_DETAIL, fetchQuotationDetail)
   yield takeEvery(CREATE_QUOTATION, onCreateQuotation)
   yield takeEvery(GET_QPRODUCTPRICE, fetchQProductPrice)
+  yield takeEvery(GET_ORDERSITEMS, fetchOrderItems)
+  yield takeEvery(GET_ORDERSITEMS_DETAIL, fetchOrderItemDetail)
 }
 
 export default ordersSaga
