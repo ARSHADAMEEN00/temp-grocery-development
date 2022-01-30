@@ -23,6 +23,7 @@ const Orders = () => {
     loading: state.Orders.loading,
   }))
 
+
   //page
   const totalPages = Math.ceil(orders?.count / 10)
   const pages = range(1, totalPages + 1)
@@ -76,14 +77,12 @@ const Orders = () => {
   ]
 
   const Status = status => {
+
     if (status == "Pending") {
-      return "info"
-    }
-    if (status == "Approved") {
       return "success"
     }
-    if (status == "Canceled") {
-      return "danger"
+    if (status == "Finished") {
+      return "success"
     }
     if (status == "Shipped") {
       return "success"
@@ -93,6 +92,16 @@ const Orders = () => {
     }
     if (status == "Started") {
       return "warning"
+    }
+  }
+
+  const pendingOrder = orders?.results?.filter(item => item.status == "Pending")
+
+  const handleOrder = () => {
+    if (window.location.search) {
+      return pendingOrder
+    } else {
+      orders?.results
     }
   }
 
@@ -130,6 +139,7 @@ const Orders = () => {
     ),
   }))
 
+
   const defaultSorted = [
     {
       dataField: "id",
@@ -145,6 +155,7 @@ const Orders = () => {
   const handleSearch = e => {
     setSearchText(e.target.value)
   }
+
 
   return (
     <React.Fragment>
@@ -180,6 +191,20 @@ const Orders = () => {
                             </form>{" "}
                           </div>
                         </div>
+                      </Col>
+                      <Col md="4"></Col>
+                      <Col md="4" style={{
+                        display: "flex",
+                        justifyContent: "flex-end",
+                        alignItems: "center"
+                      }}>
+                        {window.location.search && <Link
+                          to="/orders"
+                          className="btn btn-light btn-sm"
+                        >
+                          See All
+                          <i className="bx bx-right "></i>
+                        </Link>}
                       </Col>
                     </Row>
                     {loading ? (

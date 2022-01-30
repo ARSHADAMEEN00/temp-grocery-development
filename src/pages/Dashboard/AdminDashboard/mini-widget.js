@@ -63,7 +63,7 @@ const MiniWidget = () => {
       warningMsg: <>{`${dashboardData?.pending_quotations} - ${"Pending Quotations"}`} </>,
       msgColor: "info",
       loading: dashboardLoading,
-      linkPath: "/orders",
+      linkPath: "/quotations?Pending",
     },
     // {
     //   icon: "bx bx-copy-alt",

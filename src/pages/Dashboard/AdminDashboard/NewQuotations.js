@@ -38,7 +38,7 @@ const NewQuotation = () => {
                         <span className="avatar-title rounded-circle bg-info"></span>
                       </div>
                       <Media body>
-                        <Link to="/quotations" className="font-size-14 text-muted">
+                        <Link to="/quotations/?value=Pending" className="font-size-14 text-muted">
                           Client : {item?.client_name}{" "}
                         </Link>
                         <p className="text-muted font-size-14">
@@ -58,7 +58,7 @@ const NewQuotation = () => {
 
               <div className="float-end ">
                 <Link
-                  to="/quotations/?value=Pending"
+                  to="/quotations?Pending"
                   className="mb-0 mx-4 d-flex align-items-center text-info"
                 >
                   See more

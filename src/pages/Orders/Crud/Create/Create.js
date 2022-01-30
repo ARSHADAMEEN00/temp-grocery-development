@@ -4,7 +4,7 @@ import { map } from "lodash"
 import { Link } from "react-router-dom"
 import PropTypes from "prop-types"
 import { MetaTags } from "react-meta-tags"
-import { Badge, Container } from "reactstrap"
+import { Badge, Container, Table } from "reactstrap"
 import {
   Row,
   Col,
@@ -27,16 +27,16 @@ import CreateClientModal from "./CreateClientModal"
 const CreateOrder = ({ history }) => {
   const dispatch = useDispatch()
   //redux state
-  const { products, loading, orderLoading, clients, quotation,QProductPrice } = useSelector(state => ({
+  const { products, loading, orderLoading, clients, quotation, QProductPrice, QProductDetail } = useSelector(state => ({
     products: state.Products.products,
     loading: state.StoreItems.loading,
     orderLoading: state.Orders.loading,
     clients: state.Clients.clients,
     quotation: state.Orders.quotation,
     QProductPrice: state.Orders.QProductPrice.cost,
-
-
+    QProductDetail: state.Orders.QProductPrice
   }))
+
   const [selectedOrder, setselectedOrder] = useState("Search a Product")
   const [selectedClient, setSelectedClient] = useState("Search a Client")
   const [selectedQuotation, setSelectedQuotation] = useState("Search a Quotation Id")
@@ -52,23 +52,43 @@ const CreateOrder = ({ history }) => {
     end_date: "",
     quotation_id: null,
     duration: "",
-    orderitem: [],
+    orderitem: [
+      {
+        product: "",
+        quantity: "",
+        total_price: "",
+        selling_price: "",
+        profit_percentage: "",
+        cost: ""
+      }
+
+    ],
   })
 
   const ProductPrice = parseInt(QProductPrice)
 
-  const totelPriceCalc = (ProductPrice * percentage / 100) + ProductPrice * qty
+  const sellingPrice = (ProductPrice * percentage / 100) + ProductPrice
+
+  const totelPriceCalc = sellingPrice * qty
 
   useEffect(() => {
-      setRawData({
-        ...rawData,
-        orderitem: {
-          ...rawData.orderitem,
-          ["price"]: totelPriceCalc,
-        },
-      })
-  }, [totelPriceCalc]);
-  
+    setRawData({
+      ...rawData,
+      orderitem: {
+        ...rawData.orderitem,
+        ["total_price"]: totelPriceCalc,
+        ["selling_price"]: sellingPrice,
+        ["profit_percentage"]: percentage,
+        ["cost"]: QProductPrice,
+        ["quantity"]: qty,
+      },
+    })
+
+  }, [totelPriceCalc, sellingPrice]);
+
+  useEffect(() => {
+    setPercentage(QProductDetail.profit)
+  }, [QProductDetail.profit]);
 
 
   useEffect(() => {
@@ -77,13 +97,17 @@ const CreateOrder = ({ history }) => {
     dispatch(getQuotations(searchQuotationText, ""))
   }, [searchText, dispatch, searchClientText, searchQuotationText])
 
-  const onAddFormRow = () => {
+  const onAddFormRow = async () => {
     const modifiedRows = [...orderitem]
     modifiedRows.push({
       id: modifiedRows.length + 1,
       ...rawData.orderitem,
     })
     setNewOrders(modifiedRows)
+
+    setPercentage(0)
+    setselectedOrder("Search a Product")
+    setQty(1)
   }
 
   const onDeleteFormRow = id => {
@@ -102,7 +126,6 @@ const CreateOrder = ({ history }) => {
 
   //setore item from and search
   function handlerFinalValue(event) {
-    console.log(event);
     dispatch(getQProductPrice(event.value))
     setselectedOrder(event.label)
     setRawData({
@@ -182,16 +205,19 @@ const CreateOrder = ({ history }) => {
     setIsOpen(true)
   }
 
-  const handleQty=(e)=>{
+  const handleQty = (e) => {
     setQty(e.target.value),
-    setRawData({
-      ...rawData,
-      orderitem: {
-        ...rawData.orderitem,
-        ["quantity"]: e.target.value,
-      },
-    })
+      setRawData({
+        ...rawData,
+        orderitem: {
+          ...rawData.orderitem,
+          ["quantity"]: e.target.value,
+        },
+      })
   }
+
+  const subTotel = orderitem?.reduce((accumulator, current) => accumulator + current.total_price, 0)
+
 
   return (
     <>
@@ -212,120 +238,121 @@ const CreateOrder = ({ history }) => {
             {/* uploading */}
             <Row>
               <Col lg={12}>
-                    <Form className="repeater" encType="multipart/form-data">
-                <Card>
-                  <CardBody>
-                    <CardTitle className="h4 mb-4">Add Order</CardTitle>
-                        <Row>
-                          <Col lg={12} className="mb-3">
-                            <FormGroup className="mb-3">
-                              <Label>Quotation</Label>
+                <Form className="repeater" encType="multipart/form-data">
+                  <Card>
+                    <CardBody>
+                      <CardTitle className="h4 mb-4">Add Order</CardTitle>
+                      <Row>
+                        <Col lg={12} className="mb-3">
+                          <FormGroup className="mb-3">
+                            <Label>Quotation</Label>
 
-                              <div className="col-md-12"></div>
-                              <div className="mb-3 ajax-select mt-3 mt-lg-0 select2-container">
+                            <div className="col-md-12"></div>
+                            <div className="mb-3 ajax-select mt-3 mt-lg-0 select2-container">
+                              <Select
+                                onInputChange={handleQuotationEnters}
+                                value={selectedQuotation}
+                                placeholder={selectedQuotation}
+                                onChange={handlerQuotationFinalValue}
+                                options={quotationOptions}
+                                classNamePrefix="select2-selection"
+                                isLoading={true}
+                              />
+                            </div>
+                          </FormGroup>
+                        </Col>
+                        {Role == "client" ? (
+                          <></>
+                        ) : (<>
+                          <Col lg={10} md={8} sm={6} xs={12} className="mb-3"  >
+                            <FormGroup className="mb-3">
+                              <Label>Select Client / Create Now </Label>
+
+                              <div className="ajax-select mt-3 mt-lg-0 select2-container">
                                 <Select
-                                  onInputChange={handleQuotationEnters}
-                                  value={selectedQuotation}
-                                  placeholder={selectedQuotation}
-                                  onChange={handlerQuotationFinalValue}
-                                  options={quotationOptions}
+                                  onInputChange={handleClientEnters}
+                                  value={selectedClient}
+                                  placeholder={selectedClient}
+                                  onChange={handlerClientFinalValue}
+                                  options={clientOptions}
                                   classNamePrefix="select2-selection"
                                   isLoading={true}
+                                  className="custome_select_rad"
                                 />
                               </div>
                             </FormGroup>
                           </Col>
-                          {Role == "client" ? (
-                            <></>
-                          ) : (<>
-                            <Col lg={9} md={8} sm={6} xs={12} className="mb-3 createClintBtn"  >
-                              <FormGroup className="mb-3">
-                                <Label>Select Client / Create Now </Label>
+                          <Col lg={2} md={4} sm={6} xs={12} className="m-0 createClintBtnCont " >
+                            <button type="button" className="btn btn-light text-info"
+                              onClick={handleCreateCLient} >
+                              Create New</button>
+                          </Col>
+                        </>
+                        )}
+                        <Col lg={4} className="mb-3">
+                          <label htmlFor="date1">Start Date</label>
+                          <input
+                            type="date"
+                            className="form-control"
+                            id="date1"
+                            requied="true"
+                            min={1}
+                            value={rawData.start_date}
+                            onChange={e =>
+                              setRawData({
+                                ...rawData,
+                                ["start_date"]: e.target.value,
+                              })
+                            }
+                          />
+                        </Col>
+                        <Col lg={4} className="mb-3">
+                          <label htmlFor="date2">End Date</label>
+                          <input
+                            type="date"
+                            className="form-control"
+                            id="date2"
+                            requied="true"
+                            min={1}
+                            value={rawData.end_date}
+                            onChange={e =>
+                              setRawData({
+                                ...rawData,
+                                ["end_date"]: e.target.value,
+                              })
+                            }
+                          />
+                        </Col>
 
-                                <div className="ajax-select mt-3 mt-lg-0 select2-container">
-                                  <Select
-                                    onInputChange={handleClientEnters}
-                                    value={selectedClient}
-                                    placeholder={selectedClient}
-                                    onChange={handlerClientFinalValue}
-                                    options={clientOptions}
-                                    classNamePrefix="select2-selection"
-                                    isLoading={true}
-                                    className="custome_select_rad"
-                                  />
-                                </div>
-                              </FormGroup>
-                            </Col>
-                            <Col lg={3} md={4} sm={6} xs={12} className="m-0 createClintBtnCont " >
-                              <button type="button" className="btn btn-light btn-label  custom_border_rad text-info"
-                                onClick={handleCreateCLient} >
-                                Create Client<i className="bx bx-user-plus label-icon text-info font-size-24"></i></button>
-                            </Col>
-                          </>
-                          )}
-                          <Col lg={6} className="mb-3">
-                            <label htmlFor="date1">Start Date</label>
-                            <input
-                              type="date"
-                              className="form-control"
-                              id="date1"
-                              requied="true"
-                              min={1}
-                              value={rawData.start_date}
-                              onChange={e =>
-                                setRawData({
-                                  ...rawData,
-                                  ["start_date"]: e.target.value,
-                                })
-                              }
-                            />
-                          </Col>
-                          <Col lg={6} className="mb-3">
-                            <label htmlFor="date2">End Date</label>
-                            <input
-                              type="date"
-                              className="form-control"
-                              id="date2"
-                              requied="true"
-                              min={1}
-                              value={rawData.end_date}
-                              onChange={e =>
-                                setRawData({
-                                  ...rawData,
-                                  ["end_date"]: e.target.value,
-                                })
-                              }
-                            />
-                          </Col>
+                        <Col lg={4} className="mb-3">
+                          <label htmlFor="Duration">Duration (In Days)</label>
+                          <input
+                            type="number"
+                            className="form-control"
+                            id="Duration"
+                            requied="true"
+                            min={1}
+                            value={rawData.duration}
+                            onChange={e =>
+                              setRawData({
+                                ...rawData,
+                                ["duration"]: e.target.value,
+                              })
+                            }
+                          />
+                        </Col>
+                      </Row>
+                    </CardBody>
+                  </Card>
+                  <Card >
+                    <CardBody >
 
-                          <Col lg={12} className="mb-3">
-                            <label htmlFor="Duration">Duration</label>
-                            <input
-                              type="number"
-                              className="form-control"
-                              id="Duration"
-                              requied="true"
-                              min={1}
-                              value={rawData.duration}
-                              onChange={e =>
-                                setRawData({
-                                  ...rawData,
-                                  ["duration"]: e.target.value,
-                                })
-                              }
-                            />
-                          </Col>
-                      
-                          
-                        </Row>
-                        </CardBody>
-                </Card>
-                <Card >
-                <CardBody >
-                        <Row>
+                      <div>
+                        <Row >
+
                           <Col lg={6} md={6} sm={12} className="mb-3">
                             <FormGroup className="mb-3">
-                              <Label>Products</Label>
+                              <Label>OrderItem </Label>
 
                               <div className="col-md-12"></div>
                               <div className="mb-3 ajax-select mt-lg-0 select2-container">
@@ -340,21 +367,26 @@ const CreateOrder = ({ history }) => {
                                   requied="true"
                                 />
                               </div>
-                              {QProductPrice && <span className="mt-2 text-muted">
-                                Product Cost :
-                                <Badge
-                                  className={"font-size-14 p-2 mx-3 badge-soft-success"}
-                                  pill
-                                >
-                                 <i className="bx bx-rupee text-success font-size-14" /> {QProductPrice}
-                                </Badge>
-                              </span>}
+
 
                             </FormGroup>
                           </Col>
+                          <Col lg={2} md={2} sm={12} className="">
+                            <label htmlFor="resume">Production Cost </label>
+                            <input
+                              type="number"
+                              className="form-control mt-1 mt-lg-0 text-info"
+                              id="resume"
+                              requied="true"
+                              min={1}
+                              value={QProductPrice}
+                              readOnly
 
-                          <Col lg={3} md={3} sm={12} className="">
-                            <label htmlFor="resume">Profit Percentage</label>
+                            />
+                          </Col>
+
+                          <Col lg={2} md={2} sm={12} className="">
+                            <label htmlFor="resume">Profit %</label>
                             <input
                               type="number"
                               className="form-control mt-1 mt-lg-0"
@@ -367,7 +399,7 @@ const CreateOrder = ({ history }) => {
                               }
                             />
                           </Col>
-                          <Col lg={3} md={3} sm={12} className="mb-3">
+                          <Col lg={2} md={2} sm={12} className="mb-3">
                             <label htmlFor="resume">Quantity</label>
                             <input
                               type="number"
@@ -375,52 +407,48 @@ const CreateOrder = ({ history }) => {
                               id="resume"
                               requied="true"
                               min={1}
-                              // value={rawData.quantity}
+                              value={qty}
                               onChange={handleQty}
                             />
                           </Col>
-                          {totelPriceCalc ? <Col lg={4} md={4} sm={12} className="">
-                            <label htmlFor="resume">Total Price </label>
-                            <input
-                              type="number"
-                              className="form-control mt-1 mt-lg-0 text-warning"
-                              id="resume"
-                              requied="true"
-                              min={1}
-                              value={totelPriceCalc}
-                              onChange={e =>
-                                setRawData({
-                                  ...rawData,
-                                  orderitem: {
-                                    ...rawData.orderitem,
-                                    ["price"]: e.target.value,
-                                  },
-                                })
-                              }
-                            />
-                          </Col> : <></>}
 
-                      
-                          {/* <Col lg={4} className="mb-3">
-                            <label htmlFor="resume">Price</label>
-                            <input
-                              type="number"
-                              className="form-control"
-                              id="resume"
-                              requied="true"
-                              min={1}
-                              // value={rawData.quantity}
-                              onChange={e =>
-                                setRawData({
-                                  ...rawData,
-                                  orderitem: {
-                                    ...rawData.orderitem,
-                                    ["price"]: e.target.value,
-                                  },
-                                })
-                              }
-                            />
-                          </Col> */}
+                          <Col lg={8} md={8}></Col>
+                          <Col lg={4} md={4}>
+                            {selectedOrder === "Search a Product" ? <></> :
+                              <div style={{
+                                display: "flex", flexDirection: "column", width: "fit-content",
+                                marginLeft: "auto"
+                              }}>
+
+                                {sellingPrice &&
+                                  <span className=" text-muted">
+                                    Selling Price :
+                                    <Badge
+                                      className={"font-size-14 p-2 mx-3 badge-soft-info"}
+                                      pill
+                                    >
+                                      <i className="bx bx-rupee text-info font-size-14" /> {sellingPrice}
+                                    </Badge>
+                                  </span>
+                                }
+
+                                {totelPriceCalc ? <>
+                                  <span className="mt-2 text-muted" style={{ fontWeight: "700" }}>
+                                    Sub Total  :
+                                    <Badge
+                                      className={"font-size-14 p-2 mx-3 badge-soft-success"}
+                                      pill
+                                    >
+                                      <i className="bx bx-rupee text-success font-size-14" /> {totelPriceCalc}
+                                    </Badge>
+                                  </span>
+                                  <p>(sellingPrice * qty)</p>
+                                </>
+                                  : <></>}
+
+                              </div>}
+                          </Col>
+                          <Col lg={4} md={4}></Col>
                           <Col
                             lg={8}
                             md={8}
@@ -430,10 +458,11 @@ const CreateOrder = ({ history }) => {
                               alignItems: "center",
                               justifyContent: "flex-end",
                             }}
+                            className="mt-4"
                           >
                             <input
                               type="button"
-                              className="btn btn-dark mr-lg-0 "
+                              className="btn btn-light mr-lg-0 "
                               value="Add to Orders"
                               onClick={() => onAddFormRow()}
                               style={{
@@ -444,82 +473,118 @@ const CreateOrder = ({ history }) => {
                             />
                           </Col>
                         </Row>
-                  </CardBody>
-                </Card>
-                    </Form>
+
+                      </div>
+
+
+                    </CardBody>
+                  </Card>
+                </Form>
               </Col>
               {orderitem.length > 0 && (
                 <Col lg={12}>
                   <Card>
                     <CardBody>
-                      <CardTitle className="h4 mb-4">All Orders </CardTitle>
-                      {loading ? (
-                        <Spinner type="grow" color="gray" />
-                      ) : (
-                        <Form
-                          className="repeater"
-                          encType="multipart/form-data"
-                        >
-                          <div>
+                      <CardTitle className="mb-4">Orders </CardTitle>
+
+                      <div className="table-responsive">
+                        <Table className="table align-middle table-nowrap">
+                          <thead className="table-light">
+                            <tr>
+                              <th>Product</th>
+                              <th>Quantity</th>
+                              <th>Price</th>
+                              <th>Remove</th>
+                            </tr>
+                          </thead>
+                          <tbody>
                             {map(orderitem, (item, index) => (
-                              <Row key={index}>
-                                <Row className="text-muted mt-4">
-                                  <Col lg={6} md={5}>
-                                    <p>
-                                      <i className="mdi mdi-chevron-right text-primary me-1" />
-                                      Product : {item?.productName || ""}
-                                    </p>
-                                  </Col>
-                                  <Col lg={2} md={5}>
-                                    <p>Quantity : {item?.quantity || ""}</p>
-                                  </Col>
-                                  <Col lg={2} md={5}>
-                                    <p >Price : <span className="font-size-14 text-info ">  <i className="bx bx-rupee text-info font-size-14" />{item?.price || ""}</span>
-                                    </p>
-                                  </Col>
-                                  <Col
-                                    lg={2}
-                                    md={2}
-                                    className="align-self-center m-auto"
-                                  >
-                                    <div
-                                      className="d-grid "
-                                      style={{ maxWidth: "200px" }}
+                              <tr key={index}>
+                                <td>
+                                  <h5 className="font-size-13 m-0">
+                                    <Link
+                                      to={`/orderItem/${item?.id}`}
+                                      className="text-dark">
+                                      {item.productName}
+                                    </Link>
+                                  </h5>
+                                </td>
+                                <td>
+                                  <h5 className="font-size-13 m-0" style={{ whiteSpace: "break-spaces" }}>
+                                    <Link
+                                      to=""
+                                      className="text-dark">
+                                      {item?.quantity}
+                                    </Link>
+                                  </h5>
+                                </td>
+                                <td>
+                                  <div className="d-flex">
+                                    <Link
+                                      to="#"
+                                      className="font-size-11 me-1"
                                     >
+                                      <span className="font-size-14 text-info ">  <i className="bx bx-rupee text-info font-size-14" />{item?.total_price || ""}</span>
+
+                                    </Link>
+
+                                  </div>
+
+                                </td>
+
+                                <td>
+                                  <h5 className="font-size-13 m-0">
+                                    <Link to="#" className="text-dark">
                                       <i
                                         className="fa fa-trash mt-1 mr-lg-0 mb-4 text-danger"
                                         onClick={() => onDeleteFormRow(item.id)}
                                       ></i>
-                                    </div>
-                                  </Col>
-                                </Row>
-                              </Row>
+                                    </Link>
+                                  </h5>
+                                </td>
+                              </tr>
                             ))}
+                          </tbody>
+                        </Table>
+                      </div>
+                      <div>
+                        <Col sm="12">
+                          <div className="text-sm-end mt-2">
+                            <span className="mt-2 text-muted font-size-16" style={{ fontWeight: "700" }}>
+                              Sub Total  :
+                              <Badge
+                                className={"font-size-16 p-2 mx-3 badge-soft-light text-dark"}
+                                pill
+                              >
+                                <i className="bx bx-rupee text-dark font-size-16" /> {subTotel}
+                              </Badge>
+                            </span>
                           </div>
-                          <div>
-                            <Col sm="12">
-                              <div className="text-sm-end mt-2">
-                                <Link
-                                  to="#"
-                                  className="btn btn-success"
-                                  onClick={onSubmitOrder}
-                                >
-                                  Confirm Order
-                                  {orderLoading ? (
-                                    <>
-                                      <i className="bx bx-loader bx-spin font-size-16 align-middle me-2"></i>
-                                    </>
-                                  ) : (
-                                    <i className="mdi mdi-truck-fast mx-2" />
-                                  )}
-                                </Link>
-                              </div>
-                            </Col>
+                        </Col>
+                      </div>
+                      <div>
+                        <Col sm="12">
+                          <div className="text-sm-end mt-2">
+                            <Link
+                              to="#"
+                              className="btn btn-success"
+                              onClick={onSubmitOrder}
+                            >
+                              Confirm Order
+                              {orderLoading ? (
+                                <>
+                                  <i className="bx bx-loader bx-spin font-size-16 align-middle me-2"></i>
+                                </>
+                              ) : (
+                                <i className="mdi mdi-truck-fast mx-2" />
+                              )}
+                            </Link>
                           </div>
-                        </Form>
-                      )}
+                        </Col>
+                      </div>
                     </CardBody>
                   </Card>
+
                 </Col>
               )}
             </Row>

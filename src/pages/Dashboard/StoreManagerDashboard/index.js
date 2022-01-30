@@ -18,7 +18,6 @@ function StoreManagerDashboard() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getFinishedProduct("", ""))
     dispatch(getProducts())
     dispatch(getStoreItems())
     dispatch(getStoreSupply())

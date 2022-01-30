@@ -58,6 +58,7 @@ import CreatStage from "pages/ProductionStages/Crud/Create/Create"
 import OrderPDFGenerator from "components/Pdf/OrderReport"
 import OrderItemSingleView from "pages/ProductionStages/ProductionOrder/SingleView/index"
 import stageDetail from "pages/ProductionStages/SingleView"
+import WorkOrderPDFGenerator from "components/Pdf/WorkOrderReport"
 
 const commonRoute = [
   { path: "/dashboard", component: Dashboard },
@@ -79,6 +80,7 @@ const MDProtectedRoutes = [
   { path: "/dashboard", component: Dashboard },
   { path: "/quotation/pdf", component: PDFGenerator },
   { path: "/order/pdf", component: OrderPDFGenerator },
+  { path: "/order/work/pdf", component: WorkOrderPDFGenerator },
 
   // //profile Clients
   { path: "/profile", component: UserProfile },
@@ -128,6 +130,8 @@ const MDProtectedRoutes = [
   { path: "/orderItems", component: ProductionOrder },
   { path: "/stages", component: ProductionStages },
   { path: "/stage/create", component: CreatStage },
+  // { path: "/store/update/:id", component: UpdateStore },
+
   // this route should be at the end of all other routes
   // eslint-disable-next-line react/display-name
   { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> },

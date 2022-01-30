@@ -26,6 +26,8 @@ import OrderDetail from "./OrderDetail"
 //css
 import "react-datepicker/dist/react-datepicker.css"
 
+
+
 function OrderStatus() {
   const dispatch = useDispatch()
   const params = useParams()
@@ -149,6 +151,8 @@ function OrderStatus() {
       return true
     }
   }
+
+
   return (
     <>
       <Col lg={`${Handler() ? "8" : "12"}`}>
@@ -176,8 +180,25 @@ function OrderStatus() {
                   </Badge>
                 </div>
               </Col>
-              <Col lg={4}></Col>
-              <Col lg={4} sm="4" xs="6">
+              <Col lg={2} />
+              <Col lg={3}>
+                <Link
+                  to="/order/work/pdf"
+                  type="button"
+                  className="btn btn-outline-light d-flex mt-4"
+                  style={{
+                    marginLeft: "auto",
+                    alignItems: "center",
+                    width: "fit-content",
+                    border: "1px solid #cccc",
+                  }}
+                >
+                  Work PDF
+                  <i className="mdi mdi-download d-block font-size-16 mx-1"></i>
+                </Link>
+              </Col>
+              <Col lg={3} sm="4" xs="6">
+
                 <Link
                   to="/order/pdf"
                   type="button"
@@ -189,7 +210,7 @@ function OrderStatus() {
                     border: "1px solid #cccc",
                   }}
                 >
-                  PDF
+                  Billing PDF
                   <i className="mdi mdi-download d-block font-size-16 mx-1"></i>
                 </Link>
               </Col>
@@ -201,7 +222,7 @@ function OrderStatus() {
         <Col lg="4">
           <Card>
             <CardBody>
-              {orderDetail?.status == "Pending" && (
+              {/* {orderDetail?.status == "Pending" && (
                 <>
                   <Col className="mb-4 position-relative">
                     <label htmlFor="resume">Start Date</label>
@@ -227,7 +248,7 @@ function OrderStatus() {
                     </Button>
                   </Col>
                 </>
-              )}
+              )} */}
               <CardTitle className="mb-4">Update Status</CardTitle>
               {error?.response && (
                 <Alert color="danger">{error?.response}</Alert>
@@ -251,8 +272,15 @@ function OrderStatus() {
           </Card>
         </Col>
       )}
+
+
     </>
+
+
   )
 }
 
 export default OrderStatus
+
+
+

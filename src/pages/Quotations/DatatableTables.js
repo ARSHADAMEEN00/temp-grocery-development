@@ -86,8 +86,17 @@ const Quotation = () => {
     }
 
   }
+  const newQuotation = quotation?.results?.filter(item => item.status == "Pending")
 
-  const quotationData = map(quotation?.results, (item, index) => ({
+  const handlerQuot = () => {
+    if (window.location.search) {
+      return newQuotation
+    } else {
+      return quotation?.results
+    }
+  }
+
+  const quotationData = map(handlerQuot(), (item, index) => ({
     ...item,
     key: index,
     date_added: moment(item.date_added).format("YYYY/MM/DD"),
@@ -136,6 +145,7 @@ const Quotation = () => {
     setSearchText(e.target.value)
   }
 
+
   return (
     <React.Fragment>
       <Row>
@@ -170,6 +180,20 @@ const Quotation = () => {
                             </form>{" "}
                           </div>
                         </div>
+                      </Col>
+                      <Col md="4"></Col>
+                      <Col md="4" style={{
+                        display: "flex",
+                        justifyContent: "flex-end",
+                        alignItems: "center"
+                      }}>
+                        {window.location.search && <Link
+                          to="/quotations"
+                          className="btn btn-light btn-sm"
+                        >
+                          See All
+                          <i className="bx bx-right "></i>
+                        </Link>}
                       </Col>
                     </Row>
                     {loading ? (

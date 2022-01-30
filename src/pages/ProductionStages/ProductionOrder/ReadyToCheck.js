@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Row, Col, Card, CardBody, Badge, Spinner } from "reactstrap"
+import { Row, Col, Card, CardBody, Badge, Spinner, Button } from "reactstrap"
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { map, range } from "lodash"
@@ -9,10 +9,11 @@ import BootstrapTable from "react-bootstrap-table-next"
 import ToolkitProvider from "react-bootstrap-table2-toolkit"
 
 //actions
-import { getOrderItems } from "store/orders/actions"
+import { getOrderItems, updateOrderItem } from "store/orders/actions"
 
 import "../../../assets/scss/datatables.scss"
 import MyPagination from "components/Common/MyPagination"
+
 
 const Orders = () => {
   const dispatch = useDispatch()
@@ -58,17 +59,14 @@ const Orders = () => {
       dataField: "quantity",
       text: "Qty",
     },
+
     {
-      dataField: "price",
-      text: "Price",
-    },
-    {
-      dataField: "work_status",
+      dataField: "qc_status",
       text: "QC Status"
     },
     {
-      dataField: "store_status",
-      text: "Store Status"
+      dataField: "update",
+      text: "Update Status",
     },
     {
       dataField: "action",
@@ -77,10 +75,10 @@ const Orders = () => {
   ]
 
   const WorkStatus = status => {
-    if (status == "Pending") {
+    if (status == "QC_Pending") {
       return "info"
     }
-    if (status == "Approved") {
+    if (status == "QC_Approved") {
       return "success"
     }
   }
@@ -93,8 +91,8 @@ const Orders = () => {
     }
   }
 
-  const handleOrderItemWithStatus = () => {
-
+  const handleUpdateStatus = (orderItemId) => {
+    dispatch(updateOrderItem({ qc_status: "QC_Approved" }, orderItemId))
   }
 
   const orderItemData = map(orderItems?.results, (item, index) => ({
@@ -106,7 +104,18 @@ const Orders = () => {
     product_name: (
       <h6 style={{ whiteSpace: "break-spaces", maxWidth: "250px" }}>{item.product_name}</h6>
     ),
-    work_status: (
+
+
+    update: (<Button
+      type="submit"
+      color="success"
+      className="w-md mb-2 mx-3 btn-sm "
+      onClick={() => handleUpdateStatus(item.id)}
+    >
+      Approve
+    </Button>),
+
+    qc_status: (
       <div
         className="d-flex"
         style={{
@@ -116,27 +125,10 @@ const Orders = () => {
         }}
       >
         <Badge
-          className={"font-size-12 badge-soft-" + `${WorkStatus(item.work_status)}`}
+          className={"font-size-12 badge-soft-" + `${WorkStatus(item.qc_status)}`}
           pill
         >
-          {item.work_status}
-        </Badge>
-      </div>
-    ),
-    store_status: (
-      <div
-        className="d-flex"
-        style={{
-          maxWidth: "120px",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <Badge
-          className={"font-size-12 badge-soft-" + `${StoreStatus(item.store_status)}`}
-          pill
-        >
-          {item.store_status}
+          {item.qc_status}
         </Badge>
       </div>
     ),

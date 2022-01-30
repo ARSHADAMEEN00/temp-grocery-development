@@ -13,7 +13,9 @@ import { getOrders } from "store/orders/actions"
 
 import "../../assets/scss/datatables.scss"
 import MyPagination from "components/Common/MyPagination"
-import { getWorkStages } from "store/actions"
+import { getWorkStages, updateWorkStage } from "store/actions"
+import AvForm from "availity-reactstrap-validation/lib/AvForm"
+import AvField from "availity-reactstrap-validation/lib/AvField"
 
 const Stages = () => {
   const dispatch = useDispatch()
@@ -46,15 +48,12 @@ const Stages = () => {
     dispatch(getWorkStages(searchText, pageSend()))
   }, [dispatch, page, searchText])
 
+
   const columns = [
 
     {
       dataField: "order_item_auto_id",
       text: "Id",
-    },
-    {
-      dataField: "qualitychecker",
-      text: "QC Id",
     },
     {
       dataField: "stage",
@@ -75,16 +74,21 @@ const Stages = () => {
   ]
 
   const Status = status => {
-    if (status == "QC_Pending") {
+    if (status == "Pending") {
       return "info"
     }
-    if (status == "QC_Approved") {
+    if (status == "Finished") {
       return "success"
     }
 
     if (status == "Started") {
       return "warning"
     }
+  }
+
+  const handleValidSubmit = (props, updateStage, stageId) => {
+    console.log(updateStage);
+    // dispatch(updateWorkStage(updateStage, stageId, ""))
   }
 
   const workStagesData = map(workStages?.results, (item, index) => ({
@@ -110,15 +114,47 @@ const Stages = () => {
         </Badge>
       </div>
     ),
-    action: (Role == "qualitychecker" &&
-      <Link
-        type="button"
-        className="btn-sm btn-secondary btn-rounded"
-        to={`/stages/${item?.id}`}
+    action: (
+      <AvForm
+        className="form-horizontal "
+        onValidSubmit={(onSubmitProps, v) => {
+          handleValidSubmit(onSubmitProps, v, item.id)
+        }}
       >
-        View
-      </Link>
-    ),
+        <Row style={{ alignItems: "center" }} className="d-flex">
+          <Col sm={2} lg={2} style={{ width: "150px" }}>
+            <AvField
+              id="horizontal-note-Input"
+              name="note"
+              className="form-control"
+              min={0}
+              type="textarea"
+              rows="1"
+              placeholder="Note"
+              required
+            />
+          </Col>
+
+          <Col sm={2} lg={3} style={{ width: "60px" }}>
+            <button
+              type="submit"
+              className={`btn btn-info btn-sm mx-2 btn-lg ms-2 ${item.status === "Pending" ? "" : "disabled"} `}
+            >
+              Start
+            </button>
+          </Col>
+          <Col sm={2} lg={3} style={{ width: "60px" }}>
+            <button
+              type="submit"
+              className={`btn btn-success btn-sm mx-2 btn-lg ms-2 ${item.status === "Started" ? "" : "disabled"} `}
+            >
+              Finish
+            </button>
+          </Col>
+        </Row>
+
+
+      </AvForm>),
   }))
 
   const defaultSorted = [

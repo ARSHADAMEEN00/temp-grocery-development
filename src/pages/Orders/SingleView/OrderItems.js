@@ -47,10 +47,10 @@ function OrderItems() {
             <Table className="table align-middle table-nowrap">
               <thead className="table-light">
                 <tr>
-                <th>Order Item Id</th>
+                  <th>Order Item Id</th>
                   <th>Order item</th>
                   <th>Quantity</th>
-                  
+
                   <th>Price</th>
                   <th>Order Item Detail</th>
 
@@ -59,20 +59,20 @@ function OrderItems() {
               <tbody>
                 {map(orderitem, (item, index) => (
                   <tr key={index}>
-                      <td>
+                    <td>
                       <h5 className="font-size-13 m-0">
-                        <Link 
-                        to={`/orderItem/${item?.id}`}
-                        className="text-dark">
+                        <Link
+                          to={`/orderItem/${item?.id}`}
+                          className="text-dark">
                           {item.auto_id}
                         </Link>
                       </h5>
                     </td>
                     <td>
-                      <h5 className="font-size-13 m-0" style={{whiteSpace: "break-spaces"}}>
-                        <Link 
-                         to={`/products/${item?.product.id}`}
-                         className="text-dark">
+                      <h5 className="font-size-13 m-0" style={{ whiteSpace: "break-spaces" }}>
+                        <Link
+                          to={`/products/${item?.product.id}`}
+                          className="text-dark">
                           {item.product.name}
                         </Link>
                       </h5>
@@ -85,14 +85,14 @@ function OrderItems() {
                         >
                           {item.quantity}
                         </Link>
-                        {orderDetail?.status == "Pending" && (
+                        {/* {orderDetail?.status == "Pending" && (
                           <i
                             title="Update Quantity"
                             className="bx bx-pencil mx-3 "
                             style={{ cursor: "pointer" }}
                             onClick={() => handleToggle(item.id)}
                           ></i>
-                        )}
+                        )} */}
                       </div>
                       {/* {toggleEdit == item.id && (
                         <Row style={{ alignItems: "baseline" }}>
@@ -129,32 +129,32 @@ function OrderItems() {
                         </Row>
                       )} */}
                     </td>
-                    
-                      <td>
-                        <h5 className="font-size-13 m-0">
-                          <Link to="#" className="text-dark">
-                            {item.price}
-                          </Link>
-                        </h5>
-                      </td>
-                      <td>
-                        <h5 className="font-size-13 m-0">
-                          <Link 
-                           to={`/orderItem/${item?.id}`}
+
+                    <td>
+                      <h5 className="font-size-13 m-0">
+                        <Link to="#" className="text-dark">
+                          {item.total_price}
+                        </Link>
+                      </h5>
+                    </td>
+                    <td>
+                      <h5 className="font-size-13 m-0">
+                        <Link
+                          to={`/orderItem/${item?.id}`}
                           className="text-success">
                           <Badge
-                    className={
-                      "font-size-14 p-2 badge-soft-success" 
-                    }
-                    pill
-                  >
-                   View
-                  </Badge>
-                          </Link>
-                        </h5>
-                      </td>
-                     
-                   
+                            className={
+                              "font-size-14 p-2 badge-soft-success"
+                            }
+                            pill
+                          >
+                            View
+                          </Badge>
+                        </Link>
+                      </h5>
+                    </td>
+
+
                   </tr>
                 ))}
               </tbody>

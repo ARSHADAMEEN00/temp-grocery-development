@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import { Card, CardBody, CardText, CardTitle, Col, Row } from "reactstrap"
 import MiniWidget from "./mini-widget"
+import PendingStage from "./PendingStage"
 
 function QCDashboard() {
   const dispatch = useDispatch()
@@ -19,7 +20,8 @@ function QCDashboard() {
         </Col>
         <Col lx="4" lg="4">
           <MiniWidget />
-          <Link to="/stage/create">
+          <PendingStage />
+          {/* <Link to="/stage/create">
             <Card color="info" className="text-white-50">
               <CardBody>
                 <CardTitle className="mb-4 text-white">
@@ -29,7 +31,7 @@ function QCDashboard() {
                 <CardText></CardText>
               </CardBody>
             </Card>
-          </Link>
+          </Link> */}
         </Col>
       </Row>
     </div>

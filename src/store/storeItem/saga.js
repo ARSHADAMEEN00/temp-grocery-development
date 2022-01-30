@@ -52,8 +52,12 @@ const getStoreItemDetailsAPi = storeItemId => {
 const createStoreItemApi = ({ storeItem }) => {
   return post("/store/store/", storeItem)
 }
-const updateStoreItemApi = ({ storeItemId, storeItem }) => {
-  return ApiPut(`/store/store/${storeItemId}/`, storeItem)
+const updateStoreItemApi = ({ storeItemId, storeItem, isUpdate }) => {
+  if (isUpdate === "isUpdate") {
+    return patch(`/store/store/${storeItemId}/`, storeItem)
+  } else {
+    return ApiPut(`/store/store/${storeItemId}/`, storeItem)
+  }
 }
 
 const deleteStoreItemApi = ({ storeItemId }) => {
@@ -124,6 +128,7 @@ function* onUpdateStoreItem({ payload }) {
 }
 
 function* onUpdateStoreSupply({ payload }) {
+
   try {
     const response = yield call(updateStoreSupplyApi, payload)
     yield put(

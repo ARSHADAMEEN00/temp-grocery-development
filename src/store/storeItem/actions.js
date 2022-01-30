@@ -80,9 +80,9 @@ export const createStoreItemFail = error => ({
   payload: error,
 })
 
-export const updateStoreItem = (storeItem, storeItemId, history) => ({
+export const updateStoreItem = (storeItem, storeItemId, history, isUpdate) => ({
   type: UPDATE_STOREITEM,
-  payload: { storeItem, storeItemId, history },
+  payload: { storeItem, storeItemId, history, isUpdate },
 })
 
 export const updateStoreItemSuccess = storeItem => ({

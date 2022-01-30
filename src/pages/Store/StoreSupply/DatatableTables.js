@@ -35,7 +35,6 @@ const Stores = () => {
     loading: state.StoreItems.loading,
   }))
 
-  console.log(storeSupply)
   //page
   const totalPages = Math.ceil(storeSupply?.count / 10)
   const pages = range(1, totalPages + 1)
@@ -56,14 +55,11 @@ const Stores = () => {
   }, [dispatch, page, searchText])
 
   const handleUpdate = storeSupply => {
-    dispatch(updateStoreSupply({ status: "Provided" }, storeSupply.id))
+    dispatch(updateStoreSupply({ store_status: "Provided" }, storeSupply.id))
   }
 
   const columns = [
-    {
-      dataField: "auto_id",
-      text: "Id",
-    },
+
     {
       dataField: "product",
       text: "Product",
@@ -74,7 +70,7 @@ const Stores = () => {
       text: "Raw Materials",
     },
     {
-      dataField: "status",
+      dataField: "store_status",
       text: "Status",
     },
 
@@ -93,6 +89,18 @@ const Stores = () => {
     ...item,
     key: index,
 
+
+    rawMaterials: (
+      <Button
+        color="success"
+        className="btn btn-light btn-sm text-info"
+        type="submit"
+        onClick={() => handleToggle(item?.id)}
+      >
+        Show Raw Materials
+      </Button>
+    ),
+
     action: (
       <div className="d-flex">
         <div>
@@ -107,16 +115,6 @@ const Stores = () => {
           </Link>
         </div>
       </div>
-    ),
-    rawMaterials: (
-      <Button
-        color="success"
-        className="btn btn-light btn-sm text-info"
-        type="submit"
-        onClick={() => handleToggle(item?.id)}
-      >
-        Show Raw Materials
-      </Button>
     ),
   }))
 

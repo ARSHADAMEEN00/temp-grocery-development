@@ -37,7 +37,7 @@ const createWorkStageApi = ({ workStage }) => {
   return post("/stages/stages/", workStage)
 }
 const updateWorkStageApi = ({ workStageId, workStage }) => {
-  return ApiPut(`/stages/stages/${workStageId}/`, workStage)
+  return patch(`/stages/stages/${workStageId}/`, workStage)
 }
 const deleteWorkStageApi = ({ workStageId }) => {
   return del(`/stages/stages/${workStageId}/`)
@@ -85,6 +85,7 @@ function* onUpdateWorkStage({ payload }) {
     const response = yield call(updateWorkStageApi, payload)
     yield put(updateWorkStageSuccess(response))
     doneNotification()
+    payload.history.push("/stages")
   } catch (error) {
     yield put(updateWorkStageFail(error))
     errorNotification()

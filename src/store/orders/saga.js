@@ -93,7 +93,11 @@ const updateOrderApi = ({ orderId, order, statusUpdate }) => {
   }
 }
 const updateOrderItemApi = ({ order, orderItemId }) => {
-  return ApiPut(`order/orderitem/${orderItemId}/`, order)
+  if (order.work_status == "Approved") {
+    return patch(`order/orderitem/${orderItemId}/`, order)
+  } else {
+    return ApiPut(`order/orderitem/${orderItemId}/`, order)
+  }
 }
 const deleteOrderApi = orderId => {
   return del(`/order/order/${orderId}/`)
@@ -210,6 +214,7 @@ function* onUpdateOrder({ payload }) {
 }
 
 function* onUpdateOrderItem({ payload }) {
+  console.log(payload);
   try {
     const response = yield call(updateOrderItemApi, payload)
     yield put(updateOrderItemSuccess({ ...response, id: payload.orderItemId }))

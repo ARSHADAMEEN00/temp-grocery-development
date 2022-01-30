@@ -9,11 +9,11 @@ function stageDetail() {
   return (
     <>
       <MetaTags>
-        <title>Order | Indtech </title>
+        <title>Stage | Indtech </title>
       </MetaTags>
 
       <div className="page-content">
-        <Breadcrumbs title="Orders" breadcrumbItem="Order" />
+        <Breadcrumbs title="Stages" breadcrumbItem="Stage" />
         <Container fluid>
           <div className="container-fluid">
             <Row>

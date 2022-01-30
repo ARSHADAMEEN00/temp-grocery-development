@@ -1,19 +1,6 @@
 function sidebardata() {
   return [
     {
-      heading: "General Manager",
-      badgeClass: "",
-      badgeValue: "",
-      iconClass: "user-detail",
-      subTitles: [
-        { title: "All General  Managers", routeLink: "/generalmanagers" },
-        {
-          title: "Create General  Manager",
-          routeLink: "/generalmanager/create",
-        },
-      ],
-    },
-    {
       heading: "Clients",
       badgeClass: "danger",
       badgeValue: "",
@@ -23,23 +10,6 @@ function sidebardata() {
         {
           title: "Create Clients",
           routeLink: "/client/create",
-        },
-      ],
-    },
-    {
-      heading: "Production",
-      badgeClass: "",
-      badgeValue: "",
-      iconClass: "shopping-bags",
-      subTitles: [
-        { title: "All Order Items", routeLink: "/orderItems" },
-        {
-          title: "All Stages ",
-          routeLink: "/stages",
-        },
-        {
-          title: "Create Stages",
-          routeLink: "/stage/create",
         },
       ],
     },
@@ -56,7 +26,6 @@ function sidebardata() {
         },
       ],
     },
-
     {
       heading: "Work Orders",
       badgeClass: "danger",
@@ -67,6 +36,32 @@ function sidebardata() {
         {
           title: "Create Work Order",
           routeLink: "/order/create",
+        },
+      ],
+    },
+    {
+      heading: "QC Checking",
+      badgeClass: "",
+      badgeValue: "",
+      iconClass: "shopping-bags",
+      subTitles: [
+        { title: "QC Inspection", routeLink: "/orderItems" },
+
+      ],
+    },
+    {
+      heading: "Stages",
+      badgeClass: "",
+      badgeValue: "",
+      iconClass: "shopping-bags",
+      subTitles: [
+        {
+          title: "All Stages ",
+          routeLink: "/stages",
+        },
+        {
+          title: "Create Stages",
+          routeLink: "/stage/create",
         },
       ],
     },
@@ -97,6 +92,29 @@ function sidebardata() {
         {
           title: "Create Product",
           routeLink: "/product/create",
+        },
+      ],
+    },
+    {
+      heading: "",
+      headingSaparetor: "Staff",
+      badgeClass: "",
+      badgeValue: "",
+      iconClass: "",
+      subTitles: [
+        { title: "", routeLink: "" },
+      ],
+    },
+    {
+      heading: "General Manager",
+      badgeClass: "",
+      badgeValue: "",
+      iconClass: "user-detail",
+      subTitles: [
+        { title: "All General  Managers", routeLink: "/generalmanagers" },
+        {
+          title: "Create General  Manager",
+          routeLink: "/generalmanager/create",
         },
       ],
     },

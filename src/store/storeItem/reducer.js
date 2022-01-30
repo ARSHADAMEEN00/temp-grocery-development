@@ -131,9 +131,9 @@ const StoreItems = (state = INIT_STATE, action) => {
       }
 
     case UPDATE_STORESUPPLY_SUCCESS:
+      ß
       return {
         ...state,
-
         storeSupply: {
           ...state.storeSupply,
           results: state.storeSupply.results.map(item =>

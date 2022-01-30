@@ -1,5 +1,5 @@
 import PropTypes from "prop-types"
-import React, { useEffect, useRef } from "react"
+import React, { Fragment, useEffect, useRef } from "react"
 import { map } from "lodash"
 import { mySideBar } from "./sidebarData"
 
@@ -16,8 +16,6 @@ import { withTranslation } from "react-i18next"
 
 const SidebarContent = props => {
   const ref = useRef()
-
-
 
   // Use ComponentDidMount and ComponentDidUpdate method symultaniously
   useEffect(() => {
@@ -94,8 +92,6 @@ const SidebarContent = props => {
 
   const Role = sessionStorage.getItem("role")
 
-
-
   function storeManagerSidebar() {
     const sidebar = mySideBar?.filter(
       sidebar => sidebar.heading == "Product" || sidebar.heading == "Store"
@@ -110,11 +106,21 @@ const SidebarContent = props => {
 
   function productionManagerSidebar() {
     const sidebar = mySideBar?.filter(
-      sidebar => sidebar.heading !== "Production Manager" && sidebar.heading !== "General Manager"
+      sidebar =>
+        sidebar.heading !== "Production Manager" &&
+        sidebar.heading !== "General Manager"
     )
     sidebar?.forEach(bar => {
       bar.subTitles = bar.subTitles?.filter(
-        subTitle => subTitle.title !== "Create Product" && subTitle.title !== "Create Clients"
+        subTitle =>
+          subTitle.title !== "Create Product" &&
+          subTitle.title !== "Create Clients" &&
+          subTitle.title !== "Store Supply" &&
+          subTitle.title !== "Create Store Item" &&
+          subTitle.title !== "Create Production Manager" &&
+          subTitle.title !== "Create Store Manager" &&
+          subTitle.title !== "Create Quality Manager" &&
+          subTitle.title !== "Create Salesman"
       )
     })
     return sidebar
@@ -122,16 +128,15 @@ const SidebarContent = props => {
 
   function qcSidebar() {
     const sidebar = mySideBar?.filter(
-      sidebar => sidebar.heading == "Production"
+      sidebar => sidebar.heading == "QC Checking"
     )
-    sidebar?.forEach(bar => {
-      bar.subTitles = bar.subTitles?.filter(
-        subTitle => subTitle.title !== "Create Stages"
-      )
-    })
+    // sidebar?.forEach(bar => {
+    //   bar.subTitles = bar.subTitles?.filter(
+    //     subTitle => subTitle.title !== "Create Stages"
+    //   )
+    // })
     return sidebar
   }
-
 
   function sidebarProtected() {
     let sidebar = []
@@ -162,25 +167,22 @@ const SidebarContent = props => {
   }
 
 
-
-
-
   return (
     <React.Fragment>
       <SimpleBar className="h-100" ref={ref}>
         <div id="sidebar-menu">
           <ul className="metismenu list-unstyled" id="side-menu">
-            <li className="menu-title">{props.t("Menu")} </li>
             <li>
               <Link to="/#" className="">
                 <i className="bx bxs-dashboard"></i>
                 <span>{props.t("Dashboard")}</span>
               </Link>
             </li>
-
-            {map(sidebarProtected(), (item, index) => (
-              <li key={index}>
-                <Link
+            <li className="menu-title mt-3">{props.t("Menu")} </li>
+            {map(sidebarProtected(), (item, index) => (<Fragment key={index}>
+              {item?.headingSaparetor && <li className="menu-title mt-3">{props.t(`${item?.headingSaparetor}`)} </li>}
+              <li >
+                {item?.heading && <Link
                   to="/#"
                   className={`${item?.badgeValue ? "" : "has-arrow"} `}
                 >
@@ -191,7 +193,7 @@ const SidebarContent = props => {
                   >
                     {item?.badgeValue}
                   </span>
-                </Link>
+                </Link>}
                 <ul className="sub-menu" aria-expanded="false">
                   {map(item?.subTitles, (title, index1) => (
                     <li key={index1}>
@@ -202,6 +204,8 @@ const SidebarContent = props => {
                   ))}
                 </ul>
               </li>
+            </Fragment>
+
             ))}
           </ul>
         </div>

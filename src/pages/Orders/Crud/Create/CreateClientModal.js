@@ -80,7 +80,7 @@ const CreateClientModal = ({ show, onDeleteClick, onCloseClick }) => {
               <AvField
                 id="horizontal-firstname-Input"
                 name="address"
-                type="text"
+                type="textarea"
                 validate={{
                   required: { value: true },
                   minLength: {
@@ -178,7 +178,7 @@ const CreateClientModal = ({ show, onDeleteClick, onCloseClick }) => {
                 <button
                   style={{ width: "50%" }}
                   type="submit"
-                  className="btn btn-sm btn-outline-success btn-lg ms-2"
+                  className="btn btn-sm btn-success btn-lg ms-2"
                 // onClick={onDeleteClick}
                 >
                   {/* {loading && (
@@ -186,7 +186,7 @@ const CreateClientModal = ({ show, onDeleteClick, onCloseClick }) => {
                       <i className="bx bx-loader bx-spin font-size-16 align-middle me-2"></i>
                     </>
                   )} */}
-                  Submit
+                  Save
                 </button>
 
               </div>
