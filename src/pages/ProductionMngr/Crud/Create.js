@@ -3,6 +3,7 @@ import React from "react"
 import { MetaTags } from "react-meta-tags"
 import { useDispatch, useSelector } from "react-redux"
 import {
+  Alert,
   Button,
   Card,
   CardBody,
@@ -22,14 +23,20 @@ import { createProductionmngr } from "store/actions"
 const CreateProductionManager = ({ history }) => {
   const dispatch = useDispatch()
 
-  const { loading } = useSelector(state => ({
+  const { loading, error } = useSelector(state => ({
     loading: state.Productionmngrs.loading,
+    error: state.Productionmngrs.error,
   }))
 
   // handleValidSubmit
   const handleValidSubmit = (onSubmitProps, values) => {
     dispatch(createProductionmngr(values, history))
   }
+
+  const usernameError = error?.username && error?.username[0]
+
+  const mailError = error?.email && error?.email[0]
+
   return (
     <>
       <MetaTags>
@@ -82,6 +89,11 @@ const CreateProductionManager = ({ history }) => {
                               },
                             }}
                           />
+                          {usernameError && (
+                            <Alert color="danger" className="mt-2">
+                              {usernameError}
+                            </Alert>
+                          )}
                         </Col>
                       </div>
                       <div className="row mb-4">
@@ -167,6 +179,11 @@ const CreateProductionManager = ({ history }) => {
                             type="email"
                             required
                           />
+                          {mailError && (
+                            <Alert color="danger" className="mt-2">
+                              {mailError}
+                            </Alert>
+                          )}
                         </Col>
                       </div>
 

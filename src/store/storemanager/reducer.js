@@ -17,7 +17,12 @@ import {
 } from "./actionTypes"
 
 const INIT_STATE = {
-  storemngrs: [],
+  storemngrs: {
+    count: "",
+    next: "",
+    previous: "",
+    results: [],
+  },
   storemngrDetail: {
     location: "",
     profit: "",
@@ -98,11 +103,6 @@ const Storemngrs = (state = INIT_STATE, action) => {
     case UPDATE_STOREMNGR_SUCCESS:
       return {
         ...state,
-        storemngrs: state.storemngrs.map(storemngr =>
-          storemngr.id === action.payload.id
-            ? { storemngr, ...action.payload }
-            : storemngr
-        ),
         storemngrDetail: action.payload,
         loading: false,
       }
@@ -117,8 +117,8 @@ const Storemngrs = (state = INIT_STATE, action) => {
     case DELETE_STOREMNGR_SUCCESS:
       return {
         ...state,
-        storemngrs: state.storemngrs.filter(
-          storemngr => storemngr.id.toString() !== action.payload.id.toString()
+        storemngrs: state.storemngrs.results.filter(
+          storemngr => storemngr.id !== action.payload.id
         ),
         loading: false,
       }

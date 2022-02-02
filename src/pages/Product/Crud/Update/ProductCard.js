@@ -4,7 +4,16 @@ import PropTypes from "prop-types"
 
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router"
-import { Alert, Button, Card, CardBody, Col, Label, Row } from "reactstrap"
+import {
+  Alert,
+  Button,
+  Card,
+  CardBody,
+  Col,
+  Label,
+  Row,
+  Spinner,
+} from "reactstrap"
 import { Link } from "react-router-dom"
 //actions
 import {
@@ -15,11 +24,12 @@ import {
 } from "store/actions"
 import { API_URL } from "helpers/api_methods"
 import axios from "axios"
-import { map } from "lodash"
 
 function ProductCard() {
   const dispatch = useDispatch()
   const params = useParams()
+  const [isUpdated, setIsUpdated] = useState(false)
+  const [myloading, setMyLoading] = useState(false)
   const [state, setstate] = useState({
     image: null,
   })
@@ -29,11 +39,16 @@ function ProductCard() {
     productDetail: state.Products.productDetail,
     loading: state.Products.loading,
   }))
+
   function handleValidSubmit(values) {
+    setMyLoading(true)
     const form_data = new FormData()
-    form_data.append("image", state.image, state.image.name)
+    {
+      state?.image?.name &&
+        form_data.append("image", state?.image, state?.image?.name)
+    }
     form_data.append("name", values.name)
-    form_data.append("no_of_cols", values.no_of_cols)
+    form_data.append("product_code", values.product_code)
     form_data.append("profit", values.profit)
 
     let url = `${API_URL}/store/product/${productDetail.id}/`
@@ -46,8 +61,13 @@ function ProductCard() {
       })
       .then(res => {
         dispatch(updateProductSuccess(res.data))
+        setIsUpdated(true)
+        setMyLoading(false)
       })
-      .catch(err => updateProductFail(err))
+      .catch(err => {
+        updateProductFail(err)
+        setMyLoading(false)
+      })
   }
 
   const handleImageChange = e => {
@@ -93,16 +113,16 @@ function ProductCard() {
             </div>
 
             <div className="row mb-4">
-              <Label htmlFor="tel-input" className="col-sm-3 col-form-label">
-                Number of Columns
+              <Label htmlFor="code" className="col-sm-3 col-form-label">
+                Product Code
               </Label>
               <Col sm={9}>
                 <AvField
-                  name="no_of_cols"
+                  name="product_code"
                   className="form-control"
-                  id="tel-input"
+                  id="code"
                   type="text"
-                  value={productDetail?.no_of_cols}
+                  value={productDetail?.product_code}
                 />
               </Col>
             </div>
@@ -172,7 +192,7 @@ function ProductCard() {
 
             <div className="row justify-content-end">
               <Col sm={9}>
-                <div>
+                <div className="d-flex">
                   <Button type="submit" color="success" className="w-md">
                     {loading && (
                       <>
@@ -181,6 +201,25 @@ function ProductCard() {
                     )}
                     Submit
                   </Button>
+                  {myloading && (
+                    <div
+                      className="d-flex"
+                      style={{
+                        alignItems: "center",
+                      }}
+                    >
+                      <Spinner
+                        color="info"
+                        // type="grow"
+                        className="mx-3 "
+                        style={{
+                          alignItems: "center",
+                          height: "20px",
+                          width: "20px",
+                        }}
+                      />
+                    </div>
+                  )}
                 </div>
               </Col>
             </div>

@@ -3,8 +3,10 @@ import { API_URL } from "helpers/api_methods"
 import React, { useState } from "react"
 import { MetaTags } from "react-meta-tags"
 import { useDispatch, useSelector } from "react-redux"
+import { Link } from "react-router-dom"
 import {
   Alert,
+  Badge,
   Button,
   Card,
   CardBody,
@@ -34,9 +36,10 @@ const CreateProduct = () => {
   const [btnDisabled, setBtnDisabled] = useState(true)
   const [remove, setRemove] = useState(false)
 
-  const { createProducterror, loading } = useSelector(state => ({
+  const { createProducterror, loading, productDetail } = useSelector(state => ({
     createProducterror: state.Products.createProducterror,
     loading: state.Products.loading,
+    productDetail: state.Products.productDetail,
   }))
 
   const [state, setstate] = useState({
@@ -115,6 +118,18 @@ const CreateProduct = () => {
               <div className="container-fluid">
                 <OtherCost myDisabled={btnDisabled} />
               </div>
+              <Link
+                to={`/products/${productDetail?.id}`}
+                className="text-end d-block mb-5 mt-3"
+              >
+                <Badge
+                  className={"font-size-12 p-3 mx-3 badge-soft-success"}
+                  style={{ cursor: "pointer" }}
+                  pill
+                >
+                  See AlL Details Of Created Product
+                </Badge>
+              </Link>
             </>
           )}
         </Container>

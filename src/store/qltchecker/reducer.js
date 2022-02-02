@@ -17,7 +17,12 @@ import {
 } from "./actionTypes"
 
 const INIT_STATE = {
-  qltcheckers: [],
+  qltcheckers: {
+    count: "",
+    next: "",
+    previous: "",
+    results: [],
+  },
   qltcheckerDetail: {
     location: "",
     profit: "",
@@ -98,11 +103,6 @@ const Qltcheckers = (state = INIT_STATE, action) => {
     case UPDATE_QLTCHECKER_SUCCESS:
       return {
         ...state,
-        qltcheckers: state.qltcheckers.map(qltchecker =>
-          qltchecker.id.toString() === action.payload.id.toString()
-            ? { qltchecker, ...action.payload }
-            : qltchecker
-        ),
         qltcheckerDetail: action.payload,
         loading: false,
       }
@@ -117,9 +117,8 @@ const Qltcheckers = (state = INIT_STATE, action) => {
     case DELETE_QLTCHECKER_SUCCESS:
       return {
         ...state,
-        qltcheckers: state.qltcheckers.filter(
-          qltchecker =>
-            qltchecker.id.toString() !== action.payload.id.toString()
+        qltcheckers: state.qltcheckers.results.filter(
+          qltchecker => qltchecker.id !== action.payload.id.toString()
         ),
         loading: false,
       }

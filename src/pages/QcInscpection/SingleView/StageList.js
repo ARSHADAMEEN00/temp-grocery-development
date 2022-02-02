@@ -1,10 +1,16 @@
 import React from "react"
-import { Card, CardBody, CardTitle, Media } from "reactstrap"
-import { Link } from "react-router-dom"
+import { Badge, Card, CardBody, CardTitle, Media } from "reactstrap"
 import PropTypes from "prop-types"
 import { map } from "lodash"
 
 function StageList({ stageData }) {
+  const stageStatus = status => {
+    if (status === "Started") {
+      return "info"
+    } else if (status === "Finished") {
+      return "success"
+    }
+  }
   return (
     <>
       <CardTitle className="mb-3 mt-4">Stages</CardTitle>
@@ -32,7 +38,7 @@ function StageList({ stageData }) {
                 </h5>
               </div>
               <Media body className="mx-5 text-end">
-                <button
+                {/* <button
                   className={`btn btn-info btn-sm mx-2 ${
                     item.status === "Pending" ? "" : "disabled"
                   } `}
@@ -45,11 +51,22 @@ function StageList({ stageData }) {
                   } `}
                 >
                   Finish
-                </button>
+                </button> */}
               </Media>
             </Media>
             <Media body className="mx-4">
-              <p>Status : {item.status}</p>
+              <p>
+                Status :{" "}
+                <Badge
+                  className={
+                    "font-size-13 p-2 mx-2 badge-soft-" +
+                    `${stageStatus(item.status)}`
+                  }
+                  pill
+                >
+                  {item.status}
+                </Badge>
+              </p>
               <div>{item.note}</div>
             </Media>
           </li>

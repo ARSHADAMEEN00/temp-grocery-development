@@ -9,11 +9,10 @@ import BootstrapTable from "react-bootstrap-table-next"
 import ToolkitProvider from "react-bootstrap-table2-toolkit"
 
 //actions
-import { getOrders } from "store/orders/actions"
+import { getWorkStages, updateWorkStage } from "store/actions"
 
 import "../../assets/scss/datatables.scss"
 import MyPagination from "components/Common/MyPagination"
-import { getWorkStages, updateWorkStage } from "store/actions"
 import AvForm from "availity-reactstrap-validation/lib/AvForm"
 import AvField from "availity-reactstrap-validation/lib/AvField"
 
@@ -144,7 +143,7 @@ const Stages = () => {
               type="textarea"
               rows="1"
               placeholder="Note"
-              defaultValue={item.note}
+              value={item.note}
               onChange={e =>
                 setstageUpdate({ ...stageUpdate, note: e.target.value })
               }

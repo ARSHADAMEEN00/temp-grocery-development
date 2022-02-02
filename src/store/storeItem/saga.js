@@ -111,6 +111,7 @@ function* onCreateStoreItem({ payload }) {
 }
 
 function* onUpdateStoreItem({ payload }) {
+  console.log(payload)
   try {
     const response = yield call(updateStoreItemApi, payload)
     yield put(updateStoreItemSuccess(response))
@@ -119,7 +120,11 @@ function* onUpdateStoreItem({ payload }) {
       message: "Successfully Updated StoreItem",
       title: "Updated!",
     })
+    if (payload.history) {
+      payload.history.push("/stores")
+    }
   } catch (error) {
+    console.log(error)
     yield put(updateStoreItemFail(error))
     errorNotification()
   }

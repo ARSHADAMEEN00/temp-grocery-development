@@ -43,9 +43,6 @@ const Stores = () => {
 
   useEffect(() => {
     dispatch(getStoreItems(searchText, pageSend()))
-
-
-
   }, [dispatch, page, searchText])
 
   const handleDelete = storeItemId => {
@@ -58,8 +55,6 @@ const Stores = () => {
     setIsOpen(true)
   }
 
-
-
   const columns = [
     {
       dataField: "name",
@@ -70,7 +65,6 @@ const Stores = () => {
       dataField: "stock",
       text: "Stock",
       sort: true,
-
     },
     {
       dataField: "price",
@@ -85,7 +79,6 @@ const Stores = () => {
       text: "Action",
     },
   ]
-
 
   const handleValidSubmit = (onSubmitProps, values, storeItemId) => {
     dispatch(updateStoreItem(values, storeItemId, "", "isUpdate"))
@@ -133,18 +126,24 @@ const Stores = () => {
             </button>
           </Col>
         </Row>
-
-
-      </AvForm>),
+      </AvForm>
+    ),
     action: (
       <div className="d-flex">
         <div>
-          <Link to={`/store/update/${item?.id}`} className="btn btn-sm" title="Update">
+          <Link
+            to={`/store/update/${item?.id}`}
+            className="btn btn-sm"
+            title="Update"
+          >
             <i className="bx bx-pen text-success font-size-15"></i>
           </Link>
         </div>
         <div title="Remove">
-          <i className="bx bx-trash text-danger font-size-15 px-4" onClick={() => handleDelete(item?.id)}></i>
+          <i
+            className="bx bx-trash text-danger font-size-15 px-4"
+            onClick={() => handleDelete(item?.id)}
+          ></i>
         </div>
       </div>
     ),
@@ -167,8 +166,6 @@ const Stores = () => {
   }
 
   const storeDataNew = storeData?.filter(item => item.stock == 0)
-
-
 
   return (
     <React.Fragment>
@@ -211,18 +208,20 @@ const Stores = () => {
                         </div>
                       </Col>
                       <Col md="4"></Col>
-                      <Col md="4" style={{
-                        display: "flex",
-                        justifyContent: "flex-end",
-                        alignItems: "center"
-                      }}>
-                        {window.location.search && <Link
-                          to="/stores"
-                          className="btn btn-light btn-sm"
-                        >
-                          See All
-                          <i className="bx bx-right "></i>
-                        </Link>}
+                      <Col
+                        md="4"
+                        style={{
+                          display: "flex",
+                          justifyContent: "flex-end",
+                          alignItems: "center",
+                        }}
+                      >
+                        {window.location.search && (
+                          <Link to="/stores" className="btn btn-light btn-sm">
+                            See All
+                            <i className="bx bx-right "></i>
+                          </Link>
+                        )}
                       </Col>
                     </Row>
                     {loading ? (
@@ -249,7 +248,7 @@ const Stores = () => {
                         <MyPagination
                           pages={pages}
                           clcickedPage={page}
-                          onNunClick={(item) => setPage(item)}
+                          onNunClick={item => setPage(item)}
                           onNextClick={() => setPage(page + 1)}
                           onPrevClick={() => setPage(page - 1)}
                           onFastNextClick={() => setPage(pages.length)}

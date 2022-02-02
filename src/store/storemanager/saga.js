@@ -84,7 +84,7 @@ function* onUpdateStoremngr({ payload }) {
   try {
     const response = yield call(updateStoremngrApi, payload)
     yield put(updateStoremngrSuccess(response))
-    payload.history.push("/storemanagers")
+    // payload.history.push("/storemanagers")
     doneNotification()
   } catch (error) {
     yield put(updateStoremngrFail(error))
@@ -95,7 +95,7 @@ function* onUpdateStoremngr({ payload }) {
 function* onDeleteStoremngr({ payload }) {
   try {
     const response = yield call(deleteStoremngrApi, payload)
-    yield put(deleteStoremngrSuccess(response))
+    yield put(deleteStoremngrSuccess({ ...response, id: payload.storemngrId }))
     payload.history.push("/storemanagers")
     doneNotification()
   } catch (error) {
@@ -108,7 +108,7 @@ function errorNotification() {
   Notification({
     type: "error",
     message: "Something Went Wrong",
-    title: "Try Again"
+    title: "Try Again",
   })
 }
 
@@ -116,7 +116,7 @@ function doneNotification() {
   Notification({
     type: "success",
     message: "Done",
-    title: ""
+    title: "",
   })
 }
 

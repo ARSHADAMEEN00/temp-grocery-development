@@ -9,19 +9,18 @@ import {
   Spinner,
   Button,
   Alert,
+  Media,
 } from "reactstrap"
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import moment from "moment"
-import DatePicker from "react-datepicker"
 import { map } from "lodash"
 
 //actions
 import { getOrderDetail, updateOrder } from "store/actions"
 
 //componetns
-import OrderDetail from "./OrderDetail"
 
 //css
 import "react-datepicker/dist/react-datepicker.css"
@@ -56,12 +55,12 @@ function OrderStatus() {
       class: "success",
       text: "Approve",
     },
-    {
-      id: 300,
-      statusText: "Canceled",
-      class: "danger",
-      text: "Cancel",
-    },
+    // {
+    //   id: 300,
+    //   statusText: "Canceled",
+    //   class: "danger",
+    //   text: "Cancel",
+    // },
 
     {
       id: 400,
@@ -79,7 +78,7 @@ function OrderStatus() {
 
   function statusList() {
     if (orderDetail?.status == "Pending") {
-      return status?.slice(1, 3)
+      return status?.filter(item => item.statusText == "Approved")
     } else if (orderDetail?.status == "Approved") {
       return status?.filter(item => item.statusText == "Shipped")
     } else if (orderDetail?.status == "Shipped") {
@@ -152,32 +151,94 @@ function OrderStatus() {
 
   return (
     <>
-      <Col lg={`${Handler() ? "8" : "12"}`}>
+      <Col lg={12}>
         <Card>
           <CardBody>
             {loading ? (
               <Spinner type="grow" color="gray" />
             ) : (
               <>
-                <OrderDetail />
+                <Media>
+                  {/* <img src={img1} alt="" className="avatar-sm me-4" /> */}
+
+                  <Media className="overflow-hidden" body>
+                    <h5 className="text-truncate font-size-15">
+                      {orderDetail?.auto_id}
+                    </h5>
+                    <p className="text-muted">{orderDetail?.quotation_id}</p>
+                  </Media>
+                </Media>
+
+                <div className="text-muted mt-4">
+                  <p>
+                    <i className="mdi mdi-chevron-right text-primary me-1" />
+                    Start Date : {orderDetail.start_date}
+                  </p>
+                  <p>
+                    <i className="mdi mdi-chevron-right text-primary me-1" />
+                    Finish Date : {orderDetail.end_date}
+                  </p>
+                  <p>
+                    <i className="mdi mdi-chevron-right text-primary me-1" />
+                    Duration : {orderDetail.duration}
+                  </p>
+                  <p>
+                    <i className="mdi mdi-chevron-right text-primary me-1" />
+                    Total Amount :{" "}
+                    <span className="text-info mx-2 font-size-17">
+                      <i className="bx bx-rupee" />
+                      {orderDetail.bill_amount}
+                    </span>
+                  </p>
+                </div>
               </>
             )}
 
             <Row className="task-dates">
-              <Col lg={4} sm="4" xs="6">
+              <Col lg={12} sm="4" xs="6">
                 <div className="mt-4">
-                  <Badge
-                    className={
-                      "font-size-14 p-2 badge-soft-" +
-                      `${Status(orderDetail?.status)}`
-                    }
-                    pill
-                  >
-                    {orderDetail?.status}
-                  </Badge>
+                  <p>
+                    Current Status :{" "}
+                    <Badge
+                      className={
+                        "font-size-14 mx-3 p-2 badge-soft-" +
+                        `${Status(orderDetail?.status)}`
+                      }
+                      pill
+                    >
+                      {orderDetail?.status}
+                    </Badge>
+                  </p>
                 </div>
               </Col>
-              <Col lg={9} />
+              <Col lg={9} className="mt-4">
+                {Handler() && (
+                  <div className="d-flex" style={{ alignItems: "center" }}>
+                    <p>Update Status :</p>
+
+                    <div className="mb-3 ajax-select mt-lg-0 select2-container">
+                      {map(statusList(), (item, index) => (
+                        <Button
+                          key={index}
+                          type="submit"
+                          color={item.class}
+                          value={item.statusText}
+                          className="w-md mx-3 btn-sm "
+                          style={{ marginRight: "1rem" }}
+                          onClick={e => handlerFinalValue(e)}
+                        >
+                          {item.text}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {error?.response && (
+                  <Alert color="light" className="text-danger ">
+                    {error?.response}sdfbksajbv
+                  </Alert>
+                )}
+              </Col>
               <Col lg={3}>
                 <Link
                   to="/order/work/pdf"
@@ -215,60 +276,6 @@ function OrderStatus() {
           </CardBody>
         </Card>
       </Col>
-      {Handler() && (
-        <Col lg="4">
-          <Card>
-            <CardBody>
-              {/* {orderDetail?.status == "Pending" && (
-                <>
-                  <Col className="mb-4 position-relative">
-                    <label htmlFor="resume">Start Date</label>
-                    <DatePicker
-                      selected={startDate}
-                      onChange={date => setStartDate(date)}
-                      minDate={moment().toDate()}
-                      dateFormat="yyyy-MM-dd"
-                      className="form-control"
-                    />
-                    <Button
-                      type="submit"
-                      color="success"
-                      className="w-md mb-2 btn-sm"
-                      style={{
-                        position: "absolute",
-                        right: "0",
-                        height: "36px",
-                      }}
-                      onClick={handleSubmit}
-                    >
-                      Submit
-                    </Button>
-                  </Col>
-                </>
-              )} */}
-              <CardTitle className="mb-4">Update Status</CardTitle>
-              {error?.response && (
-                <Alert color="danger">{error?.response}</Alert>
-              )}
-              <div className="mb-3 ajax-select mt-3 mt-lg-0 select2-container">
-                {map(statusList(), (item, index) => (
-                  <Button
-                    key={index}
-                    type="submit"
-                    color={item.class}
-                    value={item.statusText}
-                    className="w-md mb-2 btn-sm "
-                    style={{ marginRight: "1rem" }}
-                    onClick={e => handlerFinalValue(e)}
-                  >
-                    {item.text}
-                  </Button>
-                ))}
-              </div>
-            </CardBody>
-          </Card>
-        </Col>
-      )}
     </>
   )
 }

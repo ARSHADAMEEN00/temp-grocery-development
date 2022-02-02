@@ -88,11 +88,6 @@ const Clients = (state = INIT_STATE, action) => {
     case UPDATE_CLIENT_SUCCESS:
       return {
         ...state,
-        clients: state.clients.map(client =>
-          client.id.toString() === action.payload.id.toString()
-            ? { client, ...action.payload }
-            : client
-        ),
         clientDetail: action.payload,
         loading: false,
       }
@@ -108,8 +103,7 @@ const Clients = (state = INIT_STATE, action) => {
       return {
         ...state,
         clients: state.clients.filter(
-          client =>
-            client.id.toString() !== action.payload.id.toString()
+          client => client.id.toString() !== action.payload.id.toString()
         ),
         loading: false,
       }

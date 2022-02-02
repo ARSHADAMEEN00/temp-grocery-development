@@ -32,11 +32,11 @@ const PDFGenerator = () => {
     })
   })
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     window.print()
-  //   }, 1000);
-  // }, []);
+  useEffect(() => {
+    setTimeout(() => {
+      window.print()
+    }, 1000)
+  }, [])
 
   const IMG_API = API_URL?.split("/api/v1")[0]
 
@@ -67,18 +67,21 @@ const PDFGenerator = () => {
               <Row style={{ alignItems: "end" }}>
                 <Col lg={6}>
                   <h5 className="">To,</h5>
-                  <h6>
-                    {quotationDetails
-                      ? quotationDetails?.client_name
-                      : quotationCurd?.client_name}
-                  </h6>
-                  <h6>
-                    {quotationDetails && quotationDetails?.client_address}
-                  </h6>
+                  {quotationDetails?.client_name ? (
+                    <>
+                      <h6>{quotationDetails?.client_name}</h6>
+                      <h6>{quotationDetails?.client_address}</h6>
+                    </>
+                  ) : (
+                    <>
+                      <h6>{quotationCurd?.client_name}</h6>
+                      <h6>{quotationCurd?.client_address}</h6>
+                    </>
+                  )}
                 </Col>
                 <Col lg={6} className="text-end">
                   <h6>
-                    Date :{" "}
+                    Date :
                     {moment(
                       quotationDetails
                         ? quotationDetails?.date_added
@@ -151,14 +154,7 @@ const PDFGenerator = () => {
                                 </div>
                               </ul>
                             </td>
-                            {/* <td style={{ maxWidth: "300px" }}>
-                              <img
-                                src={quotation?.product.image}
-                                alt="product"
-                                id="expandedImg1"
-                                className="img-fluid mx-auto d-block"
-                              />
-                            </td> */}
+
                             <td>
                               <h4 className="text-info d-flex">
                                 <i className="bx bx-rupee" />
@@ -178,6 +174,13 @@ const PDFGenerator = () => {
                             <h3 className="text-info font-size-16">
                               {item?.name}
                             </h3>
+                            <img
+                              src={`${IMG_API}${item?.image}`}
+                              alt="product"
+                              id="expandedImg1"
+                              className="d-block "
+                              style={{ maxWidth: "300px" }}
+                            />
                             <p>Description : </p>
                             <ul>
                               {map(
@@ -206,14 +209,14 @@ const PDFGenerator = () => {
                               </div>
                             </ul>
                           </td>
-                          <td style={{ maxWidth: "300px" }}>
+                          {/* <td style={{ maxWidth: "300px" }}>
                             <img
                               src={`${IMG_API}${item?.image}`}
                               alt="product"
                               id="expandedImg1"
                               className="img-fluid mx-auto d-block"
                             />
-                          </td>
+                          </td> */}
                           <td>
                             <h4 className="text-info d-flex">
                               <i className="bx bx-rupee" />

@@ -7,6 +7,7 @@ import { map } from "lodash"
 import {
   createCurdProductDetail,
   createOtherCost,
+  deleteCurdProductDetail,
   deleteOtherCost,
 } from "store/actions"
 
@@ -41,7 +42,7 @@ function CrudProductDetail(myDisabled) {
   }
 
   const onDeleteFormRow = id => {
-    dispatch(deleteOtherCost(id))
+    dispatch(deleteCurdProductDetail(id))
     var modifiedRows = [...newDetail]
     modifiedRows = modifiedRows.filter(x => x["id"] !== id)
     setNewDetail(modifiedRows)

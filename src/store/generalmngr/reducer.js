@@ -17,7 +17,12 @@ import {
 } from "./actionTypes"
 
 const INIT_STATE = {
-  GeneralManagers: [],
+  GeneralManagers: {
+    count: "",
+    next: "",
+    previous: "",
+    results: [],
+  },
   GMDetail: {
     location: "",
     profit: "",
@@ -97,11 +102,7 @@ const GeneralManagers = (state = INIT_STATE, action) => {
     case UPDATE_GEN_MANAGER_SUCCESS:
       return {
         ...state,
-        GeneralManagers: state.GeneralManagers.map(gm =>
-          gm.id.toString() === action.payload.id.toString()
-            ? { gm, ...action.payload }
-            : gm
-        ),
+        GMDetail: action.payload,
         loading: false,
       }
 
@@ -115,8 +116,8 @@ const GeneralManagers = (state = INIT_STATE, action) => {
     case DELETE_GEN_MANAGER_SUCCESS:
       return {
         ...state,
-        GeneralManagers: state.GeneralManagers.filter(
-          gm => gm.id.toString() !== action.payload.id.toString()
+        GeneralManagers: state.GeneralManagers.results.filter(
+          gm => gm.id !== action.payload.id
         ),
         loading: false,
       }

@@ -117,6 +117,10 @@
 .myWidth20 {
   width: 20% !important;
 }
+.width-fit {
+  width: fit-content !important;
+  margin-left: auto;
+}
 @media print {
   .bg-info-new {
     color: #000 !important;

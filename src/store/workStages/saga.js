@@ -81,11 +81,13 @@ function* onCreateWorkStage({ payload }) {
 }
 
 function* onUpdateWorkStage({ payload }) {
+  console.log(payload)
   try {
     const response = yield call(updateWorkStageApi, payload)
-    yield put(updateWorkStageSuccess(response))
+    yield put(updateWorkStageSuccess({ ...response, id: payload.workStageId }))
     doneNotification()
   } catch (error) {
+    console.log(error)
     yield put(updateWorkStageFail(error))
     errorNotification()
   }

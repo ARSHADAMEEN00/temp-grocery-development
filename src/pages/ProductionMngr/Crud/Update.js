@@ -4,6 +4,7 @@ import { MetaTags } from "react-meta-tags"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useParams } from "react-router"
 import {
+  Alert,
   Button,
   Card,
   CardBody,
@@ -24,10 +25,12 @@ const UpdateStoremanager = () => {
   const dispatch = useDispatch()
   const params = useParams()
 
-  const { loading, productionmngrDetail } = useSelector(state => ({
+  const { loading, productionmngrDetail, error } = useSelector(state => ({
     loading: state.Storemngrs.loading,
     productionmngrDetail: state.Productionmngrs.productionmngrDetail,
+    error: state.Productionmngrs.error,
   }))
+
   function handleValidSubmit(values) {
     dispatch(updateProductionmngr(values, productionmngrDetail.id, history))
     window.scroll(0, 0)
@@ -36,6 +39,10 @@ const UpdateStoremanager = () => {
   useEffect(() => {
     dispatch(getProductionmngrDetail(params.id))
   }, [dispatch])
+
+  const usernameError = error?.username && error?.username[0]
+
+  const mailError = error?.email && error?.email[0]
 
   return (
     <>
@@ -76,6 +83,11 @@ const UpdateStoremanager = () => {
                               required: { value: true },
                             }}
                           />
+                          {usernameError && (
+                            <Alert color="danger" className="mt-2">
+                              {usernameError}
+                            </Alert>
+                          )}
                         </Col>
                       </div>
                       <div className="row mb-4">
@@ -166,6 +178,11 @@ const UpdateStoremanager = () => {
                             type="email"
                             required
                           />
+                          {mailError && (
+                            <Alert color="danger" className="mt-2">
+                              {mailError}
+                            </Alert>
+                          )}
                         </Col>
                       </div>
 

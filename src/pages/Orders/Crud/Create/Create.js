@@ -105,8 +105,8 @@ const CreateOrder = ({ history }) => {
   }, [totelPriceCalc, sellingPrice])
 
   useEffect(() => {
-    setPercentage(QProductDetail.profit)
-  }, [QProductDetail.profit])
+    setPercentage(QProductDetail?.profit)
+  }, [QProductDetail?.profit])
 
   useEffect(() => {
     dispatch(getProducts(searchText))
@@ -146,6 +146,8 @@ const CreateOrder = ({ history }) => {
   const onSubmitOrder = () => {
     dispatch(createOrder({ ...rawData, orderitem: orderitem }, history))
   }
+
+  // console.log({ ...rawData, orderitem: orderitem })
 
   //setore item from and search
   function handlerFinalValue(event) {
@@ -407,7 +409,7 @@ const CreateOrder = ({ history }) => {
                           {selectedOrder === "Search a Product" ? (
                             <></>
                           ) : (
-                            <Col lg={2} md={2} sm={12} className="">
+                            <Col lg={2} md={6} sm={12} className="">
                               <label htmlFor="resume">Production Cost </label>
                               <input
                                 type="number"
@@ -415,13 +417,15 @@ const CreateOrder = ({ history }) => {
                                 id="resume"
                                 requied="true"
                                 min={1}
-                                defaultValue={QProductPrice}
+                                // defaultValue={QProductPrice}
+                                // value={QProductPrice}
+                                value={ProductPrice ? ProductPrice : ""}
                                 readOnly
                               />
                             </Col>
                           )}
 
-                          <Col lg={2} md={2} sm={12} className="">
+                          <Col lg={2} md={6} sm={12} className="">
                             <label htmlFor="resume">Profit %</label>
                             <input
                               type="number"
@@ -429,11 +433,16 @@ const CreateOrder = ({ history }) => {
                               id="resume"
                               requied="true"
                               min={1}
-                              defaultValue={percentage}
+                              value={
+                                QProductDetail?.profit
+                                  ? QProductDetail?.profit
+                                  : percentage
+                              }
+                              // defaultValue={percentage}
                               onChange={e => setPercentage(e.target.value)}
                             />
                           </Col>
-                          <Col lg={2} md={2} sm={12} className="mb-3">
+                          <Col lg={2} md={6} sm={12} className="mb-3">
                             <label htmlFor="resume">Quantity</label>
                             <input
                               type="number"
@@ -620,11 +629,12 @@ const CreateOrder = ({ history }) => {
                       </div>
                       <div>
                         <Col sm="12" lg={12}>
-                          <div className="text-sm-end mt-2 ">
+                          <div className="text-sm-end mt-2 width-fit">
                             <Link
                               to="#"
                               className="btn btn-success"
                               onClick={onSubmitOrder}
+                              style={{ width: "100%" }}
                             >
                               Confirm Order
                               {orderLoading ? (
@@ -635,19 +645,17 @@ const CreateOrder = ({ history }) => {
                                 <i className="mdi mdi-truck-fast mx-2" />
                               )}
                             </Link>
+                            {createOrdererror?.response ? (
+                              <Alert
+                                color="light"
+                                className="text-danger mt-2 w-auto "
+                              >
+                                {createOrdererror?.response}
+                              </Alert>
+                            ) : null}
                           </div>
                         </Col>
                       </div>
-                      <Row>
-                        <Col lg={8}></Col>
-                        <Col lg={4}>
-                          {createOrdererror?.response ? (
-                            <Alert color="danger" className="mt-2">
-                              {createOrdererror?.response}
-                            </Alert>
-                          ) : null}
-                        </Col>
-                      </Row>
                     </CardBody>
                   </Card>
                 </Col>

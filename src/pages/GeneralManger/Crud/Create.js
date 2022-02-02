@@ -35,6 +35,8 @@ const GeneralManagerCreate = ({ history }) => {
 
   const mailError = error[0]
 
+  console.log(mailError)
+
   return (
     <>
       <MetaTags>

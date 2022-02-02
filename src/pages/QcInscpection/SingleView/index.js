@@ -100,7 +100,7 @@ function OrderItemSingleView() {
                               QC Status :
                               <Badge
                                 className={
-                                  "font-size-12 mx-4 badge-soft-" +
+                                  "font-size-13 p-1 mx-4 badge-soft-" +
                                   `${WorkStatus(orderItemDetail?.qc_status)}`
                                 }
                                 pill
@@ -112,7 +112,7 @@ function OrderItemSingleView() {
                               Store Status :
                               <Badge
                                 className={
-                                  "font-size-12 mx-4 badge-soft-" +
+                                  "font-size-13 p-1 mx-4 badge-soft-" +
                                   `${StoreStatus(
                                     orderItemDetail?.store_status
                                   )}`
@@ -124,37 +124,44 @@ function OrderItemSingleView() {
                             </p>
                           </Media>
                         </Col>
-
-
                       </Row>
                       <Row>
-                        <Col lg={12} >
-                          <div className="table-responsive" style={{ width: "fit-content", marginLeft: "auto" }}>
+                        <Col lg={12}>
+                          <div
+                            className="table-responsive"
+                            style={{ width: "fit-content", marginLeft: "auto" }}
+                          >
                             <Table className="table align-middle table-nowrap">
-
                               <tbody>
-
-
                                 <tr>
                                   <td colSpan="2">
-                                    <h6 className="m-0 text-end ">Selling Price :</h6>
+                                    <h6 className="m-0 text-end ">
+                                      Selling Price :
+                                    </h6>
                                   </td>
 
-                                  <td className="text-info">  <i className="bx bx-rupee" />{" "} {orderItemDetail?.selling_price}</td>
+                                  <td className="text-info">
+                                    {" "}
+                                    <i className="bx bx-rupee" />{" "}
+                                    {orderItemDetail?.selling_price}
+                                  </td>
                                 </tr>
                                 <tr>
                                   <td colSpan="2">
                                     <h6 className="m-0 text-end">Quantity:</h6>
                                   </td>
-                                  <td className="text-info">{orderItemDetail?.quantity}</td>
+                                  <td className="text-info">
+                                    {orderItemDetail?.quantity}
+                                  </td>
                                 </tr>
                                 <tr>
-                                  <td colSpan="2" >
-                                    <h6 className="m-0 text-end font-size-17">Total:</h6>
+                                  <td colSpan="2">
+                                    <h6 className="m-0 text-end font-size-17">
+                                      Total:
+                                    </h6>
                                   </td>
                                   <td className="text-info font-size-17">
                                     <div>
-
                                       <i className="bx bx-rupee" />
                                       {orderItemDetail?.total_price}
                                       <p className="font-size-10 m-0 p-0">
@@ -162,7 +169,6 @@ function OrderItemSingleView() {
                                       </p>
                                     </div>
                                   </td>
-
                                 </tr>
                               </tbody>
                             </Table>
@@ -171,8 +177,6 @@ function OrderItemSingleView() {
                       </Row>
                     </>
                   )}
-
-
                 </CardBody>
               </Card>
             </Row>
@@ -181,7 +185,6 @@ function OrderItemSingleView() {
                 <CardBody>
                   {stages?.length > 0 ? (
                     <StageList stageData={stages} />
-
                   ) : (
                     <p className="text-warning">
                       No stages for this item,{" "}

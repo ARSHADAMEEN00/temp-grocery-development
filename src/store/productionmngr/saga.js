@@ -68,41 +68,49 @@ function* fetchProductionmngrDetail({ productionmngrId }) {
 function* onCreateProductionmngr({ payload }) {
   try {
     const response = yield call(createProductionmngrApi, payload)
-    yield put(createProductionmngrSuccess(response))
-    payload.history.push("/productionmanagers")
-    Notification({
-      type: "success",
-      message: "Successfully Created Production Manager",
-      title: "Created!",
-    })
+    if (response?.error_message) {
+      yield put(updateProductionmngrFail(response))
+    } else {
+      yield put(createProductionmngrSuccess(response))
+      payload.history.push("/productionmanagers")
+      Notification({
+        type: "success",
+        message: "Successfully Created Production Manager",
+        title: "Created!",
+      })
+    }
   } catch (error) {
     yield put(createProductionmngrFail(error))
     errorNotification()
-
   }
 }
 
 function* onUpdateProductionmngr({ payload }) {
   try {
     const response = yield call(updateProductionmngrApi, payload)
-    yield put(updateProductionmngrSuccess(response))
-    payload.history.push("/productionmanagers")
-    Notification({
-      type: "success",
-      message: "Successfully Updated Production Manager",
-      title: "Updated!",
-    })
+    if (response?.error_message) {
+      yield put(updateProductionmngrFail(response))
+    } else {
+      yield put(updateProductionmngrSuccess(response))
+      // payload.history.push("/productionmanagers")
+      Notification({
+        type: "success",
+        message: "Successfully Updated Production Manager",
+        title: "Updated!",
+      })
+    }
   } catch (error) {
     yield put(updateProductionmngrFail(error))
     errorNotification()
-
   }
 }
 
 function* onDeleteProductionmngr({ payload }) {
   try {
     const response = yield call(deleteProductionmngrApi, payload)
-    yield put(deleteProductionmngrSuccess(response))
+    yield put(
+      deleteProductionmngrSuccess({ ...response, id: payload.productionmngrId })
+    )
     payload.history.push("/productionmanagers")
     doneNotification()
   } catch (error) {
@@ -115,7 +123,7 @@ function errorNotification() {
   Notification({
     type: "error",
     message: "Something Went Wrong",
-    title: "Try Again"
+    title: "Try Again",
   })
 }
 
@@ -123,7 +131,7 @@ function doneNotification() {
   Notification({
     type: "success",
     message: "Done",
-    title: ""
+    title: "",
   })
 }
 

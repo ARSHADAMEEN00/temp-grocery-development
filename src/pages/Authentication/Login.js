@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import MetaTags from 'react-meta-tags';
+import MetaTags from "react-meta-tags"
 import { Link } from "react-router-dom"
 import { Col, Container, Form, Row, Input, Alert } from "reactstrap"
 import PropTypes from "prop-types"
@@ -17,7 +17,7 @@ import { loginUser, apiError } from "../../store/actions"
 import logo from "assets/images/logo/Indtech.png"
 
 import { Notification } from "../../components/Common/Notification"
-import LoginDetails from "./LoginDetails";
+import LoginDetails from "./LoginDetails"
 
 import "toastr/build/toastr.min.css"
 
@@ -58,7 +58,6 @@ const Login = ({ history }) => {
           <Row className="g-0">
             <LoginDetails />
 
-
             <Col xl={4}>
               <div className="auth-full-page-content p-md-5 p-4">
                 <div className="w-100">
@@ -83,7 +82,6 @@ const Login = ({ history }) => {
                       <div>
                         <h5 className="text-primary">Welcome Back !</h5>
                         <p className="text-muted">Sign in to continue</p>
-
                       </div>
 
                       <div className="mt-4">
@@ -111,7 +109,9 @@ const Login = ({ history }) => {
                             <AvField
                               name="password"
                               label="Password"
-                              type={`${toggleShow == true ? "text" : "password"}`}
+                              type={`${
+                                toggleShow == true ? "text" : "password"
+                              }`}
                               required
                               placeholder="Enter Password"
                               title="click to show passwoard"
@@ -123,6 +123,7 @@ const Login = ({ history }) => {
                               checked={toggleShow ? true : false}
                               className="mt-2"
                               onClick={() => setToggleShow(!toggleShow)}
+                              readOnly
                             />
                             <label className="mx-2 ">Show password</label>
                           </div>
@@ -153,8 +154,12 @@ const Login = ({ history }) => {
 
                     <div className="mt-4 mt-md-5 text-center">
                       <p>
-                        © {new Date().getFullYear()} Indtech. All Rights Reserved |
-                        Developed by <a style={{ color: "#1781BB" }} href="https://osperb.com/">
+                        © {new Date().getFullYear()} Indtech. All Rights
+                        Reserved | Developed by{" "}
+                        <a
+                          style={{ color: "#1781BB" }}
+                          href="https://osperb.com/"
+                        >
                           Osperb
                         </a>
                       </p>

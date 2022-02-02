@@ -17,7 +17,12 @@ import {
 } from "./actionTypes"
 
 const INIT_STATE = {
-  productionmngrs: [],
+  productionmngrs: {
+    count: "",
+    next: "",
+    previous: "",
+    results: [],
+  },
   productionmngrDetail: {
     location: "",
     profit: "",
@@ -98,11 +103,7 @@ const Productionmngrs = (state = INIT_STATE, action) => {
     case UPDATE_PRODUCTIONMNGR_SUCCESS:
       return {
         ...state,
-        productionmngrs: state.productionmngrs.map(productionmngr =>
-          productionmngr.id.toString() === action.payload.id.toString()
-            ? { productionmngr, ...action.payload }
-            : productionmngr
-        ),
+        productionmngrDetail: action.payload,
         loading: false,
       }
 
@@ -116,9 +117,8 @@ const Productionmngrs = (state = INIT_STATE, action) => {
     case DELETE_PRODUCTIONMNGR_SUCCESS:
       return {
         ...state,
-        productionmngrs: state.productionmngrs.filter(
-          productionmngr =>
-            productionmngr.id.toString() !== action.payload.id.toString()
+        productionmngrs: state.productionmngrs.results.filter(
+          productionmngr => productionmngr.id !== action.payload.id
         ),
         loading: false,
       }

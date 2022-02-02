@@ -65,24 +65,8 @@ function* fetchGMDetail({ payload }) {
 function* onCreateGm({ payload }) {
   try {
     const response = yield call(createGmApi, payload)
-    // console.log(response)
-    // console.log(response.email)
-    // console.log(response.username)
-
-    if (response.email) {
-      if (
-        response.email[0] &&
-        response.email[0] === "account with this email already exists."
-      ) {
-        yield put(createGeneralManagerFail(response.email))
-      }
-    } else if (response.username) {
-      if (
-        response.username[0] &&
-        response.username[0] === "account with this username already exists."
-      ) {
-        yield put(createGeneralManagerFail(response.username))
-      }
+    if (response?.error_message) {
+      yield put(createGeneralManagerFail(response))
     } else {
       yield put(createGeneralManagerSuccess(response))
       payload.history.push("/generalmanagers")
@@ -92,22 +76,6 @@ function* onCreateGm({ payload }) {
         title: "Created!",
       })
     }
-
-    // if (response.email[0]&& response.email[0]=== "account with this email already exists.") {
-    //   yield put(createGeneralManagerFail(response.email))
-    // } else if (
-    //   response.username[0]&& response.username[0]=== "account with this username already exists."
-    // ) {
-    //   yield put(createGeneralManagerFail(response.username))
-    // } else {
-    //   yield put(createGeneralManagerSuccess(response))
-    //   payload.history.push("/generalmanagers")
-    //   Notification({
-    //     type: "success",
-    //     message: "Successfully Created GM",
-    //     title: "Created!",
-    //   })
-    // }
   } catch (error) {
     yield put(createGeneralManagerFail(error))
     errorNotification()
@@ -118,7 +86,7 @@ function* onUpdateGm({ payload }) {
   try {
     const response = yield call(updateGmApi, payload)
     yield put(updateGeneralManagerSuccess(response))
-    payload.history.push("/generalmanagers")
+    // payload.history.push("/generalmanagers")
     Notification({
       type: "success",
       message: "Successfully Updated GM",
@@ -133,7 +101,7 @@ function* onUpdateGm({ payload }) {
 function* onDeleteGm({ gmId, history }) {
   try {
     const response = yield call(deleteGmApi, gmId)
-    yield put(deleteGeneralManagerSuccess(response))
+    yield put(deleteGeneralManagerSuccess({ ...response, id: gmId }))
     history.push("/generalmanagers")
     doneNotification()
   } catch (error) {
