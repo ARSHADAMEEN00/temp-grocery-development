@@ -60,7 +60,6 @@ import {
   deleteCurdProductDetailSuccess,
   deleteCurdProductDetailFail,
   //product detaails
-
 } from "./actions"
 import { get, post, ApiPut, del, patch } from "helpers/api_methods"
 import { Notification } from "components/Common/Notification"
@@ -190,9 +189,9 @@ function* onUpdateProduct({ payload }) {
 function* onDeleteProduct({ payload }) {
   try {
     const response = yield call(deleteProductApi, payload)
-    yield put(deleteProductSuccess(response))
-    payload.history.push("/products")
+    yield put(deleteProductSuccess({ ...response, id: payload.productId }))
     doneNotification()
+    payload.history.push("/products")
   } catch (error) {
     yield put(deleteProductFail(error))
     errorNotification()
@@ -254,7 +253,6 @@ function* onDeleteRawmaterial({ rawmaterialId }) {
   }
 }
 
-
 //product deatils
 function* fetchCurdProductDetails() {
   try {
@@ -277,7 +275,9 @@ function* onCreateCurdProductDetails({ payload: productDetal }) {
 function* onDeleteCurdProductDetails(payload) {
   try {
     const response = yield call(deleteCurdProductDetailApi, payload)
-    yield put(deleteCurdProductDetailSuccess({ ...response, id: payload.payload }))
+    yield put(
+      deleteCurdProductDetailSuccess({ ...response, id: payload.payload })
+    )
   } catch (error) {
     yield put(deleteCurdProductDetailFail(error))
   }
@@ -310,7 +310,7 @@ function errorNotification() {
   Notification({
     type: "error",
     message: "Something Went Wrong",
-    title: "Try Again"
+    title: "Try Again",
   })
 }
 
@@ -318,7 +318,7 @@ function doneNotification() {
   Notification({
     type: "success",
     message: "Done",
-    title: ""
+    title: "",
   })
 }
 
@@ -343,7 +343,6 @@ function* productsSaga() {
   yield takeEvery(GET_FINISHEDPRODUCT, fetchFinishedProduct)
   yield takeEvery(CREATE_FINISHEDPRODUCT, onCreateFinishedProduct)
   yield takeEvery(FINISHEDDETAILS, fetchFinishedProductDeatil)
-
 }
 
 export default productsSaga

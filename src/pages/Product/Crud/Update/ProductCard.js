@@ -29,9 +29,7 @@ function ProductCard() {
     productDetail: state.Products.productDetail,
     loading: state.Products.loading,
   }))
-  console.log(state)
   function handleValidSubmit(values) {
-    console.log(values)
     const form_data = new FormData()
     form_data.append("image", state.image, state.image.name)
     form_data.append("name", values.name)
@@ -119,7 +117,8 @@ function ProductCard() {
               <Col sm={9}>
                 <AvField
                   name="profit"
-                  type="number" min={0}
+                  type="number"
+                  min={0}
                   className="form-control"
                   id="horizontal-location-Input"
                   value={productDetail?.profit}

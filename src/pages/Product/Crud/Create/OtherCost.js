@@ -24,7 +24,6 @@ function OtherCost(myDisabled) {
     note: "",
     amount: "",
   })
-  console.log(newCost);
 
   useEffect(() => {
     setRawData({ ...rawData, product: productDetail.id })
@@ -51,7 +50,6 @@ function OtherCost(myDisabled) {
     <>
       <Row>
         <Col lg={newCost.length > 0 ? "6" : "12"}>
-
           <Card>
             <CardBody>
               <CardTitle className="h4 mb-4">Other Costs</CardTitle>
@@ -83,7 +81,8 @@ function OtherCost(myDisabled) {
                         <label>Price</label>
                         <AvField
                           name="price"
-                          type="number" min={0}
+                          type="number"
+                          min={0}
                           className="form-control"
                           id="resume"
                           onChange={e =>
@@ -177,7 +176,6 @@ function OtherCost(myDisabled) {
           </Col>
         )}
       </Row>
-
     </>
   )
 }

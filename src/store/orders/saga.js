@@ -13,7 +13,9 @@ import {
   GET_QPRODUCTPRICE,
   GET_QUOTATION_DETAIL,
   GET_ORDERSITEMS,
-  GET_ORDERSITEMS_DETAIL
+  GET_ORDERSITEMS_DETAIL,
+  GET_QUOTATION_CLIENT_ID,
+  GET_ORDERSITEMS_BYFILTERED,
 } from "./actionTypes"
 import {
   getOrdersSuccess,
@@ -38,11 +40,14 @@ import {
   getOrderItemsFail,
   getOrderItemDetailSuccess,
   getOrderItemDetailFail,
+  getQuotationClientIdSuccess,
+  getQuotationClientIdFail,
+  getOrderItemsByFiltedSuccess,
+  getOrderItemsByFiltedFail,
 } from "./actions"
 import { get, post, ApiPut, del, patch } from "helpers/api_methods"
 import { updateOrderItemFail, updateOrderItemSuccess } from "store/actions"
 import { Notification } from "components/Common/Notification"
-
 
 function getOrdersItemsAPi({ searchText, page }) {
   if (searchText) {
@@ -50,6 +55,13 @@ function getOrdersItemsAPi({ searchText, page }) {
   } else {
     return get(`/order/orderitem/?page=${page ? page : 1}`)
   }
+}
+function getOrdersItemsByFilterdAPi({ sort, searchText, page }) {
+  return get(
+    `/order/orderitem/?page=${page ? page : 1}&status=${sort && sort}&search=${
+      searchText && searchText
+    }`
+  )
 }
 const getOrderItemDetailsAPi = orderItemId => {
   return get(`/order/orderitem/${orderItemId}/`)
@@ -69,8 +81,12 @@ function getQuotationsAPi({ searchText, page }) {
     return get(`/quotation/quotation/?page=${page ? page : 1}`)
   }
 }
-const getQuotationDetailsAPi = (quotationId) => {
+const getQuotationDetailsAPi = quotationId => {
   return get(`/quotation/quotation/${quotationId}/`)
+}
+
+const getQuotationClientDetailsAPi = clientId => {
+  return post(`/quotation/quotation-client-id/`, { id: clientId })
 }
 
 const createQuotationApi = ({ Quatation }) => {
@@ -80,7 +96,6 @@ const createQuotationApi = ({ Quatation }) => {
 const getOrderDetailsAPi = orderId => {
   return get(`/order/order/${orderId}/`)
 }
-
 
 const createOrderApi = ({ order }) => {
   return post("/order/order/", order)
@@ -93,7 +108,7 @@ const updateOrderApi = ({ orderId, order, statusUpdate }) => {
   }
 }
 const updateOrderItemApi = ({ order, orderItemId }) => {
-  if (order.work_status == "Approved") {
+  if (order.qc_status === "QC_Approved") {
     return patch(`order/orderitem/${orderItemId}/`, order)
   } else {
     return ApiPut(`order/orderitem/${orderItemId}/`, order)
@@ -137,7 +152,6 @@ function* onCreateQuotation({ payload }) {
   try {
     const response = yield call(createQuotationApi, payload)
     yield put(createQuatationSuccess(response))
-    // payload.history.push("/quotations")
     Notification({
       type: "success",
       message: "Successfully Created Quotations",
@@ -165,6 +179,14 @@ function* fetchOrderItems({ payload }) {
     yield put(getOrderItemsFail(error))
   }
 }
+function* fetchOrderItemsByFiltered({ payload }) {
+  try {
+    const response = yield call(getOrdersItemsByFilterdAPi, payload)
+    yield put(getOrderItemsByFiltedSuccess(response))
+  } catch (error) {
+    yield put(getOrderItemsByFiltedFail(error))
+  }
+}
 
 function* fetchOrderDetail({ orderId }) {
   try {
@@ -186,13 +208,18 @@ function* fetchOrderItemDetail({ orderItemId }) {
 function* onCreateOrder({ payload }) {
   try {
     const response = yield call(createOrderApi, payload)
-    yield put(createOrderSuccess(response))
-    payload.history.push("/orders")
-    Notification({
-      type: "success",
-      message: "Successfully Created Order",
-      title: "Created!",
-    })
+
+    if (response.response === "No Stocks Available") {
+      yield put(createOrderFail(response))
+    } else {
+      yield put(createOrderSuccess(response))
+      payload.history.push("/orders")
+      Notification({
+        type: "success",
+        message: "Successfully Created Order",
+        title: "Created!",
+      })
+    }
   } catch (error) {
     yield put(createOrderFail(error))
     errorNotification()
@@ -206,7 +233,6 @@ function* onUpdateOrder({ payload }) {
       yield put(updateOrderFail(response))
     } else {
       yield put(updateOrderSuccess(response))
-
     }
   } catch (error) {
     yield put(updateOrderFail(error))
@@ -214,7 +240,6 @@ function* onUpdateOrder({ payload }) {
 }
 
 function* onUpdateOrderItem({ payload }) {
-  console.log(payload);
   try {
     const response = yield call(updateOrderItemApi, payload)
     yield put(updateOrderItemSuccess({ ...response, id: payload.orderItemId }))
@@ -241,12 +266,20 @@ function* onDeleteOrder({ orderId, history }) {
   }
 }
 
+function* fetchQuotationClientDetails({ clientId }) {
+  try {
+    const response = yield call(getQuotationClientDetailsAPi, clientId)
+    yield put(getQuotationClientIdSuccess(response))
+  } catch (error) {
+    yield put(getQuotationClientIdFail(error))
+  }
+}
 
 function errorNotification() {
   Notification({
     type: "error",
     message: "Something Went Wrong",
-    title: "Try Again"
+    title: "Try Again",
   })
 }
 
@@ -254,7 +287,7 @@ function doneNotification() {
   Notification({
     type: "success",
     message: "Done",
-    title: ""
+    title: "",
   })
 }
 
@@ -271,6 +304,8 @@ function* ordersSaga() {
   yield takeEvery(GET_QPRODUCTPRICE, fetchQProductPrice)
   yield takeEvery(GET_ORDERSITEMS, fetchOrderItems)
   yield takeEvery(GET_ORDERSITEMS_DETAIL, fetchOrderItemDetail)
+  yield takeEvery(GET_QUOTATION_CLIENT_ID, fetchQuotationClientDetails)
+  yield takeEvery(GET_ORDERSITEMS_BYFILTERED, fetchOrderItemsByFiltered)
 }
 
 export default ordersSaga

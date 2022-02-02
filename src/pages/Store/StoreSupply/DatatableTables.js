@@ -8,6 +8,7 @@ import {
   Button,
   CardTitle,
   Table,
+  Badge,
 } from "reactstrap"
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
@@ -58,20 +59,35 @@ const Stores = () => {
     dispatch(updateStoreSupply({ store_status: "Provided" }, storeSupply.id))
   }
 
-  const columns = [
+  const StoreStatus = status => {
+    if (status == "Not Provided") {
+      return "info"
+    }
+    if (status == "Provided") {
+      return "success"
+    }
+  }
 
+  const columns = [
     {
-      dataField: "product",
+      dataField: "auto_id",
+      text: "Id",
+      sort: true,
+    },
+    {
+      dataField: "productname",
       text: "Product",
       sort: true,
     },
     {
       dataField: "rawMaterials",
       text: "Raw Materials",
+      sort: true,
     },
     {
       dataField: "store_status",
       text: "Status",
+      sort: true,
     },
 
     {
@@ -89,7 +105,6 @@ const Stores = () => {
     ...item,
     key: index,
 
-
     rawMaterials: (
       <Button
         color="success"
@@ -101,18 +116,45 @@ const Stores = () => {
       </Button>
     ),
 
+    store_status: (
+      <div
+        className="d-flex"
+        style={{
+          maxWidth: "120px",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Badge
+          className={
+            "font-size-12 badge-soft-" + `${StoreStatus(item.store_status)}`
+          }
+          pill
+        >
+          {item.store_status}
+        </Badge>
+      </div>
+    ),
+
     action: (
       <div className="d-flex">
         <div>
-          <Link
-            to="#"
-            className={`btn-${item?.status == "Provided" ? "success disabled muted" : "light"
+          {item?.store_status == "Provided" ? (
+            <p className="p-0 m-0">Provided</p>
+          ) : (
+            <Link
+              to="#"
+              className={`btn-${
+                item?.store_status === "Provided" ? "light" : "success"
               } btn-sm `}
-            onClick={() => handleUpdate(item)}
-            style={{ cursor: `${item?.status == "Provided" && "default"}` }}
-          >
-            {item?.status == "Provided" ? "Provided" : "Provide"}
-          </Link>
+              onClick={() => handleUpdate(item)}
+              style={{
+                cursor: `${item?.store_status == "Provided" && "default"}`,
+              }}
+            >
+              {item?.store_status}
+            </Link>
+          )}
         </div>
       </div>
     ),
@@ -130,9 +172,9 @@ const Stores = () => {
     mode: "checkbox",
   }
   const handleSearch = e => {
-    console.log(e)
     setSearchText(e.target.value)
   }
+
   return (
     <React.Fragment>
       <Row>
@@ -193,14 +235,13 @@ const Stores = () => {
                         <MyPagination
                           pages={pages}
                           clcickedPage={page}
-                          onNunClick={(item) => setPage(item)}
+                          onNunClick={item => setPage(item)}
                           onNextClick={() => setPage(page + 1)}
                           onPrevClick={() => setPage(page - 1)}
                           onFastNextClick={() => setPage(pages.length)}
                           onFastPrevClick={() => setPage(1)}
                           apiPage={pageSend}
                         />
-
                       </>
                     )}
                   </React.Fragment>

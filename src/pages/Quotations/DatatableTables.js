@@ -56,14 +56,20 @@ const Quotation = () => {
     {
       dataField: "auto_id",
       text: "Id",
+      sort: true,
+
     },
     {
       dataField: "date_added",
       text: "Date",
+      sort: true,
+
     },
     {
       dataField: "status",
       text: "Status",
+      sort: true,
+
     },
     {
       dataField: "action",

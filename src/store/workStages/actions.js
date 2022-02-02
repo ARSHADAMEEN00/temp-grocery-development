@@ -60,9 +60,9 @@ export const createWorkStageFail = error => ({
   payload: error,
 })
 
-export const updateWorkStage = (workStage, workStageId, history) => ({
+export const updateWorkStage = (workStage, workStageId) => ({
   type: UPDATE_WORKSTAGE,
-  payload: { workStage, workStageId, history },
+  payload: { workStage, workStageId },
 })
 
 export const updateWorkStageSuccess = workStage => ({

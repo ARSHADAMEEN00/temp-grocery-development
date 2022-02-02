@@ -24,15 +24,18 @@ import Breadcrumbs from "../../../components/Common/Breadcrumb"
 const CreateClient = ({ history }) => {
   const dispatch = useDispatch()
 
-  const { loading } = useSelector(state => ({
+  const { loading, error } = useSelector(state => ({
     loading: state.Clients.loading,
+    error: state.Clients.error,
   }))
 
   // handleValidSubmit
   const handleValidSubmit = (onSubmitProps, values) => {
     dispatch(createClient(values, history))
   }
-  
+
+  const mailError = error[0]
+
   return (
     <>
       <MetaTags>
@@ -40,10 +43,7 @@ const CreateClient = ({ history }) => {
       </MetaTags>
 
       <div className="page-content">
-        <Breadcrumbs
-          title="Clients"
-          breadcrumbItem="Create Clients"
-        />
+        <Breadcrumbs title="Clients" breadcrumbItem="Create Clients" />
         <Container fluid>
           <div className="container-fluid">
             <Row>
@@ -73,12 +73,6 @@ const CreateClient = ({ history }) => {
                             type="text"
                             validate={{
                               required: { value: true },
-                              minLength: {
-                                value: 4,
-                                errorMessage:
-                                  "Your name must be between 6 and 16 characters",
-                              }
-
                             }}
                           />
                         </Col>
@@ -97,12 +91,6 @@ const CreateClient = ({ history }) => {
                             type="text"
                             validate={{
                               required: { value: true },
-                              
-                              maxLength: {
-                                value: 16,
-                                errorMessage:
-                                  "Your name must be between 6 and 16 characters",
-                              },
                             }}
                           />
                         </Col>
@@ -175,9 +163,16 @@ const CreateClient = ({ history }) => {
                           />
                         </Col>
                       </div>
+
                       <div className="row justify-content-end">
                         <Col sm={9}>
                           <div>
+                            {mailError === undefined ? (
+                              ""
+                            ) : (
+                              <Alert color="danger">{error}</Alert>
+                            )}
+
                             <Button
                               type="submit"
                               color="success"

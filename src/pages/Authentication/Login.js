@@ -14,7 +14,7 @@ import { AvForm, AvField } from "availity-reactstrap-validation"
 import { loginUser, apiError } from "../../store/actions"
 
 // import images
-import logo from "assets/images/logo/Indtech_oa.png"
+import logo from "assets/images/logo/Indtech.png"
 
 import { Notification } from "../../components/Common/Notification"
 import LoginDetails from "./LoginDetails";
@@ -68,13 +68,13 @@ const Login = ({ history }) => {
                         <img
                           src={logo}
                           alt=""
-                          height="18"
+                          height="35"
                           className="auth-logo-dark"
                         />
                         <img
                           src={logo}
                           alt=""
-                          height="18"
+                          height="35"
                           className="auth-logo-light"
                         />
                       </Link>

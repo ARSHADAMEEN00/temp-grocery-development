@@ -24,7 +24,6 @@ const UpdateClient = () => {
 
   const { clientDetail } = useSelector(state => ({
     clientDetail: state.Clients.clientDetail,
-
   }))
   function handleValidSubmit(values) {
     dispatch(updateClient(values, clientDetail.id))
@@ -73,11 +72,6 @@ const UpdateClient = () => {
                             value={clientDetail?.name}
                             validate={{
                               required: { value: true },
-                              minLength: {
-                                value: 4,
-                                errorMessage:
-                                  "Your name must be between 6 and 16 characters",
-                              }
                             }}
                           />
                         </Col>
@@ -98,12 +92,6 @@ const UpdateClient = () => {
                             type="text"
                             validate={{
                               required: { value: true },
-                              
-                              maxLength: {
-                                value: 16,
-                                errorMessage:
-                                  "Your name must be between 6 and 16 characters",
-                              },
                             }}
                           />
                         </Col>

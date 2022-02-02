@@ -3,7 +3,6 @@ import { Row, Col, Card, CardBody, Badge, Spinner } from "reactstrap"
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { map, range } from "lodash"
-
 // datatable related plugins
 import BootstrapTable from "react-bootstrap-table-next"
 import ToolkitProvider from "react-bootstrap-table2-toolkit"
@@ -11,7 +10,7 @@ import ToolkitProvider from "react-bootstrap-table2-toolkit"
 //actions
 import { getOrderItems } from "store/orders/actions"
 
-import "../../../assets/scss/datatables.scss"
+import "../../assets/scss/datatables.scss"
 import MyPagination from "components/Common/MyPagination"
 
 const Orders = () => {
@@ -38,37 +37,45 @@ const Orders = () => {
     }
   }
 
-
-
   useEffect(() => {
     dispatch(getOrderItems(searchText, pageSend()))
   }, [dispatch, page, searchText])
+
+
 
   const columns = [
     {
       dataField: "auto_id",
       text: "Order Id",
+      sort: true,
+
     },
 
     {
       dataField: "product_name",
       text: "Product",
+      sort: true,
+
     },
     {
       dataField: "quantity",
       text: "Qty",
     },
     {
-      dataField: "price",
-      text: "Price",
+      dataField: "total_price",
+      text: "Price ",
     },
     {
-      dataField: "work_status",
-      text: "QC Status"
+      dataField: "qc_status",
+      text: "QC Status",
+      sort: true,
+
     },
     {
       dataField: "store_status",
-      text: "Store Status"
+      text: "Store Status",
+      sort: true,
+
     },
     {
       dataField: "action",
@@ -77,10 +84,13 @@ const Orders = () => {
   ]
 
   const WorkStatus = status => {
-    if (status == "Pending") {
+    if (status == "QC_Ready") {
+      return "warning"
+    }
+    if (status == "QC_Pending") {
       return "info"
     }
-    if (status == "Approved") {
+    if (status == "QC_Approved") {
       return "success"
     }
   }
@@ -93,9 +103,7 @@ const Orders = () => {
     }
   }
 
-  const handleOrderItemWithStatus = () => {
 
-  }
 
   const orderItemData = map(orderItems?.results, (item, index) => ({
     ...item,
@@ -106,7 +114,7 @@ const Orders = () => {
     product_name: (
       <h6 style={{ whiteSpace: "break-spaces", maxWidth: "250px" }}>{item.product_name}</h6>
     ),
-    work_status: (
+    qc_status: (
       <div
         className="d-flex"
         style={{
@@ -116,10 +124,10 @@ const Orders = () => {
         }}
       >
         <Badge
-          className={"font-size-12 badge-soft-" + `${WorkStatus(item.work_status)}`}
+          className={"font-size-12 badge-soft-" + `${WorkStatus(item.qc_status)}`}
           pill
         >
-          {item.work_status}
+          {item.qc_status}
         </Badge>
       </div>
     ),
@@ -251,3 +259,4 @@ const Orders = () => {
 }
 
 export default Orders
+

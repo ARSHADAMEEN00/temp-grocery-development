@@ -45,6 +45,10 @@ const Products = () => {
 
   const columns = [
     {
+      dataField: "product_code",
+      text: "Product Code",
+    },
+    {
       dataField: "image",
       text: "Image",
     },
@@ -60,6 +64,7 @@ const Products = () => {
     {
       dataField: "profit",
       text: "Profit",
+      sort: true,
     },
     {
       dataField: "action",
@@ -72,15 +77,20 @@ const Products = () => {
     key: index,
     image: (
       <Link to={`products/${item?.id}`}>
-        <img src={item.image ? item.image : defualtProduct} alt={item.name && item.name} className="avatar-md" />
-
+        <img
+          src={item.image ? item.image : defualtProduct}
+          alt={item.name && item.name}
+          className="avatar-md"
+        />
       </Link>
     ),
     name: (
-      <div style={{
-        whiteSpace: "pre-wrap",
-        maxWidth: "150px"
-      }}>
+      <div
+        style={{
+          whiteSpace: "pre-wrap",
+          maxWidth: "150px",
+        }}
+      >
         <p>{item.name}</p>
       </div>
     ),
@@ -108,7 +118,6 @@ const Products = () => {
   const handleSearch = e => {
     setSearchText(e.target.value)
   }
-  console.log(page);
 
   return (
     <React.Fragment>
@@ -170,7 +179,7 @@ const Products = () => {
                         <MyPagination
                           pages={pages}
                           clcickedPage={page}
-                          onNunClick={(item) => setPage(item)}
+                          onNunClick={item => setPage(item)}
                           onNextClick={() => setPage(page + 1)}
                           onPrevClick={() => setPage(page - 1)}
                           onFastNextClick={() => setPage(pages.length)}

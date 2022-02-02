@@ -22,24 +22,20 @@ import PropTypes from "prop-types"
 //actions
 import { getQuotationDetail, updateOrder } from "store/actions"
 
-
 //css
 import "react-datepicker/dist/react-datepicker.css"
-
 
 function QuotationDetails({ quotationId }) {
   const dispatch = useDispatch()
 
   const { loading, QDetails } = useSelector(state => ({
     loading: state.Orders.quotationDetailLoading,
-    QDetails: state.Orders.quotationDetails
+    QDetails: state.Orders.quotationDetails,
   }))
-  console.log(QDetails);
 
   useEffect(() => {
     dispatch(getQuotationDetail(quotationId))
   }, [dispatch, quotationId])
-
 
   const Status = status => {
     if (status == "Pending") {
@@ -56,7 +52,6 @@ function QuotationDetails({ quotationId }) {
     }
   }
 
-
   return (
     <>
       <Col lg={12}>
@@ -67,12 +62,15 @@ function QuotationDetails({ quotationId }) {
             ) : (
               <>
                 <Media>
-
                   <Row className="task-dates">
-                    <Col sm="8" xs='6' lg="10">
+                    <Col sm="8" xs="6" lg="10">
                       <Media className="overflow-hidden" body>
-                        <h5 className="text-truncate font-size-14">{moment(QDetails?.date_added).format("YYYY/MM/DD")}</h5>
-                        <p className="text-muted mb-0">{QDetails?.client_name}</p>
+                        <h5 className="text-truncate font-size-14">
+                          {moment(QDetails?.date_added).format("YYYY/MM/DD")}
+                        </h5>
+                        <p className="text-muted mb-0">
+                          {QDetails?.client_name}
+                        </p>
                         <p className="text-muted">{QDetails?.client_address}</p>
                       </Media>
                     </Col>
@@ -93,12 +91,13 @@ function QuotationDetails({ quotationId }) {
                 </Media>
 
                 <div className="text-muted mt-4">
-                  <h4 className="font-size-14 text-muted mb-3">Quotation Items :</h4>
+                  <h4 className="font-size-14 text-muted mb-3">
+                    Quotation Items :
+                  </h4>
 
-                  {QDetails?.quotationitem ?
+                  {QDetails?.quotationitem ? (
                     <>
                       {map(QDetails?.quotationitem, (Qitem, index) => (
-
                         <div className=" py-3" key={index}>
                           <div className="d-flex">
                             <div className="me-3">
@@ -111,29 +110,42 @@ function QuotationDetails({ quotationId }) {
                             <div className="align-self-center overflow-hidden me-auto">
                               <div>
                                 <h5 className="font-size-14 text-truncate">
-                                  <Link to={Qitem.product.id} className="text-dark">
+                                  <Link
+                                    to={Qitem.product.id}
+                                    className="text-dark"
+                                  >
                                     {Qitem?.product.name}
                                   </Link>
                                 </h5>
-                                <p className="text-success mb-0 font-size-16"> <i className="bx bx-rupee" />{Qitem?.price}</p>
+                                <p className="text-success mb-0 font-size-16">
+                                  {" "}
+                                  <i className="bx bx-rupee" />
+                                  {Qitem?.price}
+                                </p>
                               </div>
                             </div>
                           </div>
-
                         </div>
                       ))}
                       <Link
                         to="/quotation/pdf"
                         type="button"
                         className="btn btn-outline-light d-flex mt-4"
-                        style={{ marginLeft: "auto", alignItems: "center", width: "fit-content", border: "1px solid #cccc" }}
+                        style={{
+                          marginLeft: "auto",
+                          alignItems: "center",
+                          width: "fit-content",
+                          border: "1px solid #cccc",
+                        }}
                       >
                         PDF
                         <i className="mdi mdi-download d-block font-size-16 mx-1"></i>
                       </Link>
-                    </> : <p className="text-info">No Quatation Items</p>}
+                    </>
+                  ) : (
+                    <p className="text-info">No Quatation Items</p>
+                  )}
                 </div>
-
 
                 {/* <Button
                       color="success"
@@ -145,12 +157,9 @@ function QuotationDetails({ quotationId }) {
                     </Button> */}
               </>
             )}
-
-
           </CardBody>
         </Card>
       </Col>
-
     </>
   )
 }

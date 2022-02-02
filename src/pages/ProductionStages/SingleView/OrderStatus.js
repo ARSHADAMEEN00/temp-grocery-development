@@ -21,7 +21,6 @@ import { map } from "lodash"
 //actions
 import { getWorkStageDetail, updateOrder, updateWorkStage } from "store/actions"
 
-
 //css
 import "react-datepicker/dist/react-datepicker.css"
 import PropTypes from "prop-types"
@@ -36,9 +35,8 @@ function OrderStatus({ history }) {
   }))
   const [stageUpadte, setStageUpadte] = useState({
     status: "QC_Approved",
-    note: workStageDetail?.note
-  });
-  console.log(stageUpadte);
+    note: workStageDetail?.note,
+  })
 
   useEffect(() => {
     dispatch(getWorkStageDetail(params.id))
@@ -59,9 +57,10 @@ function OrderStatus({ history }) {
             ) : (
               <>
                 <Media>
-
                   <Media className="overflow-hidden" body>
-                    <h5 className="text-truncate font-size-20">{workStageDetail?.stage}</h5>
+                    <h5 className="text-truncate font-size-20">
+                      {workStageDetail?.stage}
+                    </h5>
                   </Media>
                 </Media>
 
@@ -78,7 +77,6 @@ function OrderStatus({ history }) {
                     <i className="mdi mdi-chevron-right text-primary me-1" />
                     Note : {workStageDetail.note}
                   </p>
-
                 </div>
               </>
             )}
@@ -86,20 +84,12 @@ function OrderStatus({ history }) {
             <Row className="task-dates">
               <Col lg={4} sm="4" xs="6">
                 <div className="mt-4">
-                  <Badge
-                    className={
-                      "font-size-14 p-2 badge-soft-dark"
-                    }
-                    pill
-                  >
+                  <Badge className={"font-size-14 p-2 badge-soft-dark"} pill>
                     {workStageDetail?.status}
                   </Badge>
                 </div>
               </Col>
               <Col lg={4} sm="4" xs="0"></Col>
-
-
-
             </Row>
           </CardBody>
         </Card>
@@ -108,50 +98,50 @@ function OrderStatus({ history }) {
 
       <Col lg={2}></Col>
       <Col lg={8}>
-        {workStageDetail?.status == "QC_Approved" ? <></> : <Card>
-          <CardBody>
-            <CardTitle className="mb-2">Update Status</CardTitle>
+        {workStageDetail?.status == "QC_Approved" ? (
+          <></>
+        ) : (
+          <Card>
+            <CardBody>
+              <CardTitle className="mb-2">Update Status</CardTitle>
 
-            <div>
-              <Row>
-                <Col lg={12} className="mb-3">
-                  <label htmlFor="note">Note</label>
-                  <textarea
-                    className="form-control"
-                    id="note"
-                    rows={3}
-                    onChange={e =>
-                      setStageUpadte({
-                        ...stageUpadte,
-                        note: e.target.value,
-                      })
-                    }
-                    defaultValue={workStageDetail.note}
-                    placeholder={workStageDetail.note}
-                  ></textarea>
-                </Col>
+              <div>
+                <Row>
+                  <Col lg={12} className="mb-3">
+                    <label htmlFor="note">Note</label>
+                    <textarea
+                      className="form-control"
+                      id="note"
+                      rows={3}
+                      onChange={e =>
+                        setStageUpadte({
+                          ...stageUpadte,
+                          note: e.target.value,
+                        })
+                      }
+                      defaultValue={workStageDetail.note}
+                      placeholder={workStageDetail.note}
+                    ></textarea>
+                  </Col>
 
-                <Col lg={9}></Col>
-                <Col lg={3} >
-
-                  <Button
-                    type="submit"
-                    color="success"
-                    className="w-md mb-2 btn-sm mt-4 "
-                    onClick={handleSubmit}
-                  >
-                    Approve
-                  </Button>
-                </Col>
-
-
-              </Row>
-            </div>
-          </CardBody>
-        </Card>}
+                  <Col lg={9}></Col>
+                  <Col lg={3}>
+                    <Button
+                      type="submit"
+                      color="success"
+                      className="w-md mb-2 btn-sm mt-4 "
+                      onClick={handleSubmit}
+                    >
+                      Approve
+                    </Button>
+                  </Col>
+                </Row>
+              </div>
+            </CardBody>
+          </Card>
+        )}
       </Col>
       <Col lg={2}></Col>
-
     </>
   )
 }

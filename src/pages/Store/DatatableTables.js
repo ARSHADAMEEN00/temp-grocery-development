@@ -69,6 +69,8 @@ const Stores = () => {
     {
       dataField: "stock",
       text: "Stock",
+      sort: true,
+
     },
     {
       dataField: "price",

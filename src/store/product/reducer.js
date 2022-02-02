@@ -51,7 +51,12 @@ import {
 } from "./actionTypes"
 
 const INIT_STATE = {
-  products: [],
+  products: {
+    count: "",
+    next: "",
+    previous: "",
+    results: [],
+  },
   finishedProduct: [],
   productDetail: {
     id: "",
@@ -168,9 +173,12 @@ const Products = (state = INIT_STATE, action) => {
     case DELETE_PRODUCT_SUCCESS:
       return {
         ...state,
-        products: state.products.filter(
-          product => product.id.toString() !== action.payload.id.toString()
-        ),
+        products: {
+          ...state.products,
+          results: state.products.results.filter(
+            product => product.id !== action.payload.id
+          ),
+        },
         loading: false,
       }
 
@@ -278,7 +286,6 @@ const Products = (state = INIT_STATE, action) => {
         error: action.payload,
         loading: false,
       }
-
 
     //product deatils
     case GET_PRODUCTDETAILS_SUCCESS:

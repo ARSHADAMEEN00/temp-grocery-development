@@ -4,7 +4,11 @@ import { Row, Col, Card, CardBody, Form, CardTitle, Spinner } from "reactstrap"
 import { map } from "lodash"
 
 //actions
-import { createCurdProductDetail, createOtherCost, deleteOtherCost } from "store/actions"
+import {
+  createCurdProductDetail,
+  createOtherCost,
+  deleteOtherCost,
+} from "store/actions"
 
 import AvField from "availity-reactstrap-validation/lib/AvField"
 import AvForm from "availity-reactstrap-validation/lib/AvForm"
@@ -12,11 +16,13 @@ import AvForm from "availity-reactstrap-validation/lib/AvForm"
 function CrudProductDetail(myDisabled) {
   const dispatch = useDispatch()
 
-  const { loading, productDetail, createdProductDetail } = useSelector(state => ({
-    loading: state.StoreItems.loading,
-    productDetail: state.Products.productDetail,
-    createdProductDetail: state.Products.createdProductDetail,
-  }))
+  const { loading, productDetail, createdProductDetail } = useSelector(
+    state => ({
+      loading: state.StoreItems.loading,
+      productDetail: state.Products.productDetail,
+      createdProductDetail: state.Products.createdProductDetail,
+    })
+  )
 
   const [newDetail, setNewDetail] = useState([])
   const [rawData, setRawData] = useState({
@@ -26,15 +32,12 @@ function CrudProductDetail(myDisabled) {
     is_description: false,
   })
 
-  console.log(newDetail);
-
   useEffect(() => {
     setRawData({ ...rawData, product: productDetail.id })
   }, [productDetail])
 
   const onAddFormRow = () => {
     dispatch(createCurdProductDetail(rawData))
-    console.log("add");
   }
 
   const onDeleteFormRow = id => {
@@ -63,7 +66,10 @@ function CrudProductDetail(myDisabled) {
                 <AvForm className="repeater" encType="multipart/form-data">
                   <div>
                     <Row>
-                      <Col lg={newDetail.length > 0 ? "6" : "3"} className="mb-3">
+                      <Col
+                        lg={newDetail.length > 0 ? "6" : "3"}
+                        className="mb-3"
+                      >
                         <label>Title</label>
                         <AvField
                           name="title"
@@ -81,7 +87,10 @@ function CrudProductDetail(myDisabled) {
                         />
                       </Col>
 
-                      <Col lg={newDetail.length > 0 ? "6" : "3"} className="mb-3">
+                      <Col
+                        lg={newDetail.length > 0 ? "6" : "3"}
+                        className="mb-3"
+                      >
                         <label>Detail</label>
                         <AvField
                           name="detail"
@@ -98,7 +107,12 @@ function CrudProductDetail(myDisabled) {
                           required
                         />
                       </Col>
-                      <Col lg={newDetail.length > 0 ? "6" : "3"} className={`mb-3 ${newDetail.length > 0 ? "d-flex" : "d-block"}`} >
+                      <Col
+                        lg={newDetail.length > 0 ? "6" : "3"}
+                        className={`mb-3 ${
+                          newDetail.length > 0 ? "d-flex" : "d-block"
+                        }`}
+                      >
                         <label className="me-4">Description</label>
                         <AvField
                           name="is_description"
@@ -137,7 +151,9 @@ function CrudProductDetail(myDisabled) {
           <Col lg={6}>
             <Card>
               <CardBody>
-                <CardTitle className="h4 mb-4">Uploaded Product Details </CardTitle>
+                <CardTitle className="h4 mb-4">
+                  Uploaded Product Details{" "}
+                </CardTitle>
                 <Form className="repeater" encType="multipart/form-data">
                   <div>
                     {map(newDetail, (item, index) => (
@@ -196,7 +212,6 @@ function CrudProductDetail(myDisabled) {
           </Col>
         )}
       </Row>
-
     </>
   )
 }

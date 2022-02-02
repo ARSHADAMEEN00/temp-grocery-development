@@ -27,7 +27,6 @@ const getClientsAPi = ({ searchText, page }) => {
     return get(`/order/client/?search=${searchText && searchText}`)
   } else {
     return get(`/order/client/`)
-    // ?page=${page ? page : 1}
   }
 }
 const getClientDetailsAPi = clientId => {
@@ -63,8 +62,8 @@ function* fetchClientDetail({ clientId }) {
 function* onCreateClient({ payload }) {
   try {
     const response = yield call(createClientApi, payload)
-    if (response?.error_message) {
-      yield put(createClientFail(response?.error_message))
+    if (response.email[0] === "Client with this email already exists.") {
+      yield put(createClientFail(response.email))
     } else {
       yield put(createClientSuccess(response))
       payload.history.push("/clients")

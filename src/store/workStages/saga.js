@@ -18,7 +18,7 @@ import {
   updateWorkStageSuccess,
   updateWorkStageFail,
   deleteWorkStageSuccess,
-  deleteWorkStageFail
+  deleteWorkStageFail,
 } from "./actions"
 import { get, post, ApiPut, del, patch } from "helpers/api_methods"
 import { Notification } from "components/Common/Notification"
@@ -71,7 +71,7 @@ function* onCreateWorkStage({ payload }) {
       Notification({
         type: "success",
         message: "Successfully Created Stage",
-        title: "Created!"
+        title: "Created!",
       })
     }
   } catch (error) {
@@ -85,7 +85,6 @@ function* onUpdateWorkStage({ payload }) {
     const response = yield call(updateWorkStageApi, payload)
     yield put(updateWorkStageSuccess(response))
     doneNotification()
-    payload.history.push("/stages")
   } catch (error) {
     yield put(updateWorkStageFail(error))
     errorNotification()
@@ -108,7 +107,7 @@ function errorNotification() {
   Notification({
     type: "error",
     message: "Something Went Wrong",
-    title: "Try Again"
+    title: "Try Again",
   })
 }
 
@@ -116,7 +115,7 @@ function doneNotification() {
   Notification({
     type: "success",
     message: "Done",
-    title: ""
+    title: "",
   })
 }
 

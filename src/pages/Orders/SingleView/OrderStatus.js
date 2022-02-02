@@ -26,8 +26,6 @@ import OrderDetail from "./OrderDetail"
 //css
 import "react-datepicker/dist/react-datepicker.css"
 
-
-
 function OrderStatus() {
   const dispatch = useDispatch()
   const params = useParams()
@@ -152,7 +150,6 @@ function OrderStatus() {
     }
   }
 
-
   return (
     <>
       <Col lg={`${Handler() ? "8" : "12"}`}>
@@ -180,7 +177,7 @@ function OrderStatus() {
                   </Badge>
                 </div>
               </Col>
-              <Col lg={2} />
+              <Col lg={9} />
               <Col lg={3}>
                 <Link
                   to="/order/work/pdf"
@@ -197,7 +194,7 @@ function OrderStatus() {
                   <i className="mdi mdi-download d-block font-size-16 mx-1"></i>
                 </Link>
               </Col>
-              <Col lg={3} sm="4" xs="6">
+              {/* <Col lg={3} sm="4" xs="6">
 
                 <Link
                   to="/order/pdf"
@@ -213,7 +210,7 @@ function OrderStatus() {
                   Billing PDF
                   <i className="mdi mdi-download d-block font-size-16 mx-1"></i>
                 </Link>
-              </Col>
+              </Col> */}
             </Row>
           </CardBody>
         </Card>
@@ -272,15 +269,8 @@ function OrderStatus() {
           </Card>
         </Col>
       )}
-
-
     </>
-
-
   )
 }
 
 export default OrderStatus
-
-
-

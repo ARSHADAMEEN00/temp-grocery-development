@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom"
 import PropTypes from "prop-types"
 
 //actions
-import { deleteClient, getClientDetail, } from "store/actions"
+import { deleteClient, getClientDetail } from "store/actions"
 
 //componetns
 import Breadcrumbs from "../../../components/Common/Breadcrumb"
@@ -57,10 +57,7 @@ const ClientDetails = ({ history }) => {
       </MetaTags>
 
       <div className="page-content">
-        <Breadcrumbs
-          title="All Clients"
-          breadcrumbItem="Client"
-        />
+        <Breadcrumbs title="All Clients" breadcrumbItem="Client" />
         <Container fluid>
           <div className="container-fluid">
             <Row>
@@ -69,41 +66,43 @@ const ClientDetails = ({ history }) => {
                   <CardBody>
                     {detailLoading ? (
                       <Spinner />
-                    ) : (<>
-                      <Media>
-                        <img
-                          className="d-flex me-3 rounded-circle avatar-sm"
-                          src={userProfile}
-                          alt="skote"
-                        />
+                    ) : (
+                      <>
+                        <Media>
+                          <img
+                            className="d-flex me-3 rounded-circle avatar-sm"
+                            src={userProfile}
+                            alt="skote"
+                          />
 
-                        <Media className="overflow-hidden" body>
-                          <h5 className="text-truncate font-size-15">{clientDetail.name}</h5>
-                          <p className="text-muted">{clientDetail.address}</p>
+                          <Media className="overflow-hidden" body>
+                            <h5 className="text-truncate font-size-15">
+                              {clientDetail.name}
+                            </h5>
+                            <p className="text-muted">{clientDetail.address}</p>
+                          </Media>
                         </Media>
-                      </Media>
 
-                      <h5 className="font-size-15 mt-4">Client Details :</h5>
+                        <h5 className="font-size-15 mt-4">Client Details :</h5>
 
-                      <p className="text-muted">
-                        {clientDetail.description}
-                      </p>
+                        <p className="text-muted">{clientDetail.description}</p>
 
-                      <div className="text-muted mt-4">
-
-                        <p >
-                          <i className="mdi mdi-chevron-right text-primary me-1" />{" "}
-                          Email: {clientDetail.email}
-                        </p>
-                        <p >
-                          <i className="mdi mdi-chevron-right text-primary me-1" />{" "}
-                          phone: {clientDetail.phone}
-                        </p>
-                        <p >
-                          <i className="mdi mdi-chevron-right text-primary me-1" />{" "}
-                          Auto Id: {clientDetail.auto_id}
-                        </p>
-                      </div></>)}
+                        <div className="text-muted mt-4">
+                          <p>
+                            <i className="mdi mdi-chevron-right text-primary me-1" />{" "}
+                            Email: {clientDetail.email}
+                          </p>
+                          <p>
+                            <i className="mdi mdi-chevron-right text-primary me-1" />{" "}
+                            phone: {clientDetail.phone}
+                          </p>
+                          <p>
+                            <i className="mdi mdi-chevron-right text-primary me-1" />{" "}
+                            Auto Id: {clientDetail.auto_id}
+                          </p>
+                        </div>
+                      </>
+                    )}
 
                     <Row className="task-dates">
                       <Col sm="4" xs="6">
@@ -111,21 +110,19 @@ const ClientDetails = ({ history }) => {
                           <Link
                             style={{ opacity: 0.8 }}
                             to="#"
-                            className={`btn btn-danger ${loading && "disabled"
-                              }  btn-sm`}
+                            className={`btn btn-outline-light ${
+                              loading && "disabled"
+                            }  btn-m`}
                             onClick={handleDelete}
                           >
                             Block Acount
-                            <i className="fas fa-trash ms-1 bx-tada-hover"></i>
+                            <i className="fas fa-trash text-danger ms-1 bx-tada-hover"></i>
                           </Link>
                         </div>
                       </Col>
-
-
                     </Row>
                   </CardBody>
                 </Card>
-
               </Col>
               <Col xl="12">
                 <UpdateClient />

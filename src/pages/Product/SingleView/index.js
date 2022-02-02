@@ -36,7 +36,7 @@ const ProductDetails = ({ history }) => {
   const handleDeleteEvent = () => {
     dispatch(deleteProduct(productDetail.id, history))
     setIsOpen(false)
-    history.push("/products")
+    // history.push("/products")
   }
 
   useEffect(() => {
@@ -54,12 +54,12 @@ const ProductDetails = ({ history }) => {
     }
   }, [roleHandle])
 
-  const discription = productDetail?.productdetail?.filter((item => item.is_description == true))
-  const NotDiscription = productDetail?.productdetail?.filter((item => item.is_description == false))
-
-
-  console.log(discription);
-  console.log(NotDiscription);
+  const discription = productDetail?.productdetail?.filter(
+    item => item?.is_description == true
+  )
+  const NotDiscription = productDetail?.productdetail?.filter(
+    item => item?.is_description == false
+  )
 
   return (
     <>
@@ -99,6 +99,12 @@ const ProductDetails = ({ history }) => {
 
                         <div className="text-muted mt-4">
                           <Media className="overflow-hidden" body>
+                            <h4
+                              className="text-truncate font-size-15 mt-3"
+                              style={{ fontWeight: 900 }}
+                            >
+                              Procuct Code : {productDetail?.product_code}
+                            </h4>
                             <h5 className="text-truncate font-size-15 mt-3">
                               {productDetail?.name}
                             </h5>
@@ -115,48 +121,51 @@ const ProductDetails = ({ history }) => {
                             </span>
                           </p>
 
-                          {discription?.length > 0 && map(discription, (detail, key) => (
-                            <p key={key}>{detail.title}</p>
-                          ))}
-                          {NotDiscription?.length > 0 && map(NotDiscription, (detail, key) => (
-                            <div key={key}>
-                              <p className="text-muted">
-                                <i className="fa fa-caret-right  font-size-16 align-middle text-primary me-2"></i>
-                                {detail.title}</p>
-                            </div>
-                          ))}
+                          {discription?.length > 0 &&
+                            map(discription, (detail, key) => (
+                              <p key={key}>{detail.title}</p>
+                            ))}
+                          {NotDiscription?.length > 0 &&
+                            map(NotDiscription, (detail, key) => (
+                              <div key={key}>
+                                <p className="text-muted">
+                                  <i className="fa fa-caret-right  font-size-16 align-middle text-primary me-2"></i>
+                                  {detail.title}
+                                </p>
+                              </div>
+                            ))}
                         </div>
                       </>
                     )}
 
                     {roleHandle && (
                       <Row className="task-dates">
-
                         <Col sm="4" xs="6">
                           <div className="mt-4">
                             <Link
                               to={`/product/update/${productDetail?.id}`}
-                              className={`btn btn-secondary ${loading && "disabled"
-                                } btn-m`}
+                              className={`btn btn-secondary ${
+                                loading && "disabled"
+                              } btn-m`}
                             >
                               Edit{" "}
                               <i className="mdi mdi-arrow-right ms-1 bx-fade-right" />
                             </Link>
                           </div>
                         </Col>
-
-
+                        <Col sm="4" xs="6"></Col>
                         <Col sm="4" xs="6">
                           <div className="mt-4">
                             <Link
                               style={{ opacity: 0.8 }}
                               to="#"
-                              className={`btn btn-danger ${loading && "disabled"
-                                }  btn-m`}
+                              className={`btn btn-outline-light ${
+                                loading && "disabled"
+                              }  btn-m`}
                               onClick={handleDelete}
                             >
                               Remove
-                              <i className="fas fa-trash ms-1 bx-tada-hover"></i>
+                              <i className="fas fa-trash text-danger ms-1 bx-tada-hover"></i>
                             </Link>
                           </div>
                         </Col>
@@ -172,8 +181,9 @@ const ProductDetails = ({ history }) => {
                             <Link
                               style={{ opacity: 0.8 }}
                               to="/order/create"
-                              className={`btn text-light bg-success ${loading && "disabled"
-                                }  btn-m`}
+                              className={`btn text-light bg-success ${
+                                loading && "disabled"
+                              }  btn-m`}
                               onClick={handleDelete}
                             >
                               Order Now
@@ -192,7 +202,7 @@ const ProductDetails = ({ history }) => {
             </Row>
           </div>
         </Container>
-      </div >
+      </div>
     </>
   )
 }

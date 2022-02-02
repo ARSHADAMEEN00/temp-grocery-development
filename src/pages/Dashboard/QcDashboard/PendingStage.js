@@ -15,8 +15,9 @@ const PendingStage = () => {
     workstage: state.WorkStage.workStages,
     loading: state.Orders.loading,
   }))
-  console.log(workstage);
-  const PendingStage = workstage?.results?.filter(item => item.status == "QC_Pending")
+  const PendingStage = workstage?.results?.filter(
+    item => item.status == "QC_Pending"
+  )
   const PendingStageNew = PendingStage?.slice(0, 3)
 
   return (
@@ -39,7 +40,10 @@ const PendingStage = () => {
                         <span className="avatar-title rounded-circle bg-info"></span>
                       </div>
                       <Media body>
-                        <Link to={`/stages/${item.id}`} className="font-size-14 text-muted ">
+                        <Link
+                          to={`/stages/${item.id}`}
+                          className="font-size-14 text-muted "
+                        >
                           Stage : {item?.stage}{" "}
                         </Link>
                         <p className="text-muted font-size-14 pt-2">

@@ -52,13 +52,12 @@ import Salesman from "pages/Salesman"
 import SalesmanDetails from "pages/Salesman/SingleView"
 import CreateSalesman from "pages/Salesman/Crud/Create"
 import PDFGenerator from "components/Pdf/report"
-import ProductionOrder from "pages/ProductionStages/ProductionOrder"
 import ProductionStages from "pages/ProductionStages"
 import CreatStage from "pages/ProductionStages/Crud/Create/Create"
-import OrderPDFGenerator from "components/Pdf/OrderReport"
-import OrderItemSingleView from "pages/ProductionStages/ProductionOrder/SingleView/index"
+import OrderItemSingleView from "pages/QcInscpection/SingleView/index"
 import stageDetail from "pages/ProductionStages/SingleView"
 import WorkOrderPDFGenerator from "components/Pdf/WorkOrderReport"
+import ProductionOrder from "pages/QcInscpection"
 
 const commonRoute = [
   { path: "/dashboard", component: Dashboard },
@@ -79,7 +78,6 @@ const commonRoute = [
 const MDProtectedRoutes = [
   { path: "/dashboard", component: Dashboard },
   { path: "/quotation/pdf", component: PDFGenerator },
-  { path: "/order/pdf", component: OrderPDFGenerator },
   { path: "/order/work/pdf", component: WorkOrderPDFGenerator },
 
   // //profile Clients
@@ -195,7 +193,6 @@ const qualitycheckerRoutes = [
 
   { path: "/stages", component: ProductionStages },
   { path: "/stages/:id", component: stageDetail },
-
 
   {
     path: "/",

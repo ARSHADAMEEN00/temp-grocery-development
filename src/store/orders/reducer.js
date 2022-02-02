@@ -35,11 +35,18 @@ import {
   GET_ORDERSITEMS_DETAIL_SUCCESS,
   GET_ORDERSITEMS_DETAIL_FAIL,
   GET_ORDERSITEMS_DETAIL,
+  GET_QUOTATION_CLIENT_ID,
+  GET_QUOTATION_CLIENT_ID_SUCCESS,
+  GET_QUOTATION_CLIENT_ID_FAIL,
+  GET_ORDERSITEMS_BYFILTERED,
+  GET_ORDERSITEMS_BYFILTERED_SUCCESS,
+  GET_ORDERSITEMS_BYFILTERED_FAIL,
 } from "./actionTypes"
 
 const INIT_STATE = {
   orders: [],
   orderItems: [],
+  orderItemFiltered: [],
   orderDetail: {
     id: "",
     auto_id: "",
@@ -50,7 +57,8 @@ const INIT_STATE = {
     status: "",
     orderitem: [],
   },
-  orderItemDetail:{},
+  QclientDetails: {},
+  orderItemDetail: {},
   quotation: [],
   quotationCurd: {},
   QProductPrice: {},
@@ -63,6 +71,7 @@ const INIT_STATE = {
   quotationLoading: false,
   quotationDetailLoading: false,
   QProductPriceLoading: false,
+  QclientDetailsLoding: false,
 }
 
 const Orders = (state = INIT_STATE, action) => {
@@ -73,13 +82,32 @@ const Orders = (state = INIT_STATE, action) => {
     case CREATE_ORDER:
     case DELETE_ORDER:
     case GET_ORDERSITEMS:
-      
+    case GET_ORDERSITEMS_BYFILTERED:
       return {
         ...state,
         loading: true,
       }
+
+    case GET_QUOTATION_CLIENT_ID:
+      return {
+        ...state,
+        QclientDetailsLoding: true
+      }
+    case GET_QUOTATION_CLIENT_ID_SUCCESS:
+      return {
+        ...state,
+        QclientDetails: action.payload,
+        QclientDetailsLoding: false
+      }
+    case GET_QUOTATION_CLIENT_ID_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+        QclientDetailsLoding: false,
+      }
+
     case UPDATE_ORDER_ITEM:
-      case GET_ORDERSITEMS_DETAIL:
+    case GET_ORDERSITEMS_DETAIL:
       return {
         ...state,
         orderitemLoading: true,
@@ -106,6 +134,20 @@ const Orders = (state = INIT_STATE, action) => {
       }
 
     case GET_ORDERSITEMS_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      }
+
+    case GET_ORDERSITEMS_BYFILTERED_SUCCESS:
+      return {
+        ...state,
+        orderItemFiltered: action.payload,
+        loading: false,
+      }
+
+    case GET_ORDERSITEMS_BYFILTERED_FAIL:
       return {
         ...state,
         error: action.payload,
@@ -141,19 +183,19 @@ const Orders = (state = INIT_STATE, action) => {
         loading: false,
       }
 
-      case GET_ORDERSITEMS_DETAIL_SUCCESS:
-        return {
-          ...state,
-          orderItemDetail: action.payload,
-          orderitemLoading: false,
-        }
-  
-      case GET_ORDERSITEMS_DETAIL_FAIL:
-        return {
-          ...state,
-          error: action.payload,
-          orderitemLoading: false,
-        }
+    case GET_ORDERSITEMS_DETAIL_SUCCESS:
+      return {
+        ...state,
+        orderItemDetail: action.payload,
+        orderitemLoading: false,
+      }
+
+    case GET_ORDERSITEMS_DETAIL_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+        orderitemLoading: false,
+      }
 
     case UPDATE_ORDER_SUCCESS:
       return {

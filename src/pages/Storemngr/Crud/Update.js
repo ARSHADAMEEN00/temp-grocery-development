@@ -71,12 +71,6 @@ const UpdateStoremanager = () => {
                             value={storemngrDetail?.username}
                             validate={{
                               required: { value: true },
-                              
-                              maxLength: {
-                                value: 16,
-                                errorMessage:
-                                  "Your name must be between 6 and 16 characters",
-                              },
                             }}
                           />
                         </Col>
@@ -97,12 +91,6 @@ const UpdateStoremanager = () => {
                             type="text"
                             validate={{
                               required: { value: true },
-                              
-                              maxLength: {
-                                value: 16,
-                                errorMessage:
-                                  "Your name must be between 6 and 16 characters",
-                              },
                             }}
                           />
                         </Col>

@@ -45,10 +45,12 @@ const Transaction = () => {
     {
       dataField: "auto_id",
       text: "Trn Id",
+      sort: true,
     },
     {
       dataField: "date_added",
       text: "Date",
+      sort: true,
     },
     {
       dataField: "supervisor_name",

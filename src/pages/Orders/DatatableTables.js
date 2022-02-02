@@ -49,10 +49,14 @@ const Orders = () => {
     {
       dataField: "auto_id",
       text: "Order Id",
+      sort: true,
+
     },
     {
       dataField: "quotation_id",
       text: "Quotation Id",
+      sort: true,
+
     },
     {
       dataField: "start_date",
@@ -69,6 +73,8 @@ const Orders = () => {
     {
       dataField: "status",
       text: "Status",
+      sort: true,
+
     },
     {
       dataField: "action",

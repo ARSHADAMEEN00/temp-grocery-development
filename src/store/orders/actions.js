@@ -35,8 +35,29 @@ import {
   GET_ORDERSITEMS_FAIL,
   GET_ORDERSITEMS_DETAIL_SUCCESS,
   GET_ORDERSITEMS_DETAIL,
-  GET_ORDERSITEMS_DETAIL_FAIL
+  GET_ORDERSITEMS_DETAIL_FAIL,
+
+  GET_QUOTATION_CLIENT_ID,
+  GET_QUOTATION_CLIENT_ID_SUCCESS,
+  GET_QUOTATION_CLIENT_ID_FAIL,
+  GET_ORDERSITEMS_BYFILTERED,
+  GET_ORDERSITEMS_BYFILTERED_FAIL,
+  GET_ORDERSITEMS_BYFILTERED_SUCCESS
 } from "./actionTypes"
+
+export const getQuotationClientId = (clientId) => ({
+  type: GET_QUOTATION_CLIENT_ID,
+  clientId
+})
+
+export const getQuotationClientIdSuccess = qClientDetails => ({
+  type: GET_QUOTATION_CLIENT_ID_SUCCESS,
+  payload: qClientDetails,
+})
+export const getQuotationClientIdFail = error => ({
+  type: GET_QUOTATION_CLIENT_ID_FAIL,
+  payload: error,
+})
 
 export const getOrderItems = (searchText, page) => ({
   type: GET_ORDERSITEMS,
@@ -49,6 +70,20 @@ export const getOrderItemsSuccess = orders => ({
 })
 export const getOrderItemsFail = error => ({
   type: GET_ORDERSITEMS_FAIL,
+  payload: error,
+})
+
+export const getOrderItemsByFilted = (sort, searchText, page) => ({
+  type: GET_ORDERSITEMS_BYFILTERED,
+  payload: { sort, searchText, page },
+})
+
+export const getOrderItemsByFiltedSuccess = orders => ({
+  type: GET_ORDERSITEMS_BYFILTERED_SUCCESS,
+  payload: orders,
+})
+export const getOrderItemsByFiltedFail = error => ({
+  type: GET_ORDERSITEMS_BYFILTERED_FAIL,
   payload: error,
 })
 

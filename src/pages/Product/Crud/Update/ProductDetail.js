@@ -4,7 +4,11 @@ import { Row, Col, Card, CardBody, Form, CardTitle, Spinner } from "reactstrap"
 import { map } from "lodash"
 
 //actions
-import { createCurdProductDetail, createOtherCost, deleteOtherCost } from "store/actions"
+import {
+  createCurdProductDetail,
+  createOtherCost,
+  deleteOtherCost,
+} from "store/actions"
 
 import AvField from "availity-reactstrap-validation/lib/AvField"
 import AvForm from "availity-reactstrap-validation/lib/AvForm"
@@ -12,11 +16,13 @@ import AvForm from "availity-reactstrap-validation/lib/AvForm"
 function CrudProductDetail(myDisabled) {
   const dispatch = useDispatch()
 
-  const { loading, productDetail, createdProductDetail } = useSelector(state => ({
-    loading: state.StoreItems.loading,
-    productDetail: state.Products.productDetail,
-    createdProductDetail: state.Products.createdProductDetail,
-  }))
+  const { loading, productDetail, createdProductDetail } = useSelector(
+    state => ({
+      loading: state.StoreItems.loading,
+      productDetail: state.Products.productDetail,
+      createdProductDetail: state.Products.createdProductDetail,
+    })
+  )
 
   const [newDetail, setNewDetail] = useState([])
   const [rawData, setRawData] = useState({
@@ -26,15 +32,12 @@ function CrudProductDetail(myDisabled) {
     is_description: false,
   })
 
-  console.log(newDetail);
-
   useEffect(() => {
     setRawData({ ...rawData, product: productDetail.id })
   }, [productDetail])
 
   const onAddFormRow = () => {
     dispatch(createCurdProductDetail(rawData))
-    console.log("add");
   }
 
   const onDeleteFormRow = id => {
@@ -98,7 +101,7 @@ function CrudProductDetail(myDisabled) {
                           required
                         />
                       </Col>
-                      <Col lg={"3"} className="mb-3" >
+                      <Col lg={"3"} className="mb-3">
                         <label className="me-4">Description</label>
                         <AvField
                           name="is_description"
@@ -132,9 +135,7 @@ function CrudProductDetail(myDisabled) {
             </CardBody>
           </Card>
         </Col>
-
       </Row>
-
     </>
   )
 }

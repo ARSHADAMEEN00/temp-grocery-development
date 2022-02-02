@@ -56,10 +56,7 @@ const SalesmanDetails = ({ history }) => {
       </MetaTags>
 
       <div className="page-content">
-        <Breadcrumbs
-          title="Salesmans"
-          breadcrumbItem="Salesman"
-        />
+        <Breadcrumbs title="Salesmans" breadcrumbItem="Salesman" />
         <Container fluid>
           <div className="container-fluid">
             <Row>
@@ -100,9 +97,7 @@ const SalesmanDetails = ({ history }) => {
                                 <h5 className="mb-1">
                                   {salesmanDetail?.email}
                                 </h5>
-                                <p className="mb-1">
-                                  {salesmanDetail?.phone}
-                                </p>
+                                <p className="mb-1">{salesmanDetail?.phone}</p>
                               </>
                             )}
                           </div>
@@ -114,12 +109,13 @@ const SalesmanDetails = ({ history }) => {
                           <Link
                             style={{ opacity: 0.8 }}
                             to="#"
-                            className={`btn btn-danger ${loading && "disabled"
-                              }  btn-sm`}
+                            className={`btn btn-outline-light ${
+                              loading && "disabled"
+                            }  btn-m`}
                             onClick={handleDelete}
                           >
                             Block Acount
-                            <i className="fas fa-trash ms-1 bx-tada-hover"></i>
+                            <i className="fas fa-trash text-danger ms-1 bx-tada-hover"></i>
                           </Link>
                         </div>
                       </Col>

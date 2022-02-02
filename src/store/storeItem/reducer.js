@@ -23,7 +23,12 @@ import {
 
 const INIT_STATE = {
   storeItems: [],
-  storeSupply: [],
+  storeSupply: {
+    count: "",
+    next: "",
+    previous: "",
+    results: [],
+  },
   storeItemDetail: {
     id: "",
     name: "",
@@ -115,11 +120,14 @@ const StoreItems = (state = INIT_STATE, action) => {
     case UPDATE_STOREITEM_SUCCESS:
       return {
         ...state,
-        storeItems: state.storeItems.results.map(storeItem =>
-          storeItem.id.toString() === action.payload.id.toString()
-            ? { storeItem, ...action.payload }
-            : storeItem
-        ),
+        storeItems: {
+          ...state.storeItems,
+          results: state.storeItems.results.map(storeItem =>
+            storeItem.id === action.payload.id
+              ? { storeItem, ...action.payload }
+              : storeItem
+          ),
+        },
         loading: false,
       }
 
@@ -131,7 +139,6 @@ const StoreItems = (state = INIT_STATE, action) => {
       }
 
     case UPDATE_STORESUPPLY_SUCCESS:
-      ß
       return {
         ...state,
         storeSupply: {

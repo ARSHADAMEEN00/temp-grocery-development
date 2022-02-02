@@ -48,20 +48,21 @@ const Stages = () => {
     dispatch(getWorkStages(searchText, pageSend()))
   }, [dispatch, page, searchText])
 
-
   const columns = [
-
     {
       dataField: "order_item_auto_id",
       text: "Id",
+      sort: true,
     },
     {
       dataField: "stage",
       text: "Satge",
+      sort: true,
     },
     {
       dataField: "status",
       text: "Status",
+      sort: true,
     },
     {
       dataField: "note",
@@ -86,17 +87,29 @@ const Stages = () => {
     }
   }
 
-  const handleValidSubmit = (props, updateStage, stageId) => {
-    console.log(updateStage);
-    // dispatch(updateWorkStage(updateStage, stageId, ""))
+  const [stageUpdate, setstageUpdate] = useState({
+    status: "",
+    note: "",
+  })
+
+  const handleStart = stageId => {
+    setstageUpdate({ ...stageUpdate, status: "Started" })
+    dispatch(updateWorkStage({ ...stageUpdate, status: "Started" }, stageId))
   }
+
+  const handleFinish = stageId => {
+    setstageUpdate({ ...stageUpdate, status: "Finished" })
+    dispatch(updateWorkStage({ ...stageUpdate, status: "Finished" }, stageId))
+  }
+
+  // const handleValidSubmit = (props, updateStage, stageId) => {
+  //   dispatch(updateWorkStage(updateStage, stageId, ""))
+  // }
 
   const workStagesData = map(workStages?.results, (item, index) => ({
     ...item,
     key: index,
-    quotation_id: (
-      <p>{item.quotation_id ? item.quotation_id : "Null"}</p>
-    ),
+    quotation_id: <p>{item.quotation_id ? item.quotation_id : "Null"}</p>,
     status: (
       <div
         className="d-flex"
@@ -117,9 +130,9 @@ const Stages = () => {
     action: (
       <AvForm
         className="form-horizontal "
-        onValidSubmit={(onSubmitProps, v) => {
-          handleValidSubmit(onSubmitProps, v, item.id)
-        }}
+        // onValidSubmit={(onSubmitProps, v) => {
+        //   handleValidSubmit(onSubmitProps, v, item.id)
+        // }}
       >
         <Row style={{ alignItems: "center" }} className="d-flex">
           <Col sm={2} lg={2} style={{ width: "150px" }}>
@@ -131,14 +144,22 @@ const Stages = () => {
               type="textarea"
               rows="1"
               placeholder="Note"
-              required
+              defaultValue={item.note}
+              onChange={e =>
+                setstageUpdate({ ...stageUpdate, note: e.target.value })
+              }
             />
           </Col>
 
           <Col sm={2} lg={3} style={{ width: "60px" }}>
             <button
               type="submit"
-              className={`btn btn-info btn-sm mx-2 btn-lg ms-2 ${item.status === "Pending" ? "" : "disabled"} `}
+              className={`btn btn-${
+                item.status === "Pending" ? "info" : "secondary"
+              } btn-sm mx-2 btn-lg ms-2 ${
+                item.status === "Pending" ? "" : "disabled"
+              } `}
+              onClick={() => handleStart(item.id)}
             >
               Start
             </button>
@@ -146,15 +167,17 @@ const Stages = () => {
           <Col sm={2} lg={3} style={{ width: "60px" }}>
             <button
               type="submit"
-              className={`btn btn-success btn-sm mx-2 btn-lg ms-2 ${item.status === "Started" ? "" : "disabled"} `}
+              className={`btn btn-success btn-sm mx-2 btn-lg ms-2 ${
+                item.status === "Started" ? "" : "disabled"
+              } `}
+              onClick={() => handleFinish(item.id)}
             >
               Finish
             </button>
           </Col>
         </Row>
-
-
-      </AvForm>),
+      </AvForm>
+    ),
   }))
 
   const defaultSorted = [
@@ -236,7 +259,7 @@ const Stages = () => {
                         <MyPagination
                           pages={pages}
                           clcickedPage={page}
-                          onNunClick={(item) => setPage(item)}
+                          onNunClick={item => setPage(item)}
                           onNextClick={() => setPage(page + 1)}
                           onPrevClick={() => setPage(page - 1)}
                           onFastNextClick={() => setPage(pages.length)}

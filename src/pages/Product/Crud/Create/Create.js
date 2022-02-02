@@ -32,6 +32,7 @@ import RawmaterialForm from "./RawmaterialForm"
 const CreateProduct = () => {
   const dispatch = useDispatch()
   const [btnDisabled, setBtnDisabled] = useState(true)
+  const [remove, setRemove] = useState(false)
 
   const { createProducterror, loading } = useSelector(state => ({
     createProducterror: state.Products.createProducterror,
@@ -40,6 +41,7 @@ const CreateProduct = () => {
 
   const [state, setstate] = useState({
     name: "",
+    code: "",
     profit: "",
     image: null,
   })
@@ -62,8 +64,12 @@ const CreateProduct = () => {
     dispatch(createProduct())
 
     const form_data = new FormData()
-    { state?.image?.name && form_data.append("image", state?.image, state?.image?.name) }
+    {
+      state?.image?.name &&
+        form_data.append("image", state?.image, state?.image?.name)
+    }
     form_data.append("name", state.name)
+    form_data.append("product_code", state.code)
     form_data.append("profit", state.profit)
 
     let url = `${API_URL}/store/product/`
@@ -76,6 +82,7 @@ const CreateProduct = () => {
       })
       .then(res => {
         setBtnDisabled(false)
+        setRemove(true)
         dispatch(createProductSuccess(res.data))
         dispatch(getProductDetailSuccess(res.data))
         window.scrollTo(0, 400)
@@ -142,6 +149,21 @@ const CreateProduct = () => {
                 />
               </Col>
             </div>
+            <div className="row mb-4">
+              <Label htmlFor="code" className="col-sm-3 col-form-label">
+                Product Code
+              </Label>
+              <Col sm={9}>
+                <input
+                  type="text"
+                  name="product_code"
+                  className="form-control"
+                  id="code"
+                  value={state.code}
+                  onChange={handleChange}
+                />
+              </Col>
+            </div>
 
             <div className="row mb-4">
               <Label htmlFor="profit" className="col-sm-3 col-form-label">
@@ -150,7 +172,8 @@ const CreateProduct = () => {
               <Col sm={9}>
                 <input
                   name="profit"
-                  type="number" min={0}
+                  type="number"
+                  min={0}
                   className="form-control"
                   id="profit"
                   value={state.profit}
@@ -175,20 +198,22 @@ const CreateProduct = () => {
               </Col>
             </div>
 
-            <div className="row justify-content-end">
-              <Col sm={2}>
-                <div>
-                  <Button type="submit" color="success" className="w-md">
-                    {loading && (
-                      <>
-                        <i className="bx bx-loader bx-spin font-size-16 align-middle me-2"></i>
-                      </>
-                    )}
-                    Create
-                  </Button>
-                </div>
-              </Col>
-            </div>
+            {remove == false && (
+              <div className="row justify-content-end">
+                <Col sm={2}>
+                  <div>
+                    <Button type="submit" color="success" className="w-md">
+                      {loading && (
+                        <>
+                          <i className="bx bx-loader bx-spin font-size-16 align-middle me-2"></i>
+                        </>
+                      )}
+                      Create
+                    </Button>
+                  </div>
+                </Col>
+              </div>
+            )}
           </form>
         </CardBody>
       </Card>

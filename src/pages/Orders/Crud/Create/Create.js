@@ -4,7 +4,7 @@ import { map } from "lodash"
 import { Link } from "react-router-dom"
 import PropTypes from "prop-types"
 import { MetaTags } from "react-meta-tags"
-import { Badge, Container, Table } from "reactstrap"
+import { Alert, Badge, Container, Table } from "reactstrap"
 import {
   Row,
   Col,
@@ -14,12 +14,18 @@ import {
   Label,
   CardTitle,
   FormGroup,
-  Spinner
 } from "reactstrap"
 import Select from "react-select"
 
 //actions
-import { createOrder, getClients, getProducts, getQProductPrice, getQuotations } from "store/actions"
+import {
+  createOrder,
+  getClients,
+  getProducts,
+  getQProductPrice,
+  getQuotationClientId,
+  getQuotations,
+} from "store/actions"
 
 import Breadcrumbs from "../../../../components/Common/Breadcrumb"
 import CreateClientModal from "./CreateClientModal"
@@ -27,25 +33,39 @@ import CreateClientModal from "./CreateClientModal"
 const CreateOrder = ({ history }) => {
   const dispatch = useDispatch()
   //redux state
-  const { products, loading, orderLoading, clients, quotation, QProductPrice, QProductDetail } = useSelector(state => ({
+  const {
+    products,
+    loading,
+    orderLoading,
+    clients,
+    quotation,
+    QProductPrice,
+    QProductDetail,
+    QclientDetails,
+    createOrdererror,
+  } = useSelector(state => ({
     products: state.Products.products,
     loading: state.StoreItems.loading,
     orderLoading: state.Orders.loading,
     clients: state.Clients.clients,
     quotation: state.Orders.quotation,
     QProductPrice: state.Orders.QProductPrice.cost,
-    QProductDetail: state.Orders.QProductPrice
+    QProductDetail: state.Orders.QProductPrice,
+    QclientDetails: state.Orders.QclientDetails,
+    createOrdererror: state.Orders.createOrdererror,
   }))
 
   const [selectedOrder, setselectedOrder] = useState("Search a Product")
   const [selectedClient, setSelectedClient] = useState("Search a Client")
-  const [selectedQuotation, setSelectedQuotation] = useState("Search a Quotation Id")
+  const [selectedQuotation, setSelectedQuotation] = useState(
+    "Search a Quotation Id"
+  )
   const [searchClientText, setSearchClientText] = useState("")
   const [searchText, setSearchText] = useState("")
   const [searchQuotationText, setSearchQuotationText] = useState("")
   const [orderitem, setNewOrders] = useState([])
   const [percentage, setPercentage] = useState(0)
-  const [qty, setQty] = useState(1);
+  const [qty, setQty] = useState(1)
   const [rawData, setRawData] = useState({
     client: "",
     start_date: "",
@@ -59,15 +79,14 @@ const CreateOrder = ({ history }) => {
         total_price: "",
         selling_price: "",
         profit_percentage: "",
-        cost: ""
-      }
-
+        cost: "",
+      },
     ],
   })
 
   const ProductPrice = parseInt(QProductPrice)
 
-  const sellingPrice = (ProductPrice * percentage / 100) + ProductPrice
+  const sellingPrice = (ProductPrice * percentage) / 100 + ProductPrice
 
   const totelPriceCalc = sellingPrice * qty
 
@@ -83,19 +102,25 @@ const CreateOrder = ({ history }) => {
         ["quantity"]: qty,
       },
     })
-
-  }, [totelPriceCalc, sellingPrice]);
+  }, [totelPriceCalc, sellingPrice])
 
   useEffect(() => {
     setPercentage(QProductDetail.profit)
-  }, [QProductDetail.profit]);
-
+  }, [QProductDetail.profit])
 
   useEffect(() => {
     dispatch(getProducts(searchText))
     dispatch(getClients(searchClientText, ""))
     dispatch(getQuotations(searchQuotationText, ""))
   }, [searchText, dispatch, searchClientText, searchQuotationText])
+
+  useEffect(() => {
+    setSelectedClient(QclientDetails?.client_name)
+    setRawData({
+      ...rawData,
+      ["client"]: QclientDetails?.client,
+    })
+  }, [QclientDetails.client_name])
 
   const onAddFormRow = async () => {
     const modifiedRows = [...orderitem]
@@ -121,8 +146,6 @@ const CreateOrder = ({ history }) => {
   const onSubmitOrder = () => {
     dispatch(createOrder({ ...rawData, orderitem: orderitem }, history))
   }
-
-  console.log({ ...rawData, orderitem: orderitem });
 
   //setore item from and search
   function handlerFinalValue(event) {
@@ -172,26 +195,26 @@ const CreateOrder = ({ history }) => {
     setSearchClientText(textEntered)
   }
 
-
-  //quotation
-  function handlerQuotationFinalValue(event) {
-    setSelectedQuotation(event.label)
-    setRawData({
-      ...rawData,
-      ["quotation_id"]: event.value,
-
-    })
-  }
-
   const quotationOptions = [
     {
       options: quotation?.results?.map((result, index) => ({
         key: index,
         label: result.auto_id,
         value: result.auto_id,
+        quotationId: result.id,
       })),
     },
   ]
+
+  //quotation
+  function handlerQuotationFinalValue(event) {
+    dispatch(getQuotationClientId(event.quotationId))
+    setSelectedQuotation(event.label)
+    setRawData({
+      ...rawData,
+      ["quotation_id"]: event.value,
+    })
+  }
 
   const handleQuotationEnters = textEntered => {
     setSearchQuotationText(textEntered)
@@ -205,7 +228,7 @@ const CreateOrder = ({ history }) => {
     setIsOpen(true)
   }
 
-  const handleQty = (e) => {
+  const handleQty = e => {
     setQty(e.target.value),
       setRawData({
         ...rawData,
@@ -216,8 +239,10 @@ const CreateOrder = ({ history }) => {
       })
   }
 
-  const subTotel = orderitem?.reduce((accumulator, current) => accumulator + current.total_price, 0)
-
+  const subTotel = orderitem?.reduce(
+    (accumulator, current) => accumulator + current.total_price,
+    0
+  )
 
   return (
     <>
@@ -242,6 +267,7 @@ const CreateOrder = ({ history }) => {
                   <Card>
                     <CardBody>
                       <CardTitle className="h4 mb-4">Add Order</CardTitle>
+
                       <Row>
                         <Col lg={12} className="mb-3">
                           <FormGroup className="mb-3">
@@ -263,31 +289,42 @@ const CreateOrder = ({ history }) => {
                         </Col>
                         {Role == "client" ? (
                           <></>
-                        ) : (<>
-                          <Col lg={10} md={8} sm={6} xs={12} className="mb-3"  >
-                            <FormGroup className="mb-3">
-                              <Label>Select Client / Create Now </Label>
+                        ) : (
+                          <>
+                            <Col lg={10} md={8} sm={6} xs={12} className="mb-3">
+                              <FormGroup className="mb-3">
+                                <Label>Select Client / Create Now </Label>
 
-                              <div className="ajax-select mt-3 mt-lg-0 select2-container">
-                                <Select
-                                  onInputChange={handleClientEnters}
-                                  value={selectedClient}
-                                  placeholder={selectedClient}
-                                  onChange={handlerClientFinalValue}
-                                  options={clientOptions}
-                                  classNamePrefix="select2-selection"
-                                  isLoading={true}
-                                  className="custome_select_rad"
-                                />
-                              </div>
-                            </FormGroup>
-                          </Col>
-                          <Col lg={2} md={4} sm={6} xs={12} className="m-0 createClintBtnCont " >
-                            <button type="button" className="btn btn-light text-info"
-                              onClick={handleCreateCLient} >
-                              Create New</button>
-                          </Col>
-                        </>
+                                <div className="ajax-select mt-3 mt-lg-0 select2-container">
+                                  <Select
+                                    onInputChange={handleClientEnters}
+                                    value={selectedClient}
+                                    placeholder={selectedClient}
+                                    onChange={handlerClientFinalValue}
+                                    options={clientOptions}
+                                    classNamePrefix="select2-selection"
+                                    isLoading={true}
+                                    className="custome_select_rad"
+                                  />
+                                </div>
+                              </FormGroup>
+                            </Col>
+                            <Col
+                              lg={2}
+                              md={4}
+                              sm={6}
+                              xs={12}
+                              className="m-0 createClintBtnCont "
+                            >
+                              <button
+                                type="button"
+                                className="btn btn-light text-info"
+                                onClick={handleCreateCLient}
+                              >
+                                Create New
+                              </button>
+                            </Col>
+                          </>
                         )}
                         <Col lg={4} className="mb-3">
                           <label htmlFor="date1">Start Date</label>
@@ -344,12 +381,10 @@ const CreateOrder = ({ history }) => {
                       </Row>
                     </CardBody>
                   </Card>
-                  <Card >
-                    <CardBody >
-
+                  <Card>
+                    <CardBody>
                       <div>
-                        <Row >
-
+                        <Row>
                           <Col lg={6} md={6} sm={12} className="mb-3">
                             <FormGroup className="mb-3">
                               <Label>OrderItem </Label>
@@ -367,23 +402,24 @@ const CreateOrder = ({ history }) => {
                                   requied="true"
                                 />
                               </div>
-
-
                             </FormGroup>
                           </Col>
-                          <Col lg={2} md={2} sm={12} className="">
-                            <label htmlFor="resume">Production Cost </label>
-                            <input
-                              type="number"
-                              className="form-control mt-1 mt-lg-0 text-info"
-                              id="resume"
-                              requied="true"
-                              min={1}
-                              value={QProductPrice}
-                              readOnly
-
-                            />
-                          </Col>
+                          {selectedOrder === "Search a Product" ? (
+                            <></>
+                          ) : (
+                            <Col lg={2} md={2} sm={12} className="">
+                              <label htmlFor="resume">Production Cost </label>
+                              <input
+                                type="number"
+                                className="form-control mt-1 mt-lg-0 text-info"
+                                id="resume"
+                                requied="true"
+                                min={1}
+                                defaultValue={QProductPrice}
+                                readOnly
+                              />
+                            </Col>
+                          )}
 
                           <Col lg={2} md={2} sm={12} className="">
                             <label htmlFor="resume">Profit %</label>
@@ -393,10 +429,8 @@ const CreateOrder = ({ history }) => {
                               id="resume"
                               requied="true"
                               min={1}
-                              value={percentage}
-                              onChange={e =>
-                                setPercentage(e.target.value)
-                              }
+                              defaultValue={percentage}
+                              onChange={e => setPercentage(e.target.value)}
                             />
                           </Col>
                           <Col lg={2} md={2} sm={12} className="mb-3">
@@ -414,39 +448,58 @@ const CreateOrder = ({ history }) => {
 
                           <Col lg={8} md={8}></Col>
                           <Col lg={4} md={4}>
-                            {selectedOrder === "Search a Product" ? <></> :
-                              <div style={{
-                                display: "flex", flexDirection: "column", width: "fit-content",
-                                marginLeft: "auto"
-                              }}>
-
-                                {sellingPrice &&
+                            {selectedOrder === "Search a Product" ? (
+                              <></>
+                            ) : (
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  width: "fit-content",
+                                  marginLeft: "auto",
+                                }}
+                              >
+                                {sellingPrice && (
                                   <span className=" text-muted">
                                     Selling Price :
                                     <Badge
-                                      className={"font-size-14 p-2 mx-3 badge-soft-info"}
+                                      className={
+                                        "font-size-14 p-2 mx-3 badge-soft-info"
+                                      }
                                       pill
                                     >
-                                      <i className="bx bx-rupee text-info font-size-14" /> {sellingPrice}
+                                      <i className="bx bx-rupee text-info font-size-14" />{" "}
+                                      {sellingPrice}
                                     </Badge>
                                   </span>
-                                }
+                                )}
 
-                                {totelPriceCalc ? <>
-                                  <span className="mt-2 text-muted" style={{ fontWeight: "700" }}>
-                                    Sub Total  :
-                                    <Badge
-                                      className={"font-size-14 p-2 mx-3 badge-soft-success"}
-                                      pill
+                                {totelPriceCalc ? (
+                                  <>
+                                    <span
+                                      className="mt-2 text-muted text-end"
+                                      style={{ fontWeight: "700" }}
                                     >
-                                      <i className="bx bx-rupee text-success font-size-14" /> {totelPriceCalc}
-                                    </Badge>
-                                  </span>
-                                  <p>(sellingPrice * qty)</p>
-                                </>
-                                  : <></>}
-
-                              </div>}
+                                      Sub Total :
+                                      <Badge
+                                        className={
+                                          "font-size-14 p-2 mx-3 badge-soft-success"
+                                        }
+                                        pill
+                                      >
+                                        <i className="bx bx-rupee text-success font-size-14" />{" "}
+                                        {totelPriceCalc}
+                                      </Badge>
+                                    </span>
+                                    <p className="text-end text-muted p-3">
+                                      (sellingPrice * qty)
+                                    </p>
+                                  </>
+                                ) : (
+                                  <></>
+                                )}
+                              </div>
+                            )}
                           </Col>
                           <Col lg={4} md={4}></Col>
                           <Col
@@ -473,10 +526,7 @@ const CreateOrder = ({ history }) => {
                             />
                           </Col>
                         </Row>
-
                       </div>
-
-
                     </CardBody>
                   </Card>
                 </Form>
@@ -504,32 +554,32 @@ const CreateOrder = ({ history }) => {
                                   <h5 className="font-size-13 m-0">
                                     <Link
                                       to={`/orderItem/${item?.id}`}
-                                      className="text-dark">
+                                      className="text-dark"
+                                    >
                                       {item.productName}
                                     </Link>
                                   </h5>
                                 </td>
                                 <td>
-                                  <h5 className="font-size-13 m-0" style={{ whiteSpace: "break-spaces" }}>
-                                    <Link
-                                      to=""
-                                      className="text-dark">
+                                  <h5
+                                    className="font-size-13 m-0"
+                                    style={{ whiteSpace: "break-spaces" }}
+                                  >
+                                    <Link to="" className="text-dark">
                                       {item?.quantity}
                                     </Link>
                                   </h5>
                                 </td>
                                 <td>
                                   <div className="d-flex">
-                                    <Link
-                                      to="#"
-                                      className="font-size-11 me-1"
-                                    >
-                                      <span className="font-size-14 text-info ">  <i className="bx bx-rupee text-info font-size-14" />{item?.total_price || ""}</span>
-
+                                    <Link to="#" className="font-size-11 me-1">
+                                      <span className="font-size-14 text-info ">
+                                        {" "}
+                                        <i className="bx bx-rupee text-info font-size-14" />
+                                        {item?.total_price || ""}
+                                      </span>
                                     </Link>
-
                                   </div>
-
                                 </td>
 
                                 <td>
@@ -550,21 +600,27 @@ const CreateOrder = ({ history }) => {
                       <div>
                         <Col sm="12">
                           <div className="text-sm-end mt-2">
-                            <span className="mt-2 text-muted font-size-16" style={{ fontWeight: "700" }}>
-                              Sub Total  :
+                            <span
+                              className="mt-2 text-muted font-size-16"
+                              style={{ fontWeight: "700" }}
+                            >
+                              Sub Total :
                               <Badge
-                                className={"font-size-16 p-2 mx-3 badge-soft-light text-dark"}
+                                className={
+                                  "font-size-16 p-2 mx-3 badge-soft-light text-dark"
+                                }
                                 pill
                               >
-                                <i className="bx bx-rupee text-dark font-size-16" /> {subTotel}
+                                <i className="bx bx-rupee text-dark font-size-16" />{" "}
+                                {subTotel}
                               </Badge>
                             </span>
                           </div>
                         </Col>
                       </div>
                       <div>
-                        <Col sm="12">
-                          <div className="text-sm-end mt-2">
+                        <Col sm="12" lg={12}>
+                          <div className="text-sm-end mt-2 ">
                             <Link
                               to="#"
                               className="btn btn-success"
@@ -582,9 +638,18 @@ const CreateOrder = ({ history }) => {
                           </div>
                         </Col>
                       </div>
+                      <Row>
+                        <Col lg={8}></Col>
+                        <Col lg={4}>
+                          {createOrdererror?.response ? (
+                            <Alert color="danger" className="mt-2">
+                              {createOrdererror?.response}
+                            </Alert>
+                          ) : null}
+                        </Col>
+                      </Row>
                     </CardBody>
                   </Card>
-
                 </Col>
               )}
             </Row>

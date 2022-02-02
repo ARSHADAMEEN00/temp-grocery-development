@@ -28,7 +28,6 @@ const CreateSalesman = ({ history }) => {
 
   // handleValidSubmit
   const handleValidSubmit = (onSubmitProps, values) => {
-    console.log(values);
     dispatch(createSalesman(values, history))
   }
   return (
@@ -38,10 +37,7 @@ const CreateSalesman = ({ history }) => {
       </MetaTags>
 
       <div className="page-content">
-        <Breadcrumbs
-          title="Salesmans"
-          breadcrumbItem="Create Salesman"
-        />
+        <Breadcrumbs title="Salesmans" breadcrumbItem="Create Salesman" />
         <Container fluid>
           <div className="container-fluid">
             <Row>
@@ -71,12 +67,6 @@ const CreateSalesman = ({ history }) => {
                             type="text"
                             validate={{
                               required: { value: true },
-                              
-                              maxLength: {
-                                value: 16,
-                                errorMessage:
-                                  "Your name must be between 6 and 16 characters",
-                              },
                             }}
                           />
                         </Col>
@@ -95,12 +85,6 @@ const CreateSalesman = ({ history }) => {
                             type="text"
                             validate={{
                               required: { value: true },
-                              
-                              maxLength: {
-                                value: 16,
-                                errorMessage:
-                                  "Your name must be between 6 and 16 characters",
-                              },
                             }}
                           />
                         </Col>

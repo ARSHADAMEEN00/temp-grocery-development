@@ -104,7 +104,6 @@ function* onCreateStoreItem({ payload }) {
         title: "Created!",
       })
     }
-
   } catch (error) {
     yield put(createStoreItemFail(error))
     errorNotification()
@@ -115,7 +114,6 @@ function* onUpdateStoreItem({ payload }) {
   try {
     const response = yield call(updateStoreItemApi, payload)
     yield put(updateStoreItemSuccess(response))
-    payload.history.push("/stores")
     Notification({
       type: "success",
       message: "Successfully Updated StoreItem",
@@ -128,7 +126,6 @@ function* onUpdateStoreItem({ payload }) {
 }
 
 function* onUpdateStoreSupply({ payload }) {
-
   try {
     const response = yield call(updateStoreSupplyApi, payload)
     yield put(
@@ -156,7 +153,7 @@ function errorNotification() {
   Notification({
     type: "error",
     message: "Something Went Wrong",
-    title: "Try Again"
+    title: "Try Again",
   })
 }
 
@@ -164,7 +161,7 @@ function doneNotification() {
   Notification({
     type: "success",
     message: "Done",
-    title: ""
+    title: "",
   })
 }
 

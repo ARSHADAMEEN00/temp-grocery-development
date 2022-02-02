@@ -1,4 +1,3 @@
-import Orders from "pages/ProductionStages/ProductionOrder/DatatableTables"
 import React, { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
@@ -15,9 +14,9 @@ function QCDashboard() {
   return (
     <div>
       <Row>
-        <Col lx="8" lg="8">
+        {/* <Col lx="8" lg="8">
           <Orders />
-        </Col>
+        </Col> */}
         <Col lx="4" lg="4">
           <MiniWidget />
           <PendingStage />

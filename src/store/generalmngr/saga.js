@@ -19,7 +19,7 @@ import {
   updateGeneralManagerFail,
   deleteGeneralManagerSuccess,
   deleteGeneralManagerFail,
-  deleteGeneralManager
+  deleteGeneralManager,
 } from "./actions"
 import { get, post, ApiPut, del, patch } from "helpers/api_methods"
 import { Notification } from "components/Common/Notification"
@@ -65,21 +65,54 @@ function* fetchGMDetail({ payload }) {
 function* onCreateGm({ payload }) {
   try {
     const response = yield call(createGmApi, payload)
-    yield put(createGeneralManagerSuccess(response))
-    payload.history.push("/generalmanagers")
-    Notification({
-      type: "success",
-      message: "Successfully Created GM",
-      title: "Created!",
-    })
+    // console.log(response)
+    // console.log(response.email)
+    // console.log(response.username)
+
+    if (response.email) {
+      if (
+        response.email[0] &&
+        response.email[0] === "account with this email already exists."
+      ) {
+        yield put(createGeneralManagerFail(response.email))
+      }
+    } else if (response.username) {
+      if (
+        response.username[0] &&
+        response.username[0] === "account with this username already exists."
+      ) {
+        yield put(createGeneralManagerFail(response.username))
+      }
+    } else {
+      yield put(createGeneralManagerSuccess(response))
+      payload.history.push("/generalmanagers")
+      Notification({
+        type: "success",
+        message: "Successfully Created GM",
+        title: "Created!",
+      })
+    }
+
+    // if (response.email[0]&& response.email[0]=== "account with this email already exists.") {
+    //   yield put(createGeneralManagerFail(response.email))
+    // } else if (
+    //   response.username[0]&& response.username[0]=== "account with this username already exists."
+    // ) {
+    //   yield put(createGeneralManagerFail(response.username))
+    // } else {
+    //   yield put(createGeneralManagerSuccess(response))
+    //   payload.history.push("/generalmanagers")
+    //   Notification({
+    //     type: "success",
+    //     message: "Successfully Created GM",
+    //     title: "Created!",
+    //   })
+    // }
   } catch (error) {
     yield put(createGeneralManagerFail(error))
     errorNotification()
-
   }
 }
-
-
 
 function* onUpdateGm({ payload }) {
   try {
@@ -113,7 +146,7 @@ function errorNotification() {
   Notification({
     type: "error",
     message: "Something Went Wrong",
-    title: "Try Again"
+    title: "Try Again",
   })
 }
 
@@ -121,7 +154,7 @@ function doneNotification() {
   Notification({
     type: "success",
     message: "Done",
-    title: ""
+    title: "",
   })
 }
 

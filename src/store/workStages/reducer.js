@@ -17,7 +17,12 @@ import {
 } from "./actionTypes"
 
 const INIT_STATE = {
-  workStages: [],
+  workStages: {
+    count: "",
+    next: "",
+    previous: "",
+    results: [],
+  },
   workStageDetail: {
     location: "",
     profit: "",
@@ -98,11 +103,15 @@ const WorkStages = (state = INIT_STATE, action) => {
     case UPDATE_WORKSTAGE_SUCCESS:
       return {
         ...state,
-        workStages: state.workStages.map(workStage =>
-          workStage.id.toString() === action.payload.id.toString()
-            ? { workStage, ...action.payload }
-            : workStage
-        ),
+        workStages: {
+          ...state.workStages,
+          results: state.workStages.results.map(workStage =>
+            workStage.id === action.payload.id
+              ? { workStage, ...action.payload }
+              : workStage
+          ),
+        },
+
         workStageDetail: action.payload,
         loading: false,
       }
@@ -118,8 +127,7 @@ const WorkStages = (state = INIT_STATE, action) => {
       return {
         ...state,
         workStages: state.workStages.filter(
-          workStage =>
-            workStage.id.toString() !== action.payload.id.toString()
+          workStage => workStage.id.toString() !== action.payload.id.toString()
         ),
         loading: false,
       }

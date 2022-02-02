@@ -72,12 +72,6 @@ const CreateQltChecker = ({ history }) => {
                             type="text"
                             validate={{
                               required: { value: true },
-                              
-                              maxLength: {
-                                value: 16,
-                                errorMessage:
-                                  "Your name must be between 6 and 16 characters",
-                              },
                             }}
                           />
                         </Col>
@@ -96,12 +90,6 @@ const CreateQltChecker = ({ history }) => {
                             type="text"
                             validate={{
                               required: { value: true },
-                              
-                              maxLength: {
-                                value: 16,
-                                errorMessage:
-                                  "Your name must be between 6 and 16 characters",
-                              },
                             }}
                           />
                         </Col>

@@ -24,14 +24,14 @@ const Sidebar = props => {
               {leftMenu ? (
                 <img src={logo_oa} alt="Indtechlogo" height="18" />
               ) : (
-                <img src={logo} alt="Indtechlogo" height="22" />
+                <img src={logo} alt="Indtechlogo" height="35" />
               )}
             </span>
             <span className="logo-lg">
               {leftMenu ? (
                 <img src={logo_oa} alt="Indtechlogo" height="18" />
               ) : (
-                <img src={logo} alt="Indtechlogo" height="22" />
+                <img src={logo} alt="Indtechlogo" height="35" />
               )}
 
               {/* <img src={logoDark} alt="" height="17" /> */}
@@ -40,14 +40,10 @@ const Sidebar = props => {
 
           <Link to="/dashboard" className="logo logo-light">
             <span className="logo-sm">
-              <img src={logo} alt="" height="22" />
-
-              {/* <img src={logoLightSvg} alt="" height="22" /> */}
+              <img src={logo} alt="" height="35" />
             </span>
             <span className="logo-lg">
-              <img src={logo} alt="" height="22" />
-
-              {/* <img src={logoLightPng} alt="" height="19" /> */}
+              <img src={logo} alt="" height="35" />
             </span>
           </Link>
         </div>

@@ -111,12 +111,13 @@ const ProductionManagerDetails = ({ history }) => {
                           <Link
                             style={{ opacity: 0.8 }}
                             to="#"
-                            className={`btn btn-danger ${loading && "disabled"
-                              }  btn-sm`}
+                            className={`btn btn-outline-light ${
+                              loading && "disabled"
+                            }  btn-m`}
                             onClick={handleDelete}
                           >
-                            Block Account
-                            <i className="fas fa-trash ms-1 bx-tada-hover"></i>
+                            Block Acount
+                            <i className="fas fa-trash text-danger ms-1 bx-tada-hover"></i>
                           </Link>
                         </div>
                       </Col>

@@ -3,6 +3,7 @@ import React from "react"
 import { MetaTags } from "react-meta-tags"
 import { useDispatch, useSelector } from "react-redux"
 import {
+  Alert,
   Button,
   Card,
   CardBody,
@@ -22,14 +23,18 @@ import Breadcrumbs from "../../../components/Common/Breadcrumb"
 const GeneralManagerCreate = ({ history }) => {
   const dispatch = useDispatch()
 
-  const { loading } = useSelector(state => ({
+  const { loading, error } = useSelector(state => ({
     loading: state.Productionmngrs.loading,
+    error: state.GeneralMngr.error,
   }))
 
   // handleValidSubmit
   const handleValidSubmit = (onSubmitProps, values) => {
     dispatch(createGeneralManager(values, history))
   }
+
+  const mailError = error[0]
+
   return (
     <>
       <MetaTags>
@@ -98,12 +103,6 @@ const GeneralManagerCreate = ({ history }) => {
                             type="text"
                             validate={{
                               required: { value: true },
-                              
-                              maxLength: {
-                                value: 16,
-                                errorMessage:
-                                  "Your name must be between 6 and 16 characters",
-                              },
                             }}
                           />
                         </Col>
@@ -179,6 +178,11 @@ const GeneralManagerCreate = ({ history }) => {
                       <div className="row justify-content-end">
                         <Col sm={9}>
                           <div>
+                            {mailError === undefined ? (
+                              ""
+                            ) : (
+                              <Alert color="danger">{error}</Alert>
+                            )}
                             <Button
                               type="submit"
                               color="success"

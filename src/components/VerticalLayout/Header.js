@@ -87,13 +87,13 @@ const Header = props => {
             <div className="navbar-brand-box d-lg-none d-md-block">
               <Link to="/dashboard" className="logo logo-dark">
                 <span className="logo-sm">
-                  <img src={logo} alt="logo" height="22" />
+                  <img src={logo} alt="logo" height="35" />
                 </span>
               </Link>
 
               <Link to="/dashboard" className="logo logo-light">
                 <span className="logo-sm">
-                  <img src={logo} alt="logo" height="22" />
+                  <img src={logo} alt="logo" height="35" />
                 </span>
               </Link>
             </div>

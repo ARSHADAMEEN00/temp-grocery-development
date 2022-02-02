@@ -25,13 +25,11 @@ const GeneralManagerDetails = ({ history }) => {
   const params = useParams()
   const [isOpen, setIsOpen] = useState(false)
 
-  const { detailLoading, loading, GMDetail } = useSelector(
-    state => ({
-      detailLoading: state.GeneralMngr.detailLoading,
-      loading: state.GeneralMngr.loading,
-      GMDetail: state.GeneralMngr.GMDetail,
-    })
-  )
+  const { detailLoading, loading, GMDetail } = useSelector(state => ({
+    detailLoading: state.GeneralMngr.detailLoading,
+    loading: state.GeneralMngr.loading,
+    GMDetail: state.GeneralMngr.GMDetail,
+  }))
   const handleDelete = () => {
     setIsOpen(true)
   }
@@ -76,9 +74,7 @@ const GeneralManagerDetails = ({ history }) => {
                           </div>
                           <Media className="align-self-center" body>
                             <div className="text-muted">
-                              <h5 className="mb-1">
-                                {GMDetail?.username}
-                              </h5>
+                              <h5 className="mb-1">{GMDetail?.username}</h5>
                               <p className="mb-0 text-capitalize">
                                 {GMDetail?.role}
                               </p>
@@ -94,12 +90,8 @@ const GeneralManagerDetails = ({ history }) => {
                               <Spinner />
                             ) : (
                               <>
-                                <h5 className="mb-1">
-                                  {GMDetail?.email}
-                                </h5>
-                                <p className="mb-1">
-                                  {GMDetail?.phone}
-                                </p>
+                                <h5 className="mb-1">{GMDetail?.email}</h5>
+                                <p className="mb-1">{GMDetail?.phone}</p>
                               </>
                             )}
                           </div>
@@ -111,12 +103,13 @@ const GeneralManagerDetails = ({ history }) => {
                           <Link
                             style={{ opacity: 0.8 }}
                             to="#"
-                            className={`btn btn-danger ${loading && "disabled"
-                              }  btn-sm`}
+                            className={`btn btn-outline-light ${
+                              loading && "disabled"
+                            }  btn-m`}
                             onClick={handleDelete}
                           >
-                            Block Account
-                            <i className="fas fa-trash ms-1 bx-tada-hover"></i>
+                            Block Acount
+                            <i className="fas fa-trash text-danger ms-1 bx-tada-hover"></i>
                           </Link>
                         </div>
                       </Col>

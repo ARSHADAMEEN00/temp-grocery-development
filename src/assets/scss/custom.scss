@@ -108,6 +108,35 @@
   justify-content: center;
   align-items: center;
 }
+.borderBottomWhite {
+  border-bottom: 1px solid #fff;
+}
+.myWidth30 {
+  width: 30% !important;
+}
+.myWidth20 {
+  width: 20% !important;
+}
+@media print {
+  .bg-info-new {
+    color: #000 !important;
+    background-color: #f8f9fa !important;
+    -webkit-print-color-adjust: exact;
+  }
+  .bg-light-new {
+    background-color: #f8f9fa !important;
+    -webkit-print-color-adjust: exact;
+  }
+  .print-pb-3 {
+    padding-bottom: 2rem;
+  }
+  .print-pt-3 {
+    padding-top: 2rem;
+  }
+  .print-boxshadow {
+    box-shadow: none !important;
+  }
+}
 
 @media screen and (max-width: 986px) {
   .createClintBtn,

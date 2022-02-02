@@ -60,7 +60,7 @@ function RawmaterialForm(myDisabled) {
   }, [productDetail])
 
   useEffect(() => {
-    if (createdRawMaterial.id) {
+    if (createdRawMaterial?.id) {
       setNewRawMaterials([...newRawMaterials, createdRawMaterial])
     }
   }, [createdRawMaterial])
@@ -101,7 +101,6 @@ function RawmaterialForm(myDisabled) {
 
   return (
     <>
-
       <Row>
         <Col lg={newRawMaterials.length > 0 ? "6" : "12"}>
           <Card>
@@ -111,8 +110,6 @@ function RawmaterialForm(myDisabled) {
               <AvForm className="repeater" encType="multipart/form-data">
                 <div>
                   <Row>
-
-
                     <Col lg={6} className="mb-3">
                       <FormGroup className="mb-3">
                         <Label>Store item</Label>
@@ -136,7 +133,8 @@ function RawmaterialForm(myDisabled) {
                       <label htmlFor="resume">Quantity</label>
                       <AvField
                         name="quantity"
-                        type="number" min={0}
+                        type="number"
+                        min={0}
                         className="form-control"
                         id="resume"
                         value={rawData.quantity}
@@ -236,7 +234,6 @@ function RawmaterialForm(myDisabled) {
           </Col>
         )}
       </Row>
-
     </>
   )
 }
