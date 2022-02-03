@@ -4,6 +4,7 @@ import { MetaTags } from "react-meta-tags"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router"
 import {
+  Alert,
   Button,
   Card,
   CardBody,
@@ -22,8 +23,9 @@ const UpdateQltChecker = () => {
   const dispatch = useDispatch()
   const params = useParams()
 
-  const { qltcheckerDetail } = useSelector(state => ({
+  const { qltcheckerDetail, error } = useSelector(state => ({
     qltcheckerDetail: state.Qltcheckers.qltcheckerDetail,
+    error: state.Qltcheckers.error,
   }))
   function handleValidSubmit(values) {
     dispatch(updateQltchecker(values, qltcheckerDetail.id))
@@ -33,6 +35,10 @@ const UpdateQltChecker = () => {
   useEffect(() => {
     dispatch(getQltcheckerDetail(params.id))
   }, [])
+
+  const usernameError = error?.username && error?.username[0]
+
+  const mailError = error?.email && error?.email[0]
 
   return (
     <>
@@ -74,6 +80,11 @@ const UpdateQltChecker = () => {
                               required: { value: true },
                             }}
                           />
+                          {usernameError && (
+                            <Alert color="danger" className="mt-2">
+                              {usernameError}
+                            </Alert>
+                          )}
                         </Col>
                       </div>
                       <div className="row mb-4">
@@ -164,6 +175,11 @@ const UpdateQltChecker = () => {
                             type="email"
                             required
                           />
+                          {mailError && (
+                            <Alert color="danger" className="mt-2">
+                              {mailError}
+                            </Alert>
+                          )}
                         </Col>
                       </div>
 

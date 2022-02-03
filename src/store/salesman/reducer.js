@@ -98,11 +98,7 @@ const Salesmans = (state = INIT_STATE, action) => {
     case UPDATE_SALESMAN_SUCCESS:
       return {
         ...state,
-        salesmans: state.salesmans.map(salesman =>
-          salesman.id.toString() === action.payload.id.toString()
-            ? { salesman, ...action.payload }
-            : salesman
-        ),
+        error: {},
         salesmanDetail: action.payload,
         loading: false,
       }
@@ -118,8 +114,7 @@ const Salesmans = (state = INIT_STATE, action) => {
       return {
         ...state,
         salesmans: state.salesmans.filter(
-          salesman =>
-            salesman.id.toString() !== action.payload.id.toString()
+          salesman => salesman.id.toString() !== action.payload.id.toString()
         ),
         loading: false,
       }

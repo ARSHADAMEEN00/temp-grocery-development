@@ -4,6 +4,7 @@ import { MetaTags } from "react-meta-tags"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router"
 import {
+  Alert,
   Button,
   Card,
   CardBody,
@@ -22,8 +23,9 @@ const UpdateSalesman = () => {
   const dispatch = useDispatch()
   const params = useParams()
 
-  const { salesmanDetail } = useSelector(state => ({
+  const { salesmanDetail, error } = useSelector(state => ({
     salesmanDetail: state.Salesmans.salesmanDetail,
+    error: state.Salesmans.error,
   }))
   function handleValidSubmit(values) {
     dispatch(updateSalesman(values, salesmanDetail.id))
@@ -33,6 +35,10 @@ const UpdateSalesman = () => {
   useEffect(() => {
     dispatch(getSalesmanDetail(params.id))
   }, [])
+
+  const usernameError = error?.username && error?.username[0]
+
+  const mailError = error?.email && error?.email[0]
 
   return (
     <>
@@ -74,6 +80,11 @@ const UpdateSalesman = () => {
                               required: { value: true },
                             }}
                           />
+                          {usernameError && (
+                            <Alert color="danger" className="mt-2">
+                              {usernameError}
+                            </Alert>
+                          )}
                         </Col>
                       </div>
                       <div className="row mb-4">
@@ -164,6 +175,11 @@ const UpdateSalesman = () => {
                             type="email"
                             required
                           />
+                          {mailError && (
+                            <Alert color="danger" className="mt-2">
+                              {mailError}
+                            </Alert>
+                          )}
                         </Col>
                       </div>
 

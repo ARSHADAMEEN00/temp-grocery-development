@@ -104,6 +104,7 @@ const GeneralManagers = (state = INIT_STATE, action) => {
         ...state,
         GMDetail: action.payload,
         loading: false,
+        error: {},
       }
 
     case UPDATE_GEN_MANAGER_FAIL:

@@ -105,6 +105,7 @@ const Storemngrs = (state = INIT_STATE, action) => {
         ...state,
         storemngrDetail: action.payload,
         loading: false,
+        error: {},
       }
 
     case UPDATE_STOREMNGR_FAIL:

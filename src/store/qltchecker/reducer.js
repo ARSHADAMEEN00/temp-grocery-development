@@ -105,6 +105,7 @@ const Qltcheckers = (state = INIT_STATE, action) => {
         ...state,
         qltcheckerDetail: action.payload,
         loading: false,
+        error: {},
       }
 
     case UPDATE_QLTCHECKER_FAIL:

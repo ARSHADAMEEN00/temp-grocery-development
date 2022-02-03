@@ -83,9 +83,13 @@ function* onCreateStoremngr({ payload }) {
 function* onUpdateStoremngr({ payload }) {
   try {
     const response = yield call(updateStoremngrApi, payload)
-    yield put(updateStoremngrSuccess(response))
-    // payload.history.push("/storemanagers")
-    doneNotification()
+    if (response?.error_message) {
+      yield put(updateStoremngrFail(response))
+    } else {
+      yield put(updateStoremngrSuccess(response))
+      // payload.history.push("/storemanagers")
+      doneNotification()
+    }
   } catch (error) {
     yield put(updateStoremngrFail(error))
     errorNotification()

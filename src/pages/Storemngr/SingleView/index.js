@@ -60,62 +60,70 @@ const StoreManagerDetails = ({ history }) => {
               <Col xl="12">
                 <Card>
                   <CardBody>
-                    <Row>
-                      <Col lg="6" md="6" className="mb-4">
-                        <Media>
-                          <div className="me-3">
-                            <img
-                              src={userProfile}
-                              alt=""
-                              className="avatar-md rounded-circle img-thumbnail"
-                            />
-                          </div>
+                    {loading ? (
+                      <>
+                        <Spinner color="info" />
+                      </>
+                    ) : (
+                      <Row>
+                        <Col lg="6" md="6" className="mb-4">
+                          <Media>
+                            <div className="me-3">
+                              <img
+                                src={userProfile}
+                                alt=""
+                                className="avatar-md rounded-circle img-thumbnail"
+                              />
+                            </div>
+                            <Media className="align-self-center" body>
+                              <div className="text-muted">
+                                <h5 className="mb-1">
+                                  {storemngrDetail?.username}
+                                </h5>
+                                <p className="mb-0 text-capitalize">
+                                  {storemngrDetail?.account?.role}
+                                </p>
+                              </div>
+                            </Media>
+                          </Media>
+                        </Col>
+
+                        <Col lg="4" md="6" className="d-lg-block">
                           <Media className="align-self-center" body>
                             <div className="text-muted">
-                              <h5 className="mb-1">
-                                {storemngrDetail?.username}
-                              </h5>
-                              <p className="mb-0 text-capitalize">
-                                {storemngrDetail?.account?.role}
-                              </p>
+                              {detailLoading ? (
+                                <Spinner />
+                              ) : (
+                                <>
+                                  <h5 className="mb-1">
+                                    {storemngrDetail?.email}
+                                  </h5>
+                                  <p className="mb-1">
+                                    {storemngrDetail?.phone}
+                                  </p>
+                                </>
+                              )}
                             </div>
                           </Media>
-                        </Media>
-                      </Col>
+                        </Col>
 
-                      <Col lg="4" md="6" className="d-lg-block">
-                        <Media className="align-self-center" body>
-                          <div className="text-muted">
-                            {detailLoading ? (
-                              <Spinner />
-                            ) : (
-                              <>
-                                <h5 className="mb-1">
-                                  {storemngrDetail?.email}
-                                </h5>
-                                <p className="mb-1">{storemngrDetail?.phone}</p>
-                              </>
-                            )}
+                        <Col lg="2" className="d-lg-block">
+                          <div className="mt-4">
+                            <Link
+                              style={{ opacity: 0.8 }}
+                              to="#"
+                              className={`btn btn-outline-light ${
+                                loading && "disabled"
+                              }  btn-m`}
+                              onClick={handleDelete}
+                            >
+                              Block Acount
+                              <i className="fas fa-trash text-danger ms-1 bx-tada-hover"></i>
+                            </Link>
                           </div>
-                        </Media>
-                      </Col>
-
-                      <Col lg="2" className="d-lg-block">
-                        <div className="mt-4">
-                          <Link
-                            style={{ opacity: 0.8 }}
-                            to="#"
-                            className={`btn btn-outline-light ${
-                              loading && "disabled"
-                            }  btn-m`}
-                            onClick={handleDelete}
-                          >
-                            Block Acount
-                            <i className="fas fa-trash text-danger ms-1 bx-tada-hover"></i>
-                          </Link>
-                        </div>
-                      </Col>
-                    </Row>
+                        </Col>
+                      </Row>
+                    )}
                   </CardBody>
                 </Card>
                 <UpdateStoremanager />

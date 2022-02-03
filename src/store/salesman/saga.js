@@ -79,8 +79,12 @@ function* onCreateSalesman({ payload }) {
 function* onUpdateSalesman({ payload }) {
   try {
     const response = yield call(updateSalesmanApi, payload)
-    yield put(updateSalesmanSuccess(response))
-    doneNotification()
+    if (response?.error_message) {
+      yield put(updateSalesmanFail(response))
+    } else {
+      yield put(updateSalesmanSuccess(response))
+      doneNotification()
+    }
   } catch (error) {
     yield put(updateSalesmanFail(error))
     errorNotification()

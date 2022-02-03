@@ -4,6 +4,7 @@ import { MetaTags } from "react-meta-tags"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useParams } from "react-router"
 import {
+  Alert,
   Button,
   Card,
   CardBody,
@@ -22,8 +23,9 @@ const UpdateStoremanager = () => {
   const dispatch = useDispatch()
   const params = useParams()
 
-  const { storemngrDetail } = useSelector(state => ({
+  const { storemngrDetail, error } = useSelector(state => ({
     storemngrDetail: state.Storemngrs.storemngrDetail,
+    error: state.Storemngrs.error,
   }))
   function handleValidSubmit(values) {
     dispatch(updateStoremngr(values, storemngrDetail.id, history))
@@ -33,6 +35,10 @@ const UpdateStoremanager = () => {
   useEffect(() => {
     dispatch(getStoremngrDetail(params.id))
   }, [dispatch])
+
+  const usernameError = error?.username && error?.username[0]
+
+  const mailError = error?.email && error?.email[0]
 
   return (
     <>
@@ -73,6 +79,11 @@ const UpdateStoremanager = () => {
                               required: { value: true },
                             }}
                           />
+                          {usernameError && (
+                            <Alert color="danger" className="mt-2">
+                              {usernameError}
+                            </Alert>
+                          )}
                         </Col>
                       </div>
                       <div className="row mb-4">
@@ -163,6 +174,11 @@ const UpdateStoremanager = () => {
                             type="email"
                             required
                           />
+                          {mailError && (
+                            <Alert color="danger" className="mt-2">
+                              {mailError}
+                            </Alert>
+                          )}
                         </Col>
                       </div>
 

@@ -4,6 +4,7 @@ import { MetaTags } from "react-meta-tags"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useParams } from "react-router"
 import {
+  Alert,
   Button,
   Card,
   CardBody,
@@ -42,6 +43,7 @@ const UpdateStoremanager = () => {
 
   const mailError = error?.email && error?.email[0]
 
+  console.log(usernameError)
   return (
     <>
       <MetaTags>
@@ -81,6 +83,11 @@ const UpdateStoremanager = () => {
                               required: { value: true },
                             }}
                           />
+                          {usernameError && (
+                            <Alert color="danger" className="mt-2">
+                              {usernameError}
+                            </Alert>
+                          )}
                         </Col>
                       </div>
                       <div className="row mb-4">
@@ -171,6 +178,11 @@ const UpdateStoremanager = () => {
                             type="email"
                             required
                           />
+                          {mailError && (
+                            <Alert color="danger" className="mt-2">
+                              {mailError}
+                            </Alert>
+                          )}
                         </Col>
                       </div>
 
