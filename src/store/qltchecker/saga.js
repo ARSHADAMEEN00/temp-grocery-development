@@ -64,7 +64,7 @@ function* onCreateQltchecker({ payload }) {
   try {
     const response = yield call(createQltcheckerApi, payload)
     if (response?.error_message) {
-      yield put(createQltcheckerFail(response?.error_message))
+      yield put(createQltcheckerFail(response))
     } else {
       yield put(createQltcheckerSuccess(response))
       payload.history.push("/qualitycheckers")
@@ -83,12 +83,16 @@ function* onCreateQltchecker({ payload }) {
 function* onUpdateQltchecker({ payload }) {
   try {
     const response = yield call(updateQltcheckerApi, payload)
-    yield put(updateQltcheckerSuccess(response))
-    Notification({
-      type: "success",
-      message: "Successfully Updated QC",
-      title: "Updated!",
-    })
+    if (response?.error_message) {
+      yield put(updateQltcheckerFail(response))
+    } else {
+      yield put(updateQltcheckerSuccess(response))
+      Notification({
+        type: "success",
+        message: "Successfully Updated QC",
+        title: "Updated!",
+      })
+    }
   } catch (error) {
     yield put(updateQltcheckerFail(error))
     errorNotification()
@@ -102,7 +106,6 @@ function* onDeleteQltchecker({ payload }) {
     yield put(
       deleteQltcheckerSuccess({ ...response, id: payload.qltcheckerId })
     )
-
     doneNotification()
   } catch (error) {
     console.log(error)
@@ -118,7 +121,6 @@ function errorNotification() {
     title: "Try Again",
   })
 }
-
 function doneNotification() {
   Notification({
     type: "success",

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { Fragment, useEffect, useState } from "react"
 import {
   Badge,
   Card,
@@ -11,22 +11,24 @@ import {
   Alert,
   Media,
 } from "reactstrap"
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import moment from "moment"
 import { map } from "lodash"
+import PropTypes from "prop-types"
 
 //actions
-import { getOrderDetail, updateOrder } from "store/actions"
+import { getOrderDetail, updateOrder, deleteOrder } from "store/actions"
 
 //componetns
 
 //css
 import "react-datepicker/dist/react-datepicker.css"
 
-function OrderStatus() {
+const OrderStatus = () => {
   const dispatch = useDispatch()
+  const history = useHistory()
   const params = useParams()
   const [startDate, setStartDate] = useState(Date.now())
   const [newStatus, setNewStatus] = useState({
@@ -42,87 +44,66 @@ function OrderStatus() {
     dispatch(getOrderDetail(params.id))
   }, [dispatch])
 
-  const status = [
-    {
-      id: 100,
-      statusText: "Pending",
-      class: "info",
-      text: "Pending",
-    },
-    {
-      id: 200,
-      statusText: "Approved",
-      class: "success",
-      text: "Approve",
-    },
-    // {
-    //   id: 300,
-    //   statusText: "Canceled",
-    //   class: "danger",
-    //   text: "Cancel",
-    // },
+  // const status = [
+  //   {
+  //     id: 200,
+  //     statusText: "Started",
+  //     class: "success",
+  //     text: "Start",
+  //   },
+  //   {
+  //     id: 300,
+  //     statusText: "Canceled",
+  //     class: "danger",
+  //     text: "Cancel",
+  //   },
 
-    {
-      id: 400,
-      statusText: "Shipped",
-      class: "success",
-      text: "Shipped",
-    },
-    {
-      id: 500,
-      statusText: "Delivered",
-      class: "success",
-      text: "Delivered",
-    },
-  ]
+  //   {
+  //     id: 400,
+  //     statusText: "Shipped",
+  //     class: "success",
+  //     text: "Shipped",
+  //   },
+  //   {
+  //     id: 500,
+  //     statusText: "Delivered",
+  //     class: "success",
+  //     text: "Delivered",
+  //   },
+  // ]
 
-  function statusList() {
-    if (orderDetail?.status == "Pending") {
-      return status?.filter(item => item.statusText == "Approved")
-    } else if (orderDetail?.status == "Approved") {
-      return status?.filter(item => item.statusText == "Shipped")
-    } else if (orderDetail?.status == "Shipped") {
-      return status?.filter(item => item.statusText == "Delivered")
-    } else if (orderDetail?.status == "Started") {
-      return status?.filter(item => item.statusText == "Shipped")
-    }
-  }
+  // function statusList() {
+  //   if (orderDetail?.status == "Pending") {
+  //     return status?.filter(item => item.statusText == "Canceled")
+  //   } else if (orderDetail?.status == "Started") {
+  //     return status?.filter(
+  //       item => item.statusText == "Shipped" && item.statusText == "Delivered"
+  //     )
+  //   }
+  // }
 
   function handlerFinalValue(event) {
     setNewStatus({
       ...newStatus,
       ["status"]: event.target.value,
     })
-    {
-      if (event.target.value == "Approved") {
-        dispatch(
-          updateOrder("", params.id, "", {
-            status: event.target.value,
-            start_date: moment(startDate).format("YYYY-MM-DD"),
-          })
-        )
-      } else {
-        dispatch(
-          updateOrder("", params.id, "", {
-            status: event.target.value,
-            start_date: "",
-          })
-        )
-      }
-    }
+
+    dispatch(updateOrder("", params.id, "", { status: event.target.value }))
   }
+
+  function handlerCancel(event) {
+    dispatch(deleteOrder(params.id, history))
+  }
+
   const Status = status => {
     if (status == "Pending") {
       return "info"
     }
-    if (status == "Approved") {
+    if (status == "Started") {
       return "success"
     }
     if (status == "Canceled") {
       return "danger"
-    }
-    if (status == "Started") {
-      return "warning"
     }
     if (status == "Shipped") {
       return "success"
@@ -216,21 +197,52 @@ function OrderStatus() {
                   <div className="d-flex" style={{ alignItems: "center" }}>
                     <p>Update Status :</p>
 
-                    <div className="mb-3 ajax-select mt-lg-0 select2-container">
-                      {map(statusList(), (item, index) => (
-                        <Button
-                          key={index}
-                          type="submit"
-                          color={item.class}
-                          value={item.statusText}
-                          className="w-md mx-3 btn-sm "
-                          style={{ marginRight: "1rem" }}
-                          onClick={e => handlerFinalValue(e)}
-                        >
-                          {item.text}
-                        </Button>
-                      ))}
-                    </div>
+                    {orderDetail?.status === "Delivered" ? (
+                      <></>
+                    ) : (
+                      <div className="mb-3 ajax-select mt-lg-0 select2-container">
+                        {orderDetail?.status === "Pending" ? (
+                          <button
+                            type="submit"
+                            color="danger"
+                            value="Canceled"
+                            className="w-md mx-3 btn btn-sm btn-outline-danger "
+                            style={{ marginRight: "1rem" }}
+                            onClick={e => handlerCancel(e)}
+                          >
+                            Cancel
+                          </button>
+                        ) : (
+                          <>
+                            {orderDetail?.status === "Shipped" ? (
+                              <></>
+                            ) : (
+                              <Button
+                                type="submit"
+                                color="success"
+                                value="Shipped"
+                                className="w-md mx-3 btn-sm "
+                                style={{ marginRight: "1rem" }}
+                                onClick={e => handlerFinalValue(e)}
+                              >
+                                Shipped
+                              </Button>
+                            )}
+
+                            <Button
+                              type="submit"
+                              color="success"
+                              value="Delivered"
+                              className="w-md mx-3 btn-sm "
+                              style={{ marginRight: "1rem" }}
+                              onClick={e => handlerFinalValue(e)}
+                            >
+                              Delivered
+                            </Button>
+                          </>
+                        )}
+                      </div>
+                    )}
                   </div>
                 )}
                 {error?.response && (
@@ -281,3 +293,7 @@ function OrderStatus() {
 }
 
 export default OrderStatus
+
+OrderStatus.propTypes = {
+  history: PropTypes.object,
+}

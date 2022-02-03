@@ -91,13 +91,13 @@ const Orders = (state = INIT_STATE, action) => {
     case GET_QUOTATION_CLIENT_ID:
       return {
         ...state,
-        QclientDetailsLoding: true
+        QclientDetailsLoding: true,
       }
     case GET_QUOTATION_CLIENT_ID_SUCCESS:
       return {
         ...state,
         QclientDetails: action.payload,
-        QclientDetailsLoding: false
+        QclientDetailsLoding: false,
       }
     case GET_QUOTATION_CLIENT_ID_FAIL:
       return {
@@ -202,8 +202,7 @@ const Orders = (state = INIT_STATE, action) => {
         ...state,
         orderDetail: {
           ...state.orderDetail,
-          status: action.payload.status,
-          start_date: action.payload.start_date,
+          status: action.payload.response,
         },
         error: {},
         loading: false,
@@ -219,9 +218,9 @@ const Orders = (state = INIT_STATE, action) => {
     case DELETE_ORDER_SUCCESS:
       return {
         ...state,
-        orders: state.orders.filter(
-          order => order.id.toString() !== action.payload.id.toString()
-        ),
+        // orders: state.orders.filter(
+        //   order => order.id.toString() !== action.payload.id.toString()
+        // ),
         loading: false,
       }
 

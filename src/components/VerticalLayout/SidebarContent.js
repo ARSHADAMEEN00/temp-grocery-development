@@ -108,7 +108,11 @@ const SidebarContent = props => {
     const sidebar = mySideBar?.filter(
       sidebar =>
         sidebar.heading !== "Production Manager" &&
-        sidebar.heading !== "General Manager"
+        sidebar.heading !== "General Manager" &&
+        sidebar.headingSaparetor !== "Staff" &&
+        sidebar.heading !== "Store Manager" &&
+        sidebar.heading !== "Quality Manager" &&
+        sidebar.heading !== "Salesman"
     )
     sidebar?.forEach(bar => {
       bar.subTitles = bar.subTitles?.filter(
@@ -116,11 +120,7 @@ const SidebarContent = props => {
           subTitle.title !== "Create Product" &&
           subTitle.title !== "Create Clients" &&
           subTitle.title !== "Store Supply" &&
-          subTitle.title !== "Create Store Item" &&
-          subTitle.title !== "Create Production Manager" &&
-          subTitle.title !== "Create Store Manager" &&
-          subTitle.title !== "Create Quality Manager" &&
-          subTitle.title !== "Create Salesman"
+          subTitle.title !== "Create Store Item"
       )
     })
     return sidebar
@@ -166,7 +166,6 @@ const SidebarContent = props => {
     return sidebar
   }
 
-
   return (
     <React.Fragment>
       <SimpleBar className="h-100" ref={ref}>
@@ -179,33 +178,39 @@ const SidebarContent = props => {
               </Link>
             </li>
             <li className="menu-title mt-3">{props.t("Menu")} </li>
-            {map(sidebarProtected(), (item, index) => (<Fragment key={index}>
-              {item?.headingSaparetor && <li className="menu-title mt-3">{props.t(`${item?.headingSaparetor}`)} </li>}
-              <li >
-                {item?.heading && <Link
-                  to="/#"
-                  className={`${item?.badgeValue ? "" : "has-arrow"} `}
-                >
-                  <i className={`bx bxs-${item.iconClass}`}></i>
-                  <span>{props.t(`${item?.heading}`)}</span>
-                  <span
-                    className={`badge rounded-pill float-end bg-${item?.badgeClass}`}
-                  >
-                    {item?.badgeValue}
-                  </span>
-                </Link>}
-                <ul className="sub-menu" aria-expanded="false">
-                  {map(item?.subTitles, (title, index1) => (
-                    <li key={index1}>
-                      <Link to={title?.routeLink}>
-                        {props.t(`${title?.title}`)}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            </Fragment>
-
+            {map(sidebarProtected(), (item, index) => (
+              <Fragment key={index}>
+                {item?.headingSaparetor && (
+                  <li className="menu-title mt-3">
+                    {props.t(`${item?.headingSaparetor}`)}{" "}
+                  </li>
+                )}
+                <li>
+                  {item?.heading && (
+                    <Link
+                      to="/#"
+                      className={`${item?.badgeValue ? "" : "has-arrow"} `}
+                    >
+                      <i className={`bx bxs-${item.iconClass}`}></i>
+                      <span>{props.t(`${item?.heading}`)}</span>
+                      <span
+                        className={`badge rounded-pill float-end bg-${item?.badgeClass}`}
+                      >
+                        {item?.badgeValue}
+                      </span>
+                    </Link>
+                  )}
+                  <ul className="sub-menu" aria-expanded="false">
+                    {map(item?.subTitles, (title, index1) => (
+                      <li key={index1}>
+                        <Link to={title?.routeLink}>
+                          {props.t(`${title?.title}`)}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              </Fragment>
             ))}
           </ul>
         </div>

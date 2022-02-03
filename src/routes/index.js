@@ -53,7 +53,6 @@ import SalesmanDetails from "pages/Salesman/SingleView"
 import CreateSalesman from "pages/Salesman/Crud/Create"
 import PDFGenerator from "components/Pdf/report"
 import ProductionStages from "pages/ProductionStages"
-import CreatStage from "pages/ProductionStages/Crud/Create/Create"
 import OrderItemSingleView from "pages/QcInscpection/SingleView/index"
 import stageDetail from "pages/ProductionStages/SingleView"
 import WorkOrderPDFGenerator from "components/Pdf/WorkOrderReport"
@@ -127,8 +126,6 @@ const MDProtectedRoutes = [
 
   { path: "/orderItems", component: ProductionOrder },
   { path: "/stages", component: ProductionStages },
-  { path: "/stage/create", component: CreatStage },
-  // { path: "/store/update/:id", component: UpdateStore },
 
   // this route should be at the end of all other routes
   // eslint-disable-next-line react/display-name
@@ -153,7 +150,10 @@ const productionManagerRoutes = MDProtectedRoutes?.filter(
     route.path !== "/generalmanagers/:id" &&
     route.path !== "/generalmanager/create" &&
     route.path !== "/product/create" &&
-    route.path !== "/client/create"
+    route.path !== "/client/create" &&
+    route.path !== "/storemanagers" &&
+    route.path !== "/qualitycheckers" &&
+    route.path !== "/salesmans"
 )
 
 //for storemanager only
@@ -202,6 +202,21 @@ const qualitycheckerRoutes = [
     },
   },
 ]
+const salesmanRouts = [
+  { path: "/dashboard", component: Dashboard },
+
+  { path: "/profile", component: UserProfile },
+
+  { path: "/products/:id", component: ProductDetails },
+
+  {
+    path: "/",
+    exact: true,
+    component: function dashboard() {
+      return <Redirect to="/dashboard" />
+    },
+  },
+]
 
 const publicRoutes = [
   { path: "/logout", component: Logout },
@@ -219,4 +234,5 @@ export {
   productionManagerRoutes,
   storemanagerRoutes,
   qualitycheckerRoutes,
+  salesmanRouts,
 }

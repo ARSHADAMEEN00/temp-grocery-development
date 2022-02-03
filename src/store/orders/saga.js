@@ -114,7 +114,7 @@ const updateOrderItemApi = ({ order, orderItemId }) => {
     return ApiPut(`order/orderitem/${orderItemId}/`, order)
   }
 }
-const deleteOrderApi = orderId => {
+const deleteOrderApi = ({ orderId }) => {
   return del(`/order/order/${orderId}/`)
 }
 
@@ -254,13 +254,15 @@ function* onUpdateOrderItem({ payload }) {
   }
 }
 
-function* onDeleteOrder({ orderId, history }) {
+function* onDeleteOrder({ payload }) {
+  console.log(payload)
   try {
-    const response = yield call(deleteOrderApi, orderId)
+    const response = yield call(deleteOrderApi, payload)
     yield put(deleteOrderSuccess(response))
-    history.push("/orders")
+    payload.history.push("/orders")
     doneNotification()
   } catch (error) {
+    console.log(error)
     yield put(deleteOrderFail(error))
     errorNotification()
   }

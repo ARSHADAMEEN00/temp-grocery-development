@@ -18,8 +18,8 @@ const DefualtComponent = () => {
                 <div className="text-muted">
                   <p className="mb-1">
                     <i className="mdi mdi-circle-medium align-middle text-primary me-1" />{" "}
-                    You are in the Loah Factory Dashboard make sure you are in
-                    Right place
+                    You are in the Indtech Factory Dashboard make sure you are
+                    in Right place
                   </p>
                   <p className="mb-1">
                     <i className="mdi mdi-circle-medium align-middle text-primary me-1" />{" "}

@@ -19,7 +19,6 @@ import {
   updateGeneralManagerFail,
   deleteGeneralManagerSuccess,
   deleteGeneralManagerFail,
-  deleteGeneralManager,
 } from "./actions"
 import { get, post, ApiPut, del, patch } from "helpers/api_methods"
 import { Notification } from "components/Common/Notification"
@@ -85,13 +84,16 @@ function* onCreateGm({ payload }) {
 function* onUpdateGm({ payload }) {
   try {
     const response = yield call(updateGmApi, payload)
-    yield put(updateGeneralManagerSuccess(response))
-    // payload.history.push("/generalmanagers")
-    Notification({
-      type: "success",
-      message: "Successfully Updated GM",
-      title: "Updated!",
-    })
+    if (response?.error_message) {
+      yield put(updateGeneralManagerFail(response))
+    } else {
+      yield put(updateGeneralManagerSuccess(response))
+      Notification({
+        type: "success",
+        message: "Successfully Updated GM",
+        title: "Updated!",
+      })
+    }
   } catch (error) {
     yield put(updateGeneralManagerFail(error))
     errorNotification()

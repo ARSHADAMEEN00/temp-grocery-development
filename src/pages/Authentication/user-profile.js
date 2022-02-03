@@ -76,11 +76,22 @@ const UserProfile = props => {
                           <Spinner type="grow" color="secondary" />
                         </>
                       ) : (
-                        <div className="text-muted ">
+                        <div className="text-muted mx-2">
                           <h5>{userProfile?.username}</h5>
                           <p className="mb-1">{userProfile?.role}</p>
                           <p className="mb-1">{userProfile?.email}</p>
                           <p className="mb-0">{userProfile?.phone}</p>
+                          <div>
+                            {userProfile?.first_name && (
+                              <p className="mb-0 mt-1">
+                                {" "}
+                                First Name : {userProfile?.first_name}
+                              </p>
+                            )}
+                            {userProfile?.last_name && (
+                              <p> Last Name : {userProfile?.last_name}</p>
+                            )}
+                          </div>
                         </div>
                       )}
                     </Media>

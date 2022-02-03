@@ -24,14 +24,20 @@ import Breadcrumbs from "../../../components/Common/Breadcrumb"
 const CreateQltChecker = ({ history }) => {
   const dispatch = useDispatch()
 
-  const { loading } = useSelector(state => ({
+  const { loading, error } = useSelector(state => ({
     loading: state.Qltcheckers.loading,
+    error: state.Qltcheckers.error,
   }))
 
   // handleValidSubmit
   const handleValidSubmit = (onSubmitProps, values) => {
     dispatch(createQltchecker(values, history))
   }
+
+  const usernameError = error?.username && error?.username[0]
+
+  const mailError = error?.email && error?.email[0]
+
   return (
     <>
       <MetaTags>
@@ -74,6 +80,11 @@ const CreateQltChecker = ({ history }) => {
                               required: { value: true },
                             }}
                           />
+                          {usernameError && (
+                            <Alert color="danger" className="mt-2">
+                              {usernameError}
+                            </Alert>
+                          )}
                         </Col>
                       </div>
                       <div className="row mb-4">
@@ -159,6 +170,11 @@ const CreateQltChecker = ({ history }) => {
                             type="email"
                             required
                           />
+                          {mailError && (
+                            <Alert color="danger" className="mt-2">
+                              {mailError}
+                            </Alert>
+                          )}
                         </Col>
                       </div>
 

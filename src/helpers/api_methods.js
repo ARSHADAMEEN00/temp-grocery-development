@@ -5,7 +5,7 @@ import { Notification } from "components/Common/Notification"
 
 // export const API_URL = "https://api.fms.lohasteels.com/api/v1" //server//
 // export const API_URL = "http://192.168.0.120:8000/api/v1" //naseem/
-export const API_URL = "http://192.168.0.120:3333/api/v1" //afnan//
+export const API_URL = "http://192.168.1.14:3333/api/v1" //afnan//
 // export const API_URL = "http://192.168.0.143:8000/api/v1" //hakeem/
 // export const API_URL = "http://192.168.0.100:8000/api/v1" //hashid/
 // export const API_URL = "http://192.168.0.119:8000/api/v1" //hakeem/

@@ -92,7 +92,6 @@ function* onUpdateProductionmngr({ payload }) {
       yield put(updateProductionmngrFail(response))
     } else {
       yield put(updateProductionmngrSuccess(response))
-      // payload.history.push("/productionmanagers")
       Notification({
         type: "success",
         message: "Successfully Updated Production Manager",

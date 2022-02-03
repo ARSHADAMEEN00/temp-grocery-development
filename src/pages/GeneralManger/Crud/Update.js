@@ -24,8 +24,9 @@ const UpdateStoremanager = () => {
   const dispatch = useDispatch()
   const params = useParams()
 
-  const { loading, GMDetail } = useSelector(state => ({
+  const { loading, GMDetail, error } = useSelector(state => ({
     loading: state.GeneralMngr.loading,
+    error: state.GeneralMngr.error,
     GMDetail: state.GeneralMngr.GMDetail,
   }))
   function handleValidSubmit(values) {
@@ -36,6 +37,10 @@ const UpdateStoremanager = () => {
   useEffect(() => {
     dispatch(getGeneralManagerDetail(params.id))
   }, [dispatch])
+
+  const usernameError = error?.username && error?.username[0]
+
+  const mailError = error?.email && error?.email[0]
 
   return (
     <>

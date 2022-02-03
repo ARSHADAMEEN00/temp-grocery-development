@@ -18,8 +18,13 @@ function ItemList() {
     loading: state.Products.loading,
   }))
 
+  const Role = sessionStorage.getItem("role")
+
   useEffect(() => {
-    dispatch(getRawmaterials())
+    if (Role === "salesman") {
+    } else {
+      dispatch(getRawmaterials())
+    }
   }, [dispatch])
 
   return (

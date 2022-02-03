@@ -3,6 +3,7 @@ import React from "react"
 import { MetaTags } from "react-meta-tags"
 import { useDispatch, useSelector } from "react-redux"
 import {
+  Alert,
   Button,
   Card,
   CardBody,
@@ -22,14 +23,20 @@ import Breadcrumbs from "../../../components/Common/Breadcrumb"
 const CreateSalesman = ({ history }) => {
   const dispatch = useDispatch()
 
-  const { loading } = useSelector(state => ({
+  const { loading, error } = useSelector(state => ({
     loading: state.Salesmans.loading,
+    error: state.Salesmans.error,
   }))
 
   // handleValidSubmit
   const handleValidSubmit = (onSubmitProps, values) => {
     dispatch(createSalesman(values, history))
   }
+
+  const usernameError = error?.username && error?.username[0]
+
+  const mailError = error?.email && error?.email[0]
+
   return (
     <>
       <MetaTags>
@@ -69,6 +76,11 @@ const CreateSalesman = ({ history }) => {
                               required: { value: true },
                             }}
                           />
+                          {usernameError && (
+                            <Alert color="danger" className="mt-2">
+                              {usernameError}
+                            </Alert>
+                          )}
                         </Col>
                       </div>
                       <div className="row mb-4">
@@ -154,6 +166,11 @@ const CreateSalesman = ({ history }) => {
                             type="email"
                             required
                           />
+                          {mailError && (
+                            <Alert color="danger" className="mt-2">
+                              {mailError}
+                            </Alert>
+                          )}
                         </Col>
                       </div>
 

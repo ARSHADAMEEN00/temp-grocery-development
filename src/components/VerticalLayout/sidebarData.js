@@ -44,10 +44,7 @@ function sidebardata() {
       badgeClass: "",
       badgeValue: "",
       iconClass: "shopping-bags",
-      subTitles: [
-        { title: "QC Inspection", routeLink: "/orderItems" },
-
-      ],
+      subTitles: [{ title: "QC Inspection", routeLink: "/orderItems" }],
     },
     {
       heading: "Stages",
@@ -58,10 +55,6 @@ function sidebardata() {
         {
           title: "All Stages ",
           routeLink: "/stages",
-        },
-        {
-          title: "Create Stages",
-          routeLink: "/stage/create",
         },
       ],
     },
@@ -101,9 +94,7 @@ function sidebardata() {
       badgeClass: "",
       badgeValue: "",
       iconClass: "",
-      subTitles: [
-        { title: "", routeLink: "" },
-      ],
+      subTitles: [{ title: "", routeLink: "" }],
     },
     {
       heading: "General Manager",
@@ -171,15 +162,9 @@ function sidebardata() {
         },
       ],
     },
-
-
-
-
-
   ]
 }
 
 export const mySideBar = sidebardata()
-
 
 //Prod

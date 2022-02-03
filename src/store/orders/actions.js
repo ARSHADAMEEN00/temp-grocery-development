@@ -36,18 +36,17 @@ import {
   GET_ORDERSITEMS_DETAIL_SUCCESS,
   GET_ORDERSITEMS_DETAIL,
   GET_ORDERSITEMS_DETAIL_FAIL,
-
   GET_QUOTATION_CLIENT_ID,
   GET_QUOTATION_CLIENT_ID_SUCCESS,
   GET_QUOTATION_CLIENT_ID_FAIL,
   GET_ORDERSITEMS_BYFILTERED,
   GET_ORDERSITEMS_BYFILTERED_FAIL,
-  GET_ORDERSITEMS_BYFILTERED_SUCCESS
+  GET_ORDERSITEMS_BYFILTERED_SUCCESS,
 } from "./actionTypes"
 
-export const getQuotationClientId = (clientId) => ({
+export const getQuotationClientId = clientId => ({
   type: GET_QUOTATION_CLIENT_ID,
-  clientId
+  clientId,
 })
 
 export const getQuotationClientIdSuccess = qClientDetails => ({
@@ -87,12 +86,12 @@ export const getOrderItemsByFiltedFail = error => ({
   payload: error,
 })
 
-export const getQProductPrice = (prodId) => ({
+export const getQProductPrice = prodId => ({
   type: GET_QPRODUCTPRICE,
-  payload: { prodId }
+  payload: { prodId },
 })
 
-export const getQProductPriceSuccess = (qProdPrice) => ({
+export const getQProductPriceSuccess = qProdPrice => ({
   type: GET_QPRODUCTPRICE_SUCCESS,
   payload: qProdPrice,
 })
@@ -128,7 +127,6 @@ export const getQuotationDetailFail = error => ({
   type: GET_QUOTATION_DETAIL_FAIL,
   payload: error,
 })
-
 
 export const createQuatation = (Quatation, history) => ({
   type: CREATE_QUOTATION,
@@ -236,8 +234,7 @@ export const updateOrderItemFail = error => ({
 
 export const deleteOrder = (orderId, history) => ({
   type: DELETE_ORDER,
-  orderId,
-  history,
+  payload: { orderId, history },
 })
 
 export const deleteOrderSuccess = order => ({

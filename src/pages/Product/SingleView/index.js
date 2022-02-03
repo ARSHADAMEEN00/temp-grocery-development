@@ -61,6 +61,16 @@ const ProductDetails = ({ history }) => {
     item => item?.is_description == false
   )
 
+  const ProductPrice = parseInt(productDetail?.cost)
+
+  const ProductMRP = (ProductPrice * productDetail?.profit) / 100 + ProductPrice
+
+  const handleProductCost = () => {
+    if (Role === "admin" || Role === "generalmanager") {
+      return true
+    }
+  }
+
   return (
     <>
       <DeleteModal
@@ -112,14 +122,25 @@ const ProductDetails = ({ history }) => {
                               {productDetail?.unit_type}
                             </p>
                           </Media>
-                          <p>
-                            <i className="mdi mdi-chevron-right text-primary me-1" />
-                            Cost :
-                            <span className="text-info mx-2 font-size-17">
-                              <i className="bx bx-rupee" />
-                              {productDetail?.cost}
-                            </span>
-                          </p>
+                          {handleProductCost() === true ? (
+                            <p>
+                              <i className="mdi mdi-chevron-right text-primary me-1" />
+                              Cost :
+                              <span className="text-info mx-2 font-size-17">
+                                <i className="bx bx-rupee" />
+                                {productDetail?.cost}
+                              </span>
+                            </p>
+                          ) : (
+                            <p>
+                              <i className="mdi mdi-chevron-right text-primary me-1" />
+                              MRP :
+                              <span className="text-info mx-2 font-size-17">
+                                <i className="bx bx-rupee" />
+                                {ProductMRP}
+                              </span>
+                            </p>
+                          )}
 
                           {discription?.length > 0 &&
                             map(discription, (detail, key) => (
@@ -197,7 +218,7 @@ const ProductDetails = ({ history }) => {
               </Col>
 
               <Col lg="4" className="overflow-div">
-                <ItemList />
+                {Role === "salesman" ? <></> : <ItemList />}
               </Col>
             </Row>
           </div>

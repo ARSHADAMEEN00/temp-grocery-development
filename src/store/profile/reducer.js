@@ -6,6 +6,7 @@ import {
   UPDATE_USER_PASSWORD,
   UPDATE_USER_PASSWORD_SUCCESS,
   UPDATE_USER_PASSWORD_FAIL,
+  GET_USER_PROFILE,
 } from "./actionTypes"
 
 const INIT_STATE = {
@@ -19,6 +20,7 @@ const INIT_STATE = {
 const Contacts = (state = INIT_STATE, action) => {
   switch (action.type) {
     case UPDATE_USER_PASSWORD:
+    case GET_USER_PROFILE:
       return {
         ...state,
         loading: true,

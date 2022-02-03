@@ -33,9 +33,9 @@ const GeneralManagerCreate = ({ history }) => {
     dispatch(createGeneralManager(values, history))
   }
 
-  const mailError = error[0]
+  const usernameError = error?.username && error?.username[0]
 
-  console.log(mailError)
+  const mailError = error?.email && error?.email[0]
 
   return (
     <>
@@ -89,6 +89,11 @@ const GeneralManagerCreate = ({ history }) => {
                               },
                             }}
                           />
+                          {usernameError && (
+                            <Alert color="danger" className="mt-2">
+                              {usernameError}
+                            </Alert>
+                          )}
                         </Col>
                       </div>
                       <div className="row mb-4">
@@ -174,17 +179,17 @@ const GeneralManagerCreate = ({ history }) => {
                             type="email"
                             required
                           />
+                          {mailError && (
+                            <Alert color="danger" className="mt-2">
+                              {mailError}
+                            </Alert>
+                          )}
                         </Col>
                       </div>
 
                       <div className="row justify-content-end">
                         <Col sm={9}>
                           <div>
-                            {mailError === undefined ? (
-                              ""
-                            ) : (
-                              <Alert color="danger">{error}</Alert>
-                            )}
                             <Button
                               type="submit"
                               color="success"

@@ -24,11 +24,11 @@ import {
 } from "store/actions"
 import { API_URL } from "helpers/api_methods"
 import axios from "axios"
+import { Notification } from "components/Common/Notification"
 
 function ProductCard() {
   const dispatch = useDispatch()
   const params = useParams()
-  const [isUpdated, setIsUpdated] = useState(false)
   const [myloading, setMyLoading] = useState(false)
   const [state, setstate] = useState({
     image: null,
@@ -61,12 +61,22 @@ function ProductCard() {
       })
       .then(res => {
         dispatch(updateProductSuccess(res.data))
-        setIsUpdated(true)
         setMyLoading(false)
+        Notification({
+          type: "success",
+          message: "Successfully Updated",
+          title: "Updated!",
+        })
       })
       .catch(err => {
+        console.log(err)
         updateProductFail(err)
         setMyLoading(false)
+        Notification({
+          type: "error",
+          message: "Something Went Wrong",
+          title: "Try Again",
+        })
       })
   }
 

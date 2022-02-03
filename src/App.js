@@ -17,6 +17,7 @@ import {
   productionManagerRoutes,
   storemanagerRoutes,
   qualitycheckerRoutes,
+  salesmanRouts,
 } from "./routes"
 
 // Import all middleware
@@ -46,7 +47,7 @@ const App = props => {
   }
 
   const Role = sessionStorage.getItem("role")
-  const token = sessionStorage.getItem('token')
+  const token = sessionStorage.getItem("token")
 
   function MyRoute() {
     let Routes = commonRoute
@@ -66,6 +67,10 @@ const App = props => {
       case "qualitychecker":
         Routes = qualitycheckerRoutes
         break
+      case "salesman":
+        Routes = salesmanRouts
+        break
+
       default:
         Routes = commonRoute
         break
@@ -98,8 +103,9 @@ const App = props => {
               exact
             />
           ))}
-          {!token && <Route render={() => <Redirect to={{ pathname: "/login" }} />} />}
-
+          {!token && (
+            <Route render={() => <Redirect to={{ pathname: "/login" }} />} />
+          )}
           <Route render={() => <Redirect to={{ pathname: "/404" }} />} />,
         </Switch>
       </Router>

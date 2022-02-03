@@ -63,14 +63,16 @@ function* fetchSalesmanDetail({ salesmanId }) {
 function* onCreateSalesman({ payload }) {
   try {
     const response = yield call(createSalesmanApi, payload)
-
-    yield put(createSalesmanSuccess(response))
-    payload.history.push("/qualitycheckers")
-    doneNotification()
+    if (response?.error_message) {
+      yield put(createSalesmanFail(response))
+    } else {
+      yield put(createSalesmanSuccess(response))
+      payload.history.push("/salesmans")
+      doneNotification()
+    }
   } catch (error) {
     yield put(createSalesmanFail(error))
     errorNotification()
-
   }
 }
 
@@ -82,14 +84,13 @@ function* onUpdateSalesman({ payload }) {
   } catch (error) {
     yield put(updateSalesmanFail(error))
     errorNotification()
-
   }
 }
 
 function* onDeleteSalesman({ payload }) {
   try {
     const response = yield call(deleteSalesmanApi, payload)
-    payload.history.push("/qualitycheckers")
+    payload.history.push("/salesmans")
     yield put(deleteSalesmanSuccess(response))
     doneNotification()
   } catch (error) {
@@ -102,7 +103,7 @@ function errorNotification() {
   Notification({
     type: "error",
     message: "Something Went Wrong",
-    title: "Try Again"
+    title: "Try Again",
   })
 }
 
@@ -110,7 +111,7 @@ function doneNotification() {
   Notification({
     type: "success",
     message: "Done",
-    title: ""
+    title: "",
   })
 }
 

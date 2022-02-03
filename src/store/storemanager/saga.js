@@ -64,7 +64,7 @@ function* onCreateStoremngr({ payload }) {
   try {
     const response = yield call(createStoremngrApi, payload)
     if (response?.error_message) {
-      yield put(createStoremngrFail(response?.error_message))
+      yield put(createStoremngrFail(response))
     } else {
       yield put(createStoremngrSuccess(response))
       payload.history.push("/storemanagers")

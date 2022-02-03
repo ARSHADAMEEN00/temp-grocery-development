@@ -155,11 +155,12 @@ const Products = (state = INIT_STATE, action) => {
     case UPDATE_PRODUCT_SUCCESS:
       return {
         ...state,
-        products: state.products.map(product =>
-          product.id.toString() === action.payload.id.toString()
-            ? { product, ...action.payload }
-            : product
-        ),
+        // products: state.products.map(product =>
+        //   product.id.toString() === action.payload.id.toString()
+        //     ? { product, ...action.payload }
+        //     : product
+        // ),
+        productDetail: action.payload,
         loading: false,
       }
 

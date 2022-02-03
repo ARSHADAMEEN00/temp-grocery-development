@@ -7,7 +7,7 @@ import AdminDashboard from "./AdminDashboard"
 import DefualtComponent from "./DefualtComponent"
 import QCDashboard from "./QcDashboard"
 import StoreManagerDashboard from "./StoreManagerDashboard"
-import SupervisorDashboard from "./SupervisorDashboard"
+import SalesmanDashboard from "./SalesmanDashboard"
 
 function index() {
   const Role = sessionStorage.getItem("role")
@@ -21,8 +21,8 @@ function index() {
       case "productionmanager":
         Dashboard = <AdminDashboard />
         break
-      case "supervisor":
-        Dashboard = <SupervisorDashboard />
+      case "salesman":
+        Dashboard = <SalesmanDashboard />
         break
       case "storemanager":
         Dashboard = <StoreManagerDashboard />

@@ -26,10 +26,10 @@ const StoreSupplyList = props => {
     storeSupply: state.StoreItems.storeSupply,
   }))
   const NotProvided = storeSupply.results?.filter(
-    item => item.status == "Not Provided"
+    item => item.store_status == "Not Provided"
   )
   const Provided = storeSupply.results?.filter(
-    item => item.status == "Provided"
+    item => item.store_status == "Provided"
   )
 
   return (
@@ -83,7 +83,7 @@ const StoreSupplyList = props => {
                               <td>
                                 <h5 className="font-size-14 mb-1">
                                   <i className="mdi mdi-circle-medium align-middle text-primary me-1" />
-                                  {item.product}
+                                  {item.productname}
                                 </h5>
                                 <p className="text-muted mb-0 mx-3">
                                   no.of Rawmaterials -
@@ -117,9 +117,9 @@ const StoreSupplyList = props => {
                               <td>
                                 <h5 className="font-size-14 mb-1">
                                   <i className="mdi mdi-circle-medium align-middle text-primary me-1" />
-                                  {item.product}
+                                  {item.productname}
                                 </h5>
-                                <p className="text-muted mb-0 mx-3">
+                                <p className="text-info mb-0 mx-3">
                                   no.of Rawmaterials -
                                   {item.raw_materials?.length}
                                 </p>
@@ -129,7 +129,7 @@ const StoreSupplyList = props => {
                         </tbody>
                       </Table>
                       <div
-                        className="d-flex "
+                        className="d-flex mt-2"
                         style={{ justifyContent: "flex-end" }}
                       >
                         <Link
