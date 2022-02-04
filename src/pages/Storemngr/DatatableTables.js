@@ -38,7 +38,6 @@ const StoreManagers = () => {
     }
   }
 
-
   useEffect(() => {
     dispatch(getStoremngrs(searchText, pageSend()))
   }, [dispatch, page, searchText])
@@ -151,7 +150,7 @@ const StoreManagers = () => {
                         <MyPagination
                           pages={pages}
                           clcickedPage={page}
-                          onNunClick={(item) => setPage(item)}
+                          onNunClick={item => setPage(item)}
                           onNextClick={() => setPage(page + 1)}
                           onPrevClick={() => setPage(page - 1)}
                           onFastNextClick={() => setPage(pages.length)}

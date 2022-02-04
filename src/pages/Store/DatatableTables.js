@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Row, Col, Card, CardBody, Spinner, Button } from "reactstrap"
+import { Row, Col, Card, CardBody, Spinner } from "reactstrap"
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { map, range } from "lodash"
@@ -141,6 +141,7 @@ const Stores = () => {
         </div>
         <div title="Remove">
           <i
+            style={{ cursor: "pointer" }}
             className="bx bx-trash text-danger font-size-15 px-4"
             onClick={() => handleDelete(item?.id)}
           ></i>

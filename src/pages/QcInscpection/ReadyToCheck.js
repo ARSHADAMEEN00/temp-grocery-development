@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react"
-import { Row, Col, Card, CardBody, Badge, Spinner, Button } from "reactstrap"
+import { Row, Col, Badge, Spinner, Button } from "reactstrap"
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { map, range } from "lodash"
-import PropTypes from "prop-types"
-
 // datatable related plugins
 import BootstrapTable from "react-bootstrap-table-next"
 import ToolkitProvider from "react-bootstrap-table2-toolkit"

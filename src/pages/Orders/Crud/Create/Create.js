@@ -35,7 +35,6 @@ const CreateOrder = ({ history }) => {
   //redux state
   const {
     products,
-    loading,
     orderLoading,
     clients,
     quotation,
@@ -45,7 +44,6 @@ const CreateOrder = ({ history }) => {
     createOrdererror,
   } = useSelector(state => ({
     products: state.Products.products,
-    loading: state.StoreItems.loading,
     orderLoading: state.Orders.loading,
     clients: state.Clients.clients,
     quotation: state.Orders.quotation,
@@ -146,8 +144,6 @@ const CreateOrder = ({ history }) => {
   const onSubmitOrder = () => {
     dispatch(createOrder({ ...rawData, orderitem: orderitem }, history))
   }
-
-  // console.log({ ...rawData, orderitem: orderitem })
 
   //setore item from and search
   function handlerFinalValue(event) {

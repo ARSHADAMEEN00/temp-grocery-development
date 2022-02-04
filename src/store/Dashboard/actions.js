@@ -8,24 +8,7 @@ import {
   GET_YEARLY_CHART,
   GET_YEARLY_CHART_SUCCESS,
   GET_YEARLY_CHART_FAIL,
-  GET_MONTHLY_YEAR_CHART,
-  GET_MONTHLY_YEAR_CHART_SUCCESS,
-  GET_MONTHLY_YEAR_CHART_FAIL,
 } from "./actionTypes"
-
-export const getMonthlyYearChart = date => ({
-  type: GET_MONTHLY_YEAR_CHART,
-  payload: { date },
-})
-
-export const getMonthlyYearChartSuccess = chartData => ({
-  type: GET_MONTHLY_YEAR_CHART_SUCCESS,
-  payload: chartData,
-})
-export const getMonthlyYearChartFail = error => ({
-  type: GET_MONTHLY_YEAR_CHART_FAIL,
-  payload: error,
-})
 
 export const getYearlyChart = date => ({
   type: GET_YEARLY_CHART,

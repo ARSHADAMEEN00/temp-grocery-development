@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import MetaTags from "react-meta-tags"
 import { Link } from "react-router-dom"
-import { Col, Container, Form, Row, Input, Alert } from "reactstrap"
+import { Col, Container, Row, Alert } from "reactstrap"
 import PropTypes from "prop-types"
 
 //redux
@@ -19,6 +19,7 @@ import logo from "assets/images/logo/Indtech.png"
 import { Notification } from "../../components/Common/Notification"
 import LoginDetails from "./LoginDetails"
 
+//css
 import "toastr/build/toastr.min.css"
 
 const Login = ({ history }) => {

@@ -1,9 +1,6 @@
 import React, { useState } from "react"
-import { Container } from "reactstrap"
-import { MetaTags } from "react-meta-tags"
 
 import {
-  Col,
   Card,
   Nav,
   CardBody,
@@ -11,7 +8,6 @@ import {
   NavLink,
   TabContent,
   TabPane,
-  Table,
 } from "reactstrap"
 import classnames from "classnames"
 

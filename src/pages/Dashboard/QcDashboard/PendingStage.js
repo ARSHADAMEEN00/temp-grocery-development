@@ -7,9 +7,6 @@ import { Card, CardBody, Media, Spinner } from "reactstrap"
 import SimpleBar from "simplebar-react"
 import { map } from "lodash"
 
-//Import Images
-import moment from "moment"
-
 const PendingStage = () => {
   const { workstage, loading } = useSelector(state => ({
     workstage: state.WorkStage.workStages,

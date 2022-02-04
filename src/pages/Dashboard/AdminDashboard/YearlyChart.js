@@ -18,6 +18,10 @@ const YearlyChart = () => {
     loading: state.Dashboard.loading,
   }))
 
+  useEffect(() => {
+    dispatch(getYearlyChart(moment(chartDate).format("YYYY")))
+  }, [dispatch, chartDate])
+
   const totalRevenue = total_revenue?.reduce((a, b) => a + b)
 
   const series = [
@@ -88,10 +92,6 @@ const YearlyChart = () => {
       },
     },
   }
-
-  useEffect(() => {
-    dispatch(getYearlyChart(moment(chartDate).format("YYYY")))
-  }, [dispatch, chartDate])
 
   return (
     <>

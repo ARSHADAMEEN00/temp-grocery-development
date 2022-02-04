@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Row, Col, Card, CardBody, Badge, Spinner } from "reactstrap"
+import { Row, Col, Badge, Spinner } from "reactstrap"
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { map, range } from "lodash"

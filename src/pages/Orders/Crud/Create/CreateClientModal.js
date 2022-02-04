@@ -2,37 +2,17 @@ import AvField from "availity-reactstrap-validation/lib/AvField"
 import AvForm from "availity-reactstrap-validation/lib/AvForm"
 import PropTypes from "prop-types"
 import React from "react"
-import { useDispatch, useSelector } from "react-redux"
-import {
-  Modal, ModalBody,
-  Alert,
-  Button,
-  Card,
-  CardBody,
-  CardTitle,
-  Col,
-  Container,
-  Input,
-  Label,
-  Row,
-} from "reactstrap"
+import { useDispatch } from "react-redux"
+import { Modal, ModalBody, CardTitle, Col, Label } from "reactstrap"
 import { createClient } from "store/actions"
 
 const CreateClientModal = ({ show, onDeleteClick, onCloseClick }) => {
-
   const dispatch = useDispatch()
-  // const { loading, createdClient } = useSelector(state => ({
-  //   loading: state.Client.loading,
-  //   createdClient: state.Client.createdClient
-  // }))
 
   const handleValidSubmit = (onSubmitProps, values) => {
-
     dispatch(createClient(values, history))
 
-    // if (createdClient.name) {
     onCloseClick()
-    // }
   }
 
   return (
@@ -63,8 +43,7 @@ const CreateClientModal = ({ show, onDeleteClick, onCloseClick }) => {
                     value: 4,
                     errorMessage:
                       "Your name must be between 6 and 16 characters",
-                  }
-
+                  },
                 }}
               />
             </Col>
@@ -99,10 +78,7 @@ const CreateClientModal = ({ show, onDeleteClick, onCloseClick }) => {
           </div>
 
           <div className="row mb-4">
-            <Label
-              htmlFor="tel-input"
-              className="col-sm-3 col-form-label"
-            >
+            <Label htmlFor="tel-input" className="col-sm-3 col-form-label">
               Phone
             </Label>
             <Col sm={9}>
@@ -118,13 +94,11 @@ const CreateClientModal = ({ show, onDeleteClick, onCloseClick }) => {
                   },
                   minLength: {
                     value: 10,
-                    errorMessage:
-                      "Your number must be 10 characters",
+                    errorMessage: "Your number must be 10 characters",
                   },
                   maxLength: {
                     value: 10,
-                    errorMessage:
-                      "Your number must be 10 characters",
+                    errorMessage: "Your number must be 10 characters",
                   },
                 }}
               />
@@ -179,16 +153,9 @@ const CreateClientModal = ({ show, onDeleteClick, onCloseClick }) => {
                   style={{ width: "50%" }}
                   type="submit"
                   className="btn btn-sm btn-success btn-lg ms-2"
-                // onClick={onDeleteClick}
                 >
-                  {/* {loading && (
-                    <>
-                      <i className="bx bx-loader bx-spin font-size-16 align-middle me-2"></i>
-                    </>
-                  )} */}
                   Save
                 </button>
-
               </div>
             </Col>
           </div>

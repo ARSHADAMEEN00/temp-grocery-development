@@ -101,10 +101,6 @@ const WorkStages = (state = INIT_STATE, action) => {
       }
 
     case UPDATE_WORKSTAGE_SUCCESS:
-      console.log(state.workStages)
-      console.log(state.workStages.results)
-      console.log(action.payload)
-      console.log(action.payload.id)
       return {
         ...state,
         workStages: {

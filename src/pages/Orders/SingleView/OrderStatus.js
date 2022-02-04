@@ -1,9 +1,8 @@
-import React, { Fragment, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import {
   Badge,
   Card,
   CardBody,
-  CardTitle,
   Col,
   Row,
   Spinner,
@@ -15,13 +14,10 @@ import { Link, useHistory } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import moment from "moment"
-import { map } from "lodash"
 import PropTypes from "prop-types"
 
 //actions
 import { getOrderDetail, updateOrder, deleteOrder } from "store/actions"
-
-//componetns
 
 //css
 import "react-datepicker/dist/react-datepicker.css"
@@ -43,44 +39,6 @@ const OrderStatus = () => {
   useEffect(() => {
     dispatch(getOrderDetail(params.id))
   }, [dispatch])
-
-  // const status = [
-  //   {
-  //     id: 200,
-  //     statusText: "Started",
-  //     class: "success",
-  //     text: "Start",
-  //   },
-  //   {
-  //     id: 300,
-  //     statusText: "Canceled",
-  //     class: "danger",
-  //     text: "Cancel",
-  //   },
-
-  //   {
-  //     id: 400,
-  //     statusText: "Shipped",
-  //     class: "success",
-  //     text: "Shipped",
-  //   },
-  //   {
-  //     id: 500,
-  //     statusText: "Delivered",
-  //     class: "success",
-  //     text: "Delivered",
-  //   },
-  // ]
-
-  // function statusList() {
-  //   if (orderDetail?.status == "Pending") {
-  //     return status?.filter(item => item.statusText == "Canceled")
-  //   } else if (orderDetail?.status == "Started") {
-  //     return status?.filter(
-  //       item => item.statusText == "Shipped" && item.statusText == "Delivered"
-  //     )
-  //   }
-  // }
 
   function handlerFinalValue(event) {
     setNewStatus({
@@ -112,10 +70,6 @@ const OrderStatus = () => {
       return "success"
     }
   }
-
-  const handleSubmit = () => {
-    dispatch(updateOrder("", params.id, "", newStatus))
-  }
   const Role = sessionStorage.getItem("role")
 
   const Handler = () => {
@@ -140,8 +94,6 @@ const OrderStatus = () => {
             ) : (
               <>
                 <Media>
-                  {/* <img src={img1} alt="" className="avatar-sm me-4" /> */}
-
                   <Media className="overflow-hidden" body>
                     <h5 className="text-truncate font-size-15">
                       {orderDetail?.auto_id}
@@ -267,23 +219,6 @@ const OrderStatus = () => {
                   <i className="mdi mdi-download d-block font-size-16 mx-1"></i>
                 </Link>
               </Col>
-              {/* <Col lg={3} sm="4" xs="6">
-
-                <Link
-                  to="/order/pdf"
-                  type="button"
-                  className="btn btn-outline-light d-flex mt-4"
-                  style={{
-                    marginLeft: "auto",
-                    alignItems: "center",
-                    width: "fit-content",
-                    border: "1px solid #cccc",
-                  }}
-                >
-                  Billing PDF
-                  <i className="mdi mdi-download d-block font-size-16 mx-1"></i>
-                </Link>
-              </Col> */}
             </Row>
           </CardBody>
         </Card>

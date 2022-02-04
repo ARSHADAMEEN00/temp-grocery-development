@@ -23,7 +23,6 @@ const Orders = () => {
     loading: state.Orders.loading,
   }))
 
-
   //page
   const totalPages = Math.ceil(orders?.count / 10)
   const pages = range(1, totalPages + 1)
@@ -39,8 +38,6 @@ const Orders = () => {
     }
   }
 
-
-
   useEffect(() => {
     dispatch(getOrders(searchText, pageSend()))
   }, [dispatch, page, searchText])
@@ -50,13 +47,11 @@ const Orders = () => {
       dataField: "auto_id",
       text: "Order Id",
       sort: true,
-
     },
     {
       dataField: "quotation_id",
       text: "Quotation Id",
       sort: true,
-
     },
     {
       dataField: "start_date",
@@ -74,7 +69,6 @@ const Orders = () => {
       dataField: "status",
       text: "Status",
       sort: true,
-
     },
     {
       dataField: "action",
@@ -83,7 +77,6 @@ const Orders = () => {
   ]
 
   const Status = status => {
-
     if (status == "Pending") {
       return "success"
     }
@@ -114,9 +107,7 @@ const Orders = () => {
   const ordersData = map(orders?.results, (item, index) => ({
     ...item,
     key: index,
-    quotation_id: (
-      <p>{item.quotation_id ? item.quotation_id : "Null"}</p>
-    ),
+    quotation_id: <p>{item.quotation_id ? item.quotation_id : "Null"}</p>,
     status: (
       <div
         className="d-flex"
@@ -145,7 +136,6 @@ const Orders = () => {
     ),
   }))
 
-
   const defaultSorted = [
     {
       dataField: "id",
@@ -161,7 +151,6 @@ const Orders = () => {
   const handleSearch = e => {
     setSearchText(e.target.value)
   }
-
 
   return (
     <React.Fragment>
@@ -199,18 +188,20 @@ const Orders = () => {
                         </div>
                       </Col>
                       <Col md="4"></Col>
-                      <Col md="4" style={{
-                        display: "flex",
-                        justifyContent: "flex-end",
-                        alignItems: "center"
-                      }}>
-                        {window.location.search && <Link
-                          to="/orders"
-                          className="btn btn-light btn-sm"
-                        >
-                          See All
-                          <i className="bx bx-right "></i>
-                        </Link>}
+                      <Col
+                        md="4"
+                        style={{
+                          display: "flex",
+                          justifyContent: "flex-end",
+                          alignItems: "center",
+                        }}
+                      >
+                        {window.location.search && (
+                          <Link to="/orders" className="btn btn-light btn-sm">
+                            See All
+                            <i className="bx bx-right "></i>
+                          </Link>
+                        )}
                       </Col>
                     </Row>
                     {loading ? (
@@ -240,7 +231,7 @@ const Orders = () => {
                         <MyPagination
                           pages={pages}
                           clcickedPage={page}
-                          onNunClick={(item) => setPage(item)}
+                          onNunClick={item => setPage(item)}
                           onNextClick={() => setPage(page + 1)}
                           onPrevClick={() => setPage(page - 1)}
                           onFastNextClick={() => setPage(pages.length)}

@@ -1,10 +1,13 @@
-import React, { useEffect, useRef } from "react"
+import React, { useEffect } from "react"
 import { Card, CardBody, CardSubtitle, CardTitle, Col, Table } from "reactstrap"
-import Breadcrumb from "../Common/Breadcrumb"
 import { MetaTags } from "react-meta-tags"
 import { useSelector } from "react-redux"
 import moment from "moment"
 import { map } from "lodash"
+
+//componetns
+import Breadcrumb from "../Common/Breadcrumb"
+//images
 import logo from "../../assets/images/logo/Indtech.png"
 
 const WorkOrderPDFGenerator = () => {

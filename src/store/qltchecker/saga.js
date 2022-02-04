@@ -108,7 +108,6 @@ function* onDeleteQltchecker({ payload }) {
     )
     doneNotification()
   } catch (error) {
-    console.log(error)
     errorNotification()
     yield put(deleteQltcheckerFail(error))
   }

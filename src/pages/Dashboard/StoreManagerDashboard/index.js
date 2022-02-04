@@ -3,12 +3,7 @@ import { useDispatch } from "react-redux"
 import { Col, Row } from "reactstrap"
 
 //actions
-import {
-  getFinishedProduct,
-  getProducts,
-  getStoreItems,
-  getStoreSupply,
-} from "store/actions"
+import { getProducts, getStoreItems, getStoreSupply } from "store/actions"
 
 //componets
 import MiniWidget from "./mini-widget"

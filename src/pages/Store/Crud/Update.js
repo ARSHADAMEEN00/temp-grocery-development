@@ -11,7 +11,6 @@ import {
   CardTitle,
   Col,
   Container,
-  Input,
   Label,
   Row,
 } from "reactstrap"
@@ -116,7 +115,8 @@ const UpdateStore = ({ history }) => {
                             id="horizontal-email-Input"
                             name="unit"
                             className="form-control"
-                            type="number" min={0}
+                            type="number"
+                            min={0}
                             value={storeItemDetail?.unit}
                           />
                         </Col>
@@ -131,7 +131,8 @@ const UpdateStore = ({ history }) => {
                         <Col sm={9}>
                           <AvField
                             name="stock"
-                            type="number" min={0}
+                            type="number"
+                            min={0}
                             className="form-control"
                             id="horizontal-location-Input"
                             value={storeItemDetail?.stock}
@@ -148,7 +149,8 @@ const UpdateStore = ({ history }) => {
                         <Col sm={9}>
                           <AvField
                             name="price"
-                            type="number" min={0}
+                            type="number"
+                            min={0}
                             className="form-control"
                             id="horizontal-profit-Input"
                             value={storeItemDetail?.price}

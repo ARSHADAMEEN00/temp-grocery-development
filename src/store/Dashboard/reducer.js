@@ -8,14 +8,10 @@ import {
   GET_YEARLY_CHART_SUCCESS,
   GET_YEARLY_CHART_FAIL,
   GET_YEARLY_CHART,
-  GET_MONTHLY_YEAR_CHART,
-  GET_MONTHLY_YEAR_CHART_SUCCESS,
-  GET_MONTHLY_YEAR_CHART_FAIL,
 } from "./actionTypes"
 
 const INIT_STATE = {
   monthlyData: [],
-  monthYearData: [],
   yearlyData: [],
   error: {},
   loading: false,
@@ -33,7 +29,6 @@ const Dashboard = (state = INIT_STATE, action) => {
         loading: true,
       }
     case GET_YEARLY_CHART:
-    case GET_MONTHLY_YEAR_CHART:
       return {
         ...state,
         yearLoading: true,
@@ -65,19 +60,6 @@ const Dashboard = (state = INIT_STATE, action) => {
         ...state,
         error: action.payload,
         loading: false,
-      }
-    case GET_MONTHLY_YEAR_CHART_SUCCESS:
-      return {
-        ...state,
-        monthYearData: action.payload,
-        yearLoading: false,
-      }
-
-    case GET_MONTHLY_YEAR_CHART_FAIL:
-      return {
-        ...state,
-        error: action.payload,
-        yearLoading: false,
       }
 
     case GET_DASHBOARDDATA:

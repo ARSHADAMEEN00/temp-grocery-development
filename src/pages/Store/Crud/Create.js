@@ -24,9 +24,8 @@ import { createStoreItem } from "store/actions"
 const CreateStore = ({ history }) => {
   const dispatch = useDispatch()
 
-  const { createStoreItemerror, storeItems, loading } = useSelector(state => ({
+  const { createStoreItemerror, loading } = useSelector(state => ({
     createStoreItemerror: state.StoreItems.createStoreItemerror,
-    storeItems: state.StoreItems.storeItems,
     loading: state.StoreItems.loading,
   }))
 
@@ -122,7 +121,8 @@ const CreateStore = ({ history }) => {
                         <Col sm={9}>
                           <AvField
                             name="stock"
-                            type="number" min={0}
+                            type="number"
+                            min={0}
                             className="form-control"
                             id="horizontal-location-Input"
                             required
@@ -139,7 +139,8 @@ const CreateStore = ({ history }) => {
                         <Col sm={9}>
                           <AvField
                             name="price"
-                            type="number" min={0}
+                            type="number"
+                            min={0}
                             className="form-control"
                             id="horizontal-profit-Input"
                             required

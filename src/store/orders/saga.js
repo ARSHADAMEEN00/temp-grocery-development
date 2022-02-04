@@ -255,14 +255,12 @@ function* onUpdateOrderItem({ payload }) {
 }
 
 function* onDeleteOrder({ payload }) {
-  console.log(payload)
   try {
     const response = yield call(deleteOrderApi, payload)
     yield put(deleteOrderSuccess(response))
     payload.history.push("/orders")
     doneNotification()
   } catch (error) {
-    console.log(error)
     yield put(deleteOrderFail(error))
     errorNotification()
   }

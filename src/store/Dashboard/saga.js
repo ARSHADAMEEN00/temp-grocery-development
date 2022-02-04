@@ -4,7 +4,6 @@ import { call, put, takeEvery } from "redux-saga/effects"
 import {
   GET_DASHBOARDDATA,
   GET_MONTHLY_CHART,
-  GET_MONTHLY_YEAR_CHART,
   GET_YEARLY_CHART,
 } from "./actionTypes"
 import {
@@ -14,42 +13,23 @@ import {
   getMonthlyChartFail,
   getYearlyChartSuccess,
   getYearlyChartFail,
-  getMonthlyYearChartSuccess,
-  getMonthlyYearChartFail,
 } from "./actions"
 import { get } from "helpers/api_methods"
 import moment from "moment"
 
 const getMonthlyChartAPi = ({ date }) => {
   return get(
-    `/supervisor/graph-month/?date=${
-      date ? date : moment(Date.now()).format("YYYY-MM")
+    `/dashboard/yearly-products-graph/?date=${
+      date ? date : moment(Date.now()).format("YYYY")
     }`
   )
 }
 const getYearlyChartAPi = ({ date }) => {
   return get(
-    `/supervisor/yearly-revenue-graph/?date=${
+    `/dashboard/yearly-revenue-graph/?date=${
       date ? date : moment(Date.now()).format("YYYY")
     }`
   )
-}
-
-const getMonthlyYearChartAPi = ({ date }) => {
-  return get(
-    `/supervisor/graph-year/?date=${
-      date ? date : moment(Date.now()).format("YYYY")
-    }`
-  )
-}
-
-function* fetchMonthlyYearChart({ payload }) {
-  try {
-    const response = yield call(getMonthlyYearChartAPi, payload)
-    yield put(getMonthlyYearChartSuccess(response))
-  } catch (error) {
-    yield put(getMonthlyYearChartFail(error))
-  }
 }
 
 function* fetchYearlyChart({ payload }) {
@@ -71,7 +51,7 @@ function* fetchMonthlyChart({ payload }) {
 }
 
 const getDashboardDataAPi = () => {
-  return get("/order/dashboard/dashboard-data/")
+  return get("/dashboard/dashboard-data/")
 }
 
 function* fetchDashboardData() {
@@ -87,7 +67,6 @@ function* finishedProdChartSaga() {
   yield takeEvery(GET_DASHBOARDDATA, fetchDashboardData)
   yield takeEvery(GET_MONTHLY_CHART, fetchMonthlyChart)
   yield takeEvery(GET_YEARLY_CHART, fetchYearlyChart)
-  yield takeEvery(GET_MONTHLY_YEAR_CHART, fetchMonthlyYearChart)
 }
 
 export default finishedProdChartSaga

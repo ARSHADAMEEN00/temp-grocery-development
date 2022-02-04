@@ -10,7 +10,6 @@ import {
   CardTitle,
   Col,
   Container,
-  Input,
   Label,
   Row,
 } from "reactstrap"
@@ -19,6 +18,7 @@ import PropTypes from "prop-types"
 //actions
 import { createClient } from "store/actions"
 
+//componets
 import Breadcrumbs from "../../../components/Common/Breadcrumb"
 
 const CreateClient = ({ history }) => {

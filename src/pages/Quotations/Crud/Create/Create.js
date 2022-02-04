@@ -19,24 +19,37 @@ import {
 import Select from "react-select"
 
 //actions
-import { getClients, createQuatation, getProducts, getQProductPrice } from "store/actions"
+import {
+  getClients,
+  createQuatation,
+  getProducts,
+  getQProductPrice,
+  getQuotationDetail,
+} from "store/actions"
 
 import Breadcrumbs from "../../../../components/Common/Breadcrumb"
 
 const CreateQuotations = ({ history }) => {
   const dispatch = useDispatch()
   //redux state
-  const { loading, quotationLoading, clients, products, QProductPrice, quotationCurd } = useSelector(state => ({
+  const {
+    loading,
+    quotationLoading,
+    clients,
+    products,
+    QProductPrice,
+    quotationCurd,
+  } = useSelector(state => ({
     loading: state.StoreItems.loading,
     quotationLoading: state.Orders.quotationLoading,
     clients: state.Clients.clients,
     products: state.Products.products,
     QProductPrice: state.Orders.QProductPrice.cost,
-    quotationCurd: state.Orders.quotationCurd
+    quotationCurd: state.Orders.quotationCurd,
   }))
   const [selectedProduct, setSelectedProduct] = useState("Search a product")
   const [selectedClient, setSelectedClient] = useState("Search a Client")
-  const [productId, setProductId] = useState('')
+  const [productId, setProductId] = useState("")
   const [searchText, setSearchText] = useState("")
   const [searchClientText, setSearchClientText] = useState("")
   const [quotationitem, setQuotationitems] = useState([])
@@ -48,21 +61,26 @@ const CreateQuotations = ({ history }) => {
 
   const ProductPrice = parseInt(QProductPrice)
 
-  const totelPriceCalc = (ProductPrice * percentage / 100) + ProductPrice
+  const totelPriceCalc = (ProductPrice * percentage) / 100 + ProductPrice
 
   // 14890
+
+  useEffect(() => {
+    if (quotationCurd?.id) {
+      dispatch(getQuotationDetail(quotationCurd?.id))
+    }
+  }, [quotationCurd])
 
   useEffect(() => {
     setRawData({
       ...rawData,
       quotationitem: {
         ...rawData.quotationitem,
+        ["profit"]: percentage,
         ["price"]: totelPriceCalc,
       },
     })
-
-  }, [totelPriceCalc])
-
+  }, [percentage])
 
   useEffect(() => {
     dispatch(getProducts(searchText, ""))
@@ -87,7 +105,9 @@ const CreateQuotations = ({ history }) => {
   }
   // quotationitem
   const onSubmitQuotation = () => {
-    dispatch(createQuatation({ client: rawData.client, quotationitem }, history))
+    dispatch(
+      createQuatation({ client: rawData.client, quotationitem }, history)
+    )
   }
 
   //setore item from and search
@@ -171,12 +191,9 @@ const CreateQuotations = ({ history }) => {
                     <Form className="repeater" encType="multipart/form-data">
                       <div>
                         <Row>
-
-
                           {Role == "client" ? (
                             <></>
                           ) : (
-
                             <Col lg={12} className="mb-3">
                               <FormGroup className="mb-3">
                                 <Label>Client</Label>
@@ -212,22 +229,29 @@ const CreateQuotations = ({ history }) => {
                                   classNamePrefix="select2-selection"
                                   isLoading={true}
                                   required="required"
-
                                 />
                               </div>
-                              {QProductPrice && <span className="mt-2 text-muted">
-                                Product Cost :
-                                <Badge
-                                  className={"font-size-14 p-2 mx-3 badge-soft-success"}
-                                  pill
-                                >
-                                  {QProductPrice}
-                                </Badge>
-                              </span>}
-
+                              {QProductPrice && (
+                                <span className="mt-2 text-muted">
+                                  Product Cost :
+                                  <Badge
+                                    className={
+                                      "font-size-14 p-2 mx-3 badge-soft-success"
+                                    }
+                                    pill
+                                  >
+                                    {QProductPrice}
+                                  </Badge>
+                                </span>
+                              )}
                             </FormGroup>
                           </Col>
-                          <Col lg={totelPriceCalc ? 3 : 6} md={3} sm={12} className="">
+                          <Col
+                            lg={totelPriceCalc ? 3 : 6}
+                            md={3}
+                            sm={12}
+                            className=""
+                          >
                             <label htmlFor="resume">Profit Percentage</label>
                             <input
                               type="number"
@@ -236,31 +260,33 @@ const CreateQuotations = ({ history }) => {
                               requied="true"
                               min={1}
                               value={percentage}
-                              onChange={e =>
-                                setPercentage(e.target.value)
-                              }
+                              onChange={e => setPercentage(e.target.value)}
                             />
                           </Col>
-                          {totelPriceCalc ? <Col lg={3} md={3} sm={12} className="">
-                            <label htmlFor="resume">Total Price</label>
-                            <input
-                              type="number"
-                              className="form-control mt-1 mt-lg-0 text-warning"
-                              id="resume"
-                              requied="true"
-                              min={1}
-                              value={totelPriceCalc}
-                              onChange={e =>
-                                setRawData({
-                                  ...rawData,
-                                  quotationitem: {
-                                    ...rawData.quotationitem,
-                                    ["price"]: e.target.value,
-                                  },
-                                })
-                              }
-                            />
-                          </Col> : <></>}
+                          {totelPriceCalc ? (
+                            <Col lg={3} md={3} sm={12} className="">
+                              <label htmlFor="resume">Total Price</label>
+                              <input
+                                type="number"
+                                className="form-control mt-1 mt-lg-0 text-warning"
+                                id="resume"
+                                requied="true"
+                                min={1}
+                                value={totelPriceCalc}
+                                onChange={e =>
+                                  setRawData({
+                                    ...rawData,
+                                    quotationitem: {
+                                      ...rawData.quotationitem,
+                                      ["price"]: e.target.value,
+                                    },
+                                  })
+                                }
+                              />
+                            </Col>
+                          ) : (
+                            <></>
+                          )}
                           <Col
                             lg={12}
                             style={{
@@ -271,8 +297,9 @@ const CreateQuotations = ({ history }) => {
                           >
                             <input
                               type="button"
-
-                              className={`btn btn-dark mr-lg-0 ${disabledBtn() == false && "disabled"}`}
+                              className={`btn btn-dark mr-lg-0 ${
+                                disabledBtn() == false && "disabled"
+                              }`}
                               value="Add to Quotation"
                               onClick={() => onAddFormRow()}
                               style={{
@@ -289,98 +316,108 @@ const CreateQuotations = ({ history }) => {
                 </Card>
               </Col>
               <Col lg={1}></Col>
-              {quotationitem?.length > 0 && (<>
-                <Col lg={1}></Col>
-                <Col lg={10}>
-                  <Card>
-                    <CardBody>
-                      <CardTitle className="h4 mb-4">All Quotations </CardTitle>
-                      {loading ? (
-                        <Spinner type="grow" color="gray" />
-                      ) : (
-                        <Form
-                          className="repeater"
-                          encType="multipart/form-data"
-                        >
-                          <div>
-                            {map(quotationitem, (item, index) => (
-                              <Row key={index}>
-                                <Row className="text-muted mt-4">
-                                  <Col lg={7} md={7}>
-                                    <p>
-                                      <i className="mdi mdi-chevron-right text-primary me-1" />
-                                      Product : {item?.productName || ""}
-                                    </p>
-                                  </Col>
-                                  <Col lg={3} md={3}>
-                                    <p>Price : {item?.price || ""}</p>
-                                  </Col>
+              {quotationitem?.length > 0 && (
+                <>
+                  <Col lg={1}></Col>
+                  <Col lg={10}>
+                    <Card>
+                      <CardBody>
+                        <CardTitle className="h4 mb-4">
+                          All Quotations{" "}
+                        </CardTitle>
+                        {loading ? (
+                          <Spinner type="grow" color="gray" />
+                        ) : (
+                          <Form
+                            className="repeater"
+                            encType="multipart/form-data"
+                          >
+                            <div>
+                              {map(quotationitem, (item, index) => (
+                                <Row key={index}>
+                                  <Row className="text-muted mt-4">
+                                    <Col lg={7} md={7}>
+                                      <p>
+                                        <i className="mdi mdi-chevron-right text-primary me-1" />
+                                        Product : {item?.productName || ""}
+                                      </p>
+                                    </Col>
+                                    <Col lg={3} md={3}>
+                                      <p>Price : {item?.price || ""}</p>
+                                    </Col>
 
-                                  <Col
-                                    lg={2}
-                                    md={2}
-                                    className="align-self-start"
-                                  >
-                                    <div
-                                      className="d-grid "
-                                      style={{ maxWidth: "200px" }}
+                                    <Col
+                                      lg={2}
+                                      md={2}
+                                      className="align-self-start"
                                     >
-                                      <i
-                                        style={{ cursor: "pointer" }}
-                                        className="fa fa-trash mt-1 mr-lg-0 mb-4 text-danger"
-                                        onClick={() => onDeleteFormRow(item.id)}
-                                      ></i>
-                                    </div>
-                                  </Col>
+                                      <div
+                                        className="d-grid "
+                                        style={{ maxWidth: "200px" }}
+                                      >
+                                        <i
+                                          style={{ cursor: "pointer" }}
+                                          className="fa fa-trash mt-1 mr-lg-0 mb-4 text-danger"
+                                          onClick={() =>
+                                            onDeleteFormRow(item.id)
+                                          }
+                                        ></i>
+                                      </div>
+                                    </Col>
+                                  </Row>
                                 </Row>
+                              ))}
+                            </div>
+                            <div>
+                              <Row>
+                                <Col lg="6" md="6"></Col>
+                                <Col lg="3" md="3">
+                                  {quotationCurd?.id && (
+                                    <div className="text-sm-end mt-2">
+                                      <Link
+                                        to="/quotation/pdf"
+                                        type="button"
+                                        className="btn btn-outline-light d-flex mt-4 w-auto"
+                                        style={{
+                                          marginLeft: "auto",
+                                          alignItems: "center",
+                                          width: "fit-content",
+                                          border: "1px solid #cccc",
+                                        }}
+                                      >
+                                        PDF
+                                        <i className="mdi mdi-download d-block font-size-16 mx-1"></i>
+                                      </Link>
+                                    </div>
+                                  )}
+                                </Col>
+                                <Col lg="3" md="3">
+                                  <div className="text-sm-end mt-2">
+                                    <Link
+                                      to="#"
+                                      className="btn btn-success"
+                                      onClick={onSubmitQuotation}
+                                    >
+                                      Confirm Quotation
+                                      {quotationLoading ? (
+                                        <>
+                                          <i className="bx bx-loader bx-spin font-size-16 align-middle me-2"></i>
+                                        </>
+                                      ) : (
+                                        <i className="mdi mdi-truck-fast mx-2" />
+                                      )}
+                                    </Link>
+                                  </div>
+                                </Col>
                               </Row>
-                            ))}
-                          </div>
-                          <div>
-                            <Row>
-                              <Col lg="6" md="6"></Col>
-                              <Col lg="3" md="3">
-                                {quotationCurd?.id && <div className="text-sm-end mt-2">
-                                  <Link
-                                    to="/quotation/pdf"
-                                    type="button"
-                                    className="btn btn-outline-light d-flex mt-4 w-auto"
-                                    style={{ marginLeft: "auto", alignItems: "center", width: "fit-content", border: "1px solid #cccc" }}
-                                  >
-                                    PDF
-                                    <i className="mdi mdi-download d-block font-size-16 mx-1"></i>
-                                  </Link>
-                                </div>
-                                }
-                              </Col>
-                              <Col lg="3" md="3">
-                                <div className="text-sm-end mt-2">
-                                  <Link
-                                    to="#"
-                                    className="btn btn-success"
-                                    onClick={onSubmitQuotation}
-                                  >
-                                    Confirm Quotation
-                                    {quotationLoading ? (
-                                      <>
-                                        <i className="bx bx-loader bx-spin font-size-16 align-middle me-2"></i>
-                                      </>
-                                    ) : (
-                                      <i className="mdi mdi-truck-fast mx-2" />
-                                    )}
-                                  </Link>
-                                </div>
-                              </Col>
-
-                            </Row>
-                          </div>
-                        </Form>
-                      )}
-                    </CardBody>
-                  </Card>
-                </Col>
-                <Col lg={1}></Col>
-              </>
+                            </div>
+                          </Form>
+                        )}
+                      </CardBody>
+                    </Card>
+                  </Col>
+                  <Col lg={1}></Col>
+                </>
               )}
             </Row>
           </div>

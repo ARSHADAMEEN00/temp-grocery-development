@@ -5,56 +5,29 @@ import { Link } from "react-router-dom"
 import { Col, Card, CardBody, Spinner } from "reactstrap"
 
 const MiniWidget = () => {
-  const { dashboardLoading, dashboardData } = useSelector(state => ({
-    dashboardLoading: state.Dashboard.dashboardLoading,
-    dashboardData: state.Dashboard.dashboardData,
+  const { Productloading, finishedProduct } = useSelector(state => ({
+    Productloading: state.Products.loading,
+    finishedProduct: state.Products.finishedProduct,
   }))
 
   const analatics = [
     {
-      icon: "bx bx-copy-alt",
-      title: "Chartered Orders",
-      value: dashboardData?.chartered_orders,
-      badgeValue: dashboardData?.total_orders,
+      icon: "bx bx-archive-in",
+      title: "Total Finished Products",
+      value: finishedProduct?.count,
+      badgeValue: "",
       color: "success",
-      desc: "Orders ",
-      warningMsg: "No Order ",
-      msgColor: "info",
-      loading: dashboardLoading,
-      linkPath: "/orders",
-    },
-
-    {
-      icon: "bx bx-purchase-tag-alt",
-      title: "Out Of Stock",
-      value: dashboardData?.out_of_stock_items?.length,
-      badgeValue: dashboardData?.total_store_item,
-      color: "success",
-      desc: "Stocks Available",
+      desc: "Finished Items",
       warningMsg: "",
-      msgColor: "success",
-      loading: dashboardLoading,
-      linkPath: "/store",
-    },
-    {
-      icon: "bx bx-copy-alt",
-      title: "Pending Quotation",
-      value: dashboardData?.pending_quotations,
-      badgeValue: 0,
-      color: "success",
-      desc: "Quotations",
-      warningMsg: (
-        <>{`${dashboardData?.pending_quotations} - ${"Pending Quotations"}`} </>
-      ),
       msgColor: "info",
-      loading: dashboardLoading,
-      linkPath: "/quotations?Pending",
+      loading: Productloading,
+      linkPath: "/products",
     },
   ]
   return (
     <React.Fragment>
       {analatics.map((report, index) => (
-        <Col sm="4" key={index}>
+        <Col key={index}>
           <Card>
             <CardBody>
               <Link

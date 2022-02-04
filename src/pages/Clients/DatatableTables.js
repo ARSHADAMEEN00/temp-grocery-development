@@ -11,8 +11,11 @@ import ToolkitProvider from "react-bootstrap-table2-toolkit"
 //actions
 import { getClients } from "store/actions"
 
-import "../../assets/scss/datatables.scss"
+//componets
 import MyPagination from "components/Common/MyPagination"
+
+//css
+import "../../assets/scss/datatables.scss"
 
 const AllClients = () => {
   const dispatch = useDispatch()
@@ -156,7 +159,7 @@ const AllClients = () => {
                         <MyPagination
                           pages={pages}
                           clcickedPage={page}
-                          onNunClick={(item) => setPage(item)}
+                          onNunClick={item => setPage(item)}
                           onNextClick={() => setPage(page + 1)}
                           onPrevClick={() => setPage(page - 1)}
                           onFastNextClick={() => setPage(pages.length)}

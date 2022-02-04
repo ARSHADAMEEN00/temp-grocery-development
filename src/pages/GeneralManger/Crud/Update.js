@@ -18,8 +18,6 @@ import {
 //actions
 import { getGeneralManagerDetail, updateGeneralManager } from "store/actions"
 
-//componets
-
 const UpdateStoremanager = () => {
   const history = useHistory()
   const dispatch = useDispatch()
@@ -43,7 +41,6 @@ const UpdateStoremanager = () => {
 
   const mailError = error?.email && error?.email[0]
 
-  console.log(usernameError)
   return (
     <>
       <MetaTags>

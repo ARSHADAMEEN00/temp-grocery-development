@@ -2,37 +2,17 @@ import AvField from "availity-reactstrap-validation/lib/AvField"
 import AvForm from "availity-reactstrap-validation/lib/AvForm"
 import PropTypes from "prop-types"
 import React from "react"
-import { useDispatch, useSelector } from "react-redux"
-import {
-  Modal, ModalBody,
-  Alert,
-  Button,
-  Card,
-  CardBody,
-  CardTitle,
-  Col,
-  Container,
-  Input,
-  Label,
-  Row,
-} from "reactstrap"
+import { useDispatch } from "react-redux"
+import { Modal, ModalBody, CardTitle, Col, Label } from "reactstrap"
 import { createClient } from "store/actions"
 
 const CreateClientModal = ({ show, onDeleteClick, onCloseClick }) => {
-
   const dispatch = useDispatch()
-  // const { loading, createdClient } = useSelector(state => ({
-  //   loading: state.Client.loading,
-  //   createdClient: state.Client.createdClient
-  // }))
 
   const handleValidSubmit = (onSubmitProps, values) => {
-
     dispatch(createClient(values, history))
 
-    // if (createdClient.name) {
     onCloseClick()
-    // }
   }
 
   return (
@@ -99,10 +79,8 @@ const CreateClientModal = ({ show, onDeleteClick, onCloseClick }) => {
                   type="submit"
                   className="btn btn-sm btn-success btn-lg ms-2"
                 >
-
                   Save
                 </button>
-
               </div>
             </Col>
           </div>

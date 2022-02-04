@@ -69,7 +69,6 @@ function ProductCard() {
         })
       })
       .catch(err => {
-        console.log(err)
         updateProductFail(err)
         setMyLoading(false)
         Notification({
@@ -93,85 +92,83 @@ function ProductCard() {
 
   return (
     <>
-      <Card>
-        <CardBody>
-          <AvForm
-            className="form-horizontal "
-            onValidSubmit={(e, v) => {
-              handleValidSubmit(v)
-            }}
+      <AvForm
+        className="form-horizontal "
+        onValidSubmit={(e, v) => {
+          handleValidSubmit(v)
+        }}
+      >
+        {createProducterror && (
+          <Alert color="danger">{createProducterror}</Alert>
+        )}
+
+        <div className="row mb-4">
+          <Label
+            htmlFor="horizontal-username-Input"
+            className="col-sm-3 col-form-label"
           >
-            {createProducterror && (
-              <Alert color="danger">{createProducterror}</Alert>
-            )}
+            Product Name
+          </Label>
+          <Col sm={9}>
+            <AvField
+              id="horizontal-username-Input"
+              name="name"
+              type="text"
+              value={productDetail?.name}
+            />
+          </Col>
+        </div>
 
-            <div className="row mb-4">
-              <Label
-                htmlFor="horizontal-username-Input"
-                className="col-sm-3 col-form-label"
-              >
-                Product Name
-              </Label>
-              <Col sm={9}>
-                <AvField
-                  id="horizontal-username-Input"
-                  name="name"
-                  type="text"
-                  value={productDetail?.name}
-                />
-              </Col>
-            </div>
+        <div className="row mb-4">
+          <Label htmlFor="code" className="col-sm-3 col-form-label">
+            Product Code
+          </Label>
+          <Col sm={9}>
+            <AvField
+              name="product_code"
+              className="form-control"
+              id="code"
+              type="text"
+              value={productDetail?.product_code}
+            />
+          </Col>
+        </div>
 
-            <div className="row mb-4">
-              <Label htmlFor="code" className="col-sm-3 col-form-label">
-                Product Code
-              </Label>
-              <Col sm={9}>
-                <AvField
-                  name="product_code"
-                  className="form-control"
-                  id="code"
-                  type="text"
-                  value={productDetail?.product_code}
-                />
-              </Col>
-            </div>
+        <div className="row mb-4">
+          <Label
+            htmlFor="horizontal-location-Input"
+            className="col-sm-3 col-form-label"
+          >
+            Profit
+          </Label>
+          <Col sm={9}>
+            <AvField
+              name="profit"
+              type="number"
+              min={0}
+              className="form-control"
+              id="horizontal-location-Input"
+              value={productDetail?.profit}
+            />
+          </Col>
+        </div>
+        <div className="row mb-4">
+          <Label htmlFor="image" className="col-sm-3 col-form-label">
+            Product Images
+          </Label>
+          <Col sm={9}>
+            <input
+              name="image"
+              type="file"
+              id="image"
+              accept="image/png, image/jpeg"
+              className="form-control"
+              onChange={handleImageChange}
+            />
+          </Col>
+        </div>
 
-            <div className="row mb-4">
-              <Label
-                htmlFor="horizontal-location-Input"
-                className="col-sm-3 col-form-label"
-              >
-                Profit
-              </Label>
-              <Col sm={9}>
-                <AvField
-                  name="profit"
-                  type="number"
-                  min={0}
-                  className="form-control"
-                  id="horizontal-location-Input"
-                  value={productDetail?.profit}
-                />
-              </Col>
-            </div>
-            <div className="row mb-4">
-              <Label htmlFor="image" className="col-sm-3 col-form-label">
-                Product Images
-              </Label>
-              <Col sm={9}>
-                <input
-                  name="image"
-                  type="file"
-                  id="image"
-                  accept="image/png, image/jpeg"
-                  className="form-control"
-                  onChange={handleImageChange}
-                />
-              </Col>
-            </div>
-
-            {/* {map(state, (item, i) => (
+        {/* {map(state, (item, i) => (
               <Card
                 className="mt-1 mb-0 shadow-none border dz-processing dz-image-preview dz-success dz-complete"
                 key={i + "-file"}
@@ -200,42 +197,40 @@ function ProductCard() {
               </Card>
             ))} */}
 
-            <div className="row justify-content-end">
-              <Col sm={9}>
-                <div className="d-flex">
-                  <Button type="submit" color="success" className="w-md">
-                    {loading && (
-                      <>
-                        <i className="bx bx-loader bx-spin font-size-16 align-middle me-2"></i>
-                      </>
-                    )}
-                    Submit
-                  </Button>
-                  {myloading && (
-                    <div
-                      className="d-flex"
-                      style={{
-                        alignItems: "center",
-                      }}
-                    >
-                      <Spinner
-                        color="info"
-                        // type="grow"
-                        className="mx-3 "
-                        style={{
-                          alignItems: "center",
-                          height: "20px",
-                          width: "20px",
-                        }}
-                      />
-                    </div>
-                  )}
+        <div className="row justify-content-end">
+          <Col sm={9}>
+            <div className="d-flex">
+              <Button type="submit" color="success" className="w-md">
+                {loading && (
+                  <>
+                    <i className="bx bx-loader bx-spin font-size-16 align-middle me-2"></i>
+                  </>
+                )}
+                Submit
+              </Button>
+              {myloading && (
+                <div
+                  className="d-flex"
+                  style={{
+                    alignItems: "center",
+                  }}
+                >
+                  <Spinner
+                    color="info"
+                    // type="grow"
+                    className="mx-3 "
+                    style={{
+                      alignItems: "center",
+                      height: "20px",
+                      width: "20px",
+                    }}
+                  />
                 </div>
-              </Col>
+              )}
             </div>
-          </AvForm>
-        </CardBody>
-      </Card>
+          </Col>
+        </div>
+      </AvForm>
     </>
   )
 }

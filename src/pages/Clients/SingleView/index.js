@@ -1,7 +1,7 @@
 import React, { useState } from "react"
+import { useEffect } from "react"
 import { Col, Container, Row } from "reactstrap"
 import { MetaTags } from "react-meta-tags"
-import { useEffect } from "react"
 import { Card, CardBody, Media, Spinner } from "reactstrap"
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"

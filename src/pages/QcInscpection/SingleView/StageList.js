@@ -1,14 +1,16 @@
 import React from "react"
-import { Badge, Card, CardBody, CardTitle, Media } from "reactstrap"
+import { Badge, CardTitle, Media } from "reactstrap"
 import PropTypes from "prop-types"
 import { map } from "lodash"
 
 function StageList({ stageData }) {
   const stageStatus = status => {
     if (status === "Started") {
-      return "info"
+      return "warning"
     } else if (status === "Finished") {
       return "success"
+    } else if (status === "Pending") {
+      return "info"
     }
   }
   return (
@@ -72,14 +74,6 @@ function StageList({ stageData }) {
           </li>
         ))}
       </ul>
-      {/* <div className="text-center mt-4">
-            <Link
-                to=""
-                className="btn btn-primary  btn-sm"
-            >
-                View More <i className="mdi mdi-arrow-right ms-1" />
-            </Link>
-        </div> */}
     </>
   )
 }

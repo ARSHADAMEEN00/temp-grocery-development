@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Row, Col, Card, CardBody, Badge, Spinner } from "reactstrap"
+import { Row, Col, Badge, Spinner } from "reactstrap"
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { map, range } from "lodash"
@@ -41,21 +41,17 @@ const Orders = () => {
     dispatch(getOrderItems(searchText, pageSend()))
   }, [dispatch, page, searchText])
 
-
-
   const columns = [
     {
       dataField: "auto_id",
       text: "Order Id",
       sort: true,
-
     },
 
     {
       dataField: "product_name",
       text: "Product",
       sort: true,
-
     },
     {
       dataField: "quantity",
@@ -69,13 +65,11 @@ const Orders = () => {
       dataField: "qc_status",
       text: "QC Status",
       sort: true,
-
     },
     {
       dataField: "store_status",
       text: "Store Status",
       sort: true,
-
     },
     {
       dataField: "action",
@@ -103,16 +97,14 @@ const Orders = () => {
     }
   }
 
-
-
   const orderItemData = map(orderItems?.results, (item, index) => ({
     ...item,
     key: index,
-    quotation_id: (
-      <p>{item.quotation_id ? item.quotation_id : "Null"}</p>
-    ),
+    quotation_id: <p>{item.quotation_id ? item.quotation_id : "Null"}</p>,
     product_name: (
-      <h6 style={{ whiteSpace: "break-spaces", maxWidth: "250px" }}>{item.product_name}</h6>
+      <h6 style={{ whiteSpace: "break-spaces", maxWidth: "250px" }}>
+        {item.product_name}
+      </h6>
     ),
     qc_status: (
       <div
@@ -124,7 +116,9 @@ const Orders = () => {
         }}
       >
         <Badge
-          className={"font-size-12 badge-soft-" + `${WorkStatus(item.qc_status)}`}
+          className={
+            "font-size-12 badge-soft-" + `${WorkStatus(item.qc_status)}`
+          }
           pill
         >
           {item.qc_status}
@@ -141,14 +135,15 @@ const Orders = () => {
         }}
       >
         <Badge
-          className={"font-size-12 badge-soft-" + `${StoreStatus(item.store_status)}`}
+          className={
+            "font-size-12 badge-soft-" + `${StoreStatus(item.store_status)}`
+          }
           pill
         >
           {item.store_status}
         </Badge>
       </div>
     ),
-
 
     action: (
       <Link
@@ -181,7 +176,6 @@ const Orders = () => {
     <React.Fragment>
       <Row>
         <Col className="col-12">
-
           <ToolkitProvider
             keyField="id"
             columns={columns}
@@ -239,7 +233,7 @@ const Orders = () => {
                     <MyPagination
                       pages={pages}
                       clcickedPage={page}
-                      onNunClick={(item) => setPage(item)}
+                      onNunClick={item => setPage(item)}
                       onNextClick={() => setPage(page + 1)}
                       onPrevClick={() => setPage(page - 1)}
                       onFastNextClick={() => setPage(pages.length)}
@@ -251,7 +245,6 @@ const Orders = () => {
               </React.Fragment>
             )}
           </ToolkitProvider>
-
         </Col>
       </Row>
     </React.Fragment>
@@ -259,4 +252,3 @@ const Orders = () => {
 }
 
 export default Orders
-

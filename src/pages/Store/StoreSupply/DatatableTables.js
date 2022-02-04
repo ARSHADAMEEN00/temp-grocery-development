@@ -152,7 +152,9 @@ const Stores = () => {
                 cursor: `${item?.store_status == "Provided" && "default"}`,
               }}
             >
-              {item?.store_status}
+              {item?.store_status === "Provided"
+                ? item?.store_status
+                : "Provide"}
             </Link>
           )}
         </div>

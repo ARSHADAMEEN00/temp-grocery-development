@@ -5,14 +5,9 @@ import { Link } from "react-router-dom"
 import { Col, Card, CardBody, Spinner } from "reactstrap"
 
 const MiniWidget = () => {
-  const { storeItems, products, Productloading, finishedProduct } = useSelector(
-    state => ({
-      products: state.Products.products,
-      Productloading: state.Products.loading,
-      finishedProduct: state.Products.finishedProduct,
-      storeItems: state.StoreItems.storeItems,
-    })
-  )
+  const { storeItems } = useSelector(state => ({
+    storeItems: state.StoreItems.storeItems,
+  }))
   const OutOfStock = storeItems?.results?.filter(stock => stock.stock == 0)
 
   const analatics = [
@@ -29,18 +24,6 @@ const MiniWidget = () => {
       linkPath: "/orders",
       button: "Add New Item",
     },
-    // {
-    //   icon: "bx bx-archive-in",
-    //   title: "Total Products",
-    //   value: products?.count,
-    //   badgeValue: finishedProduct?.count,
-    //   color: "success",
-    //   desc: "Finished Products",
-    //   warningMsg: "No Finished Products yet!",
-    //   msgColor: "info",
-    //   loading: Productloading,
-    //   linkPath: "/products",
-    // },
   ]
   return (
     <React.Fragment>
@@ -72,9 +55,10 @@ const MiniWidget = () => {
                       <span
                         className={
                           "badge badge-soft-" +
-                          `${report.badgeValue > 0
-                            ? report.color
-                            : report.msgColor
+                          `${
+                            report.badgeValue > 0
+                              ? report.color
+                              : report.msgColor
                           }` +
                           " font-size-12"
                         }
