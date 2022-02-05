@@ -63,17 +63,25 @@ function getOrdersItemsByFilterdAPi({ sort, searchText, page }) {
     }`
   )
 }
+
 const getOrderItemDetailsAPi = orderItemId => {
   return get(`/order/orderitem/${orderItemId}/`)
 }
 
-function getOrdersAPi({ searchText, page }) {
+function getOrdersAPi({ searchText, page, status }) {
   if (searchText) {
     return get(`/order/order/?search=${searchText && searchText}`)
+  } else if (status) {
+    return get(
+      `/order/order/?page=${page ? page : 1}&status=${
+        status && status
+      }&search=${searchText && searchText}`
+    )
   } else {
     return get(`/order/order/?page=${page ? page : 1}`)
   }
 }
+
 function getQuotationsAPi({ searchText, page }) {
   if (searchText) {
     return get(`/quotation/quotation/?search=${searchText && searchText}`)

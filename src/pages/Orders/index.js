@@ -3,7 +3,7 @@ import { Container } from "reactstrap"
 import { MetaTags } from "react-meta-tags"
 
 import Breadcrumbs from "../../components/Common/Breadcrumb"
-import DatatableTables from "./DatatableTables"
+import OrdersList from "./TablelistDatatable"
 
 function Orders() {
   return (
@@ -15,7 +15,7 @@ function Orders() {
         <Breadcrumbs title="Dashboard" breadcrumbItem="All Orders" />
         <Container fluid>
           <div className="container-fluid">
-            <DatatableTables />
+            <OrdersList />
           </div>
         </Container>
       </div>

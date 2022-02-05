@@ -3,6 +3,7 @@ import { Row, Col, Card, CardBody, Badge, Spinner } from "reactstrap"
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { map, range } from "lodash"
+import PropTypes from "prop-types"
 
 // datatable related plugins
 import BootstrapTable from "react-bootstrap-table-next"
@@ -14,7 +15,7 @@ import { getOrders } from "store/orders/actions"
 import "../../assets/scss/datatables.scss"
 import MyPagination from "components/Common/MyPagination"
 
-const Orders = () => {
+const OrderHistory = ({ orderStatus, title }) => {
   const dispatch = useDispatch()
   const [page, setPage] = useState(1)
   const [searchText, setSearchText] = useState("")
@@ -39,8 +40,8 @@ const Orders = () => {
   }
 
   useEffect(() => {
-    dispatch(getOrders(searchText, pageSend()))
-  }, [dispatch, page, searchText])
+    dispatch(getOrders(searchText, pageSend(), orderStatus))
+  }, [dispatch, page, searchText, orderStatus])
 
   const columns = [
     {
@@ -78,7 +79,7 @@ const Orders = () => {
 
   const Status = status => {
     if (status == "Pending") {
-      return "success"
+      return "info"
     }
     if (status == "Finished") {
       return "success"
@@ -155,8 +156,8 @@ const Orders = () => {
   return (
     <React.Fragment>
       <Row>
-        <Col className="col-12">
-          <Card>
+        {ordersData.length > 0 ? (
+          <Col className="col-12">
             <CardBody>
               <ToolkitProvider
                 keyField="id"
@@ -244,11 +245,18 @@ const Orders = () => {
                 )}
               </ToolkitProvider>
             </CardBody>
-          </Card>
-        </Col>
+          </Col>
+        ) : (
+          <p className="text-warning p-4">No {title}</p>
+        )}
       </Row>
     </React.Fragment>
   )
 }
 
-export default Orders
+export default OrderHistory
+
+OrderHistory.propTypes = {
+  orderStatus: PropTypes.string,
+  title: PropTypes.string,
+}

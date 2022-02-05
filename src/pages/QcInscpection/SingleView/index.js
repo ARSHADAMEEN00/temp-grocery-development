@@ -5,10 +5,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link, useParams } from "react-router-dom"
 import {
   Container,
-  Button,
   Card,
   CardBody,
-  CardTitle,
   Col,
   Media,
   Row,
@@ -184,7 +182,7 @@ function OrderItemSingleView() {
               <Card>
                 <CardBody>
                   {stages?.length > 0 ? (
-                    <StageList stageData={stages} />
+                    <StageList />
                   ) : (
                     <p className="text-warning">
                       No stages for this item,{" "}

@@ -23,9 +23,11 @@ import {
 import { get, post, ApiPut, del, patch } from "helpers/api_methods"
 import { Notification } from "components/Common/Notification"
 
-const getWorkStagesAPi = ({ searchText, page }) => {
+const getWorkStagesAPi = ({ searchText, page, orderItemId }) => {
   if (searchText) {
     return get(`/stages/stages/?search=${searchText && searchText}`)
+  } else if (orderItemId) {
+    return get(`/stages/stages/?id=${orderItemId}`)
   } else {
     return get(`/stages/stages/?page=${page ? page : 1}`)
   }

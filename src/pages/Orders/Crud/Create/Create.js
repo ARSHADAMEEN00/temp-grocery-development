@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react"
+import React, { Fragment, useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { map } from "lodash"
 import { Link } from "react-router-dom"
 import PropTypes from "prop-types"
 import { MetaTags } from "react-meta-tags"
-import { Alert, Badge, Container, Table } from "reactstrap"
+import { Alert, Badge, Container, Media, Table } from "reactstrap"
 import {
   Row,
   Col,
@@ -262,123 +262,195 @@ const CreateOrder = ({ history }) => {
             <Row>
               <Col lg={12}>
                 <Form className="repeater" encType="multipart/form-data">
-                  <Card>
-                    <CardBody>
-                      <CardTitle className="h4 mb-4">Add Order</CardTitle>
-
-                      <Row>
-                        <Col lg={12} className="mb-3">
-                          <FormGroup className="mb-3">
-                            <Label>Quotation</Label>
-
-                            <div className="col-md-12"></div>
-                            <div className="mb-3 ajax-select mt-3 mt-lg-0 select2-container">
-                              <Select
-                                onInputChange={handleQuotationEnters}
-                                value={selectedQuotation}
-                                placeholder={selectedQuotation}
-                                onChange={handlerQuotationFinalValue}
-                                options={quotationOptions}
-                                classNamePrefix="select2-selection"
-                                isLoading={true}
-                              />
-                            </div>
-                          </FormGroup>
-                        </Col>
-                        {Role == "client" ? (
-                          <></>
-                        ) : (
-                          <>
-                            <Col lg={10} md={8} sm={6} xs={12} className="mb-3">
+                  <Row>
+                    <Col lg={QclientDetails?.client_name ? 8 : 12}>
+                      <Card>
+                        <CardBody>
+                          <Row>
+                            <Col lg={12} className="mb-3">
+                              <CardTitle className="h4 mb-4">
+                                Add Order
+                              </CardTitle>
                               <FormGroup className="mb-3">
-                                <Label>Select Client / Create Now </Label>
+                                <Label>Quotation</Label>
 
-                                <div className="ajax-select mt-3 mt-lg-0 select2-container">
+                                <div className="col-md-12"></div>
+                                <div className="mb-3 ajax-select mt-3 mt-lg-0 select2-container">
                                   <Select
-                                    onInputChange={handleClientEnters}
-                                    value={selectedClient}
-                                    placeholder={selectedClient}
-                                    onChange={handlerClientFinalValue}
-                                    options={clientOptions}
+                                    onInputChange={handleQuotationEnters}
+                                    value={selectedQuotation}
+                                    placeholder={selectedQuotation}
+                                    onChange={handlerQuotationFinalValue}
+                                    options={quotationOptions}
                                     classNamePrefix="select2-selection"
                                     isLoading={true}
-                                    className="custome_select_rad"
                                   />
                                 </div>
                               </FormGroup>
                             </Col>
-                            <Col
-                              lg={2}
-                              md={4}
-                              sm={6}
-                              xs={12}
-                              className="m-0 createClintBtnCont "
-                            >
-                              <button
-                                type="button"
-                                className="btn btn-light text-info"
-                                onClick={handleCreateCLient}
-                              >
-                                Create New
-                              </button>
-                            </Col>
-                          </>
-                        )}
-                        <Col lg={4} className="mb-3">
-                          <label htmlFor="date1">Start Date</label>
-                          <input
-                            type="date"
-                            className="form-control"
-                            id="date1"
-                            requied="true"
-                            min={1}
-                            value={rawData.start_date}
-                            onChange={e =>
-                              setRawData({
-                                ...rawData,
-                                ["start_date"]: e.target.value,
-                              })
-                            }
-                          />
-                        </Col>
-                        <Col lg={4} className="mb-3">
-                          <label htmlFor="date2">End Date</label>
-                          <input
-                            type="date"
-                            className="form-control"
-                            id="date2"
-                            requied="true"
-                            min={1}
-                            value={rawData.end_date}
-                            onChange={e =>
-                              setRawData({
-                                ...rawData,
-                                ["end_date"]: e.target.value,
-                              })
-                            }
-                          />
-                        </Col>
 
-                        <Col lg={4} className="mb-3">
-                          <label htmlFor="Duration">Duration (In Days)</label>
-                          <input
-                            type="number"
-                            className="form-control"
-                            id="Duration"
-                            requied="true"
-                            min={1}
-                            value={rawData.duration}
-                            onChange={e =>
-                              setRawData({
-                                ...rawData,
-                                ["duration"]: e.target.value,
-                              })
-                            }
-                          />
-                        </Col>
-                      </Row>
-                    </CardBody>
-                  </Card>
+                            {Role == "client" ? (
+                              <></>
+                            ) : (
+                              <>
+                                <Col
+                                  lg={9}
+                                  md={8}
+                                  sm={6}
+                                  xs={12}
+                                  className="mb-3"
+                                >
+                                  <FormGroup className="mb-3">
+                                    <Label>Select Client / Create Now </Label>
+
+                                    <div className="ajax-select mt-3 mt-lg-0 select2-container">
+                                      <Select
+                                        onInputChange={handleClientEnters}
+                                        value={selectedClient}
+                                        placeholder={selectedClient}
+                                        onChange={handlerClientFinalValue}
+                                        options={clientOptions}
+                                        classNamePrefix="select2-selection"
+                                        isLoading={true}
+                                        className="custome_select_rad"
+                                      />
+                                    </div>
+                                  </FormGroup>
+                                </Col>
+                                <Col
+                                  lg={3}
+                                  md={4}
+                                  sm={6}
+                                  xs={12}
+                                  className="m-0 createClintBtnCont "
+                                >
+                                  <button
+                                    type="button"
+                                    className="btn btn-light text-info"
+                                    onClick={handleCreateCLient}
+                                  >
+                                    Create New
+                                  </button>
+                                </Col>
+                              </>
+                            )}
+                            <Col lg={4} className="mb-3">
+                              <label htmlFor="date1">Start Date</label>
+                              <input
+                                type="date"
+                                className="form-control"
+                                id="date1"
+                                requied="true"
+                                min={1}
+                                value={rawData.start_date}
+                                onChange={e =>
+                                  setRawData({
+                                    ...rawData,
+                                    ["start_date"]: e.target.value,
+                                  })
+                                }
+                              />
+                            </Col>
+                            <Col lg={4} className="mb-3">
+                              <label htmlFor="date2">End Date</label>
+                              <input
+                                type="date"
+                                className="form-control"
+                                id="date2"
+                                requied="true"
+                                min={1}
+                                value={rawData.end_date}
+                                onChange={e =>
+                                  setRawData({
+                                    ...rawData,
+                                    ["end_date"]: e.target.value,
+                                  })
+                                }
+                              />
+                            </Col>
+
+                            <Col lg={4} className="mb-3">
+                              <label htmlFor="Duration">
+                                Duration (In Days)
+                              </label>
+                              <input
+                                type="number"
+                                className="form-control"
+                                id="Duration"
+                                requied="true"
+                                min={1}
+                                value={rawData.duration}
+                                onChange={e =>
+                                  setRawData({
+                                    ...rawData,
+                                    ["duration"]: e.target.value,
+                                  })
+                                }
+                              />
+                            </Col>
+                          </Row>
+                        </CardBody>
+                      </Card>
+                    </Col>
+                    {QclientDetails?.client_name && (
+                      <Col lg={4}>
+                        <Card>
+                          <CardBody className="bg">
+                            <div className="media">
+                              <div className="media-body">
+                                <Media>
+                                  <div className="media-body">
+                                    <div className="text-muted">
+                                      <h6 className="mb-1">
+                                        {QclientDetails?.client_name}
+                                      </h6>
+                                      <p className="mb-0">
+                                        {QclientDetails?.auto_id}
+                                      </p>
+                                    </div>
+                                  </div>
+                                </Media>
+
+                                <hr />
+                                <Row>
+                                  <Col>
+                                    <div>
+                                      <p className="text-muted text-truncate mb-3">
+                                        Quotation Items :
+                                      </p>
+
+                                      {map(
+                                        QclientDetails?.quotationitem,
+                                        (item, key) => (
+                                          <Fragment key={key}>
+                                            <h6 className="mb-0 d-flex">
+                                              <i className="mdi mdi-circle align-middle font-size-10 me-2 text-warning"></i>
+                                              <span>{item.product_name}</span>
+                                            </h6>
+                                            <p className="pt-2 mb-0 text-muted mx-3">
+                                              cost : {item.cost}
+                                            </p>
+
+                                            <p className="pt-2 mb-0 text-muted mx-3">
+                                              Profit : {item.profit}%
+                                            </p>
+                                            <p className="pt-2 mb-4 text-muted mx-3">
+                                              Price : {item.price}
+                                            </p>
+                                          </Fragment>
+                                        )
+                                      )}
+                                    </div>
+                                  </Col>
+                                </Row>
+                              </div>
+                            </div>
+                          </CardBody>
+                        </Card>
+                      </Col>
+                    )}
+                  </Row>
+
                   <Card>
                     <CardBody>
                       <div>

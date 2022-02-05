@@ -143,9 +143,9 @@ export const createQuatationFail = error => ({
   payload: error,
 })
 
-export const getOrders = (searchText, page) => ({
+export const getOrders = (searchText, page, status) => ({
   type: GET_ORDERS,
-  payload: { searchText, page },
+  payload: { searchText, page, status },
 })
 
 export const getOrdersSuccess = orders => ({

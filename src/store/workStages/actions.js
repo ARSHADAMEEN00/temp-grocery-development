@@ -16,9 +16,9 @@ import {
   DELETE_WORKSTAGE_FAIL,
 } from "./actionTypes"
 
-export const getWorkStages = (searchText, page) => ({
+export const getWorkStages = (searchText, page, orderItemId) => ({
   type: GET_WORKSTAGES,
-  payload: { searchText, page },
+  payload: { searchText, page, orderItemId },
 })
 
 export const getWorkStagesSuccess = workStages => ({
