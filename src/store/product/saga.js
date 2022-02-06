@@ -206,9 +206,11 @@ function* onCreateOtherCost({ payload: otherCost }) {
       yield put(createOtherCostFail(response?.error_message))
     } else {
       yield put(createOtherCostSuccess(response))
+      doneNotification()
     }
   } catch (error) {
     yield put(createOtherCostFail(error))
+    errorNotification()
   }
 }
 
@@ -216,8 +218,10 @@ function* onDeleteOtherCost({ payload }) {
   try {
     const response = yield call(deleteOtherCostApi, payload)
     yield put(deleteOtherCostSuccess({ ...response, id: payload }))
+    doneNotification()
   } catch (error) {
     yield put(deleteOtherCostFail(error))
+    errorNotification()
   }
 }
 
@@ -238,9 +242,11 @@ function* onCreateRawmaterial({ payload: rawmaterial }) {
       yield put(createRawmaterialFail(response?.error_message))
     } else {
       yield put(createRawmaterialSuccess(response))
+      doneNotification()
     }
   } catch (error) {
     yield put(createRawmaterialFail(error))
+    errorNotification()
   }
 }
 
@@ -248,7 +254,9 @@ function* onDeleteRawmaterial({ rawmaterialId }) {
   try {
     const response = yield call(deleteRawmaterialApi, rawmaterialId)
     yield put(deleteRawmaterialSuccess({ ...response, id: rawmaterialId }))
+    doneNotification()
   } catch (error) {
+    errorNotification()
     yield put(deleteRawmaterialFail(error))
   }
 }
@@ -267,7 +275,9 @@ function* onCreateCurdProductDetails({ payload: productDetal }) {
   try {
     const response = yield call(createCurdProductDetailApi, productDetal)
     yield put(createCurdProductDetailSuccess(response))
+    doneNotification()
   } catch (error) {
+    errorNotification()
     yield put(createCurdProductDetailFail(error))
   }
 }
@@ -278,7 +288,9 @@ function* onDeleteCurdProductDetails(payload) {
     yield put(
       deleteCurdProductDetailSuccess({ ...response, id: payload.payload })
     )
+    doneNotification()
   } catch (error) {
+    errorNotification()
     yield put(deleteCurdProductDetailFail(error))
   }
 }
@@ -300,9 +312,11 @@ function* onCreateFinishedProduct({ payload: product }) {
     } else {
       yield put(createFinishedProductFail(""))
       yield put(createFinishedProductSuccess(response))
+      doneNotification()
     }
   } catch (error) {
     yield put(createProductFail(error))
+    errorNotification()
   }
 }
 

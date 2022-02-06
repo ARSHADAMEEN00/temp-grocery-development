@@ -85,6 +85,7 @@ const Salesmans = (state = INIT_STATE, action) => {
         salesmanDetail: action.payload,
         loading: false,
         detailLoading: false,
+        error: {},
       }
 
     case GET_SALESMAN_DETAIL_FAIL:

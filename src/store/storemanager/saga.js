@@ -70,7 +70,7 @@ function* onCreateStoremngr({ payload }) {
       payload.history.push("/storemanagers")
       Notification({
         type: "success",
-        message: "Successfully Created StoreItem",
+        message: "Successfully Created Store Manager",
         title: "Created!",
       })
     }

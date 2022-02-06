@@ -155,6 +155,7 @@ const Supervisors = (state = INIT_STATE, action) => {
         supervisors: action.payload,
         createSupervisorerror: null,
         loading: false,
+        error: {},
       }
 
     case CREATE_SUPERVISOR_FAIL:

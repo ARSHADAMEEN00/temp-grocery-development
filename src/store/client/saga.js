@@ -21,6 +21,7 @@ import {
   deleteClientFail,
 } from "./actions"
 import { get, post, ApiPut, del, patch } from "helpers/api_methods"
+import { Notification } from "components/Common/Notification"
 
 const getClientsAPi = ({ searchText, page }) => {
   if (searchText) {
@@ -67,9 +68,11 @@ function* onCreateClient({ payload }) {
     } else {
       yield put(createClientSuccess(response))
       payload.history.push("/clients")
+      doneNotification()
     }
   } catch (error) {
     yield put(createClientFail(error))
+    errorNotification()
   }
 }
 
@@ -77,8 +80,10 @@ function* onUpdateClient({ payload }) {
   try {
     const response = yield call(updateClientApi, payload)
     yield put(updateClientSuccess(response))
+    doneNotification()
   } catch (error) {
     yield put(updateClientFail(error))
+    errorNotification()
   }
 }
 
@@ -87,9 +92,26 @@ function* onDeleteClient({ payload }) {
     const response = yield call(deleteClientApi, payload)
     payload.history.push("/clients")
     yield put(deleteClientSuccess(response))
+    doneNotification()
   } catch (error) {
+    errorNotification()
     yield put(deleteClientFail(error))
   }
+}
+
+function errorNotification() {
+  Notification({
+    type: "error",
+    message: "Something Went Wrong",
+    title: "Try Again",
+  })
+}
+function doneNotification() {
+  Notification({
+    type: "success",
+    message: "Done",
+    title: "",
+  })
 }
 
 function* ClientsSaga() {

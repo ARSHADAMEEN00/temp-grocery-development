@@ -75,6 +75,7 @@ const Qltcheckers = (state = INIT_STATE, action) => {
         ...state,
         qltcheckers: action.payload,
         loading: false,
+        error: {},
       }
 
     case CREATE_QLTCHECKER_FAIL:

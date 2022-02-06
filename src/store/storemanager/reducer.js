@@ -75,6 +75,7 @@ const Storemngrs = (state = INIT_STATE, action) => {
         ...state,
         storemngrs: action.payload,
         loading: false,
+        error: {},
       }
 
     case CREATE_STOREMNGR_FAIL:

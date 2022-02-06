@@ -74,6 +74,7 @@ const GeneralManagers = (state = INIT_STATE, action) => {
         ...state,
         GeneralManagers: action.payload,
         loading: false,
+        error: {},
       }
 
     case CREATE_GEN_MANAGER_FAIL:

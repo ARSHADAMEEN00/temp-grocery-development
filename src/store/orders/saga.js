@@ -241,9 +241,11 @@ function* onUpdateOrder({ payload }) {
       yield put(updateOrderFail(response))
     } else {
       yield put(updateOrderSuccess(response))
+      doneNotification()
     }
   } catch (error) {
     yield put(updateOrderFail(error))
+    errorNotification()
   }
 }
 

@@ -75,6 +75,7 @@ const Productionmngrs = (state = INIT_STATE, action) => {
         ...state,
         productionmngrs: action.payload,
         loading: false,
+        error: {},
       }
 
     case CREATE_PRODUCTIONMNGR_FAIL:
