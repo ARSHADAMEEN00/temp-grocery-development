@@ -36,9 +36,9 @@ export const getStoreItemsFail = error => ({
   payload: error,
 })
 
-export const getStoreSupply = (searchText, page) => ({
+export const getStoreSupply = (searchText, page, storeStatus) => ({
   type: GET_STORESUPPLY,
-  payload: { searchText, page },
+  payload: { searchText, page, storeStatus },
 })
 
 export const getStoreSupplySuccess = storeSupply => ({

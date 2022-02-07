@@ -3,7 +3,7 @@ import { Notification } from "components/Common/Notification"
 
 //apply base url for axios
 // export const API_URL = "http://192.168.1.14:3333/api/v1" //afnan//
-export const API_URL = "http://127.0.0.1:8000/api/v1" //mac//
+export const API_URL = "https://api.fms.indtechhc.com/api/v1"
 
 export const axiosApi = axios.create({
   baseURL: API_URL,

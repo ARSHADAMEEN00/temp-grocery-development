@@ -13,6 +13,7 @@ import {
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { map, range } from "lodash"
+import PropTypes from "prop-types"
 
 // datatable related plugins
 import BootstrapTable from "react-bootstrap-table-next"
@@ -24,7 +25,7 @@ import { getStoreSupply, updateStoreSupply } from "store/actions"
 import "../../../assets/scss/datatables.scss"
 import MyPagination from "components/Common/MyPagination"
 
-const Stores = () => {
+const Stores = ({ storeStatus, title }) => {
   const dispatch = useDispatch()
   const [page, setPage] = useState(1)
   const [show, setShow] = useState({ table: false })
@@ -52,8 +53,8 @@ const Stores = () => {
   }
 
   useEffect(() => {
-    dispatch(getStoreSupply(searchText, pageSend()))
-  }, [dispatch, page, searchText])
+    dispatch(getStoreSupply(searchText, pageSend(), storeStatus))
+  }, [dispatch, page, searchText, storeStatus])
 
   const handleUpdate = storeSupply => {
     dispatch(updateStoreSupply({ store_status: "Provided" }, storeSupply.id))
@@ -180,8 +181,8 @@ const Stores = () => {
   return (
     <React.Fragment>
       <Row>
-        <Col xl={`${show?.table ? 9 : 12}`}>
-          <Card>
+        {storeSupplyData.length > 0 ? (
+          <Col xl={`${show?.table ? 9 : 12}`}>
             <CardBody>
               <ToolkitProvider
                 keyField="id"
@@ -250,8 +251,10 @@ const Stores = () => {
                 )}
               </ToolkitProvider>
             </CardBody>
-          </Card>
-        </Col>
+          </Col>
+        ) : (
+          <p className="text-warning p-4">No {title}</p>
+        )}
         {show?.table && (
           <Col xl={3}>
             <Card>
@@ -286,3 +289,8 @@ const Stores = () => {
 }
 
 export default Stores
+
+Stores.propTypes = {
+  storeStatus: PropTypes.string,
+  title: PropTypes.string,
+}

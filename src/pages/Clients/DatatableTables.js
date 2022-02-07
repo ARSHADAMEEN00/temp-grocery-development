@@ -74,6 +74,7 @@ const AllClients = () => {
   const clientsData = map(clients?.results, (item, index) => ({
     ...item,
     key: index,
+
     action: (
       <div>
         <Link to={`/clients/${item?.id}`} className="btn-light btn-sm">
@@ -149,7 +150,7 @@ const AllClients = () => {
                                 striped={false}
                                 defaultSorted={defaultSorted}
                                 selectRow={selectRow}
-                                classes={"table align-middle table-nowrap"}
+                                classes={"table align-middle table-wrap"}
                                 headerWrapperClasses={"thead-light"}
                                 {...toolkitProps.baseProps}
                               />
