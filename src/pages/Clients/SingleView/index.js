@@ -72,7 +72,7 @@ const ClientDetails = ({ history }) => {
                           <img
                             className="d-flex me-3 rounded-circle avatar-sm"
                             src={userProfile}
-                            alt="skote"
+                            alt="osperb"
                           />
 
                           <Media className="overflow-hidden" body>
@@ -110,9 +110,8 @@ const ClientDetails = ({ history }) => {
                           <Link
                             style={{ opacity: 0.8 }}
                             to="#"
-                            className={`btn btn-outline-light ${
-                              loading && "disabled"
-                            }  btn-m`}
+                            className={`btn btn-outline-light ${loading && "disabled"
+                              }  btn-m`}
                             onClick={handleDelete}
                           >
                             Block Acount

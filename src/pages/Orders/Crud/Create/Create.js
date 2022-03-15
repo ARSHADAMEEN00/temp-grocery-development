@@ -241,6 +241,9 @@ const CreateOrder = ({ history }) => {
     (accumulator, current) => accumulator + current.total_price,
     0
   )
+  console.log(QProductDetail?.profit);
+  console.log(
+    percentage);
 
   return (
     <>
@@ -501,11 +504,9 @@ const CreateOrder = ({ history }) => {
                               id="resume"
                               requied="true"
                               min={1}
-                              value={
-                                QProductDetail?.profit
-                                  ? QProductDetail?.profit
-                                  : percentage
+                              value={percentage
                               }
+                              defaultValue={QProductDetail?.profit}
                               // defaultValue={percentage}
                               onChange={e => setPercentage(e.target.value)}
                             />
