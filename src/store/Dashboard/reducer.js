@@ -8,11 +8,14 @@ import {
   GET_YEARLY_CHART_SUCCESS,
   GET_YEARLY_CHART_FAIL,
   GET_YEARLY_CHART,
+  GET_STOCKREPORT_SUCCESS,
+  GET_STOCKREPORT_FAIL,
 } from "./actionTypes"
 
 const INIT_STATE = {
   monthlyData: [],
   yearlyData: [],
+  stockreport: {},
   error: {},
   loading: false,
   yearLoading: false,
@@ -80,6 +83,17 @@ const Dashboard = (state = INIT_STATE, action) => {
         ...state,
         error: action.payload,
         dashboardLoading: false,
+      }
+    case GET_STOCKREPORT_SUCCESS:
+      return {
+        ...state,
+        stockreport: action.payload
+      }
+
+    case GET_STOCKREPORT_FAIL:
+      return {
+        ...state,
+        error: action.payload,
       }
 
     default:

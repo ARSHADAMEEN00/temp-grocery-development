@@ -16,6 +16,7 @@ import {
   GET_ORDERSITEMS_DETAIL,
   GET_QUOTATION_CLIENT_ID,
   GET_ORDERSITEMS_BYFILTERED,
+  GET_ORDER_RAWMATERIAL,
 } from "./actionTypes"
 import {
   getOrdersSuccess,
@@ -44,6 +45,8 @@ import {
   getQuotationClientIdFail,
   getOrderItemsByFiltedSuccess,
   getOrderItemsByFiltedFail,
+  getOrderRawmaterailSuccess,
+  getOrderRawmaterailFail,
 } from "./actions"
 import { get, post, ApiPut, del, patch } from "helpers/api_methods"
 import { updateOrderItemFail, updateOrderItemSuccess } from "store/actions"
@@ -58,8 +61,7 @@ function getOrdersItemsAPi({ searchText, page }) {
 }
 function getOrdersItemsByFilterdAPi({ sort, searchText, page }) {
   return get(
-    `/order/orderitem/?page=${page ? page : 1}&status=${sort && sort}&search=${
-      searchText && searchText
+    `/order/orderitem/?page=${page ? page : 1}&status=${sort && sort}&search=${searchText && searchText
     }`
   )
 }
@@ -73,8 +75,7 @@ function getOrdersAPi({ searchText, page, status }) {
     return get(`/order/order/?search=${searchText && searchText}`)
   } else if (status) {
     return get(
-      `/order/order/?page=${page ? page : 1}&status=${
-        status && status
+      `/order/order/?page=${page ? page : 1}&status=${status && status
       }&search=${searchText && searchText}`
     )
   } else {
@@ -105,6 +106,9 @@ const getOrderDetailsAPi = orderId => {
   return get(`/order/order/${orderId}/`)
 }
 
+const getOrderRawmaterialAPi = orderId => {
+  return post(`/order/order_rawmaterials/`, { "id": orderId })
+}
 const createOrderApi = ({ order }) => {
   return post("/order/order/", order)
 }
@@ -204,6 +208,14 @@ function* fetchOrderDetail({ orderId }) {
     yield put(getOrderDetailFail(error))
   }
 }
+function* fetchOrderRawmaterial({ orderId }) {
+  try {
+    const response = yield call(getOrderRawmaterialAPi, orderId)
+    yield put(getOrderRawmaterailSuccess(response))
+  } catch (error) {
+    yield put(getOrderRawmaterailFail(error))
+  }
+}
 function* fetchOrderItemDetail({ orderItemId }) {
   try {
     const response = yield call(getOrderItemDetailsAPi, orderItemId)
@@ -218,7 +230,18 @@ function* onCreateOrder({ payload }) {
     const response = yield call(createOrderApi, payload)
 
     if (response.response === "No Stocks Available") {
-      yield put(createOrderFail(response))
+      Notification({
+        type: "warning",
+        message: "No Stocks Available",
+        title: "",
+      })
+    }
+    if (response.response === "Invalid input") {
+      Notification({
+        type: "error",
+        message: "Invalid input",
+        title: "",
+      })
     } else {
       yield put(createOrderSuccess(response))
       payload.history.push("/orders")
@@ -316,6 +339,7 @@ function* ordersSaga() {
   yield takeEvery(GET_ORDERSITEMS_DETAIL, fetchOrderItemDetail)
   yield takeEvery(GET_QUOTATION_CLIENT_ID, fetchQuotationClientDetails)
   yield takeEvery(GET_ORDERSITEMS_BYFILTERED, fetchOrderItemsByFiltered)
+  yield takeEvery(GET_ORDER_RAWMATERIAL, fetchOrderRawmaterial)
 }
 
 export default ordersSaga

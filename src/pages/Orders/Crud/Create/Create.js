@@ -70,6 +70,8 @@ const CreateOrder = ({ history }) => {
     end_date: "",
     quotation_id: null,
     duration: "",
+    delivery_address: "",
+    purchase_number: "",
     orderitem: [
       {
         product: "",
@@ -117,8 +119,16 @@ const CreateOrder = ({ history }) => {
     setRawData({
       ...rawData,
       ["client"]: QclientDetails?.client,
+      ["delivery_address"]: QclientDetails?.client_address
     })
   }, [QclientDetails.client_name])
+
+  // useEffect(() => {
+  //   setRawData({
+  //     ...rawData,
+  //     ["delivery_address"]: QclientDetails?.client_address,
+  //   })
+  // }, [QclientDetails.client_address])
 
   const onAddFormRow = async () => {
     const modifiedRows = [...orderitem]
@@ -144,6 +154,7 @@ const CreateOrder = ({ history }) => {
   const onSubmitOrder = () => {
     dispatch(createOrder({ ...rawData, orderitem: orderitem }, history))
   }
+  console.log({ ...rawData, orderitem: orderitem });
 
   //setore item from and search
   function handlerFinalValue(event) {
@@ -337,6 +348,46 @@ const CreateOrder = ({ history }) => {
                                 </Col>
                               </>
                             )}
+                            <Col lg={6} className="mb-3">
+                              <label htmlFor="delivery-address">
+                                Delivery Address
+                              </label>
+                              <textarea
+                                cols={1}
+                                rows={1}
+                                type="text"
+                                className="form-control"
+                                id="delivery-address"
+                                requied="true"
+                                min={1}
+                                value={rawData.delivery_address}
+                                onChange={e =>
+                                  setRawData({
+                                    ...rawData,
+                                    ["delivery_address"]: e.target.value,
+                                  })
+                                }
+                              />
+                            </Col>
+                            <Col lg={6} className="mb-3">
+                              <label htmlFor="purchase">
+                                Purchase Number
+                              </label>
+                              <input
+                                type="text"
+                                className="form-control"
+                                id="purchase"
+                                requied="true"
+                                min={1}
+                                value={rawData.purchase_number}
+                                onChange={e =>
+                                  setRawData({
+                                    ...rawData,
+                                    ["purchase_number"]: e.target.value,
+                                  })
+                                }
+                              />
+                            </Col>
                             <Col lg={4} className="mb-3">
                               <label htmlFor="date1">Start Date</label>
                               <input
@@ -714,14 +765,14 @@ const CreateOrder = ({ history }) => {
                                 <i className="mdi mdi-truck-fast mx-2" />
                               )}
                             </Link>
-                            {createOrdererror?.response ? (
+                            {/* {createOrdererror?.response ? (
                               <Alert
                                 color="light"
                                 className="text-danger mt-2 w-auto "
                               >
                                 {createOrdererror?.response}
                               </Alert>
-                            ) : null}
+                            ) : null} */}
                           </div>
                         </Col>
                       </div>

@@ -41,6 +41,9 @@ import {
   GET_ORDERSITEMS_BYFILTERED,
   GET_ORDERSITEMS_BYFILTERED_SUCCESS,
   GET_ORDERSITEMS_BYFILTERED_FAIL,
+  GET_ORDER_RAWMATERIAL,
+  GET_ORDER_RAWMATERIAL_SUCCESS,
+  GET_ORDER_RAWMATERIAL_FAIL,
 } from "./actionTypes"
 
 const INIT_STATE = {
@@ -57,6 +60,7 @@ const INIT_STATE = {
     status: "",
     orderitem: [],
   },
+  orderRawmaterials: [],
   QclientDetails: {},
   orderItemDetail: {},
   quotation: [],
@@ -83,6 +87,7 @@ const Orders = (state = INIT_STATE, action) => {
     case DELETE_ORDER:
     case GET_ORDERSITEMS:
     case GET_ORDERSITEMS_BYFILTERED:
+    case GET_ORDER_RAWMATERIAL:
       return {
         ...state,
         loading: true,
@@ -177,6 +182,20 @@ const Orders = (state = INIT_STATE, action) => {
       }
 
     case GET_ORDER_DETAIL_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      }
+
+    case GET_ORDER_RAWMATERIAL_SUCCESS:
+      return {
+        ...state,
+        orderRawmaterials: action.payload,
+        loading: false,
+      }
+
+    case GET_ORDER_RAWMATERIAL_FAIL:
       return {
         ...state,
         error: action.payload,

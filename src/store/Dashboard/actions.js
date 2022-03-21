@@ -8,6 +8,9 @@ import {
   GET_YEARLY_CHART,
   GET_YEARLY_CHART_SUCCESS,
   GET_YEARLY_CHART_FAIL,
+  GET_STOCKREPORT,
+  GET_STOCKREPORT_SUCCESS,
+  GET_STOCKREPORT_FAIL
 } from "./actionTypes"
 
 export const getYearlyChart = date => ({
@@ -48,5 +51,18 @@ export const getDashboardDataSuccess = dashboardData => ({
 })
 export const getDashboardDataFail = error => ({
   type: GET_DASHBOARDDATA_FAIL,
+  payload: error,
+})
+
+export const getStockreport = () => ({
+  type: GET_STOCKREPORT,
+})
+
+export const getStockreportSuccess = stockreport => ({
+  type: GET_STOCKREPORT_SUCCESS,
+  payload: stockreport,
+})
+export const getStockreportFail = error => ({
+  type: GET_STOCKREPORT_FAIL,
   payload: error,
 })

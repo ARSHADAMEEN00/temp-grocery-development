@@ -19,7 +19,7 @@ const WorkOrderPDFGenerator = () => {
   useEffect(() => {
     setTimeout(() => {
       window.print()
-    }, 1000)
+    }, 2000)
   }, [])
 
   return (

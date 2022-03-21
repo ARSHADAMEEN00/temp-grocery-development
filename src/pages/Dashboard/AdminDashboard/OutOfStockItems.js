@@ -19,7 +19,7 @@ const OutOfStockItems = () => {
             <div className="mb-4">
               <i className="bx bxs-layout text-warning display-4" />
             </div>
-            {dashboardData?.out_of_stock_items?.length > 0 ? (
+            {dashboardData?.out_of_stock_items?.length <= 10 ? (
               <h3>{dashboardData?.out_of_stock_items?.length}</h3>
             ) : (
               <p className="text-info">

@@ -5,6 +5,7 @@ import { MetaTags } from "react-meta-tags"
 import Breadcrumbs from "../../../components/Common/Breadcrumb"
 import OrderStatus from "./OrderStatus"
 import OrderItems from "./OrderItems"
+import OrderRawmaterial from "./OrderRawmaterial"
 
 function OrderDetails() {
   return (
@@ -22,6 +23,9 @@ function OrderDetails() {
             </Row>
             <Row>
               <OrderItems />
+            </Row>
+            <Row>
+              <OrderRawmaterial />
             </Row>
           </div>
         </Container>

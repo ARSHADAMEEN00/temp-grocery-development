@@ -59,6 +59,12 @@ const Stages = () => {
       sort: true,
     },
     {
+      dataField: "client_name",
+      text: "Client",
+      sort: true,
+    },
+
+    {
       dataField: "status",
       text: "Status",
       sort: true,
@@ -129,9 +135,9 @@ const Stages = () => {
     action: (
       <AvForm
         className="form-horizontal "
-        // onValidSubmit={(onSubmitProps, v) => {
-        //   handleValidSubmit(onSubmitProps, v, item.id)
-        // }}
+      // onValidSubmit={(onSubmitProps, v) => {
+      //   handleValidSubmit(onSubmitProps, v, item.id)
+      // }}
       >
         <Row style={{ alignItems: "center" }} className="d-flex">
           <Col sm={2} lg={2} style={{ width: "150px" }}>
@@ -153,11 +159,9 @@ const Stages = () => {
           <Col sm={2} lg={3} style={{ width: "60px" }}>
             <button
               type="submit"
-              className={`btn btn-${
-                item.status === "Pending" ? "info" : "secondary"
-              } btn-sm mx-2 btn-lg ms-2 ${
-                item.status === "Pending" ? "" : "disabled"
-              } `}
+              className={`btn btn-${item.status === "Pending" ? "info" : "secondary"
+                } btn-sm mx-2 btn-lg ms-2 ${item.status === "Pending" ? "" : "disabled"
+                } `}
               onClick={() => handleStart(item.id)}
             >
               Start
@@ -166,9 +170,8 @@ const Stages = () => {
           <Col sm={2} lg={3} style={{ width: "60px" }}>
             <button
               type="submit"
-              className={`btn btn-success btn-sm mx-2 btn-lg ms-2 ${
-                item.status === "Started" ? "" : "disabled"
-              } `}
+              className={`btn btn-success btn-sm mx-2 btn-lg ms-2 ${item.status === "Started" ? "" : "disabled"
+                } `}
               onClick={() => handleFinish(item.id)}
             >
               Finish

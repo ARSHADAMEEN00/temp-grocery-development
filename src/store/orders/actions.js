@@ -42,6 +42,9 @@ import {
   GET_ORDERSITEMS_BYFILTERED,
   GET_ORDERSITEMS_BYFILTERED_FAIL,
   GET_ORDERSITEMS_BYFILTERED_SUCCESS,
+  GET_ORDER_RAWMATERIAL,
+  GET_ORDER_RAWMATERIAL_SUCCESS,
+  GET_ORDER_RAWMATERIAL_FAIL,
 } from "./actionTypes"
 
 export const getQuotationClientId = clientId => ({
@@ -169,6 +172,21 @@ export const getOrderDetailSuccess = orderDetail => ({
 
 export const getOrderDetailFail = error => ({
   type: GET_ORDER_DETAIL_FAIL,
+  payload: error,
+})
+
+export const getOrderRawmaterail = orderId => ({
+  type: GET_ORDER_RAWMATERIAL,
+  orderId,
+})
+
+export const getOrderRawmaterailSuccess = orderRawmaterail => ({
+  type: GET_ORDER_RAWMATERIAL_SUCCESS,
+  payload: orderRawmaterail,
+})
+
+export const getOrderRawmaterailFail = error => ({
+  type: GET_ORDER_RAWMATERIAL_FAIL,
   payload: error,
 })
 

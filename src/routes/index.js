@@ -57,6 +57,8 @@ import OrderItemSingleView from "pages/QcInscpection/SingleView/index"
 import stageDetail from "pages/ProductionStages/SingleView"
 import WorkOrderPDFGenerator from "components/Pdf/WorkOrderReport"
 import ProductionOrder from "pages/QcInscpection"
+import Stockreport from "pages/stockreport/Stockreport"
+import ReportDocs from "components/Docs/ReportDocs"
 
 const commonRoute = [
   { path: "/dashboard", component: Dashboard },
@@ -126,6 +128,9 @@ const MDProtectedRoutes = [
 
   { path: "/orderItems", component: ProductionOrder },
   { path: "/stages", component: ProductionStages },
+
+  { path: "/stockreport", component: Stockreport },
+  { path: "/docs", component: ReportDocs },
 
   // this route should be at the end of all other routes
   // eslint-disable-next-line react/display-name

@@ -23,7 +23,7 @@ function OrderItems() {
     <>
       <Card>
         <CardBody>
-          <CardTitle className="mb-4">Orders </CardTitle>
+          <CardTitle className="mb-4">Order Items</CardTitle>
 
           <div className="table-responsive">
             <Table className="table align-middle table-nowrap">
