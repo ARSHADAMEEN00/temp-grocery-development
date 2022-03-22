@@ -45,7 +45,23 @@ import {
   GET_ORDER_RAWMATERIAL,
   GET_ORDER_RAWMATERIAL_SUCCESS,
   GET_ORDER_RAWMATERIAL_FAIL,
+  GET_BANKDETAILS,
+  GET_BANKDETAILS_SUCCESS,
+  GET_BANKDETAILS_FAIL,
 } from "./actionTypes"
+
+export const getBankDetails = () => ({
+  type: GET_BANKDETAILS,
+})
+
+export const getBankDetailsSuccess = bankDetails => ({
+  type: GET_BANKDETAILS_SUCCESS,
+  payload: bankDetails,
+})
+export const getBankDetailsFail = error => ({
+  type: GET_BANKDETAILS_FAIL,
+  payload: error,
+})
 
 export const getQuotationClientId = clientId => ({
   type: GET_QUOTATION_CLIENT_ID,

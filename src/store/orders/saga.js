@@ -17,6 +17,7 @@ import {
   GET_QUOTATION_CLIENT_ID,
   GET_ORDERSITEMS_BYFILTERED,
   GET_ORDER_RAWMATERIAL,
+  GET_BANKDETAILS,
 } from "./actionTypes"
 import {
   getOrdersSuccess,
@@ -47,6 +48,8 @@ import {
   getOrderItemsByFiltedFail,
   getOrderRawmaterailSuccess,
   getOrderRawmaterailFail,
+  getBankDetailsSuccess,
+  getBankDetailsFail,
 } from "./actions"
 import { get, post, ApiPut, del, patch } from "helpers/api_methods"
 import { updateOrderItemFail, updateOrderItemSuccess } from "store/actions"
@@ -132,6 +135,19 @@ const deleteOrderApi = ({ orderId }) => {
 
 const getQProductPriceAPi = ({ prodId }) => {
   return post(`/store/product-cost-id/`, { id: prodId })
+}
+
+const getBankdetailsAPi = () => {
+  return get(`/quotation/bankandterms/`)
+}
+
+function* fetchBankdetailsAPi({ payload }) {
+  try {
+    const response = yield call(getBankdetailsAPi, payload)
+    yield put(getBankDetailsSuccess(response))
+  } catch (error) {
+    yield put(getBankDetailsFail(error))
+  }
 }
 
 function* fetchQProductPrice({ payload }) {
@@ -340,6 +356,8 @@ function* ordersSaga() {
   yield takeEvery(GET_QUOTATION_CLIENT_ID, fetchQuotationClientDetails)
   yield takeEvery(GET_ORDERSITEMS_BYFILTERED, fetchOrderItemsByFiltered)
   yield takeEvery(GET_ORDER_RAWMATERIAL, fetchOrderRawmaterial)
+  yield takeEvery(GET_BANKDETAILS, fetchBankdetailsAPi)
+
 }
 
 export default ordersSaga

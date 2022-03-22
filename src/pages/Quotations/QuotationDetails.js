@@ -63,7 +63,7 @@ function QuotationDetails({ quotationId }) {
               <>
                 <Media>
                   <Row className="task-dates">
-                    <Col sm="8" xs="6" lg="10">
+                    <Col sm="8" xs="6" lg="8">
                       <Media className="overflow-hidden" body>
                         <h5 className="text-truncate font-size-14">
                           {moment(QDetails?.date_added).format("YYYY/MM/DD")}
@@ -74,7 +74,7 @@ function QuotationDetails({ quotationId }) {
                         <p className="text-muted">{QDetails?.client_address}</p>
                       </Media>
                     </Col>
-                    <Col sm="4" xs="6" lg="2">
+                    <Col sm="4" xs="6" lg="4">
                       <div className="mt-4">
                         <Badge
                           className={

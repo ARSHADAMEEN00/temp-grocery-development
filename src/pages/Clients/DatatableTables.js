@@ -49,7 +49,7 @@ const AllClients = () => {
   const columns = [
     {
       dataField: "name",
-      text: "Name",
+      text: "Client Name",
       sort: true,
     },
     {

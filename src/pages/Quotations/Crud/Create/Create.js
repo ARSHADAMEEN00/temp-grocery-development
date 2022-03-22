@@ -25,9 +25,15 @@ import {
   getProducts,
   getQProductPrice,
   getQuotationDetail,
+  getBankDetails,
 } from "store/actions"
 
 import Breadcrumbs from "../../../../components/Common/Breadcrumb"
+
+import { Editor } from "react-draft-wysiwyg"
+import { EditorState } from 'draft-js';
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
+import FormEditors from "./Editor"
 
 const CreateQuotations = ({ history }) => {
   const dispatch = useDispatch()
@@ -39,6 +45,7 @@ const CreateQuotations = ({ history }) => {
     products,
     QProductPrice,
     quotationCurd,
+    bankDetailsData
   } = useSelector(state => ({
     loading: state.StoreItems.loading,
     quotationLoading: state.Orders.quotationLoading,
@@ -46,10 +53,10 @@ const CreateQuotations = ({ history }) => {
     products: state.Products.products,
     QProductPrice: state.Orders.QProductPrice.cost,
     quotationCurd: state.Orders.quotationCurd,
+    bankDetailsData: state.Orders.bankDetails
   }))
   const [selectedProduct, setSelectedProduct] = useState("Search a product")
   const [selectedClient, setSelectedClient] = useState("Search a Client")
-  const [productId, setProductId] = useState("")
   const [searchText, setSearchText] = useState("")
   const [searchClientText, setSearchClientText] = useState("")
   const [quotationitem, setQuotationitems] = useState([])
@@ -58,6 +65,21 @@ const CreateQuotations = ({ history }) => {
     client: "",
     quotationitem: [],
   })
+
+  //EDITOR
+  const [letterHead, setLetterHead] = useState("")
+  const [bankDetails, setBankDetails] = useState(`${bankDetailsData.bank_details}`)
+  // const [bankDetails, setBankDetails] = useState(`<p><strong>ACCOUNT NAME</strong>: INDTECH HEALTH CARE PRIVATE LIMITED,</p><p><strong>ACCOUNT NO</strong>: 0209653800000019,</p><p><strong>BANK NAME</strong>: IDBI BANK,</p><p><strong>BRANCH</strong>: MALAPPURAM,</p><p><strong>IFSC NO</strong>: IBKL0000209</p>`);
+  const [terms, setTerms] = useState("");
+
+  console.log(letterHead);
+  console.log(bankDetails);
+  console.log(terms);
+  console.log(bankDetailsData.bank_details);
+
+  useEffect(() => {
+    dispatch(getBankDetails())
+  }, [dispatch])
 
   const ProductPrice = parseInt(QProductPrice)
 
@@ -113,7 +135,7 @@ const CreateQuotations = ({ history }) => {
   //setore item from and search
   function handlerFinalValue(event) {
     dispatch(getQProductPrice(event.value))
-    setProductId(event.value)
+    // setProductId(event.value)
     setSelectedProduct(event.label)
     setRawData({
       ...rawData,
@@ -186,7 +208,7 @@ const CreateQuotations = ({ history }) => {
               <Col lg={10}>
                 <Card>
                   <CardBody>
-                    <CardTitle className="h4 mb-4">Add Quotation</CardTitle>
+                    <CardTitle className="h4 mb-4">Quotation Item</CardTitle>
 
                     <Form className="repeater" encType="multipart/form-data">
                       <div>
@@ -297,9 +319,8 @@ const CreateQuotations = ({ history }) => {
                           >
                             <input
                               type="button"
-                              className={`btn btn-dark mr-lg-0 ${
-                                disabledBtn() == false && "disabled"
-                              }`}
+                              className={`btn btn-dark mr-lg-0 ${disabledBtn() == false && "disabled"
+                                }`}
                               value="Add to Quotation"
                               onClick={() => onAddFormRow()}
                               style={{
@@ -368,57 +389,99 @@ const CreateQuotations = ({ history }) => {
                                 </Row>
                               ))}
                             </div>
-                            <div>
-                              <Row>
-                                <Col lg="6" md="6"></Col>
-                                <Col lg="3" md="3">
-                                  {quotationCurd?.id && (
-                                    <div className="text-sm-end mt-2">
-                                      <Link
-                                        to="/quotation/pdf"
-                                        type="button"
-                                        className="btn btn-outline-light d-flex mt-4 w-auto"
-                                        style={{
-                                          marginLeft: "auto",
-                                          alignItems: "center",
-                                          width: "fit-content",
-                                          border: "1px solid #cccc",
-                                        }}
-                                      >
-                                        PDF
-                                        <i className="mdi mdi-download d-block font-size-16 mx-1"></i>
-                                      </Link>
-                                    </div>
-                                  )}
-                                </Col>
-                                <Col lg="3" md="3">
-                                  <div className="text-sm-end mt-2">
-                                    <Link
-                                      to="#"
-                                      className="btn btn-success"
-                                      onClick={onSubmitQuotation}
-                                    >
-                                      Confirm Quotation
-                                      {quotationLoading ? (
-                                        <>
-                                          <i className="bx bx-loader bx-spin font-size-16 align-middle me-2"></i>
-                                        </>
-                                      ) : (
-                                        <i className="mdi mdi-truck-fast mx-2" />
-                                      )}
-                                    </Link>
-                                  </div>
-                                </Col>
-                              </Row>
-                            </div>
+
+
                           </Form>
                         )}
+
                       </CardBody>
                     </Card>
                   </Col>
                   <Col lg={1}></Col>
                 </>
               )}
+              <Col lg={1}></Col>
+              <Col lg={10}>
+                <Card>
+                  <CardBody>
+                    <CardTitle className="h4 mb-3">
+                      Letter Head
+                    </CardTitle>
+                    <FormEditors content={letterHead} setContent={setLetterHead} />
+
+                    <CardTitle className="h4 mb-3 mt-4 pt-4">Bank Details</CardTitle>
+                    <Form method="post">
+                      <FormEditors content={bankDetails} setContent={setBankDetails} />
+                    </Form>
+
+                    <CardTitle className="h4 mb-3 mt-4 pt-4">
+                      Somthing
+                    </CardTitle>
+                    <textarea
+                      rows="3"
+                      type="text"
+                      className="form-control"
+                      id=""
+
+                    />
+
+                    <CardTitle className="h4 mb-3 mt-4 pt-4">terms and conditions</CardTitle>
+                    <Form method="post">
+                      <FormEditors content={terms} setContent={setTerms} />
+                    </Form>
+
+
+
+                    <div>
+                      <Row>
+                        <Col lg="6" md="6"></Col>
+                        <Col lg="3" md="3">
+                          {quotationCurd?.id && (
+                            <div className="text-sm-end mt-2">
+                              <Link
+                                to="/quotation/pdf"
+                                type="button"
+                                className="btn btn-outline-light d-flex mt-4 w-auto"
+                                style={{
+                                  marginLeft: "auto",
+                                  alignItems: "center",
+                                  width: "fit-content",
+                                  border: "1px solid #cccc",
+                                }}
+                              >
+                                PDF
+                                <i className="mdi mdi-download d-block font-size-16 mx-1"></i>
+                              </Link>
+                            </div>
+                          )}
+                        </Col>
+                        <Col lg="3" md="3">
+                          <div className="text-sm-end mt-2">
+                            <Link
+                              to="#"
+                              className="btn btn-success"
+                              onClick={onSubmitQuotation}
+                            >
+                              Confirm Quotation
+                              {quotationLoading ? (
+                                <>
+                                  <i className="bx bx-loader bx-spin font-size-16 align-middle me-2"></i>
+                                </>
+                              ) : (
+                                <i className="mdi mdi-truck-fast mx-2" />
+                              )}
+                            </Link>
+                          </div>
+                        </Col>
+                      </Row>
+                    </div>
+                  </CardBody>
+                </Card>
+              </Col>
+
+              <Col lg={1}></Col>
+
+
             </Row>
           </div>
         </Container>

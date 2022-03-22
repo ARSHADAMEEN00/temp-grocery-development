@@ -44,6 +44,9 @@ import {
   GET_ORDER_RAWMATERIAL,
   GET_ORDER_RAWMATERIAL_SUCCESS,
   GET_ORDER_RAWMATERIAL_FAIL,
+  GET_BANKDETAILS,
+  GET_BANKDETAILS_SUCCESS,
+  GET_BANKDETAILS_FAIL,
 } from "./actionTypes"
 
 const INIT_STATE = {
@@ -61,6 +64,7 @@ const INIT_STATE = {
     orderitem: [],
   },
   orderRawmaterials: [],
+  bankDetails: [],
   QclientDetails: {},
   orderItemDetail: {},
   quotation: [],
@@ -76,6 +80,7 @@ const INIT_STATE = {
   quotationDetailLoading: false,
   QProductPriceLoading: false,
   QclientDetailsLoding: false,
+  bankDetailLoading: false
 }
 
 const Orders = (state = INIT_STATE, action) => {
@@ -92,7 +97,23 @@ const Orders = (state = INIT_STATE, action) => {
         ...state,
         loading: true,
       }
-
+    case GET_BANKDETAILS:
+      return {
+        ...state,
+        bankDetailLoading: true
+      }
+    case GET_BANKDETAILS_SUCCESS:
+      return {
+        ...state,
+        bankDetails: action.payload,
+        bankDetailLoading: false,
+      }
+    case GET_BANKDETAILS_FAIL:
+      return {
+        ...state,
+        bankDetails: action.payload,
+        bankDetailLoading: false,
+      }
     case GET_QUOTATION_CLIENT_ID:
       return {
         ...state,
