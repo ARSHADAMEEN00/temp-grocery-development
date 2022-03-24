@@ -135,11 +135,8 @@ const Stages = () => {
     action: (
       <AvForm
         className="form-horizontal "
-      // onValidSubmit={(onSubmitProps, v) => {
-      //   handleValidSubmit(onSubmitProps, v, item.id)
-      // }}
       >
-        <Row style={{ alignItems: "center" }} className="d-flex">
+        {item.status === "Finished" ? <></> : <Row style={{ alignItems: "center" }} className="d-flex">
           <Col sm={2} lg={2} style={{ width: "150px" }}>
             <AvField
               id="horizontal-note-Input"
@@ -177,7 +174,7 @@ const Stages = () => {
               Finish
             </button>
           </Col>
-        </Row>
+        </Row>}
       </AvForm>
     ),
   }))

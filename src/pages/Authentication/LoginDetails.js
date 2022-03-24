@@ -29,14 +29,7 @@ const LoginDetails = () => {
                               <h4 className="mb-3">
                                 <img className="img-fluid mx-auto d-block" src={login_img} alt="login_img" ></img>
                               </h4>
-                              <div>
-                                <h4 className="font-size-16 text-primary">
-                                  indtech
-                                </h4>
-                                <p className="font-size-14 mb-0">
-                                  Kerala
-                                </p>
-                              </div>
+
                             </div>
                           </div>
                         </div>

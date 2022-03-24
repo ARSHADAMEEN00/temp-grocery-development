@@ -19,12 +19,12 @@ function DashboardCard() {
       alt: "No Orders",
     },
     {
-      title: "Pending Orders",
-      cardValue: dashboardData?.pending_orders,
-      iconClass: "book-bookmark",
-      routeLink: "/orders/?Pending",
+      title: "Pending Quotation",
+      cardValue: dashboardData?.pending_quotations,
+      iconClass: "file-blank",
+      routeLink: "/quotations?Pending",
       loading: dashboardLoading,
-      alt: "No Pending Orders",
+      alt: "Empty",
     },
     {
       title: "Stock Reports",
@@ -34,13 +34,14 @@ function DashboardCard() {
       loading: dashboardLoading,
       alt: "View all Reports",
     },
+
     {
-      title: "Pending Quotation",
-      cardValue: dashboardData?.pending_quotations,
-      iconClass: "file-blank",
-      routeLink: "/quotations?Pending",
+      title: "Chartered Orders",
+      cardValue: dashboardData?.pending_orders,
+      iconClass: "book-bookmark",
+      routeLink: "/orders/?Pending",
       loading: dashboardLoading,
-      alt: "No Pending Quotation",
+      alt: "No Pending Orders",
     },
     {
       title: "Total Store Items",
@@ -58,6 +59,14 @@ function DashboardCard() {
       routeLink: "/store",
       loading: dashboardLoading,
       alt: "All Stocks Available",
+    },
+    {
+      title: "Ongoing Orders",
+      cardValue: dashboardData?.ongoing_orders,
+      iconClass: "copy",
+      routeLink: "/store",
+      loading: dashboardLoading,
+      alt: "Empty",
     },
   ]
 

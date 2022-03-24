@@ -61,9 +61,9 @@ const ProductDetails = ({ history }) => {
     item => item?.is_description == false
   )
 
-  const ProductPrice = parseInt(productDetail?.cost)
+  // const ProductPrice = parseInt(productDetail?.cost)
 
-  const ProductMRP = (ProductPrice * productDetail?.profit) / 100 + ProductPrice
+  // const ProductMRP = (ProductPrice * productDetail?.profit) / 100 + ProductPrice
 
   const handleProductCost = () => {
     if (Role === "admin" || Role === "generalmanager") {
@@ -137,7 +137,7 @@ const ProductDetails = ({ history }) => {
                               MRP :
                               <span className="text-info mx-2 font-size-17">
                                 <i className="bx bx-rupee" />
-                                {ProductMRP}
+                                {productDetail?.mrp}
                               </span>
                             </p>
                           )}
@@ -165,9 +165,8 @@ const ProductDetails = ({ history }) => {
                           <div className="mt-4">
                             <Link
                               to={`/product/update/${productDetail?.id}`}
-                              className={`btn btn-secondary ${
-                                loading && "disabled"
-                              } btn-m`}
+                              className={`btn btn-secondary ${loading && "disabled"
+                                } btn-m`}
                             >
                               Edit{" "}
                               <i className="mdi mdi-arrow-right ms-1 bx-fade-right" />
@@ -180,9 +179,8 @@ const ProductDetails = ({ history }) => {
                             <Link
                               style={{ opacity: 0.8 }}
                               to="#"
-                              className={`btn btn-outline-light ${
-                                loading && "disabled"
-                              }  btn-m`}
+                              className={`btn btn-outline-light ${loading && "disabled"
+                                }  btn-m`}
                               onClick={handleDelete}
                             >
                               Remove
@@ -202,9 +200,8 @@ const ProductDetails = ({ history }) => {
                             <Link
                               style={{ opacity: 0.8 }}
                               to="/order/create"
-                              className={`btn text-light bg-success ${
-                                loading && "disabled"
-                              }  btn-m`}
+                              className={`btn text-light bg-success ${loading && "disabled"
+                                }  btn-m`}
                               onClick={handleDelete}
                             >
                               Order Now

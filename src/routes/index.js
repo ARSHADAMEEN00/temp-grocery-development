@@ -58,7 +58,6 @@ import stageDetail from "pages/ProductionStages/SingleView"
 import WorkOrderPDFGenerator from "components/Pdf/WorkOrderReport"
 import ProductionOrder from "pages/QcInscpection"
 import Stockreport from "pages/stockreport/Stockreport"
-import ReportDocs from "components/Docs/ReportDocs"
 
 const commonRoute = [
   { path: "/dashboard", component: Dashboard },
@@ -78,7 +77,7 @@ const commonRoute = [
 //for md(managing Director) only
 const MDProtectedRoutes = [
   { path: "/dashboard", component: Dashboard },
-  { path: "/quotation/pdf", component: PDFGenerator },
+  { path: "/quotation/pdf/:id", component: PDFGenerator },
   { path: "/order/work/pdf", component: WorkOrderPDFGenerator },
 
   // //profile Clients
@@ -130,7 +129,6 @@ const MDProtectedRoutes = [
   { path: "/stages", component: ProductionStages },
 
   { path: "/stockreport", component: Stockreport },
-  { path: "/docs", component: ReportDocs },
 
   // this route should be at the end of all other routes
   // eslint-disable-next-line react/display-name

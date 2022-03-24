@@ -64,7 +64,6 @@ const Products = () => {
     {
       dataField: "profit",
       text: "Profit",
-      sort: true,
     },
     {
       dataField: "action",
@@ -72,6 +71,37 @@ const Products = () => {
     },
   ]
 
+  const newColumns = [
+    {
+      dataField: "product_code",
+      text: "Product Code",
+    },
+    {
+      dataField: "image",
+      text: "Image",
+    },
+    {
+      dataField: "name",
+      text: "Product",
+      sort: true,
+    },
+    {
+      dataField: "mrp",
+      text: "Price",
+    },
+    {
+      dataField: "action",
+      text: "Action",
+    },
+  ]
+
+  const Role = sessionStorage.getItem("role")
+
+  const handleProductCost = () => {
+    if (Role === "admin" || Role === "generalmanager") {
+      return true
+    }
+  }
   const productData = map(products?.results, (item, index) => ({
     ...item,
     key: index,
@@ -84,6 +114,7 @@ const Products = () => {
         />
       </Link>
     ),
+    mrp: <p>{item?.mrp}</p>,
     name: (
       <div
         style={{
@@ -127,7 +158,7 @@ const Products = () => {
             <CardBody>
               <ToolkitProvider
                 keyField="id"
-                columns={columns}
+                columns={handleProductCost() ? columns : newColumns}
                 data={productData}
                 search
               >

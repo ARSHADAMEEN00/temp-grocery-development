@@ -1,3 +1,7 @@
+.editor-class {
+  height: auto !important;
+  min-height: 250px;
+}
 .noti-icon .badge {
   left: 23px;
 }
@@ -139,6 +143,14 @@
   }
   .print-boxshadow {
     box-shadow: none !important;
+  }
+  .display-none {
+    display: none !important;
+  }
+  // #header,
+  // #footer,
+  #nav {
+    display: none !important;
   }
 }
 

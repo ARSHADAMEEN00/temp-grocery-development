@@ -128,7 +128,7 @@ function QuotationDetails({ quotationId }) {
                         </div>
                       ))}
                       <Link
-                        to="/quotation/pdf"
+                        to={`/quotation/pdf/${QDetails?.id}`}
                         type="button"
                         className="btn btn-outline-light d-flex mt-4"
                         style={{

@@ -144,7 +144,7 @@ const OrderStatus = () => {
                   </p>
                 </div>
               </Col>
-              <Col lg={9} className="mt-4">
+              <Col lg={8} className="mt-4">
                 {Handler() && (
                   <div className="d-flex" style={{ alignItems: "center" }}>
                     <p>Update Status :</p>
@@ -203,7 +203,23 @@ const OrderStatus = () => {
                   </Alert>
                 )}
               </Col>
-              <Col lg={3}>
+              <Col lg={2}>
+                <Link
+                  to="/order/work/pdf"
+                  type="button"
+                  className="btn btn-outline-light d-flex mt-4"
+                  style={{
+                    marginLeft: "auto",
+                    alignItems: "center",
+                    width: "fit-content",
+                    border: "1px solid #cccc",
+                  }}
+                >
+                  Intalation PDF
+                  <i className="mdi mdi-download d-block font-size-16 mx-1"></i>
+                </Link>
+              </Col>
+              <Col lg={2}>
                 <Link
                   to="/order/work/pdf"
                   type="button"

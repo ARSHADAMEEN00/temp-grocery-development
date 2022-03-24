@@ -4,7 +4,7 @@ import { map } from "lodash"
 import { Link } from "react-router-dom"
 import PropTypes from "prop-types"
 import { MetaTags } from "react-meta-tags"
-import { Badge, Container, Nav, NavItem, TabContent, TabPane, NavLink } from "reactstrap"
+import { Badge, Container } from "reactstrap"
 import {
   Row,
   Col,
@@ -17,7 +17,6 @@ import {
   Spinner,
 } from "reactstrap"
 import Select from "react-select"
-import classnames from "classnames"
 
 //actions
 import {
@@ -26,15 +25,9 @@ import {
   getProducts,
   getQProductPrice,
   getQuotationDetail,
-  getBankDetails,
 } from "store/actions"
 
 import Breadcrumbs from "../../../../components/Common/Breadcrumb"
-
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
-import FormEditors from "./Editor"
-import { Button } from "bootstrap"
-import { Notification } from "components/Common/Notification"
 
 const CreateQuotations = ({ history }) => {
   const dispatch = useDispatch()
@@ -46,7 +39,6 @@ const CreateQuotations = ({ history }) => {
     products,
     QProductPrice,
     quotationCurd,
-    bankDetailsData
   } = useSelector(state => ({
     loading: state.StoreItems.loading,
     quotationLoading: state.Orders.quotationLoading,
@@ -54,10 +46,10 @@ const CreateQuotations = ({ history }) => {
     products: state.Products.products,
     QProductPrice: state.Orders.QProductPrice,
     quotationCurd: state.Orders.quotationCurd,
-    bankDetailsData: state.Orders.bankDetails
   }))
   const [selectedProduct, setSelectedProduct] = useState("Search a product")
   const [selectedClient, setSelectedClient] = useState("Search a Client")
+  const [productId, setProductId] = useState("")
   const [searchText, setSearchText] = useState("")
   const [searchClientText, setSearchClientText] = useState("")
   const [quotationitem, setQuotationitems] = useState([])
@@ -67,41 +59,22 @@ const CreateQuotations = ({ history }) => {
     quotationitem: [],
   })
 
-  //EDITOR
-  const [letter_head, setLetterHead] = useState(`<p><strong>Dear sir,</strong></p><p></p>`)
-  const [bank_details, setBankDetails] = useState(bankDetailsData?.bank_details);
-  const [terms, setTerms] = useState(bankDetailsData?.trems_and_conditions)
-  const [letter_middle, setLetter_middle] = useState("")
-  const [warrenty, setWarrantyClause] = useState(bankDetailsData?.warrenty_clauses)
-
-  const [activeTab, setactiveTab] = useState({
-    id: "1",
-  })
-
-  useEffect(() => {
-    setBankDetails(bankDetailsData?.bank_details)
-    setTerms(bankDetailsData?.trems_and_conditions)
-    setWarrantyClause(bankDetailsData?.warrenty_clauses)
-  }, [bankDetailsData])
-
-  useEffect(() => {
-    dispatch(getBankDetails())
-  }, [dispatch])
-
   const ProductPrice = parseInt(QProductPrice?.cost)
 
   const totelPriceCalc = (ProductPrice * percentage) / 100 + ProductPrice
+
+  // 14890
+
+  useEffect(() => {
+    setPercentage(QProductPrice?.profit || 0)
+  }, [QProductPrice])
+
 
   useEffect(() => {
     if (quotationCurd?.id) {
       dispatch(getQuotationDetail(quotationCurd?.id))
     }
   }, [quotationCurd])
-
-  useEffect(() => {
-    setPercentage(QProductPrice?.profit)
-  }, [QProductPrice])
-
 
   useEffect(() => {
     setRawData({
@@ -125,15 +98,7 @@ const CreateQuotations = ({ history }) => {
       id: modifiedRows.length + 1,
       ...rawData.quotationitem,
     })
-    if (!rawData.client) {
-      Notification({
-        type: "warning",
-        message: "Please Select Client",
-        title: "Try Again",
-      })
-    } else {
-      setQuotationitems(modifiedRows)
-    }
+    setQuotationitems(modifiedRows)
   }
 
   const onDeleteFormRow = id => {
@@ -146,17 +111,14 @@ const CreateQuotations = ({ history }) => {
   // quotationitem
   const onSubmitQuotation = () => {
     dispatch(
-      createQuatation({
-        client: rawData.client, letter_head: letter_head, bank_details: bank_details,
-        terms: terms, letter_middle: letter_middle, warrenty: warrenty, quotationitem
-      }, history)
+      createQuatation({ client: rawData.client, quotationitem }, history)
     )
   }
 
   //setore item from and search
   function handlerFinalValue(event) {
     dispatch(getQProductPrice(event.value))
-    // setProductId(event.value)
+    setProductId(event.value)
     setSelectedProduct(event.label)
     setRawData({
       ...rawData,
@@ -214,6 +176,8 @@ const CreateQuotations = ({ history }) => {
 
   const [total, setTotal] = useState()
 
+  // const newPercentage = Math.abs(((total - QProductPrice.cost) * 100) / QProductPrice.cost)
+
   const handleTotal = (e) => {
     setRawData({
       ...rawData,
@@ -224,6 +188,7 @@ const CreateQuotations = ({ history }) => {
     })
     if (e) {
       setTotal(e.target.value)
+      // setPercentage(newPercentage)
     } else {
       setTotal(totelPriceCalc)
     }
@@ -234,11 +199,7 @@ const CreateQuotations = ({ history }) => {
 
   }, [totelPriceCalc, QProductPrice])
 
-  // const newPercentage = Math.abs(((total - QProductPrice.cost) * 100) / QProductPrice.cost)
-
-  // useEffect(() => {
-  //   setPercentage(newPercentage)
-  // }, [])
+  // console.log(percentage);
 
   return (
     <>
@@ -251,13 +212,13 @@ const CreateQuotations = ({ history }) => {
 
         <Container fluid>
           <div className="container-fluid">
-            {/* uploading */}
+
             <Row>
               <Col lg={1}></Col>
               <Col lg={10}>
                 <Card>
                   <CardBody>
-                    <CardTitle className="h4 mb-4">Quotation Item</CardTitle>
+                    <CardTitle className="h4 mb-4">Add Quotation</CardTitle>
 
                     <Form className="repeater" encType="multipart/form-data">
                       <div>
@@ -330,7 +291,7 @@ const CreateQuotations = ({ history }) => {
                               id="resume"
                               requied="true"
                               min={1}
-                              defaultValue={QProductPrice.profit}
+                              value={percentage}
                               onChange={e => setPercentage(e.target.value)}
                             />
                           </Col>
@@ -343,14 +304,14 @@ const CreateQuotations = ({ history }) => {
                                 id="resume"
                                 requied="true"
                                 min={1}
-                                value={total ? total : ''}
+                                value={total}
                                 onChange={(e) => handleTotal(e)}
                               />
                             </Col>
                           ) : (
                             <></>
                           )}
-                          {totelPriceCalc || total ? <p style={{
+                          <p style={{
                             width: "fit-content",
                             marginLeft: "auto",
                             padding: "0"
@@ -363,7 +324,7 @@ const CreateQuotations = ({ history }) => {
                             >
                               {total ? total : totelPriceCalc}
                             </Badge>
-                          </p> : <></>}
+                          </p>
                           <Col
                             lg={12}
                             style={{
@@ -444,224 +405,57 @@ const CreateQuotations = ({ history }) => {
                                 </Row>
                               ))}
                             </div>
-
-
+                            <div>
+                              <Row>
+                                <Col lg="6" md="6"></Col>
+                                <Col lg="3" md="3">
+                                  {quotationCurd?.id && (
+                                    <div className="text-sm-end mt-2">
+                                      <Link
+                                        to="/quotation/pdf"
+                                        type="button"
+                                        className="btn btn-outline-light d-flex mt-4 w-auto"
+                                        style={{
+                                          marginLeft: "auto",
+                                          alignItems: "center",
+                                          width: "fit-content",
+                                          border: "1px solid #cccc",
+                                        }}
+                                      >
+                                        PDF
+                                        <i className="mdi mdi-download d-block font-size-16 mx-1"></i>
+                                      </Link>
+                                    </div>
+                                  )}
+                                </Col>
+                                <Col lg="3" md="3">
+                                  <div className="text-sm-end mt-2">
+                                    <Link
+                                      to="#"
+                                      className="btn btn-success"
+                                      onClick={onSubmitQuotation}
+                                    >
+                                      Confirm Quotation
+                                      {quotationLoading ? (
+                                        <>
+                                          <i className="bx bx-loader bx-spin font-size-16 align-middle me-2"></i>
+                                        </>
+                                      ) : (
+                                        <i className="mdi mdi-truck-fast mx-2" />
+                                      )}
+                                    </Link>
+                                  </div>
+                                </Col>
+                              </Row>
+                            </div>
                           </Form>
                         )}
-
                       </CardBody>
                     </Card>
                   </Col>
                   <Col lg={1}></Col>
                 </>
               )}
-              <Col lg={1}></Col>
-              <Col lg={10}>
-                <Card>
-                  <CardBody>
-                    <h4 className="card-title mb-4">{activeTab.title}</h4>
-
-                    <Nav
-                      pills className="bg-light rounded" role="tablist">
-                      <NavItem className="mx-2">
-                        <NavLink
-                          className={classnames({ active: activeTab.id === "1" })}
-                          onClick={() => {
-                            setactiveTab({
-                              ...activeTab,
-                              id: "1",
-                            })
-                          }}
-                        >
-                          <div className="d-flex align-items-center justify-content-end">
-                            Letter Head
-                            <i className="bx bx-chevrons-right font-size-20 mx-2"></i>
-                          </div>
-                        </NavLink>
-                      </NavItem>
-                      <NavItem className="mx-2">
-                        <NavLink
-                          className={classnames({ active: activeTab.id === "2" })}
-                          onClick={() => {
-                            setactiveTab({
-                              ...activeTab,
-                              id: "2",
-
-                            })
-                          }}
-                        >
-                          <div className="d-flex align-items-center justify-content-end">
-                            Bank Details
-
-                            <i className="bx bx-chevrons-right font-size-20 mx-2"></i>
-                          </div>
-                        </NavLink>
-                      </NavItem>
-                      <NavItem className="mx-2">
-                        <NavLink
-                          className={classnames({ active: activeTab.id === "3" })}
-                          onClick={() => {
-                            setactiveTab({
-                              ...activeTab,
-                              id: "3",
-
-                            })
-                          }}
-                        >
-                          <div className="d-flex align-items-center justify-content-end">
-                            Terms and Conditions
-                            <i className="bx bx-chevrons-right font-size-20 mx-2"></i>
-                          </div>
-                        </NavLink>
-                      </NavItem>
-                      <NavItem className="mx-2">
-                        <NavLink
-                          className={classnames({ active: activeTab.id === "4" })}
-                          onClick={() => {
-                            setactiveTab({
-                              ...activeTab,
-                              id: "4",
-
-                            })
-                          }}
-                        >
-                          Warranty clause
-
-                        </NavLink>
-                      </NavItem>
-                    </Nav>
-
-                    <TabContent activeTab={activeTab.id} className="mt-4">
-                      <TabPane tabId="1">
-                        {activeTab.id === "1" && (<>
-                          <FormEditors content={letter_head} setContent={setLetterHead} />
-
-                          <div className="d-flex align-items-center justify-content-end mt-2">
-                            <button
-                              className="btn btn-light w-fit-content d-flex align-items-center justify-content-center"
-                              onClick={() => {
-                                setactiveTab({
-                                  ...activeTab,
-                                  id: "2",
-                                })
-                              }}
-                            >
-                              Next
-                              <i className="bx bx-chevrons-right bx-fade-right font-size-20"></i>
-                            </button>
-                          </div>
-                        </>
-                        )}
-                      </TabPane>
-
-                      <TabPane tabId="2">
-                        {activeTab.id === "2" && (
-                          <Form method="post">
-                            <FormEditors content={bank_details ? bank_details : ""} setContent={setBankDetails} />
-                            <textarea
-                              rows="5"
-                              type="text"
-                              className="form-control mt-4 pt-4"
-                              id=""
-                              placeholder={"We are expecting your valuable...."}
-                              value={letter_middle}
-                              onChange={(e) => setLetter_middle(e.target.value)}
-                            />
-                            <div className="d-flex align-items-center justify-content-end mt-2">
-                              <button
-                                className="btn btn-light w-fit-content d-flex align-items-center justify-content-center"
-                                onClick={() => {
-                                  setactiveTab({
-                                    ...activeTab,
-                                    id: "3",
-                                  })
-                                }}
-                              >
-                                Next
-                                <i className="bx bx-chevrons-right bx-fade-right font-size-20"></i>
-                              </button>
-                            </div>
-                          </Form>
-                        )}
-                      </TabPane>
-                      <TabPane tabId="3">
-                        {activeTab.id === "3" && (<>
-                          <FormEditors content={terms ? terms : ""} setContent={setTerms} />
-                          <div className="d-flex align-items-center justify-content-end mt-2">
-                            <button
-                              className="btn btn-light w-fit-content d-flex align-items-center justify-content-center"
-                              onClick={() => {
-                                setactiveTab({
-                                  ...activeTab,
-                                  id: "4",
-                                })
-                              }}
-                            >
-                              Next
-                              <i className="bx bx-chevrons-right bx-fade-right font-size-20"></i>
-                            </button>
-                          </div>
-                        </>
-                        )}
-                      </TabPane>
-                      <TabPane tabId="4">
-                        {activeTab.id === "4" && (<>
-                          <FormEditors content={warrenty ? warrenty : ""} setContent={setWarrantyClause} />
-                          <div>
-                            <Row>
-                              <Col lg="6" md="6"></Col>
-                              <Col lg="3" md="3">
-                                {quotationCurd?.id && (
-                                  <div className="text-sm-end mt-2">
-                                    <Link
-                                      to={`/quotation/pdf/${quotationCurd?.id}`}
-                                      type="button"
-                                      className="btn btn-outline-light d-flex mt-4 w-auto"
-                                      style={{
-                                        marginLeft: "auto",
-                                        alignItems: "center",
-                                        width: "fit-content",
-                                        border: "1px solid #cccc",
-                                      }}
-                                    >
-                                      PDF
-                                      <i className="mdi mdi-download d-block font-size-16 mx-1"></i>
-                                    </Link>
-                                  </div>
-                                )}
-                              </Col>
-                              <Col lg="3" md="3">
-                                <div className="text-sm-end mt-2">
-                                  <Link
-                                    to="#"
-                                    className="btn btn-success"
-                                    onClick={onSubmitQuotation}
-                                  >
-                                    Confirm Quotation
-                                    {quotationLoading ? (
-                                      <>
-                                        <i className="bx bx-loader bx-spin font-size-16 align-middle me-2"></i>
-                                      </>
-                                    ) : (
-                                      <i className="mdi mdi-truck-fast mx-2" />
-                                    )}
-                                  </Link>
-                                </div>
-                              </Col>
-                            </Row>
-                          </div>
-                        </>
-                        )}
-                      </TabPane>
-
-                    </TabContent>
-                  </CardBody>
-                </Card>
-              </Col>
-
-              <Col lg={1}></Col>
-
-
             </Row>
           </div>
         </Container>

@@ -8,7 +8,6 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 
 const FormEditors = ({ content, setContent }) => {
-
     const [editorState, setEditorState] = useState(
         () => EditorState.createEmpty(),
     );
@@ -35,7 +34,7 @@ const FormEditors = ({ content, setContent }) => {
                     wrapperClassName="wrapper-class"
                     editorClassName="editor-class"
                     toolbarClassName="toolbar-class"
-                    value={content}
+                    value={content ? content : ""}
                 />
             </div>
 

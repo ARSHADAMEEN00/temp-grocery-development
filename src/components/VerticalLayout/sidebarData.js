@@ -39,13 +39,7 @@ function sidebardata() {
         },
       ],
     },
-    {
-      heading: "QC Checking",
-      badgeClass: "",
-      badgeValue: "",
-      iconClass: "shopping-bags",
-      subTitles: [{ title: "QC Inspection", routeLink: "/orderItems" }],
-    },
+
     {
       heading: "Stages",
       badgeClass: "",
@@ -57,6 +51,13 @@ function sidebardata() {
           routeLink: "/stages",
         },
       ],
+    },
+    {
+      heading: "QC Checking",
+      badgeClass: "",
+      badgeValue: "",
+      iconClass: "shopping-bags",
+      subTitles: [{ title: "QC Inspection", routeLink: "/orderItems" }],
     },
     {
       heading: "Store",

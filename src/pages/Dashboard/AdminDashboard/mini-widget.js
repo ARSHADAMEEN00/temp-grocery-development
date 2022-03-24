@@ -14,7 +14,7 @@ const MiniWidget = () => {
     {
       icon: "bx bx-copy-alt",
       title: "Chartered Orders",
-      value: dashboardData?.chartered_orders,
+      value: dashboardData?.ongoing_orders,
       badgeValue: dashboardData?.total_orders,
       color: "success",
       desc: "Orders ",
@@ -24,32 +24,6 @@ const MiniWidget = () => {
       linkPath: "/orders",
     },
 
-    {
-      icon: "bx bx-purchase-tag-alt",
-      title: "Out Of Stock",
-      value: dashboardData?.out_of_stock_items?.length,
-      badgeValue: dashboardData?.total_store_item,
-      color: "success",
-      desc: "Stocks Available",
-      warningMsg: "",
-      msgColor: "success",
-      loading: dashboardLoading,
-      linkPath: "/store",
-    },
-    {
-      icon: "bx bx-copy-alt",
-      title: "Pending Quotation",
-      value: dashboardData?.pending_quotations,
-      badgeValue: 0,
-      color: "success",
-      desc: "Quotations",
-      warningMsg: (
-        <>{`${dashboardData?.pending_quotations} - ${"Pending Quotations"}`} </>
-      ),
-      msgColor: "info",
-      loading: dashboardLoading,
-      linkPath: "/quotations?Pending",
-    },
   ]
   return (
     <React.Fragment>
@@ -81,10 +55,9 @@ const MiniWidget = () => {
                       <span
                         className={
                           "badge badge-soft-" +
-                          `${
-                            report.badgeValue > 0
-                              ? report.color
-                              : report.msgColor
+                          `${report.badgeValue > 0
+                            ? report.color
+                            : report.msgColor
                           }` +
                           " font-size-12"
                         }
