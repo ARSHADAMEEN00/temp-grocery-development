@@ -660,8 +660,6 @@ const CreateQuotations = ({ history }) => {
               </Col>
 
               <Col lg={1}></Col>
-
-
             </Row>
           </div>
         </Container>

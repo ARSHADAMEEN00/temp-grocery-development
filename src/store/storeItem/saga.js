@@ -41,8 +41,7 @@ function getStoreSupplyApi({ searchText, page, storeStatus }) {
     return get(`/order/storemanagerview/?search=${searchText && searchText}`)
   } else if (storeStatus) {
     return get(
-      `/order/storemanagerview/?page=${page ? page : 1}&status=${
-        storeStatus && storeStatus
+      `/order/storemanagerview/?page=${page ? page : 1}&status=${storeStatus && storeStatus
       }&search=${searchText && searchText}`
     )
   } else {
@@ -63,7 +62,7 @@ const updateStoreItemApi = ({ storeItemId, storeItem, isUpdate }) => {
   if (isUpdate === "isUpdate") {
     return patch(`/store/store/${storeItemId}/`, storeItem)
   } else {
-    return ApiPut(`/store/store/${storeItemId}/`, storeItem)
+    return patch(`/store/store/${storeItemId}/`, storeItem)
   }
 }
 

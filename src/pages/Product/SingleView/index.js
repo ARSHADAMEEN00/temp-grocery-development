@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { Fragment, useState } from "react"
 import { Col, Container, Row } from "reactstrap"
 import { MetaTags } from "react-meta-tags"
 import { Card, CardBody, Media, Spinner } from "reactstrap"
@@ -60,7 +60,6 @@ const ProductDetails = ({ history }) => {
   const NotDiscription = productDetail?.productdetail?.filter(
     item => item?.is_description == false
   )
-
   // const ProductPrice = parseInt(productDetail?.cost)
 
   // const ProductMRP = (ProductPrice * productDetail?.profit) / 100 + ProductPrice
@@ -143,16 +142,20 @@ const ProductDetails = ({ history }) => {
                           )}
 
                           {discription?.length > 0 &&
-                            map(discription, (detail, key) => (
-                              <p key={key}>{detail.title}</p>
+                            map(discription, (detail, key) => (<Fragment key={key}>
+                              <h6 >{detail.title}</h6>
+                              <p>{detail.detail}</p>
+                            </Fragment>
                             ))}
+
                           {NotDiscription?.length > 0 &&
                             map(NotDiscription, (detail, key) => (
                               <div key={key}>
-                                <p className="text-muted">
+                                <h6 className="text-muted">
                                   <i className="fa fa-caret-right  font-size-16 align-middle text-primary me-2"></i>
                                   {detail.title}
-                                </p>
+                                </h6>
+                                <p>{detail.detail}</p>
                               </div>
                             ))}
                         </div>
