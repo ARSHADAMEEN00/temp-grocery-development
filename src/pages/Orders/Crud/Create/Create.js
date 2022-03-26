@@ -252,9 +252,7 @@ const CreateOrder = ({ history }) => {
     (accumulator, current) => accumulator + current.total_price,
     0
   )
-  console.log(QProductDetail?.profit);
-  console.log(
-    percentage);
+
 
   return (
     <>

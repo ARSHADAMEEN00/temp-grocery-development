@@ -9,10 +9,10 @@ import InputFroms from "./InputFroms"
 import OtherCost from "./OtherCost"
 import ProductCard from "./ProductCard"
 import ProductDetailList from "./ProductDetailList"
+import RawmaterialInput from "./RawmaterialInput"
+import Calculator from "./Calculator"
 
 const UpdateProduct = () => {
-  const [IsUpdateRawmaterial, setIsUpdateRawmaterial] = useState(false)
-
   return (
     <>
       <MetaTags>
@@ -39,13 +39,20 @@ const UpdateProduct = () => {
                 <ProductDetailList />
                 <InputFroms />
               </Col>
-
               <Col xl="4">
                 <OtherCost />
                 <RawmaterialForm />
               </Col>
             </Row>
-            <Row></Row>
+            <Row>
+              <Col lg={8} md={12}>
+
+                <RawmaterialInput />
+              </Col>
+              <Col xl="4">
+                <Calculator />
+              </Col>
+            </Row>
           </div>
         </Container>
       </div>

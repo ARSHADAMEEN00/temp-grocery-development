@@ -60,7 +60,7 @@ const createStoreItemApi = ({ storeItem }) => {
 }
 const updateStoreItemApi = ({ storeItemId, storeItem, isUpdate }) => {
   if (isUpdate === "isUpdate") {
-    return patch(`/store/store/${storeItemId}/`, storeItem)
+    return ApiPut(`/store/store/${storeItemId}/`, storeItem)
   } else {
     return patch(`/store/store/${storeItemId}/`, storeItem)
   }

@@ -2,9 +2,9 @@ import axios from "axios"
 import { Notification } from "components/Common/Notification"
 
 //apply base url for axios
-export const API_URL = "http://192.168.1.28:3000/api/v1" //afnan//
+// export const API_URL = "http://192.168.1.28:3000/api/v1" //afnan//
 // export const API_URL = "https://api.fms.indtechhc.com/api/v1"
-// export const API_URL = "https://api.fms.indtechhc.com/api/v1"
+export const API_URL = "https://api.fms.indtechhc.com/api/v1"
 
 export const axiosApi = axios.create({
   baseURL: API_URL,
