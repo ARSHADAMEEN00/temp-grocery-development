@@ -95,7 +95,7 @@ const Products = () => {
     },
   ]
 
-  const Role = sessionStorage.getItem("role")
+  const Role = localStorage.getItem("role")
 
   const handleProductCost = () => {
     if (Role === "admin" || Role === "generalmanager") {

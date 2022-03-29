@@ -46,7 +46,7 @@ const UserProfile = props => {
     dispatch(updateUserPass(values))
     setToggle(false)
   }
-  const Role = sessionStorage.getItem("role")
+  const Role = localStorage.getItem("role")
 
   return (
     <React.Fragment>

@@ -119,7 +119,7 @@ const CreateOrder = ({ history }) => {
     setRawData({
       ...rawData,
       ["client"]: QclientDetails?.client,
-      ["delivery_address"]: QclientDetails?.client_address
+      ["delivery_address"]: QclientDetails?.client_address,
     })
   }, [QclientDetails.client_name])
 
@@ -154,7 +154,7 @@ const CreateOrder = ({ history }) => {
   const onSubmitOrder = () => {
     dispatch(createOrder({ ...rawData, orderitem: orderitem }, history))
   }
-  console.log({ ...rawData, orderitem: orderitem });
+  console.log({ ...rawData, orderitem: orderitem })
 
   //setore item from and search
   function handlerFinalValue(event) {
@@ -229,7 +229,7 @@ const CreateOrder = ({ history }) => {
     setSearchQuotationText(textEntered)
   }
 
-  const Role = sessionStorage.getItem("role")
+  const Role = localStorage.getItem("role")
 
   const [isOpen, setIsOpen] = useState(false)
 
@@ -252,7 +252,6 @@ const CreateOrder = ({ history }) => {
     (accumulator, current) => accumulator + current.total_price,
     0
   )
-
 
   return (
     <>
@@ -368,9 +367,7 @@ const CreateOrder = ({ history }) => {
                               />
                             </Col>
                             <Col lg={6} className="mb-3">
-                              <label htmlFor="purchase">
-                                Purchase Number
-                              </label>
+                              <label htmlFor="purchase">Purchase Number</label>
                               <input
                                 type="text"
                                 className="form-control"
@@ -553,8 +550,7 @@ const CreateOrder = ({ history }) => {
                               id="resume"
                               requied="true"
                               min={1}
-                              value={percentage
-                              }
+                              value={percentage}
                               defaultValue={QProductDetail?.profit}
                               // defaultValue={percentage}
                               onChange={e => setPercentage(e.target.value)}

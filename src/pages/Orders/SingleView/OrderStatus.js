@@ -70,7 +70,7 @@ const OrderStatus = () => {
       return "success"
     }
   }
-  const Role = sessionStorage.getItem("role")
+  const Role = localStorage.getItem("role")
 
   const Handler = () => {
     if (orderDetail?.status == "Canceled") {

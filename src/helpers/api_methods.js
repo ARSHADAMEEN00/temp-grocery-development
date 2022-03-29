@@ -11,14 +11,13 @@ export const axiosApi = axios.create({
 })
 axiosApi.interceptors.request.use(
   function (config) {
-    const token = sessionStorage.getItem("token")
+    const token = localStorage.getItem("token")
     if (token) {
-      config.headers["Authorization"] =
-        "token " + sessionStorage.getItem("token")
+      config.headers["Authorization"] = "token " + localStorage.getItem("token")
     }
     return config
   },
-  function (error) { }
+  function (error) {}
 )
 
 axiosApi.interceptors.response.use(
@@ -27,7 +26,7 @@ axiosApi.interceptors.response.use(
   },
   err => {
     if (err.response.status == 401) {
-      sessionStorage.clear("token")
+      localStorage.clear("token")
       window.location.reload(false)
 
       Notification({

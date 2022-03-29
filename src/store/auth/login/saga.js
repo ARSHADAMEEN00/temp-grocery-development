@@ -36,9 +36,9 @@ function* loginUser({ payload: { user, history } }) {
   try {
     const response = yield call(loginApi, user)
     if (response?.token) {
-      sessionStorage.setItem("token", response.token)
-      sessionStorage.setItem("user", response.username)
-      sessionStorage.setItem("role", response.role)
+      localStorage.setItem("token", response.token)
+      localStorage.setItem("user", response.username)
+      localStorage.setItem("role", response.role)
     }
     if (response?.error_message) {
       yield put(apiError(response?.error_message))
@@ -53,9 +53,9 @@ function* loginUser({ payload: { user, history } }) {
 
 function* logoutUser({ payload: { history } }) {
   try {
-    const token = sessionStorage.getItem("token")
+    const token = localStorage.getItem("token")
     const response = yield call(logoutApi, token)
-    sessionStorage.clear("token")
+    localStorage.clear("token")
     if (response?.error_message) {
       yield put(apiError(response?.error_message))
     } else {

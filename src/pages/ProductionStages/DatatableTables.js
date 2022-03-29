@@ -26,7 +26,7 @@ const Stages = () => {
     loading: state.WorkStage.loading,
   }))
 
-  const Role = sessionStorage.getItem("role")
+  const Role = localStorage.getItem("role")
 
   //page
   const totalPages = Math.ceil(workStages?.count / 10)
@@ -133,48 +133,53 @@ const Stages = () => {
       </div>
     ),
     action: (
-      <AvForm
-        className="form-horizontal "
-      >
-        {item.status === "Finished" ? <></> : <Row style={{ alignItems: "center" }} className="d-flex">
-          <Col sm={2} lg={2} style={{ width: "150px" }}>
-            <AvField
-              id="horizontal-note-Input"
-              name="note"
-              className="form-control"
-              min={0}
-              type="textarea"
-              rows="1"
-              placeholder="Note"
-              value={item.note}
-              onChange={e =>
-                setstageUpdate({ ...stageUpdate, note: e.target.value })
-              }
-            />
-          </Col>
+      <AvForm className="form-horizontal ">
+        {item.status === "Finished" ? (
+          <></>
+        ) : (
+          <Row style={{ alignItems: "center" }} className="d-flex">
+            <Col sm={2} lg={2} style={{ width: "150px" }}>
+              <AvField
+                id="horizontal-note-Input"
+                name="note"
+                className="form-control"
+                min={0}
+                type="textarea"
+                rows="1"
+                placeholder="Note"
+                value={item.note}
+                onChange={e =>
+                  setstageUpdate({ ...stageUpdate, note: e.target.value })
+                }
+              />
+            </Col>
 
-          <Col sm={2} lg={3} style={{ width: "60px" }}>
-            <button
-              type="submit"
-              className={`btn btn-${item.status === "Pending" ? "info" : "secondary"
-                } btn-sm mx-2 btn-lg ms-2 ${item.status === "Pending" ? "" : "disabled"
+            <Col sm={2} lg={3} style={{ width: "60px" }}>
+              <button
+                type="submit"
+                className={`btn btn-${
+                  item.status === "Pending" ? "info" : "secondary"
+                } btn-sm mx-2 btn-lg ms-2 ${
+                  item.status === "Pending" ? "" : "disabled"
                 } `}
-              onClick={() => handleStart(item.id)}
-            >
-              Start
-            </button>
-          </Col>
-          <Col sm={2} lg={3} style={{ width: "60px" }}>
-            <button
-              type="submit"
-              className={`btn btn-success btn-sm mx-2 btn-lg ms-2 ${item.status === "Started" ? "" : "disabled"
+                onClick={() => handleStart(item.id)}
+              >
+                Start
+              </button>
+            </Col>
+            <Col sm={2} lg={3} style={{ width: "60px" }}>
+              <button
+                type="submit"
+                className={`btn btn-success btn-sm mx-2 btn-lg ms-2 ${
+                  item.status === "Started" ? "" : "disabled"
                 } `}
-              onClick={() => handleFinish(item.id)}
-            >
-              Finish
-            </button>
-          </Col>
-        </Row>}
+                onClick={() => handleFinish(item.id)}
+              >
+                Finish
+              </button>
+            </Col>
+          </Row>
+        )}
       </AvForm>
     ),
   }))

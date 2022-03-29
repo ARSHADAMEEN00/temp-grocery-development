@@ -11,20 +11,21 @@ import {
 import { withTranslation } from "react-i18next"
 
 // Redux
-import { withRouter, Link } from "react-router-dom"
+import { withRouter, Link, useHistory } from "react-router-dom"
 
 //images
 import user1 from "../../../assets/images/logo/user.png"
 
 const ProfileMenu = props => {
+  const history = useHistory()
   // Declare a new state variable, which we'll call "menu"
   const [menu, setMenu] = useState(false)
 
-  const Roll = sessionStorage.getItem("role")
+  const Roll = localStorage.getItem("role")
 
   const handleLogout = async () => {
-    sessionStorage.clear("token")
-    window.location.reload(false);
+    localStorage.clear()
+    history.push("/")
   }
 
   return (
@@ -45,7 +46,7 @@ const ProfileMenu = props => {
             alt="Header Avatar"
           />
           <span className="d-none d-xl-inline-block ms-2 me-1">
-            {sessionStorage.getItem("user")}
+            {localStorage.getItem("user")}
           </span>
           <i className="mdi mdi-chevron-down d-none d-xl-inline-block" />
         </DropdownToggle>
@@ -68,7 +69,11 @@ const ProfileMenu = props => {
             <i className="bx bx-power-off font-size-16 align-middle me-1 text-danger" />
             <span>{props.t("Logout All Devices")}</span>
           </Link>
-          <span className="dropdown-item" style={{ cursor: "pointer" }} onClick={handleLogout}>
+          <span
+            className="dropdown-item"
+            style={{ cursor: "pointer" }}
+            onClick={handleLogout}
+          >
             <i className="bx bx-power-off font-size-16 align-middle me-1 text-danger" />
             <span>{props.t("Logout On This Device")}</span>
           </span>

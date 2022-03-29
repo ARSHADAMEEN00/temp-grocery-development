@@ -10,7 +10,7 @@ import StoreManagerDashboard from "./StoreManagerDashboard"
 import SalesmanDashboard from "./SalesmanDashboard"
 
 function index() {
-  const Role = sessionStorage.getItem("role")
+  const Role = localStorage.getItem("role")
 
   function MyDashboard() {
     let Dashboard = <DefualtComponent />

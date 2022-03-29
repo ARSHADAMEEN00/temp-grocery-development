@@ -80,7 +80,7 @@ const CreateProduct = () => {
       .post(url, form_data, {
         headers: {
           "content-type": "multipart/form-data",
-          Authorization: "token " + sessionStorage.getItem("token"),
+          Authorization: "token " + localStorage.getItem("token"),
         },
       })
       .then(res => {

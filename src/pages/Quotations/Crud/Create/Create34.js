@@ -69,7 +69,6 @@ const CreateQuotations = ({ history }) => {
     setPercentage(QProductPrice?.profit || 0)
   }, [QProductPrice])
 
-
   useEffect(() => {
     if (quotationCurd?.id) {
       dispatch(getQuotationDetail(quotationCurd?.id))
@@ -164,7 +163,7 @@ const CreateQuotations = ({ history }) => {
     setSearchClientText(textEntered)
   }
 
-  const Role = sessionStorage.getItem("role")
+  const Role = localStorage.getItem("role")
 
   const disabledBtn = () => {
     if (rawData?.orderitem?.product && rawData?.client) {
@@ -178,7 +177,7 @@ const CreateQuotations = ({ history }) => {
 
   // const newPercentage = Math.abs(((total - QProductPrice.cost) * 100) / QProductPrice.cost)
 
-  const handleTotal = (e) => {
+  const handleTotal = e => {
     setRawData({
       ...rawData,
       quotationitem: {
@@ -196,7 +195,6 @@ const CreateQuotations = ({ history }) => {
 
   useEffect(() => {
     setTotal(totelPriceCalc)
-
   }, [totelPriceCalc, QProductPrice])
 
   // console.log(percentage);
@@ -212,7 +210,6 @@ const CreateQuotations = ({ history }) => {
 
         <Container fluid>
           <div className="container-fluid">
-
             <Row>
               <Col lg={1}></Col>
               <Col lg={10}>
@@ -305,17 +302,20 @@ const CreateQuotations = ({ history }) => {
                                 requied="true"
                                 min={1}
                                 value={total}
-                                onChange={(e) => handleTotal(e)}
+                                onChange={e => handleTotal(e)}
                               />
                             </Col>
                           ) : (
                             <></>
                           )}
-                          <p style={{
-                            width: "fit-content",
-                            marginLeft: "auto",
-                            padding: "0"
-                          }}>Total Price :
+                          <p
+                            style={{
+                              width: "fit-content",
+                              marginLeft: "auto",
+                              padding: "0",
+                            }}
+                          >
+                            Total Price :
                             <Badge
                               className={
                                 "font-size-14 p-2 mx-3 badge-soft-success"
@@ -335,8 +335,9 @@ const CreateQuotations = ({ history }) => {
                           >
                             <input
                               type="button"
-                              className={`btn btn-dark mr-lg-0 ${disabledBtn() == false && "disabled"
-                                }`}
+                              className={`btn btn-dark mr-lg-0 ${
+                                disabledBtn() == false && "disabled"
+                              }`}
                               value="Add to Quotation"
                               onClick={() => onAddFormRow()}
                               style={{

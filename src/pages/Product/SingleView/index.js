@@ -43,7 +43,7 @@ const ProductDetails = ({ history }) => {
     dispatch(getProductDetail(params.id))
   }, [])
 
-  const Role = sessionStorage.getItem("role")
+  const Role = localStorage.getItem("role")
 
   useEffect(() => {
     if (Role == "admin") {
@@ -142,10 +142,11 @@ const ProductDetails = ({ history }) => {
                           )}
 
                           {discription?.length > 0 &&
-                            map(discription, (detail, key) => (<Fragment key={key}>
-                              <h6 >{detail.title}</h6>
-                              <p>{detail.detail}</p>
-                            </Fragment>
+                            map(discription, (detail, key) => (
+                              <Fragment key={key}>
+                                <h6>{detail.title}</h6>
+                                <p>{detail.detail}</p>
+                              </Fragment>
                             ))}
 
                           {NotDiscription?.length > 0 &&
@@ -168,8 +169,9 @@ const ProductDetails = ({ history }) => {
                           <div className="mt-4">
                             <Link
                               to={`/product/update/${productDetail?.id}`}
-                              className={`btn btn-secondary ${loading && "disabled"
-                                } btn-m`}
+                              className={`btn btn-secondary ${
+                                loading && "disabled"
+                              } btn-m`}
                             >
                               Edit{" "}
                               <i className="mdi mdi-arrow-right ms-1 bx-fade-right" />
@@ -182,8 +184,9 @@ const ProductDetails = ({ history }) => {
                             <Link
                               style={{ opacity: 0.8 }}
                               to="#"
-                              className={`btn btn-outline-light ${loading && "disabled"
-                                }  btn-m`}
+                              className={`btn btn-outline-light ${
+                                loading && "disabled"
+                              }  btn-m`}
                               onClick={handleDelete}
                             >
                               Remove
@@ -203,8 +206,9 @@ const ProductDetails = ({ history }) => {
                             <Link
                               style={{ opacity: 0.8 }}
                               to="/order/create"
-                              className={`btn text-light bg-success ${loading && "disabled"
-                                }  btn-m`}
+                              className={`btn text-light bg-success ${
+                                loading && "disabled"
+                              }  btn-m`}
                               onClick={handleDelete}
                             >
                               Order Now

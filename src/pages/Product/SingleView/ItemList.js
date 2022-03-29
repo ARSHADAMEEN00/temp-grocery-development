@@ -18,7 +18,7 @@ function ItemList() {
     loading: state.Products.loading,
   }))
 
-  const Role = sessionStorage.getItem("role")
+  const Role = localStorage.getItem("role")
 
   useEffect(() => {
     if (Role === "salesman") {

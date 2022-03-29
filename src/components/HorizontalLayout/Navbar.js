@@ -57,7 +57,7 @@ const Navbar = props => {
     return false
   }
 
-  const Role = sessionStorage.getItem("role")
+  const Role = localStorage.getItem("role")
 
   function sidebarProtected() {
     let sidebar = []

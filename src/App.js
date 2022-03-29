@@ -46,8 +46,8 @@ const App = props => {
     return layoutCls
   }
 
-  const Role = sessionStorage.getItem("role")
-  const token = sessionStorage.getItem("token")
+  const Role = localStorage.getItem("role")
+  const token = localStorage.getItem("token")
 
   function MyRoute() {
     let Routes = commonRoute

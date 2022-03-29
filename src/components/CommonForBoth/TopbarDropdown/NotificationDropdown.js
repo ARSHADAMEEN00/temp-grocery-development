@@ -12,7 +12,7 @@ const NotificationDropdown = props => {
   // Declare a new state variable, which we'll call "menu"
   const [menu, setMenu] = useState(false)
 
-  const Role = sessionStorage.getItem("role")
+  const Role = localStorage.getItem("role")
 
   const { orders } = useSelector(state => ({
     orders: state.Orders.orders,
