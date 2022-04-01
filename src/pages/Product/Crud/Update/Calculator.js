@@ -62,7 +62,7 @@ const Calculator = props => {
                       toggle("3")
                     }}
                   >
-                    Square Tupe
+                    Tube
                   </NavLink>
                 </NavItem>
               </ul>
@@ -76,28 +76,38 @@ const Calculator = props => {
                   <TabPane className="show" tabId="1">
                     <CalcForm
                       fields={[
-                        "quantity",
-                        "width",
-                        "length",
-                        "thickness",
-                        // "density",
+                        { field: "width", unit: "inch" },
+                        { field: "length", unit: "inch" },
+                        { field: "thickness", unit: "mm" },
+                        { field: "quantity", unit: "num" },
                       ]}
                       type={"sheet"}
-                      unit={"Meter"}
+                      unit={"inch"}
                     />
                   </TabPane>
                   <TabPane className="show" tabId="2">
                     <CalcForm
-                      fields={["quantity", "diameter", "thickness", "length"]}
+                      fields={[
+                        { field: "diameter", unit: "inch" },
+                        { field: "length", unit: "inch" },
+                        { field: "thickness", unit: "mm" },
+                        { field: "quantity", unit: "num" },
+                      ]}
                       type={"pipe"}
-                      unit={"Meter"}
+                      unit={"inch"}
                     />
                   </TabPane>
                   <TabPane className="show" tabId="3">
                     <CalcForm
-                      fields={["quantity", "thickness", "width", "length"]}
-                      type={"square tupe"}
-                      unit={"Meter"}
+                      fields={[
+                        { field: "height", unit: "inch" },
+                        { field: "width", unit: "inch" },
+                        { field: "length", unit: "inch" },
+                        { field: "thickness", unit: "mm" },
+                        { field: "quantity", unit: "num" },
+                      ]}
+                      type={"tube"}
+                      unit={"inch"}
                     />
                   </TabPane>
                 </TabContent>

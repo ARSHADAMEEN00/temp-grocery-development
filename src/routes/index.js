@@ -58,6 +58,7 @@ import stageDetail from "pages/ProductionStages/SingleView"
 import WorkOrderPDFGenerator from "components/Pdf/WorkOrderReport"
 import ProductionOrder from "pages/QcInscpection"
 import Stockreport from "pages/stockreport/Stockreport"
+import InstallationReport from "components/Pdf/InstallationReport"
 
 const commonRoute = [
   { path: "/dashboard", component: Dashboard },
@@ -79,6 +80,7 @@ const MDProtectedRoutes = [
   { path: "/dashboard", component: Dashboard },
   { path: "/quotation/pdf/:id", component: PDFGenerator },
   { path: "/order/work/pdf", component: WorkOrderPDFGenerator },
+  { path: "/order/installationReport/pdf", component: InstallationReport },
 
   // //profile Clients
   { path: "/profile", component: UserProfile },

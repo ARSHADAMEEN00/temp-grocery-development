@@ -205,7 +205,7 @@ const OrderStatus = () => {
               </Col>
               <Col lg={2}>
                 <Link
-                  to="/order/work/pdf"
+                  to="/order/installationReport/pdf"
                   type="button"
                   className="btn btn-outline-light d-flex mt-4"
                   style={{

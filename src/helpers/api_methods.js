@@ -1,10 +1,12 @@
 import axios from "axios"
+import React from "react"
 import { Notification } from "components/Common/Notification"
+import { Redirect } from "react-router-dom"
 
 //apply base url for axios
-// export const API_URL = "http://192.168.1.28:3000/api/v1" //afnan//
+export const API_URL = "http://192.168.1.48:3000/api/v1" //afnan//
 // export const API_URL = "https://api.fms.indtechhc.com/api/v1"
-export const API_URL = "https://api.fms.indtechhc.com/api/v1"
+// export const API_URL = "https://api.fms.indtechhc.com/api/v1"
 
 export const axiosApi = axios.create({
   baseURL: API_URL,
@@ -40,6 +42,9 @@ axiosApi.interceptors.response.use(
         message: err?.response?.data?.detail,
         title: err?.response?.statusText,
       })
+    }
+    if (err.response.status === 500) {
+      return <Redirect to={{ pathname: "/login" }} />
     }
     return err.response
   }

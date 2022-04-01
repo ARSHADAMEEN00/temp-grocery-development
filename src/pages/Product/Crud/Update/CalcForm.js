@@ -1,5 +1,4 @@
-import { AvField, AvForm } from "availity-reactstrap-validation"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Badge, Col, Row } from "reactstrap"
 import PropTypes from "prop-types"
 import { map } from "lodash"
@@ -12,34 +11,39 @@ function CalcForm({ fields, type, unit }) {
       return { ...values, [name]: value }
     })
   }
+  useEffect(() => {
+    setValues({ ...values, density: 7.86 })
+  }, [])
 
   //calu L/1000 * W/1000 * T * S
   // specific material density (Steel = 7.85)
   const totalSheetWeight =
-    (values.length ? values.length : 1) *
-    (values.width ? values.width : 1) *
+    ((((values.length ? values.length : 1) / 39.37) *
+      (values.width ? values.width : 1)) /
+      39.37) *
     (values.thickness ? values.thickness : 1) *
-    (values.density ? values.density : 1) *
+    7.85 *
     (values.quantity ? values.quantity : 0)
 
   const sheetWeight =
-    (values.length ? values.length : 1) *
-    (values.width ? values.width : 1) *
+    ((((values.length ? values.length : 1) / 39.37) *
+      (values.width ? values.width : 1)) /
+      39.37) *
     (values.thickness ? values.thickness : 1) *
-    (values.density ? values.density : 1) *
+    7.85 *
     (values.quantity ? 1 : 0)
 
   //pipe
   const totalPipeWeight =
-    (values.length ? values.length : 1) *
-    ((values.diameter ? values.diameter : 1) -
+    ((values.length ? values.length : 1) / 39.37) *
+    ((values.diameter ? values.diameter : 1) / 39.37 -
       (values.thickness ? values.thickness : 1)) *
     (values.thickness ? values.thickness : 1) *
     (values.quantity ? values.quantity : 0)
 
   const pipeWeight =
-    (values.length ? values.length : 1) *
-    ((values.diameter ? values.diameter : 1) -
+    ((values.length ? values.length : 1) / 39.37) *
+    ((values.diameter ? values.diameter : 1) / 39.37 -
       (values.thickness ? values.thickness : 1)) *
     (values.thickness ? values.thickness : 1) *
     (values.quantity ? 1 : 0)
@@ -74,7 +78,7 @@ function CalcForm({ fields, type, unit }) {
     if (type === "pipe") {
       return pipeWeight
     }
-    if (type === "square tupe") {
+    if (type === "tube") {
       return tupeWeight
     }
   }
@@ -86,7 +90,7 @@ function CalcForm({ fields, type, unit }) {
     if (type === "pipe") {
       return totalPipeWeight
     }
-    if (type === "square tupe") {
+    if (type === "tube") {
       return totalTupeWeight
     }
   }
@@ -95,18 +99,17 @@ function CalcForm({ fields, type, unit }) {
     <>
       <form className="form-horizontal mt-1">
         <Row className="col-12 p-0 m-0">
-          <p>Enter All Values In ({unit}) </p>
           {map(fields, (field, key) => (
             <Col lg={6} md={3} key={key}>
               <div className="mb-3">
                 <label htmlFor={field}>
-                  {field?.charAt(0).toUpperCase() + field?.slice(1)}
+                  {field?.field} &nbsp; ({field?.unit})
+                  {/* {field?.charAt(0).toUpperCase() + field?.slice(1)} */}
                 </label>
                 <input
-                  name={field}
+                  name={field?.field}
                   id={field}
                   className="form-control"
-                  // placeholder={field?.charAt(0).toUpperCase() + field?.slice(1)}
                   type="number"
                   required
                   onChange={e => handleCalculate(e)}
