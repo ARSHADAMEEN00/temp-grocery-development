@@ -121,7 +121,7 @@ const ProductionManagerDetails = ({ history }) => {
                               }  btn-m`}
                               onClick={handleDelete}
                             >
-                              Block Acount
+                              Block Account
                               <i className="fas fa-trash text-danger ms-1 bx-tada-hover"></i>
                             </Link>
                           </div>

@@ -1,27 +1,19 @@
 import { map } from "lodash"
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Link, useParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { Badge, Card, CardBody, CardTitle, Table } from "reactstrap"
 
 //ations
-import { getOrderDetail } from "store/actions"
-
 function OrderItems() {
-  const dispatch = useDispatch()
-  const params = useParams()
   const { orderitem, orderitemLoading } = useSelector(state => ({
     orderitem: state.Orders.orderDetail.orderitem,
     orderitemLoading: state.Orders.orderitemLoading,
   }))
 
-  useEffect(() => {
-    dispatch(getOrderDetail(params.id))
-  }, [dispatch, orderitemLoading])
-
   return (
     <>
-      <Card>
+      <Card className="display-none">
         <CardBody>
           <CardTitle className="mb-4">Order Items</CardTitle>
 

@@ -64,6 +64,7 @@ const CreateOrder = ({ history }) => {
   const [orderitem, setNewOrders] = useState([])
   const [percentage, setPercentage] = useState(0)
   const [qty, setQty] = useState(1)
+  const [sellingPriceNew, setSellingPriceNew] = useState()
   const [rawData, setRawData] = useState({
     client: "",
     start_date: "",
@@ -88,7 +89,9 @@ const CreateOrder = ({ history }) => {
 
   const sellingPrice = (ProductPrice * percentage) / 100 + ProductPrice
 
-  const totelPriceCalc = sellingPrice * qty
+  const totelPriceCalc = sellingPriceNew
+    ? sellingPriceNew * qty
+    : sellingPrice * qty
 
   useEffect(() => {
     setRawData({
@@ -96,13 +99,17 @@ const CreateOrder = ({ history }) => {
       orderitem: {
         ...rawData.orderitem,
         ["total_price"]: totelPriceCalc,
-        ["selling_price"]: sellingPrice,
+        ["selling_price"]: sellingPriceNew,
         ["profit_percentage"]: percentage,
         ["cost"]: QProductPrice,
         ["quantity"]: qty,
       },
     })
-  }, [totelPriceCalc, sellingPrice])
+  }, [totelPriceCalc, sellingPrice, sellingPriceNew])
+
+  useEffect(() => {
+    setSellingPriceNew(sellingPrice)
+  }, [sellingPrice])
 
   useEffect(() => {
     setPercentage(QProductDetail?.profit)
@@ -154,7 +161,6 @@ const CreateOrder = ({ history }) => {
   const onSubmitOrder = () => {
     dispatch(createOrder({ ...rawData, orderitem: orderitem }, history))
   }
-  console.log({ ...rawData, orderitem: orderitem })
 
   //setore item from and search
   function handlerFinalValue(event) {
@@ -188,6 +194,7 @@ const CreateOrder = ({ history }) => {
     setRawData({
       ...rawData,
       ["client"]: event.value,
+      ["delivery_address"]: event.delivery_address,
     })
   }
   const clientOptions = [
@@ -196,6 +203,7 @@ const CreateOrder = ({ history }) => {
         key: index,
         label: result.name,
         value: result.id,
+        delivery_address: result.address,
       })),
     },
   ]
@@ -481,11 +489,19 @@ const CreateOrder = ({ history }) => {
                                             </p>
 
                                             <p className="pt-2 mb-0 text-muted mx-3">
-                                              Profit : {item.profit}%
+                                              Profit : {item.profit}% <br />
                                             </p>
                                             <p className="pt-2 mb-4 text-muted mx-3">
-                                              Price : {item.price}
+                                              Price : {item.price} <br />
                                             </p>
+
+                                            <span className="mt-4">
+                                              <span className="text-danger">
+                                                *
+                                              </span>{" "}
+                                              If Price Entered Manually the
+                                              Profit is not valid
+                                            </span>
                                           </Fragment>
                                         )
                                       )}
@@ -506,7 +522,7 @@ const CreateOrder = ({ history }) => {
                         <Row>
                           <Col lg={6} md={6} sm={12} className="mb-3">
                             <FormGroup className="mb-3">
-                              <Label>OrderItem </Label>
+                              <Label>Order Item </Label>
 
                               <div className="col-md-12"></div>
                               <div className="mb-3 ajax-select mt-lg-0 select2-container">
@@ -523,7 +539,7 @@ const CreateOrder = ({ history }) => {
                               </div>
                             </FormGroup>
                           </Col>
-                          {selectedOrder === "Search a Product" ? (
+                          {/* {selectedOrder === "Search a Product" ? (
                             <></>
                           ) : (
                             <Col lg={2} md={6} sm={12} className="">
@@ -540,7 +556,7 @@ const CreateOrder = ({ history }) => {
                                 readOnly
                               />
                             </Col>
-                          )}
+                          )} */}
 
                           <Col lg={2} md={6} sm={12} className="">
                             <label htmlFor="resume">Profit %</label>
@@ -568,6 +584,25 @@ const CreateOrder = ({ history }) => {
                               onChange={handleQty}
                             />
                           </Col>
+                          <Col lg={2} md={6} sm={12} className="mb-3">
+                            <label htmlFor="resume">Selling Price</label>
+                            <input
+                              type="number"
+                              className="form-control"
+                              id="resume"
+                              requied="true"
+                              min={1}
+                              value={sellingPriceNew}
+                              onChange={e => setSellingPriceNew(e.target.value)}
+                            />
+                          </Col>
+                          <p className="">
+                            Product Cost :
+                            <span className="font-size-16 text-success mx-2">
+                              <i className="bx bx-rupee text-success font-size-16" />{" "}
+                              {ProductPrice}
+                            </span>
+                          </p>
 
                           <Col lg={8} md={8}></Col>
                           <Col lg={4} md={4}>
@@ -582,7 +617,7 @@ const CreateOrder = ({ history }) => {
                                   marginLeft: "auto",
                                 }}
                               >
-                                {sellingPrice && (
+                                {/* {sellingPrice && (
                                   <span className=" text-muted">
                                     Selling Price :
                                     <Badge
@@ -595,7 +630,7 @@ const CreateOrder = ({ history }) => {
                                       {sellingPrice}
                                     </Badge>
                                   </span>
-                                )}
+                                )} */}
 
                                 {totelPriceCalc ? (
                                   <>
@@ -614,9 +649,9 @@ const CreateOrder = ({ history }) => {
                                         {totelPriceCalc}
                                       </Badge>
                                     </span>
-                                    <p className="text-end text-muted p-3">
+                                    {/* <p className="text-end text-muted p-3">
                                       (sellingPrice * qty)
-                                    </p>
+                                    </p> */}
                                   </>
                                 ) : (
                                   <></>

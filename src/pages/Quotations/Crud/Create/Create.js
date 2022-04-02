@@ -104,6 +104,9 @@ const CreateQuotations = ({ history }) => {
 
   const totelPriceCalc = (ProductPrice * percentage) / 100 + ProductPrice
 
+  // const newPercentage = Math.abs(((total - QProductPrice.cost) * 100) / QProductPrice.cost)
+  // setPercentage(newPercentage)
+
   useEffect(() => {
     if (quotationCurd?.id) {
       dispatch(getQuotationDetail(quotationCurd?.id))

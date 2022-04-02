@@ -24,12 +24,11 @@ const InstallationReport = () => {
     orderDetail: state.Orders.orderDetail,
   }))
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     window.print()
-  //   }, 2000)
-  // }, [])
-  const lines = [1, 2, 3, 4, 5, 6]
+  useEffect(() => {
+    setTimeout(() => {
+      window.print()
+    }, 2000)
+  }, [])
 
   return (
     <>
@@ -61,9 +60,12 @@ const InstallationReport = () => {
                   style={{ minHeight: "150px" }}
                   className="col-7 bg-light mt-2 p-3 m-2"
                 >
-                  <h5 className="pt-2 pb-2 ">CLIENT DETAIL </h5>
-                  <p className="mb-1">NAME : ameen arshad nediya</p>
-                  <p className="mb-1">ADDRESS : malappuram </p>
+                  <h5 className="pt-2 pb-2 ">CUSTOMER DETAIL </h5>
+                  <p className="mb-1">NAME :{orderDetail?.client_name}</p>
+                  <p className="mb-1">
+                    ADDRESS : {orderDetail?.client_address}{" "}
+                  </p>
+                  <p className="mb-1">PHONE : {orderDetail?.client_phone} </p>
                 </Col>
                 <Col
                   style={{
@@ -75,16 +77,29 @@ const InstallationReport = () => {
                 >
                   <span className="">
                     <h5 className="pt-1 pb-2"> PRODUCT DETAILS </h5>
-                    <p className="mb-1">DATE OF INSTALLATION : 19/23/2302</p>
-                    <p className="mb-1">TECHNICIAN NAME : 19/23/2302</p>
                     <p className="mb-1">
-                      MODEL/No of Item :
-                      <ul className="mt-1 pl-4">
-                        <li> item one</li>
-                        <li> item one</li>
-                        <li> item one</li>
-                        <li> item one</li>
-                      </ul>
+                      DATE OF INSTALLATION :
+                      <span
+                        style={{
+                          letterSpacing: "-3px",
+                          lineHeight: "30px",
+                          color: "#c7cacb",
+                        }}
+                      >
+                        ________________________
+                      </span>
+                    </p>
+                    <p className="mb-1">
+                      TECHNICIAN NAME :
+                      <span
+                        style={{
+                          letterSpacing: "-3px",
+                          lineHeight: "30px",
+                          color: "#c7cacb",
+                        }}
+                      >
+                        __________________________
+                      </span>
                     </p>
                   </span>
                 </Col>
@@ -100,19 +115,19 @@ const InstallationReport = () => {
               >
                 <h5 className="pt-2 pb-2 ">DETAIL OF INSTALLATION </h5>
                 <ol type="1">
-                  {map(lines, (item, key) => (
-                    <li className="pb-2" key={key}>
-                      <span
-                        style={{
-                          letterSpacing: "-3px",
-                          lineHeight: "30px",
-                          color: "#c7cacb",
-                        }}
-                      >
-                        ____________________________________________________________________________________________________________________________
-                      </span>
-                    </li>
-                  ))}
+                  {orderDetail?.orderitem && (
+                    <>
+                      {map(orderDetail?.orderitem, (orderItem, key) => (
+                        <li className="pb-2" key={key}>
+                          <p>
+                            {orderItem?.product?.name}, ({" "}
+                            {orderItem?.product?.product_code} ), ({" "}
+                            {orderItem?.quantity} )
+                          </p>
+                        </li>
+                      ))}
+                    </>
+                  )}
                 </ol>
               </Col>
               <Col

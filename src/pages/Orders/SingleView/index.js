@@ -18,7 +18,7 @@ function OrderDetails() {
         <Breadcrumbs title="Orders" breadcrumbItem="Order" />
         <Container fluid>
           <div className="container-fluid">
-            <Row>
+            <Row className="display-none">
               <OrderStatus />
             </Row>
             <Row>

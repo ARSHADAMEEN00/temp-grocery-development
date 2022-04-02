@@ -106,7 +106,7 @@ const Stores = () => {
               required
             />
           </Col>
-          <Col sm={2} lg={2} style={{ width: "100px" }}>
+          <Col sm={2} lg={2} style={{ width: "150px" }}>
             <AvField
               id="horizontal-price-Input"
               name="price"

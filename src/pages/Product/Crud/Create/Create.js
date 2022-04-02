@@ -113,10 +113,10 @@ const CreateProduct = () => {
                 <CrudProductDetail myDisabled={btnDisabled} />
               </div>
               <div className="container-fluid">
-                <RawmaterialForm myDisabled={btnDisabled} />
+                <OtherCost myDisabled={btnDisabled} />
               </div>
               <div className="container-fluid">
-                <OtherCost myDisabled={btnDisabled} />
+                <RawmaterialForm myDisabled={btnDisabled} />
               </div>
               <Link
                 to={`/products/${productDetail?.id}`}

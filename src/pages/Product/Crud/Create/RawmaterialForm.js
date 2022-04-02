@@ -24,6 +24,7 @@ import {
 
 import AvField from "availity-reactstrap-validation/lib/AvField"
 import AvForm from "availity-reactstrap-validation/lib/AvForm"
+import Calculator from "../Update/Calculator"
 
 function RawmaterialForm(myDisabled) {
   const dispatch = useDispatch()
@@ -102,7 +103,7 @@ function RawmaterialForm(myDisabled) {
   return (
     <>
       <Row>
-        <Col lg={newRawMaterials.length > 0 ? "6" : "12"}>
+        <Col lg={newRawMaterials.length > 0 ? "6" : "6"}>
           <Card>
             <CardBody>
               <CardTitle className="h4 mb-4">Add Raw Materials</CardTitle>
@@ -166,72 +167,63 @@ function RawmaterialForm(myDisabled) {
             </CardBody>
           </Card>
         </Col>
+        <Col lg={6}>
+          <Calculator />
+        </Col>
         {newRawMaterials.length > 0 && (
-          <Col lg={6}>
-            <Card>
-              <CardBody>
-                <CardTitle className="h4 mb-4">
-                  Seleted Raw Materials{" "}
-                </CardTitle>
-                {loading ? (
-                  <Spinner type="grow" color="gray" />
-                ) : (
-                  <Form className="repeater" encType="multipart/form-data">
-                    <div>
-                      {map(newRawMaterials, (item, index) => (
-                        <Row key={index}>
-                          <Row className="text-muted mt-4">
-                            <Col lg={4} md={4}>
-                              <p>
-                                <i className="mdi mdi-chevron-right text-primary me-1" />
-                                Store Item :{item?.name}
-                              </p>
-                            </Col>
-                            <Col lg={4} md={4}>
-                              <p>Quantity : {item?.quantity || ""}</p>
-                            </Col>
-                            {/* <Col lg={3} md={4}>
-                              <p>Price : {item?.price || ""}</p>
-                            </Col> */}
-                            {/* <Col lg={2} className="align-self-center m-auto">
-                              <div
-                                className="d-grid "
-                                style={{ maxWidth: "200px" }}
-                              >
-                                <input
-                                  type="button"
-                                  className="btn btn-danger mt-0 mr-lg-0 mb-4"
-                                  value="Remove"
-                                  style={{ maxWidth: "120px" }}
-                                  onClick={() => onDeleteFormRow(item.id)}
-                                />
+          <>
+            <Col lg={6}>
+              <Card>
+                <CardBody>
+                  <CardTitle className="h4 mb-4">
+                    Seleted Raw Materials{" "}
+                  </CardTitle>
+                  {loading ? (
+                    <Spinner type="grow" color="gray" />
+                  ) : (
+                    <Form className="repeater" encType="multipart/form-data">
+                      <div>
+                        {map(newRawMaterials, (item, index) => (
+                          <Row key={index}>
+                            <Row className="text-muted mt-4">
+                              <Col lg={4} md={4}>
+                                <p>
+                                  <i className="mdi mdi-chevron-right text-primary me-1" />
+                                  Store Item :{item?.name}
+                                </p>
+                              </Col>
+                              <Col lg={4} md={4}>
+                                <p>Quantity : {item?.quantity || ""}</p>
+                              </Col>
 
-                              </div>
-                            </Col> */}
-                            <Col
-                              lg={2}
-                              md={2}
-                              className="align-self-center m-auto"
-                            >
-                              <div
-                                className="d-grid "
-                                style={{ maxWidth: "200px", cursor: "pointer" }}
+                              <Col
+                                lg={2}
+                                md={2}
+                                className="align-self-center m-auto"
                               >
-                                <i
-                                  className="fa fa-trash mt-1 mr-lg-0 mb-4 text-danger"
-                                  onClick={() => onDeleteFormRow(item.id)}
-                                ></i>
-                              </div>
-                            </Col>
+                                <div
+                                  className="d-grid "
+                                  style={{
+                                    maxWidth: "200px",
+                                    cursor: "pointer",
+                                  }}
+                                >
+                                  <i
+                                    className="fa fa-trash mt-1 mr-lg-0 mb-4 text-danger"
+                                    onClick={() => onDeleteFormRow(item.id)}
+                                  ></i>
+                                </div>
+                              </Col>
+                            </Row>
                           </Row>
-                        </Row>
-                      ))}
-                    </div>
-                  </Form>
-                )}
-              </CardBody>
-            </Card>
-          </Col>
+                        ))}
+                      </div>
+                    </Form>
+                  )}
+                </CardBody>
+              </Card>
+            </Col>
+          </>
         )}
       </Row>
     </>

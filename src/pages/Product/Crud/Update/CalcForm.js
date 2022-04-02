@@ -76,10 +76,10 @@ function CalcForm({ fields, type, unit }) {
       return sheetWeight
     }
     if (type === "pipe") {
-      return pipeWeight
+      return Math.abs(pipeWeight)
     }
     if (type === "tube") {
-      return tupeWeight
+      return Math.abs(tupeWeight)
     }
   }
 
@@ -88,10 +88,10 @@ function CalcForm({ fields, type, unit }) {
       return totalSheetWeight
     }
     if (type === "pipe") {
-      return totalPipeWeight
+      return Math.abs(totalPipeWeight)
     }
     if (type === "tube") {
-      return totalTupeWeight
+      return Math.abs(totalTupeWeight)
     }
   }
 

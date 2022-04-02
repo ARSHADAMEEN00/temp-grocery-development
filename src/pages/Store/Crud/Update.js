@@ -8,6 +8,7 @@ import {
   Button,
   Card,
   CardBody,
+  CardFooter,
   CardTitle,
   Col,
   Container,
@@ -47,7 +48,7 @@ const UpdateStore = ({ history }) => {
       </MetaTags>
 
       <div className="page-content">
-        <Breadcrumbs title="Stores" breadcrumbItem="Update Store" />
+        <Breadcrumbs title="Stores" breadcrumbItem="Edit Store Item" />
         <Container fluid>
           <div className="container-fluid">
             <Row>
@@ -55,9 +56,10 @@ const UpdateStore = ({ history }) => {
               <Col lg={6}>
                 <Card>
                   <CardBody>
-                    <CardTitle className="h4 mb-4">
-                      {/* Fill this form */}
-                    </CardTitle>
+                    <CardFooter className="mb-4 text-danger h6">
+                      <span className="text-danger">*</span> Only For Editing
+                      Stock
+                    </CardFooter>
 
                     <AvForm
                       className="form-horizontal "
