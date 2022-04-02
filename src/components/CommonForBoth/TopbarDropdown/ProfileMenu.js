@@ -25,7 +25,7 @@ const ProfileMenu = props => {
 
   const handleLogout = async () => {
     localStorage.clear()
-    history.push("/")
+    window.location.reload()
   }
 
   return (

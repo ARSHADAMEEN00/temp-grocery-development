@@ -27,6 +27,12 @@ function ItemList() {
     }
   }, [dispatch])
 
+  const handleRole = () => {
+    if (Role === "salesman") {
+      return false
+    }
+  }
+
   return (
     <>
       <Card>
@@ -100,47 +106,51 @@ function ItemList() {
         </CardBody>
       </Card>
 
-      <Card>
-        <CardBody>
-          <CardTitle className="mb-4">Other Costs</CardTitle>
-          {loading ? (
-            <Spinner type="grow" color="gray" />
-          ) : (
-            <div className="table-responsive">
-              {othercost?.length > 0 ? (
-                <Table className="table align-middle table-nowrap">
-                  <tbody>
-                    {map(othercost, (item, index) => (
-                      <tr key={index}>
-                        <td>
-                          <h5 className="font-size-14 m-0">
-                            <Link to="" className="text-dark">
-                              {item.note}
-                            </Link>
-                          </h5>
-                        </td>
-                        <td>
-                          <div>
-                            <span className="badge bg-light bg-soft text-info font-size-11 me-1">
-                              {item.amount}
-                            </span>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </Table>
-              ) : (
-                <h5 className="font-size-14">
-                  <Link to="#" className="text-info">
-                    No Other Costs
-                  </Link>
-                </h5>
-              )}
-            </div>
-          )}
-        </CardBody>
-      </Card>
+      {Role === "salesman" ? (
+        <></>
+      ) : (
+        <Card>
+          <CardBody>
+            <CardTitle className="mb-4">Other Costs</CardTitle>
+            {loading ? (
+              <Spinner type="grow" color="gray" />
+            ) : (
+              <div className="table-responsive">
+                {othercost?.length > 0 ? (
+                  <Table className="table align-middle table-nowrap">
+                    <tbody>
+                      {map(othercost, (item, index) => (
+                        <tr key={index}>
+                          <td>
+                            <h5 className="font-size-14 m-0">
+                              <Link to="" className="text-dark">
+                                {item.note}
+                              </Link>
+                            </h5>
+                          </td>
+                          <td>
+                            <div>
+                              <span className="badge bg-light bg-soft text-info font-size-11 me-1">
+                                {item.amount}
+                              </span>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
+                ) : (
+                  <h5 className="font-size-14">
+                    <Link to="#" className="text-info">
+                      No Other Costs
+                    </Link>
+                  </h5>
+                )}
+              </div>
+            )}
+          </CardBody>
+        </Card>
+      )}
     </>
   )
 }

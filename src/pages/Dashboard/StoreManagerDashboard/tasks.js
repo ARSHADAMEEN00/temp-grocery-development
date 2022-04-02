@@ -1,7 +1,7 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import classnames from "classnames"
 import SimpleBar from "simplebar-react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { map } from "lodash"
 import { Link } from "react-router-dom"
 import {
@@ -14,8 +14,11 @@ import {
   CardTitle,
   Table,
 } from "reactstrap"
+import { getStoreSupply } from "store/actions"
 
 const StoreSupplyList = props => {
+  const dispatch = useDispatch()
+
   const [activeTab, setActiveTab] = useState("1")
   const toggleTab = tab => {
     if (activeTab !== tab) {
@@ -25,12 +28,16 @@ const StoreSupplyList = props => {
   const { storeSupply } = useSelector(state => ({
     storeSupply: state.StoreItems.storeSupply,
   }))
-  const NotProvided = storeSupply.results?.filter(
+  const NotProvided = storeSupply?.results?.filter(
     item => item.store_status == "Not Provided"
   )
   const Provided = storeSupply.results?.filter(
     item => item.store_status == "Provided"
   )
+
+  useEffect(() => {
+    dispatch(getStoreSupply())
+  }, [dispatch])
 
   return (
     <React.Fragment>

@@ -8,6 +8,7 @@ import DefualtComponent from "./DefualtComponent"
 import QCDashboard from "./QcDashboard"
 import StoreManagerDashboard from "./StoreManagerDashboard"
 import SalesmanDashboard from "./SalesmanDashboard"
+import ProductionManagerDashboard from "./ProductionMnager"
 
 function index() {
   const Role = localStorage.getItem("role")
@@ -19,7 +20,7 @@ function index() {
         Dashboard = <AdminDashboard />
         break
       case "productionmanager":
-        Dashboard = <AdminDashboard />
+        Dashboard = <ProductionManagerDashboard />
         break
       case "salesman":
         Dashboard = <SalesmanDashboard />

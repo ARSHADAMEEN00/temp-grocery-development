@@ -15,7 +15,8 @@ const PendingOrder = () => {
     orders: state.Orders.orders,
     loading: state.Orders.loading,
   }))
-  const pendingOrder = orders?.results?.filter(item => item.status == "Approved")
+
+  const pendingOrder = orders?.results?.filter(item => item.status == "Pending")
   const pendingOrderNew = pendingOrder?.slice(0, 3)
 
   return (
@@ -69,7 +70,7 @@ const PendingOrder = () => {
             </SimpleBar>
           ) : (
             <>
-              <p className="text-info">No Pending Orders,</p>
+              {/* <p className="text-info">No Pending Orders,</p> */}
               <div className="float-end">
                 <Link
                   to="/orders"
