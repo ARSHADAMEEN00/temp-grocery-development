@@ -39,8 +39,6 @@ const ProductionManagers = () => {
     }
   }
 
-
-
   useEffect(() => {
     dispatch(getProductionmngrs(searchText, pageSend()))
   }, [dispatch, page, searchText])

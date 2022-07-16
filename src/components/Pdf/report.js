@@ -2,7 +2,6 @@ import React, { useEffect } from "react"
 import {
   Card,
   CardBody,
-  CardFooter,
   CardSubtitle,
   CardTitle,
   Col,

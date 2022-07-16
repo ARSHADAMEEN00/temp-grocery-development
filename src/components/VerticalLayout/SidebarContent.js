@@ -123,6 +123,7 @@ const SidebarContent = props => {
           subTitle.title !== "Create Store Item"
       )
     })
+    
     return sidebar
   }
 

@@ -62,6 +62,7 @@ const CreateProduct = () => {
       image: e.target.files[0],
     })
   }
+
   const handleSubmit = e => {
     e.preventDefault()
     dispatch(createProduct())
