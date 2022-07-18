@@ -9,16 +9,7 @@ import {
 } from "react-router-dom"
 
 // Import Routes all
-import {
-  publicRoutes,
-  commonRoute,
-  MDProtectedRoutes,
-  GMRoutes,
-  productionManagerRoutes,
-  storemanagerRoutes,
-  qualitycheckerRoutes,
-  salesmanRouts,
-} from "./routes"
+import { publicRoutes } from "./routes"
 
 // Import all middleware
 import Authmiddleware from "./routes/route"
@@ -46,39 +37,9 @@ const App = props => {
     return layoutCls
   }
 
-  const Role = localStorage.getItem("role")
   const token = localStorage.getItem("token")
 
-  function MyRoute() {
-    let Routes = commonRoute
-    switch (Role) {
-      case "admin":
-        Routes = MDProtectedRoutes
-        break
-      case "generalmanager":
-        Routes = GMRoutes
-        break
-      case "productionmanager":
-        Routes = productionManagerRoutes
-        break
-      case "storemanager":
-        Routes = storemanagerRoutes
-        break
-      case "qualitychecker":
-        Routes = qualitycheckerRoutes
-        break
-      case "salesman":
-        Routes = salesmanRouts
-        break
-
-      default:
-        Routes = commonRoute
-        break
-    }
-    return Routes
-  }
-
-  const Layout = getLayout()
+  // const Layout = getLayout()
   return (
     <React.Fragment>
       <Router>
@@ -93,7 +54,7 @@ const App = props => {
               exact
             />
           ))}
-          {MyRoute()?.map((route, idx) => (
+          {/* {commonRoute?.map((route, idx) => (
             <Authmiddleware
               path={route.path}
               layout={Layout}
@@ -102,9 +63,9 @@ const App = props => {
               isAuthProtected={true}
               exact
             />
-          ))}
+          ))} */}
           {!token && (
-            <Route render={() => <Redirect to={{ pathname: "/login" }} />} />
+            <Route render={() => <Redirect to={{ pathname: "/" }} />} />
           )}
           <Route render={() => <Redirect to={{ pathname: "/404" }} />} />,
         </Switch>

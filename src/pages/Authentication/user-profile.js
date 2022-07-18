@@ -1,7 +1,6 @@
 import MetaTags from "react-meta-tags"
 import React, { useState, useEffect } from "react"
 import { withRouter } from "react-router-dom"
-import Transaction from "pages/Dashboard/Common/Transation"
 import {
   Container,
   Row,
@@ -26,7 +25,6 @@ import { useSelector, useDispatch } from "react-redux"
 import Breadcrumb from "../../components/Common/Breadcrumb"
 
 import avatar from "assets/images/logo/user.png"
-import SupervisorProfile from "./SupervisorProfile"
 
 const UserProfile = props => {
   const dispatch = useDispatch()
@@ -96,7 +94,6 @@ const UserProfile = props => {
                       )}
                     </Media>
                   </Media>
-                  {Role == "supervisor" && <SupervisorProfile />}
 
                   <Col sm="4" xs="6">
                     <div className="mt-4">
@@ -135,8 +132,6 @@ const UserProfile = props => {
               </Card>
             </Col>
           </Row>
-          {transaction && <Transaction />}
-
           {toggle && (
             <>
               <h4 className="card-title mb-4">Update Password</h4>
