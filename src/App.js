@@ -15,31 +15,18 @@ import { publicRoutes } from "./routes"
 import Authmiddleware from "./routes/route"
 
 // layouts Format
-import VerticalLayout from "./components/VerticalLayout/"
-import HorizontalLayout from "./components/HorizontalLayout/"
 import NonAuthLayout from "./components/NonAuthLayout"
 
-// Import scss
-import "./assets/scss/theme.scss"
-import "./assets/scss/custom.scss"
+import "react-perfect-scrollbar/dist/css/styles.css"
+import "react-toastify/dist/ReactToastify.css"
+import "react-responsive-modal/styles.css"
+import "swiper/swiper-bundle.min.css"
+import "swiper/swiper.min.css"
+import "./assets/css/main.css"
 
 const App = props => {
-  function getLayout() {
-    let layoutCls = VerticalLayout
-    switch (props.layout.layoutType) {
-      case "horizontal":
-        layoutCls = HorizontalLayout
-        break
-      default:
-        layoutCls = VerticalLayout
-        break
-    }
-    return layoutCls
-  }
-
   const token = localStorage.getItem("token")
 
-  // const Layout = getLayout()
   return (
     <React.Fragment>
       <Router>
@@ -54,16 +41,6 @@ const App = props => {
               exact
             />
           ))}
-          {/* {commonRoute?.map((route, idx) => (
-            <Authmiddleware
-              path={route.path}
-              layout={Layout}
-              component={route.component}
-              key={idx}
-              isAuthProtected={true}
-              exact
-            />
-          ))} */}
           {!token && (
             <Route render={() => <Redirect to={{ pathname: "/" }} />} />
           )}

@@ -1,18 +1,12 @@
+import Login from "pages/page-login"
 import React from "react"
-import { MetaTags } from "react-meta-tags"
-import { Container } from "reactstrap"
 
-function index() {
+function Home() {
   return (
-    <React.Fragment>
-      <div className="page-content">
-        <MetaTags>
-          <title> Home</title>
-        </MetaTags>
-        <Container></Container>
-      </div>
-    </React.Fragment>
+    <div>
+      <Login />
+    </div>
   )
 }
 
-export default index
+export default Home
