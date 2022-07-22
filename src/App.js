@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import {
@@ -16,6 +16,7 @@ import Authmiddleware from "./routes/route"
 
 // layouts Format
 import NonAuthLayout from "./components/NonAuthLayout"
+import Preloader from "components/elements/Preloader"
 
 import "react-perfect-scrollbar/dist/css/styles.css"
 import "react-toastify/dist/ReactToastify.css"
@@ -27,26 +28,38 @@ import "./assets/css/main.css"
 const App = props => {
   const token = localStorage.getItem("token")
 
+  const [loading, setLoading] = useState(false)
+  useEffect(() => {
+    setLoading(true)
+    setTimeout(() => {
+      setLoading(false)
+    }, 2000)
+  }, [])
+
   return (
     <React.Fragment>
-      <Router>
-        <Switch>
-          {publicRoutes.map((route, idx) => (
-            <Authmiddleware
-              path={route.path}
-              layout={NonAuthLayout}
-              component={route.component}
-              key={idx}
-              isAuthProtected={false}
-              exact
-            />
-          ))}
-          {!token && (
-            <Route render={() => <Redirect to={{ pathname: "/" }} />} />
-          )}
-          <Route render={() => <Redirect to={{ pathname: "/404" }} />} />,
-        </Switch>
-      </Router>
+      {!loading ? (
+        <Router>
+          <Switch>
+            {publicRoutes.map((route, idx) => (
+              <Authmiddleware
+                path={route.path}
+                layout={NonAuthLayout}
+                component={route.component}
+                key={idx}
+                isAuthProtected={false}
+                exact
+              />
+            ))}
+            {!token && (
+              <Route render={() => <Redirect to={{ pathname: "/" }} />} />
+            )}
+            <Route render={() => <Redirect to={{ pathname: "/404" }} />} />,
+          </Switch>
+        </Router>
+      ) : (
+        <Preloader />
+      )}
     </React.Fragment>
   )
 }

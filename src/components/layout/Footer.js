@@ -1,7 +1,27 @@
 import React from "react"
 import Link from "next/link"
 
+import banner9 from "../../assets/imgs/banner/banner-9.png"
 import icon1 from "../../assets/imgs/theme/icons/icon-1.svg"
+import icon2 from "../../assets/imgs/theme/icons/icon-2.svg"
+import icon3 from "../../assets/imgs/theme/icons/icon-3.svg"
+import icon4 from "../../assets/imgs/theme/icons/icon-4.svg"
+import icon5 from "../../assets/imgs/theme/icons/icon-5.svg"
+import icon6 from "../../assets/imgs/theme/icons/icon-6.svg"
+import logo from "../../assets/imgs/theme/logo.svg"
+import location from "../../assets/imgs/theme/icons/icon-location.svg"
+import contact from "../../assets/imgs/theme/icons/icon-contact.svg"
+import email from "../../assets/imgs/theme/icons/icon-email-2.svg"
+import clock from "../../assets/imgs/theme/icons/icon-clock.svg"
+import appStore from "../../assets/imgs/theme/app-store.jpg"
+import playStore from "../../assets/imgs/theme/google-play.jpg"
+import payment from "../../assets/imgs/theme/payment-method.png"
+import phone from "../../assets/imgs/theme/icons/phone-call.svg"
+import facebook from "../../assets/imgs/theme/icons/icon-facebook-white.svg"
+import twitter from "../../assets/imgs/theme/icons/icon-twitter-white.svg"
+import instagram from "../../assets/imgs/theme/icons/icon-instagram-white.svg"
+import piterest from "../../assets/imgs/theme/icons/icon-pinterest-white.svg"
+import youtube from "../../assets/imgs/theme/icons/icon-youtube-white.svg"
 
 const Footer = () => {
   return (
@@ -28,10 +48,7 @@ const Footer = () => {
                       </button>
                     </form>
                   </div>
-                  <img
-                    src="/assets/imgs/banner/banner-9.png"
-                    alt="newsletter"
-                  />
+                  <img src={banner9} alt="newsletter" />
                 </div>
               </div>
             </div>
@@ -60,7 +77,7 @@ const Footer = () => {
                   data-wow-delay=".1s"
                 >
                   <div className="banner-icon">
-                    <img src="/assets/imgs/theme/icons/icon-2.svg" alt="" />
+                    <img src={icon2} alt="icon2" />
                   </div>
                   <div className="banner-text">
                     <h3 className="icon-box-title">Free delivery</h3>
@@ -74,7 +91,7 @@ const Footer = () => {
                   data-wow-delay=".2s"
                 >
                   <div className="banner-icon">
-                    <img src="/assets/imgs/theme/icons/icon-3.svg" alt="" />
+                    <img src={icon3} alt="" />
                   </div>
                   <div className="banner-text">
                     <h3 className="icon-box-title">Great daily deal</h3>
@@ -88,7 +105,7 @@ const Footer = () => {
                   data-wow-delay=".3s"
                 >
                   <div className="banner-icon">
-                    <img src="/assets/imgs/theme/icons/icon-4.svg" alt="" />
+                    <img src={icon4} alt="" />
                   </div>
                   <div className="banner-text">
                     <h3 className="icon-box-title">Wide assortment</h3>
@@ -102,7 +119,7 @@ const Footer = () => {
                   data-wow-delay=".4s"
                 >
                   <div className="banner-icon">
-                    <img src="/assets/imgs/theme/icons/icon-5.svg" alt="" />
+                    <img src={icon5} alt="" />
                   </div>
                   <div className="banner-text">
                     <h3 className="icon-box-title">Easy returns</h3>
@@ -116,7 +133,7 @@ const Footer = () => {
                   data-wow-delay=".5s"
                 >
                   <div className="banner-icon">
-                    <img src="/assets/imgs/theme/icons/icon-6.svg" alt="" />
+                    <img src={icon6} alt="" />
                   </div>
                   <div className="banner-text">
                     <h3 className="icon-box-title">Safe delivery</h3>
@@ -138,7 +155,7 @@ const Footer = () => {
                   <div className="logo  mb-30">
                     <Link href="/">
                       <a className="mb-15">
-                        <img src="/assets/imgs/theme/logo.svg" alt="logo" />
+                        <img src={logo} alt="logo" />
                       </a>
                     </Link>
                     <p className="font-lg text-heading">
@@ -147,10 +164,7 @@ const Footer = () => {
                   </div>
                   <ul className="contact-infor">
                     <li>
-                      <img
-                        src="/assets/imgs/theme/icons/icon-location.svg"
-                        alt=""
-                      />
+                      <img src={location} alt="" />
                       <strong>Address: </strong>{" "}
                       <span>
                         5171 W Campbell Ave undefined Kent, Utah 53127 United
@@ -158,26 +172,17 @@ const Footer = () => {
                       </span>
                     </li>
                     <li>
-                      <img
-                        src="/assets/imgs/theme/icons/icon-contact.svg"
-                        alt=""
-                      />
+                      <img src={contact} alt="" />
                       <strong>Call Us:</strong>
                       <span>(+91) - 540-025-124553</span>
                     </li>
                     <li>
-                      <img
-                        src="/assets/imgs/theme/icons/icon-email-2.svg"
-                        alt=""
-                      />
+                      <img src={email} alt="" />
                       <strong>Email:</strong>
                       <span>sale@Nest.com</span>
                     </li>
                     <li>
-                      <img
-                        src="/assets/imgs/theme/icons/icon-clock.svg"
-                        alt=""
-                      />
+                      <img src={clock} alt="" />
                       <strong>Hours:</strong>
                       <span>10:00 - 18:00, Mon - Sat</span>
                     </li>
@@ -308,22 +313,14 @@ const Footer = () => {
                 <p className="">From App Store or Google Play</p>
                 <div className="download-app ">
                   <a href="#" className="hover-up mb-sm-2 mb-lg-0">
-                    <img
-                      className="active"
-                      src="/assets/imgs/theme/app-store.jpg"
-                      alt=""
-                    />
+                    <img className="active" src={appStore} alt="" />
                   </a>
                   <a href="#" className="hover-up mb-sm-2">
-                    <img src="/assets/imgs/theme/google-play.jpg" alt="" />
+                    <img src={playStore} alt="" />
                   </a>
                 </div>
                 <p className="mb-20 ">Secured Payment Gateways</p>
-                <img
-                  className=""
-                  src="/assets/imgs/theme/payment-method.png"
-                  alt=""
-                />
+                <img className="" src={payment} alt="" />
               </div>
             </div>
           </div>
@@ -345,19 +342,13 @@ const Footer = () => {
             </div>
             <div className="col-xl-4 col-lg-6 text-center d-none d-xl-block">
               <div className="hotline d-lg-inline-flex mr-30">
-                <img
-                  src="/assets/imgs/theme/icons/phone-call.svg"
-                  alt="hotline"
-                />
+                <img src={phone} alt="hotline" />
                 <p>
                   1900 - 6666<span>Working 8:00 - 22:00</span>
                 </p>
               </div>
               <div className="hotline d-lg-inline-flex">
-                <img
-                  src="/assets/imgs/theme/icons/phone-call.svg"
-                  alt="hotline"
-                />
+                <img src={phone} alt="hotline" />
                 <p>
                   1900 - 8888<span>24/7 Support Center</span>
                 </p>
@@ -367,34 +358,19 @@ const Footer = () => {
               <div className="mobile-social-icon">
                 <h6>Follow Us</h6>
                 <a href="#">
-                  <img
-                    src="/assets/imgs/theme/icons/icon-facebook-white.svg"
-                    alt=""
-                  />
+                  <img src={facebook} alt="" />
                 </a>
                 <a href="#">
-                  <img
-                    src="/assets/imgs/theme/icons/icon-twitter-white.svg"
-                    alt=""
-                  />
+                  <img src={twitter} alt="" />
                 </a>
                 <a href="#">
-                  <img
-                    src="/assets/imgs/theme/icons/icon-instagram-white.svg"
-                    alt=""
-                  />
+                  <img src={instagram} alt="" />
                 </a>
                 <a href="#">
-                  <img
-                    src="/assets/imgs/theme/icons/icon-pinterest-white.svg"
-                    alt=""
-                  />
+                  <img src={piterest} alt="" />
                 </a>
                 <a href="#">
-                  <img
-                    src="/assets/imgs/theme/icons/icon-youtube-white.svg"
-                    alt=""
-                  />
+                  <img src={youtube} alt="" />
                 </a>
               </div>
               <p className="font-sm">
