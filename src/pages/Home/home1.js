@@ -7,6 +7,9 @@ import CategorySlider from "components/sliders/Category"
 import Banner5 from "components/elements/Banner5"
 import CategoryTab from "components/ecommerce/categoryTab"
 import FetchTabSlider from "components/ecommerce/fetchTabSlider"
+import FeatchDeals from "components/ecommerce/fetchDeals"
+import Bottom from "components/elements/Bottom"
+import QuickView from "components/ecommerce/QuickView"
 
 export default function Home() {
   return (
@@ -79,7 +82,6 @@ export default function Home() {
             <FetchTabSlider />
           </div>
         </section>
-        {/*
 
         <section className="section-padding pb-5">
           <div className="container">
@@ -101,7 +103,7 @@ export default function Home() {
 
         <Bottom />
 
-        <QuickView /> */}
+        <QuickView />
       </Layout>
     </>
   )

@@ -1,4 +1,3 @@
-import Link from "next/link"
 import React, { useEffect, useState } from "react"
 import { connect } from "react-redux"
 // import CategoryProduct2 from "../ecommerce/Filter/CategoryProduct2";
@@ -22,6 +21,7 @@ import iconHot from "../../assets/imgs/theme/icons/icon-hot.svg"
 import thumb4 from "../../assets/imgs/shop/thumbnail-4.jpg"
 import thumb3 from "../../assets/imgs/shop/thumbnail-3.jpg"
 import iconHeadphone from "../../assets/imgs/theme/icons/icon-headphone.svg"
+import { Link } from "react-router-dom"
 
 const Header = ({
   totalCartItems,
@@ -238,20 +238,91 @@ const Header = ({
                         <span className="lable">Wishlist</span>
                       </Link>
                     </div>
+
                     <div className="header-action-icon-2">
-                      <Link href="/shop-cart">
-                        <a className="mini-cart-icon">
+                      <Link to="/shop-cart">
+                        <div className="mini-cart-icon">
                           <img alt="Evara" src={iconCart} />
                           <span className="pro-count blue">
-                            {totalCartItems}
+                            {totalCartItems}1
                           </span>
-                        </a>
+                        </div>
                       </Link>
-                      <Link href="/shop-cart">
-                        <a>
-                          <span className="lable">Cart</span>
-                        </a>
+
+                      <Link to="/shop-cart">
+                        <span className="lable">Cart</span>
                       </Link>
+
+                      <div className="cart-dropdown-wrap cart-dropdown-hm2">
+                        <ul>
+                          <li>
+                            <div className="shopping-cart-img">
+                              <Link href="/shop-grid-right">
+                                <a>
+                                  <img alt="Evara" src={thumb3} />
+                                </a>
+                              </Link>
+                            </div>
+                            <div className="shopping-cart-title">
+                              <h4>
+                                <Link href="/shop-grid-right">
+                                  <a>Plain Striola Shirts</a>
+                                </Link>
+                              </h4>
+                              <h3>
+                                <span>1 × </span>
+                                $800.00
+                              </h3>
+                            </div>
+                            <div className="shopping-cart-delete">
+                              <Link href="/#">
+                                <a>
+                                  <i className="fi-rs-cross-small"></i>
+                                </a>
+                              </Link>
+                            </div>
+                          </li>
+                          <li>
+                            <div className="shopping-cart-img">
+                              <Link href="/shop-grid-right">
+                                <a>
+                                  <img alt="Evara" src={thumb4} />
+                                </a>
+                              </Link>
+                            </div>
+                            <div className="shopping-cart-title">
+                              <h4>
+                                <Link href="/shop-grid-right">
+                                  <a>Macbook Pro 2022</a>
+                                </Link>
+                              </h4>
+                              <h3>
+                                <span>1 × </span>
+                                $3500.00
+                              </h3>
+                            </div>
+                            <div className="shopping-cart-delete">
+                              <Link href="/#">
+                                <a>
+                                  <i className="fi-rs-cross-small"></i>
+                                </a>
+                              </Link>
+                            </div>
+                          </li>
+                        </ul>
+                        <div className="shopping-cart-footer">
+                          <div className="shopping-cart-total">
+                            <h4>
+                              Total
+                              <span>$383.00</span>
+                            </h4>
+                          </div>
+                          <div className="shopping-cart-button">
+                            <Link to="/shop-cart">View cart</Link>
+                            <Link to="/shop-checkout">Checkout</Link>
+                          </div>
+                        </div>
+                      </div>
                     </div>
 
                     <div className="header-action-icon-2">
