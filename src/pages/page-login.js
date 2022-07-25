@@ -23,9 +23,7 @@ function Login() {
                           <h1 className="mb-5">Login</h1>
                           <p className="mb-30">
                             Don&apos;t have an account?{" "}
-                            <Link to="/page-register">
-                              <a>Create here</a>
-                            </Link>
+                            <Link to="/page-register">Create here</Link>
                           </p>
                         </div>
                         <form method="post">

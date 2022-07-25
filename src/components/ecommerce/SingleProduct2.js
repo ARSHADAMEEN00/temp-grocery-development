@@ -36,15 +36,15 @@ const SingleProduct2 = ({
       <div className="product-cart-wrap mb-30">
         <div className="product-img-action-wrap">
           <div className="product-img product-img-zoom">
-            <Link href="/products/[slug]" as={`/products/${product.slug}`}>
-              <a>
+            <Link to="/products/slug" as={`/products/${product.slug}`}>
+              <span>
                 <img
                   className="default-img"
                   src={`${server}/${product.images[0].img}`}
                   alt=""
                 />
                 <img className="hover-img" src={product.images[1].img} alt="" />
-              </a>
+              </span>
             </Link>
           </div>
           <div className="product-action-1">
@@ -85,13 +85,13 @@ const SingleProduct2 = ({
         </div>
         <div className="product-content-wrap">
           <div className="product-category">
-            <Link href="/products">
-              <a>{product.brand}</a>
+            <Link to="/products">
+              <span>{product.brand}</span>
             </Link>
           </div>
           <h2>
-            <Link href="/products/[slug]" as={`/products/${product.slug}`}>
-              <a>{product.title}</a>
+            <Link to="/products/slug" as={`/products/${product.slug}`}>
+              <span>{product.title}</span>
             </Link>
           </h2>
 

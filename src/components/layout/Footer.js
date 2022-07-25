@@ -1,5 +1,5 @@
 import React from "react"
-import Link from "next/link"
+import { Link } from "react-router-dom"
 
 import banner9 from "../../assets/imgs/banner/banner-9.png"
 import icon1 from "../../assets/imgs/theme/icons/icon-1.svg"
@@ -153,10 +153,10 @@ const Footer = () => {
                   data-wow-delay="0"
                 >
                   <div className="logo  mb-30">
-                    <Link href="/">
-                      <a className="mb-15">
+                    <Link to="/">
+                      <span className="mb-15">
                         <img src={logo} alt="logo" />
-                      </a>
+                      </span>
                     </Link>
                     <p className="font-lg text-heading">
                       Awesome grocery store website template

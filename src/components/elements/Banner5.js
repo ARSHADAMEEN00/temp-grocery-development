@@ -22,9 +22,9 @@ const Banner5 = () => {
               Products
             </h4>
             <Link to="/products">
-              <a className="btn btn-xs">
+              <span className="btn btn-xs">
                 Shop Now <i className="fi-rs-arrow-small-right"></i>
-              </a>
+              </span>
             </Link>
           </div>
         </div>
@@ -41,10 +41,10 @@ const Banner5 = () => {
               <br />
               Healthy and Easy
             </h4>
-            <Link href="/products">
-              <a className="btn btn-xs">
+            <Link to="/products">
+              <span className="btn btn-xs">
                 Shop Now <i className="fi-rs-arrow-small-right"></i>
-              </a>
+              </span>
             </Link>
           </div>
         </div>
@@ -60,10 +60,10 @@ const Banner5 = () => {
               The best Organic <br />
               Products Online
             </h4>
-            <Link href="/products">
-              <a className="btn btn-xs">
+            <Link to="/products">
+              <span className="btn btn-xs">
                 Shop Now <i className="fi-rs-arrow-small-right"></i>
-              </a>
+              </span>
             </Link>
           </div>
         </div>

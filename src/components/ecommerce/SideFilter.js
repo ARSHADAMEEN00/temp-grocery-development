@@ -1,8 +1,8 @@
 import React from "react"
-import CategoryProduct from "./filter/CategoryProduct"
-import PriceRangeSlider from "./filter/PriceRangeSlider"
-import SizeFilter from "./filter/SizeFilter"
-import VendorFilter from "./filter/VendorFilter"
+import CategoryProduct from "./Filter/CategoryProduct"
+import PriceRangeSlider from "./Filter/PriceRangeSlider"
+import SizeFilter from "./Filter/SizeFilter"
+import VendorFilter from "./Filter/VendorFilter"
 
 import banner11 from "../../assets/imgs/banner/banner-11.png"
 import thumbnail5 from "../../assets/imgs/shop/thumbnail-5.jpg"

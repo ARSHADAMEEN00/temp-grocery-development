@@ -59,23 +59,23 @@ const Header = ({
                 <div className="header-info">
                   <ul>
                     <li>
-                      <Link href="/page-about">
-                        <a>About Us</a>
+                      <Link to="/page-about">
+                        <span>About Us</span>
                       </Link>
                     </li>
                     <li>
-                      <Link href="/page-account">
-                        <a>My Account</a>
+                      <Link to="/page-account">
+                        <span>My Account</span>
                       </Link>
                     </li>
                     <li>
-                      <Link href="/shop-wishlist">
-                        <a>Wishlist</a>
+                      <Link to="/shop-wishlist">
+                        <span>Wishlist</span>
                       </Link>
                     </li>
                     <li>
-                      <Link href="/page-account">
-                        <a>Order Tracking</a>
+                      <Link to="/page-account">
+                        <span>Order Tracking</span>
                       </Link>
                     </li>
                   </ul>
@@ -87,8 +87,8 @@ const Header = ({
                     <ul>
                       <li>
                         Get great devices up to 50% off
-                        <Link href="/shop-grid-right">
-                          <a> View details</a>
+                        <Link to="/shop-grid-right">
+                          <span> View details</span>
                         </Link>
                       </li>
                     </ul>
@@ -103,36 +103,36 @@ const Header = ({
                       <strong className="text-brand"> + 1800 900</strong>
                     </li>
                     {/* <li>
-                      <Link href="/#">
-                        <a className="language-dropdown-active">
+                      <Link to="/#">
+                        <span className="language-dropdown-active">
                           <i className="fi-rs-world"></i>
                           English
                           <i className="fi-rs-angle-small-down"></i>
-                        </a>
+                        </span>
                       </Link>
                       <ul className="language-dropdown">
                         <li>
-                          <Link href="/#">
-                            <a>
+                          <Link to="/#">
+                            <span>
                               <img src={flagFr} alt="" />
                               Français
-                            </a>
+                            </span>
                           </Link>
                         </li>
                         <li>
-                          <Link href="/#">
-                            <a>
+                          <Link to="/#">
+                            <span>
                               <img src={flagDt} alt="" />
                               Deutsch
-                            </a>
+                            </span>
                           </Link>
                         </li>
                         <li>
-                          <Link href="/#">
-                            <a>
+                          <Link to="/#">
+                            <span>
                               <img src={flagRu} alt="" />
                               Pусский
-                            </a>
+                            </span>
                           </Link>
                         </li>
                       </ul>
@@ -172,10 +172,10 @@ const Header = ({
           <div className="container">
             <div className="header-wrap">
               <div className="logo logo-width-1">
-                <Link href="/">
-                  <a>
+                <Link to="/">
+                  <span>
                     <img src={logo} alt="logo" />
-                  </a>
+                  </span>
                 </Link>
               </div>
               <div className="header-right">
@@ -203,8 +203,8 @@ const Header = ({
                       </form>
                     </div>
                     <div className="header-action-icon-2">
-                      <Link href="/shop-compare">
-                        <a>
+                      <Link to="/shop-compare">
+                        <span>
                           <img
                             className="svgInject"
                             alt="Evara"
@@ -213,17 +213,17 @@ const Header = ({
                           <span className="pro-count blue">
                             {totalCompareItems}
                           </span>
-                        </a>
+                        </span>
                       </Link>
-                      <Link href="/shop-compare">
-                        <a>
+                      <Link to="/shop-compare">
+                        <span>
                           <span className="lable ml-0">Compare</span>
-                        </a>
+                        </span>
                       </Link>
                     </div>
                     <div className="header-action-icon-2">
-                      <Link href="/shop-wishlist">
-                        <a>
+                      <Link to="/shop-wishlist">
+                        <span>
                           <img
                             className="svgInject"
                             alt="Evara"
@@ -232,9 +232,9 @@ const Header = ({
                           <span className="pro-count blue">
                             {totalWishlistItems}
                           </span>
-                        </a>
+                        </span>
                       </Link>
-                      <Link href="/shop-wishlist">
+                      <Link to="/shop-wishlist">
                         <span className="lable">Wishlist</span>
                       </Link>
                     </div>
@@ -257,16 +257,16 @@ const Header = ({
                         <ul>
                           <li>
                             <div className="shopping-cart-img">
-                              <Link href="/shop-grid-right">
-                                <a>
+                              <Link to="/shop-grid-right">
+                                <span>
                                   <img alt="Evara" src={thumb3} />
-                                </a>
+                                </span>
                               </Link>
                             </div>
                             <div className="shopping-cart-title">
                               <h4>
-                                <Link href="/shop-grid-right">
-                                  <a>Plain Striola Shirts</a>
+                                <Link to="/shop-grid-right">
+                                  <span>Plain Striola Shirts</span>
                                 </Link>
                               </h4>
                               <h3>
@@ -275,25 +275,25 @@ const Header = ({
                               </h3>
                             </div>
                             <div className="shopping-cart-delete">
-                              <Link href="/#">
-                                <a>
+                              <Link to="/#">
+                                <span>
                                   <i className="fi-rs-cross-small"></i>
-                                </a>
+                                </span>
                               </Link>
                             </div>
                           </li>
                           <li>
                             <div className="shopping-cart-img">
-                              <Link href="/shop-grid-right">
-                                <a>
+                              <Link to="/shop-grid-right">
+                                <span>
                                   <img alt="Evara" src={thumb4} />
-                                </a>
+                                </span>
                               </Link>
                             </div>
                             <div className="shopping-cart-title">
                               <h4>
-                                <Link href="/shop-grid-right">
-                                  <a>Macbook Pro 2022</a>
+                                <Link to="/shop-grid-right">
+                                  <span>Macbook Pro 2022</span>
                                 </Link>
                               </h4>
                               <h3>
@@ -302,10 +302,10 @@ const Header = ({
                               </h3>
                             </div>
                             <div className="shopping-cart-delete">
-                              <Link href="/#">
-                                <a>
+                              <Link to="/#">
+                                <span>
                                   <i className="fi-rs-cross-small"></i>
-                                </a>
+                                </span>
                               </Link>
                             </div>
                           </li>
@@ -326,68 +326,68 @@ const Header = ({
                     </div>
 
                     <div className="header-action-icon-2">
-                      <Link href="/page-account">
-                        <a>
+                      <Link to="/page-account">
+                        <span>
                           <img
                             className="svgInject"
                             alt="Nest"
                             src={iconUser}
                           />
-                        </a>
+                        </span>
                       </Link>
-                      <Link href="/page-account">
-                        <a>
+                      <Link to="/page-account">
+                        <span>
                           <span className="lable ml-0">Account</span>
-                        </a>
+                        </span>
                       </Link>
                       <div className="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
                         <ul>
                           <li>
-                            <Link href="/page-account">
-                              <a>
+                            <Link to="/page-account">
+                              <span>
                                 <i className="fi fi-rs-user mr-10"></i>
                                 My Account
-                              </a>
+                              </span>
                             </Link>
                           </li>
                           <li>
-                            <Link href="/page-account">
-                              <a>
+                            <Link to="/page-account">
+                              <span>
                                 <i className="fi fi-rs-location-alt mr-10"></i>
                                 Order Tracking
-                              </a>
+                              </span>
                             </Link>
                           </li>
                           <li>
-                            <Link href="/page-account">
-                              <a>
+                            <Link to="/page-account">
+                              <span>
                                 <i className="fi fi-rs-label mr-10"></i>
                                 My Voucher
-                              </a>
+                              </span>
                             </Link>
                           </li>
                           <li>
-                            <Link href="/shop-wishlist">
-                              <a>
+                            <Link to="/shop-wishlist">
+                              <span>
                                 <i className="fi fi-rs-heart mr-10"></i>
                                 My Wishlist
-                              </a>
+                              </span>
                             </Link>
                           </li>
                           <li>
-                            <Link href="/page-account">
-                              <a>
+                            <Link to="/page-account">
+                              <span>
                                 <i className="fi fi-rs-settings-sliders mr-10"></i>
                                 Setting
-                              </a>
+                              </span>
                             </Link>
                           </li>
                           <li>
-                            <Link href="/page-login">
-                              <a>
+                            <Link to="/page-login">
+                              <span>
                                 <i className="fi fi-rs-sign-out mr-10"></i>
                                 Sign out
-                              </a>
+                              </span>
                             </Link>
                           </li>
                         </ul>
@@ -409,10 +409,10 @@ const Header = ({
           <div className="container">
             <div className="header-wrap header-space-between position-relative">
               <div className="logo logo-width-1 d-block d-lg-none">
-                <Link href="/">
-                  <a>
+                <Link to="/">
+                  <span>
                     <img src={logo} alt="logo" />
-                  </a>
+                  </span>
                 </Link>
               </div>
               <div className="header-nav d-none d-lg-flex">
@@ -444,41 +444,33 @@ const Header = ({
                       <div className="d-flex categori-dropdown-inner">
                         <ul>
                           <li>
-                            <Link href="/products">
-                              <a>
-                                {" "}
-                                <img src={icon1} alt="" />
-                                Milks and Dairies
-                              </a>
+                            <Link to="/products">
+                              {" "}
+                              <img src={icon1} alt="" />
+                              Milks and Dairies
                             </Link>
                           </li>
                           <li>
-                            <Link href="/products">
-                              <a>
-                                {" "}
-                                <img src={icon2} alt="" />
-                                Clothing & beauty
-                              </a>
+                            <Link to="/products">
+                              {" "}
+                              <img src={icon2} alt="" />
+                              Clothing & beauty
                             </Link>
                           </li>
                         </ul>
                         <ul className="end">
                           <li>
-                            <Link href="/products">
-                              <a>
-                                {" "}
-                                <img src={icon3} alt="" />
-                                Wines & Drinks
-                              </a>
+                            <Link to="/products">
+                              {" "}
+                              <img src={icon3} alt="" />
+                              Wines & Drinks
                             </Link>
                           </li>
                           <li>
-                            <Link href="/products">
-                              <a>
-                                {" "}
-                                <img src={icon4} alt="" />
-                                Fresh Seafood
-                              </a>
+                            <Link to="/products">
+                              {" "}
+                              <img src={icon4} alt="" />
+                              Fresh Seafood
                             </Link>
                           </li>
                         </ul>
@@ -495,102 +487,74 @@ const Header = ({
                     <ul>
                       <li className="hot-deals">
                         <img src={iconHot} alt="hot deals" />
-                        <Link href="/products">
-                          <a>Hot Deals</a>
-                        </Link>
+                        <Link to="/products">Hot Deals</Link>
                       </li>
                       <li>
-                        <Link href="/">
-                          <a className="active">
+                        <Link to="/">
+                          <span className="active">
                             Home
                             <i className="fi-rs-angle-down"></i>
-                          </a>
+                          </span>
                         </Link>
                         <ul className="sub-menu">
                           <li>
-                            <Link href="/">
-                              <a>Home 1</a>
-                            </Link>
+                            <Link to="/">Home 1</Link>
                           </li>
                           <li>
-                            <Link href="/index-2">
-                              <a>Home 2</a>
-                            </Link>
+                            <Link to="/index-2">Home 2</Link>
                           </li>
                           <li>
-                            <Link href="/index-3">
-                              <a>Home 3</a>
-                            </Link>
+                            <Link to="/index-3">Home 3</Link>
                           </li>
                           <li>
-                            <Link href="/index-4">
-                              <a>Home 4</a>
-                            </Link>
+                            <Link to="/index-4">Home 4</Link>
                           </li>
                         </ul>
                       </li>
                       <li>
-                        <Link href="/page-about">
-                          <a>About</a>
-                        </Link>
+                        <Link to="/page-about">About</Link>
                       </li>
                       <li>
-                        <Link href="/shop-grid-right">
-                          <a>
-                            Shop
-                            <i className="fi-rs-angle-down"></i>
-                          </a>
+                        <Link to="/shop-grid-right">
+                          Shop
+                          <i className="fi-rs-angle-down"></i>
                         </Link>
                         <ul className="sub-menu">
                           <li>
-                            <Link href="/shop-grid-right">
-                              <a>Shop Grid – Right Sidebar</a>
+                            <Link to="/shop-grid-right">
+                              Shop Grid – Right Sidebar
                             </Link>
                           </li>
                           <li>
-                            <Link href="/products">
-                              <a>Shop Grid – Left Sidebar</a>
+                            <Link to="/products">Shop Grid – Left Sidebar</Link>
+                          </li>
+                          <li>
+                            <Link to="/shop-list-right">
+                              Shop List – Right Sidebar
                             </Link>
                           </li>
                           <li>
-                            <Link href="/shop-list-right">
-                              <a>Shop List – Right Sidebar</a>
+                            <Link to="/shop-list-left">
+                              Shop List – Left Sidebar
                             </Link>
                           </li>
                           <li>
-                            <Link href="/shop-list-left">
-                              <a>Shop List – Left Sidebar</a>
-                            </Link>
+                            <Link to="/shop-fullwidth">Shop - Wide</Link>
                           </li>
                           <li>
-                            <Link href="/shop-fullwidth">
-                              <a>Shop - Wide</a>
-                            </Link>
+                            <Link to="/shop-filter">Shop - Filter</Link>
                           </li>
                           <li>
-                            <Link href="/shop-filter">
-                              <a>Shop - Filter</a>
-                            </Link>
+                            <Link to="/shop-wishlist">Shop – Wishlist</Link>
                           </li>
                           <li>
-                            <Link href="/shop-wishlist">
-                              <a>Shop – Wishlist</a>
-                            </Link>
+                            <Link to="/shop-cart">Shop – Cart</Link>
                           </li>
                           <li>
-                            <Link href="/shop-cart">
-                              <a>Shop – Cart</a>
-                            </Link>
+                            <Link to="/shop-checkout">Shop – Checkout</Link>
                           </li>
                           <li>
-                            <Link href="/shop-checkout">
-                              <a>Shop – Checkout</a>
-                            </Link>
-                          </li>
-                          <li>
-                            <Link href="/shop-compare">
-                              <a>Shop – Compare</a>
-                            </Link>
+                            <Link to="/shop-compare">Shop – Compare</Link>
                           </li>
                         </ul>
                       </li>
@@ -601,40 +565,30 @@ const Header = ({
                         </a>
                         <ul className="sub-menu">
                           <li>
-                            <Link href="/vendors">
-                              <a>Vendors Grid</a>
-                            </Link>
+                            <Link to="/vendors">Vendors Grid</Link>
                           </li>
                           <li>
-                            <Link href="/vendors-list">
-                              <a>Vendors List</a>
-                            </Link>
+                            <Link to="/vendors-list">Vendors List</Link>
                           </li>
                           <li>
-                            <Link href="/vendor-dashboard">
-                              <a>Vendor Dashboard</a>
-                            </Link>
+                            <Link to="/vendor-dashboard">Vendor Dashboard</Link>
                           </li>
                           <li>
-                            <Link href="/vendor-guide">
-                              <a>Vendor Guide</a>
-                            </Link>
+                            <Link to="/vendor-guide">Vendor Guide</Link>
                           </li>
                         </ul>
                       </li>
 
                       <li className="position-static">
-                        <Link href="/#">
-                          <a>
-                            Mega menu
-                            <i className="fi-rs-angle-down"></i>
-                          </a>
+                        <Link to="/#">
+                          Mega menu
+                          <i className="fi-rs-angle-down"></i>
                         </Link>
                         <ul className="mega-menu">
                           <li className="sub-mega-menu sub-mega-menu-width-22">
-                            <a className="menu-title" href="#">
+                            <span className="menu-title" href="#">
                               Fruit & Vegetables
-                            </a>
+                            </span>
                             <ul>
                               <li>
                                 <a href="#">Meat & Poultry</a>
@@ -738,54 +692,46 @@ const Header = ({
                         </ul>
                       </li>
                       <li>
-                        <Link href="/blog-category-grid">
-                          <a>
-                            Blog
-                            <i className="fi-rs-angle-down"></i>
-                          </a>
+                        <Link to="/blog-category-grid">
+                          Blog
+                          <i className="fi-rs-angle-down"></i>
                         </Link>
                         <ul className="sub-menu">
                           <li>
-                            <Link href="/blog-category-grid">
-                              <a>Blog Category Grid</a>
+                            <Link to="/blog-category-grid">
+                              Blog Category Grid
                             </Link>
                           </li>
                           <li>
-                            <Link href="/blog-category-list">
-                              <a>Blog Category List</a>
+                            <Link to="/blog-category-list">
+                              Blog Category List
                             </Link>
                           </li>
                           <li>
-                            <Link href="/blog-category-big">
-                              <a>Blog Category Big</a>
+                            <Link to="/blog-category-big">
+                              Blog Category Big
                             </Link>
                           </li>
                           <li>
-                            <Link href="/blog-category-fullwidth">
-                              <a>Blog Category Wide</a>
+                            <Link to="/blog-category-fullwidth">
+                              Blog Category Wide
                             </Link>
                           </li>
                           <li>
-                            <Link href="/#">
-                              <a>
-                                Single Post
-                                <i className="fi-rs-angle-right"></i>
-                              </a>
+                            <Link to="/#">
+                              Single Post
+                              <i className="fi-rs-angle-right"></i>
                             </Link>
                             <ul className="level-menu level-menu-modify">
                               <li>
-                                <Link href="/blog-post-left">
-                                  <a>Left Sidebar</a>
-                                </Link>
+                                <Link to="/blog-post-left">Left Sidebar</Link>
                               </li>
                               <li>
-                                <Link href="/blog-post-right">
-                                  <a>Right Sidebar</a>
-                                </Link>
+                                <Link to="/blog-post-right">Right Sidebar</Link>
                               </li>
                               <li>
-                                <Link href="/blog-post-fullwidth">
-                                  <a>No Sidebar</a>
+                                <Link to="/blog-post-fullwidth">
+                                  No Sidebar
                                 </Link>
                               </li>
                             </ul>
@@ -793,59 +739,45 @@ const Header = ({
                         </ul>
                       </li>
                       <li>
-                        <Link href="/#">
-                          <a>
-                            Pages
-                            <i className="fi-rs-angle-down"></i>
-                          </a>
+                        <Link to="/#">
+                          Pages
+                          <i className="fi-rs-angle-down"></i>
                         </Link>
                         <ul className="sub-menu">
                           <li>
-                            <Link href="/page-about">
-                              <a>About Us</a>
+                            <Link to="/page-about">About Us</Link>
+                          </li>
+                          <li>
+                            <Link to="/page-contact">Contact</Link>
+                          </li>
+                          <li>
+                            <Link to="/page-account">My Account</Link>
+                          </li>
+                          <li>
+                            <Link to="/page-login-register">
+                              login/register
                             </Link>
                           </li>
                           <li>
-                            <Link href="/page-contact">
-                              <a>Contact</a>
+                            <Link to="/page-purchase-guide">
+                              Purchase Guide
                             </Link>
                           </li>
                           <li>
-                            <Link href="/page-account">
-                              <a>My Account</a>
+                            <Link to="/page-privacy-policy">
+                              Privacy Policy
                             </Link>
                           </li>
                           <li>
-                            <Link href="/page-login-register">
-                              <a>login/register</a>
-                            </Link>
+                            <Link to="/page-terms">Terms of Service</Link>
                           </li>
                           <li>
-                            <Link href="/page-purchase-guide">
-                              <a>Purchase Guide</a>
-                            </Link>
-                          </li>
-                          <li>
-                            <Link href="/page-privacy-policy">
-                              <a>Privacy Policy</a>
-                            </Link>
-                          </li>
-                          <li>
-                            <Link href="/page-terms">
-                              <a>Terms of Service</a>
-                            </Link>
-                          </li>
-                          <li>
-                            <Link href="/page-404">
-                              <a>404 Page</a>
-                            </Link>
+                            <Link to="/page-404">404 Page</Link>
                           </li>
                         </ul>
                       </li>
                       <li>
-                        <Link href="/page-contact">
-                          <a>Contact</a>
-                        </Link>
+                        <Link to="/page-contact">Contact</Link>
                       </li>
                     </ul>
                   </nav>
@@ -870,48 +802,48 @@ const Header = ({
               <div className="header-action-right d-block d-lg-none">
                 <div className="header-action-2">
                   <div className="header-action-icon-2">
-                    <Link href="/shop-wishlist">
-                      <a>
+                    <Link to="/shop-wishlist">
+                      <span>
                         <img alt="Evara" src={iconCompare} />
                         <span className="pro-count white">
                           {totalCompareItems}
                         </span>
-                      </a>
+                      </span>
                     </Link>
                   </div>
                   <div className="header-action-icon-2">
-                    <Link href="/shop-wishlist">
-                      <a>
+                    <Link to="/shop-wishlist">
+                      <span>
                         <img alt="Evara" src={iconHeart} />
                         <span className="pro-count white">
                           {totalWishlistItems}
                         </span>
-                      </a>
+                      </span>
                     </Link>
                   </div>
                   <div className="header-action-icon-2">
-                    <Link href="/shop-cart">
-                      <a className="mini-cart-icon">
+                    <Link to="/shop-cart">
+                      <span className="mini-cart-icon">
                         <img alt="Evara" src={iconCart} />
                         <span className="pro-count white">
                           {totalCartItems}
                         </span>
-                      </a>
+                      </span>
                     </Link>
                     <div className="cart-dropdown-wrap cart-dropdown-hm2">
                       <ul>
                         <li>
                           <div className="shopping-cart-img">
-                            <Link href="/shop-grid-right">
-                              <a>
+                            <Link to="/shop-grid-right">
+                              <span>
                                 <img alt="Evara" src={thumb3} />
-                              </a>
+                              </span>
                             </Link>
                           </div>
                           <div className="shopping-cart-title">
                             <h4>
-                              <Link href="/shop-grid-right">
-                                <a>Plain Striola Shirts</a>
+                              <Link to="/shop-grid-right">
+                                <span>Plain Striola Shirts</span>
                               </Link>
                             </h4>
                             <h3>
@@ -920,25 +852,25 @@ const Header = ({
                             </h3>
                           </div>
                           <div className="shopping-cart-delete">
-                            <Link href="/#">
-                              <a>
+                            <Link to="/#">
+                              <span>
                                 <i className="fi-rs-cross-small"></i>
-                              </a>
+                              </span>
                             </Link>
                           </div>
                         </li>
                         <li>
                           <div className="shopping-cart-img">
-                            <Link href="/shop-grid-right">
-                              <a>
+                            <Link to="/shop-grid-right">
+                              <span>
                                 <img alt="Evara" src={thumb4} />
-                              </a>
+                              </span>
                             </Link>
                           </div>
                           <div className="shopping-cart-title">
                             <h4>
-                              <Link href="/shop-grid-right">
-                                <a>Macbook Pro 2022</a>
+                              <Link to="/shop-grid-right">
+                                <span>Macbook Pro 2022</span>
                               </Link>
                             </h4>
                             <h3>
@@ -947,10 +879,10 @@ const Header = ({
                             </h3>
                           </div>
                           <div className="shopping-cart-delete">
-                            <Link href="/#">
-                              <a>
+                            <Link to="/#">
+                              <span>
                                 <i className="fi-rs-cross-small"></i>
-                              </a>
+                              </span>
                             </Link>
                           </div>
                         </li>
@@ -963,11 +895,11 @@ const Header = ({
                           </h4>
                         </div>
                         <div className="shopping-cart-button">
-                          <Link href="/shop-cart">
-                            <a>View cart</a>
+                          <Link to="/shop-cart">
+                            <span>View cart</span>
                           </Link>
-                          <Link href="/shop-checkout">
-                            <a>Checkout</a>
+                          <Link to="/shop-checkout">
+                            <span>Checkout</span>
                           </Link>
                         </div>
                       </div>

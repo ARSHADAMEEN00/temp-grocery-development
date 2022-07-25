@@ -33,22 +33,22 @@ export default function Home() {
                 <ul className="list-inline nav nav-tabs links">
                   <li className="list-inline-item nav-item">
                     <Link to="/products">
-                      <a className="nav-link">Cake & Milk</a>
+                      <span className="nav-link">Cake & Milk</span>
                     </Link>
                   </li>
                   <li className="list-inline-item nav-item">
                     <Link to="/products">
-                      <a className="nav-link">Coffes & Teas</a>
+                      <span className="nav-link">Coffes & Teas</span>
                     </Link>
                   </li>
                   <li className="list-inline-item nav-item">
                     <Link to="/products">
-                      <a className="nav-link active">Pet Foods</a>
+                      <span className="nav-link active">Pet Foods</span>
                     </Link>
                   </li>
                   <li className="list-inline-item nav-item">
                     <Link to="/products">
-                      <a className="nav-link">Vegetables</a>
+                      <span className="nav-link">Vegetables</span>
                     </Link>
                   </li>
                 </ul>
@@ -90,11 +90,11 @@ export default function Home() {
               data-wow-delay="0"
             >
               <h3 className="">Deals Of The Day</h3>
-              <Link href="/products">
-                <a className="show-all">
+              <Link to="/products">
+                <span className="show-all">
                   All Deals
                   <i className="fi-rs-angle-right"></i>
-                </a>
+                </span>
               </Link>
             </div>
             <FeatchDeals />

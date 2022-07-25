@@ -33,6 +33,6 @@ const CheckBox = ({ filters, handleCheckBox }) => {
 export default CheckBox
 
 CheckBox.propTypes = {
-  filters: PropTypes.ant,
-  handleCheckBox: PropTypes.ant,
+  filters: PropTypes.any,
+  handleCheckBox: PropTypes.any,
 }

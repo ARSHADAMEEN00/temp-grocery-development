@@ -9,7 +9,7 @@ const Breadcrumb = ({ parent, sub, subChild, noBreadcrumb }) => {
         <div className="container">
           <div className="breadcrumb">
             <Link to="/">
-              <a>{parent}</a>
+              <span>{parent}</span>
             </Link>
             <span></span> {sub}
             <span></span> {subChild}

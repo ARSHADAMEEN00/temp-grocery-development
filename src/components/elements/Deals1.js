@@ -1,4 +1,5 @@
-import Link from "next/link"
+import { Link } from "react-router-dom"
+
 import React from "react"
 import { connect } from "react-redux"
 import { toast } from "react-toastify"
@@ -20,10 +21,10 @@ const Deals1 = ({ product, addToCart }) => {
       >
         <div className="product-img-action-wrap">
           <div className="product-img">
-            <Link href="/products">
-              <a>
+            <Link to="/products">
+              <span>
                 <img src={`${server}/${product.discount.banner}`} alt="" />
-              </a>
+              </span>
             </Link>
           </div>
         </div>
@@ -33,8 +34,8 @@ const Deals1 = ({ product, addToCart }) => {
           </div>
           <div className="deals-content">
             <h2>
-              <Link href="/products/[slug]" as={`/products/${product.slug}`}>
-                <a>{product.title}</a>
+              <Link to="/products/slug" as={`/products/${product.slug}`}>
+                <span>{product.title}</span>
               </Link>
             </h2>
             <div className="product-rate-cover">
@@ -46,8 +47,8 @@ const Deals1 = ({ product, addToCart }) => {
             <div>
               <span className="font-small text-muted">
                 By{" "}
-                <Link href="/vendor/1">
-                  <a>NestFood</a>
+                <Link to="/vendor/1">
+                  <span>NestFood</span>
                 </Link>
               </span>
             </div>

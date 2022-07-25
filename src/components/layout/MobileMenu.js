@@ -1,8 +1,8 @@
-import Link from "next/link"
 import { useState } from "react"
 import useClickOutside from "../../util/outsideClick"
 import React from "react"
 import PropTypes from "prop-types"
+import { Link } from "react-router-dom"
 
 const MobileMenu = ({ isToggled, toggleClick }) => {
   const [isActive, setIsActive] = useState({
@@ -40,10 +40,8 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
         <div className="mobile-header-wrapper-inner">
           <div className="mobile-header-top">
             <div className="mobile-header-logo">
-              <Link href="/">
-                <a>
-                  <img src="/assets/imgs/theme/logo.svg" alt="logo" />
-                </a>
+              <Link to="/">
+                <img src="/assets/imgs/theme/logo.svg" alt="logo" />
               </Link>
             </div>
             <div className="mobile-menu-close close-style-wrap close-style-position-inherit">
@@ -67,83 +65,65 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
             </div>
             <div className="mobile-menu-wrap mobile-header-border">
               <div className="main-categori-wrap mobile-header-border">
-                <Link href="#">
-                  <a className="categori-button-active-2">
+                <Link to="#">
+                  <span className="categori-button-active-2">
                     <span className="fi-rs-apps"></span> Browse Categories
-                  </a>
+                  </span>
                 </Link>
                 <div className="categori-dropdown-wrap categori-dropdown-active-small">
                   <ul>
                     <li>
-                      <Link href="/shop-grid-right">
-                        <a>
-                          <i className="evara-font-dress"></i>
-                          Women&apos;s Clothing
-                        </a>
+                      <Link to="/shop-grid-right">
+                        <i className="evara-font-dress"></i>
+                        Women&apos;s Clothing
                       </Link>
                     </li>
                     <li>
-                      <Link href="/shop-grid-right">
-                        <a>
-                          <i className="evara-font-tshirt"></i>
-                          Men&apos;s Clothing
-                        </a>
+                      <Link to="/shop-grid-right">
+                        <i className="evara-font-tshirt"></i>
+                        Men&apos;s Clothing
                       </Link>
                     </li>
                     <li>
                       {" "}
-                      <Link href="/shop-grid-right">
-                        <a>
-                          <i className="evara-font-smartphone"></i> Cellphones
-                        </a>
+                      <Link to="/shop-grid-right">
+                        <i className="evara-font-smartphone"></i> Cellphones
                       </Link>
                     </li>
                     <li>
-                      <Link href="/shop-grid-right">
-                        <a>
-                          <i className="evara-font-desktop"></i>
-                          Computer & Office
-                        </a>
+                      <Link to="/shop-grid-right">
+                        <i className="evara-font-desktop"></i>
+                        Computer & Office
                       </Link>
                     </li>
                     <li>
-                      <Link href="/shop-grid-right">
-                        <a>
-                          <i className="evara-font-cpu"></i>
-                          Consumer Electronics
-                        </a>
+                      <Link to="/shop-grid-right">
+                        <i className="evara-font-cpu"></i>
+                        Consumer Electronics
                       </Link>
                     </li>
                     <li>
-                      <Link href="/shop-grid-right">
-                        <a>
-                          <i className="evara-font-home"></i>
-                          Home & Garden
-                        </a>
+                      <Link to="/shop-grid-right">
+                        <i className="evara-font-home"></i>
+                        Home & Garden
                       </Link>
                     </li>
                     <li>
-                      <Link href="/shop-grid-right">
-                        <a>
-                          <i className="evara-font-high-heels"></i>
-                          Shoes
-                        </a>
+                      <Link to="/shop-grid-right">
+                        <i className="evara-font-high-heels"></i>
+                        Shoes
                       </Link>
                     </li>
                     <li>
-                      <Link href="/shop-grid-right">
-                        <a>
-                          <i className="evara-font-teddy-bear"></i>
-                          Mother & Kids
-                        </a>
+                      <Link to="/shop-grid-right">
+                        <i className="evara-font-teddy-bear"></i>
+                        Mother & Kids
                       </Link>
                     </li>
                     <li>
-                      <Link href="/shop-grid-right">
-                        <a>
-                          <i className="evara-font-kite"></i>
-                          Outdoor fun
-                        </a>
+                      <Link to="/shop-grid-right">
+                        <i className="evara-font-kite"></i>
+                        Outdoor fun
                       </Link>
                     </li>
                   </ul>
@@ -165,29 +145,19 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                     >
                       <i className="fi-rs-angle-small-down"></i>
                     </span>
-                    <Link href="/index">
-                      <a>Home</a>
-                    </Link>
+                    <Link to="/index">Home</Link>
                     <ul className={isActive.key == 1 ? "dropdown" : "d-none"}>
                       <li>
-                        <Link href="/index">
-                          <a>Home 1</a>
-                        </Link>
+                        <Link to="/index">Home 1</Link>
                       </li>
                       <li>
-                        <Link href="/index-2">
-                          <a>Home 2</a>
-                        </Link>
+                        <Link to="/index-2">Home 2</Link>
                       </li>
                       <li>
-                        <Link href="/index-3">
-                          <a>Home 3</a>
-                        </Link>
+                        <Link to="/index-3">Home 3</Link>
                       </li>
                       <li>
-                        <Link href="/index-4">
-                          <a>Home 4</a>
-                        </Link>
+                        <Link to="/index-4">Home 4</Link>
                       </li>
                     </ul>
                   </li>
@@ -204,59 +174,45 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                     >
                       <i className="fi-rs-angle-small-down"></i>
                     </span>
-                    <Link href="/shop-grid-right">
-                      <a>shop</a>
-                    </Link>
+                    <Link to="/shop-grid-right">shop</Link>
                     <ul className={isActive.key == 2 ? "dropdown" : "d-none"}>
                       <li>
-                        <Link href="/shop-grid-right">
-                          <a>Shop Grid – Right Sidebar</a>
+                        <Link to="/shop-grid-right">
+                          Shop Grid – Right Sidebar
                         </Link>
                       </li>
                       <li>
-                        <Link href="/shop-grid-left">
-                          <a>Shop Grid – Left Sidebar</a>
+                        <Link to="/shop-grid-left">
+                          Shop Grid – Left Sidebar
                         </Link>
                       </li>
                       <li>
-                        <Link href="/shop-list-right">
-                          <a>Shop List – Right Sidebar</a>
+                        <Link to="/shop-list-right">
+                          Shop List – Right Sidebar
                         </Link>
                       </li>
                       <li>
-                        <Link href="/shop-list-left">
-                          <a>Shop List – Left Sidebar</a>
+                        <Link to="/shop-list-left">
+                          Shop List – Left Sidebar
                         </Link>
                       </li>
                       <li>
-                        <Link href="/shop-fullwidth">
-                          <a>Shop - Wide</a>
-                        </Link>
+                        <Link to="/shop-fullwidth">Shop - Wide</Link>
                       </li>
                       <li>
-                        <Link href="/shop-filter">
-                          <a>Shop – Filter</a>
-                        </Link>
+                        <Link to="/shop-filter">Shop – Filter</Link>
                       </li>
                       <li>
-                        <Link href="/shop-wishlist">
-                          <a>Shop – Wishlist</a>
-                        </Link>
+                        <Link to="/shop-wishlist">Shop – Wishlist</Link>
                       </li>
                       <li>
-                        <Link href="/shop-cart">
-                          <a>Shop – Cart</a>
-                        </Link>
+                        <Link to="/shop-cart">Shop – Cart</Link>
                       </li>
                       <li>
-                        <Link href="/shop-checkout">
-                          <a>Shop – Checkout</a>
-                        </Link>
+                        <Link to="/shop-checkout">Shop – Checkout</Link>
                       </li>
                       <li>
-                        <Link href="/shop-compare">
-                          <a>Shop – Compare</a>
-                        </Link>
+                        <Link to="/shop-compare">Shop – Compare</Link>
                       </li>
                     </ul>
                   </li>
@@ -273,90 +229,74 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                     >
                       <i className="fi-rs-angle-small-down"></i>
                     </span>
-                    <Link href="#">
-                      <a>Mega menu</a>
-                    </Link>
+                    <Link to="#">Mega menu</Link>
                     <ul className={isActive.key == 3 ? "dropdown" : "d-none"}>
                       <li className="menu-item-has-children">
                         <span className="menu-expand"></span>
-                        <Link href="#">
-                          <a>Women&apos;s Fashion</a>
-                        </Link>
+                        <Link to="#">Women&apos;s Fashion</Link>
                         <ul className="dropdown">
                           <li>
-                            <Link href="/shop-product-right">
-                              <a>Dresses</a>
+                            <Link to="/shop-product-right">Dresses</Link>
+                          </li>
+                          <li>
+                            <Link to="/shop-product-right">
+                              Blouses & Shirts
                             </Link>
                           </li>
                           <li>
-                            <Link href="/shop-product-right">
-                              <a>Blouses & Shirts</a>
+                            <Link to="/shop-product-right">
+                              Hoodies & Sweatshirts
                             </Link>
                           </li>
                           <li>
-                            <Link href="/shop-product-right">
-                              <a>Hoodies & Sweatshirts</a>
-                            </Link>
-                          </li>
-                          <li>
-                            <Link href="/shop-product-right">
-                              <a>Women&apos;s Sets</a>
+                            <Link to="/shop-product-right">
+                              Women&apos;s Sets
                             </Link>
                           </li>
                         </ul>
                       </li>
                       <li className="menu-item-has-children">
                         <span className="menu-expand"></span>
-                        <Link href="#">
-                          <a>Men&apos;s Fashion</a>
-                        </Link>
+                        <Link to="#">Men&apos;s Fashion</Link>
                         <ul className="dropdown">
                           <li>
-                            <Link href="/shop-product-right">
-                              <a>Jackets</a>
+                            <Link to="/shop-product-right">Jackets</Link>
+                          </li>
+                          <li>
+                            <Link to="/shop-product-right">
+                              Casual Faux Leather
                             </Link>
                           </li>
                           <li>
-                            <Link href="/shop-product-right">
-                              <a>Casual Faux Leather</a>
-                            </Link>
-                          </li>
-                          <li>
-                            <Link href="/shop-product-right">
-                              <a>Genuine Leather</a>
+                            <Link to="/shop-product-right">
+                              Genuine Leather
                             </Link>
                           </li>
                         </ul>
                       </li>
                       <li className="menu-item-has-children">
                         <span className="menu-expand"></span>
-                        <Link href="#">
-                          <a>Technology</a>
-                        </Link>
+                        <Link to="#">Technology</Link>
                         <ul className="dropdown">
                           <li>
-                            <Link href="/shop-product-right">
-                              <a>Gaming Laptops</a>
+                            <Link to="/shop-product-right">Gaming Laptops</Link>
+                          </li>
+                          <li>
+                            <Link to="/shop-product-right">
+                              Ultraslim Laptops
                             </Link>
                           </li>
                           <li>
-                            <Link href="/shop-product-right">
-                              <a>Ultraslim Laptops</a>
+                            <Link to="/shop-product-right">Tablets</Link>
+                          </li>
+                          <li>
+                            <Link to="/shop-product-right">
+                              Laptop Accessories
                             </Link>
                           </li>
                           <li>
-                            <Link href="/shop-product-right">
-                              <a>Tablets</a>
-                            </Link>
-                          </li>
-                          <li>
-                            <Link href="/shop-product-right">
-                              <a>Laptop Accessories</a>
-                            </Link>
-                          </li>
-                          <li>
-                            <Link href="/shop-product-right">
-                              <a>Tablet Accessories</a>
+                            <Link to="/shop-product-right">
+                              Tablet Accessories
                             </Link>
                           </li>
                         </ul>
@@ -376,50 +316,34 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                     >
                       <i className="fi-rs-angle-small-down"></i>
                     </span>
-                    <Link href="/blog-category-fullwidth">
-                      <a>Blog</a>
-                    </Link>
+                    <Link to="/blog-category-fullwidth">Blog</Link>
                     <ul className={isActive.key == 4 ? "dropdown" : "d-none"}>
                       <li>
-                        <Link href="/blog-category-grid">
-                          <a>Blog Category Grid</a>
-                        </Link>
+                        <Link to="/blog-category-grid">Blog Category Grid</Link>
                       </li>
                       <li>
-                        <Link href="/blog-category-list">
-                          <a>Blog Category List</a>
-                        </Link>
+                        <Link to="/blog-category-list">Blog Category List</Link>
                       </li>
                       <li>
-                        <Link href="/blog-category-big">
-                          <a>Blog Category Big</a>
-                        </Link>
+                        <Link to="/blog-category-big">Blog Category Big</Link>
                       </li>
                       <li>
-                        <Link href="/blog-category-fullwidth">
-                          <a>Blog Category Wide</a>
+                        <Link to="/blog-category-fullwidth">
+                          Blog Category Wide
                         </Link>
                       </li>
                       <li className="menu-item-has-children">
                         <span className="menu-expand"></span>
-                        <Link href="#">
-                          <a>Single Product Layout</a>
-                        </Link>
+                        <Link to="#">Single Product Layout</Link>
                         <ul className="dropdown">
                           <li>
-                            <Link href="/blog-post-left">
-                              <a>Left Sidebar</a>
-                            </Link>
+                            <Link to="/blog-post-left">Left Sidebar</Link>
                           </li>
                           <li>
-                            <Link href="/blog-post-right">
-                              <a>Right Sidebar</a>
-                            </Link>
+                            <Link to="/blog-post-right">Right Sidebar</Link>
                           </li>
                           <li>
-                            <Link href="/blog-post-fullwidth">
-                              <a>No Sidebar</a>
-                            </Link>
+                            <Link to="/blog-post-fullwidth">No Sidebar</Link>
                           </li>
                         </ul>
                       </li>
@@ -438,49 +362,31 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                     >
                       <i className="fi-rs-angle-small-down"></i>
                     </span>
-                    <Link href="#">
-                      <a>Pages</a>
-                    </Link>
+                    <Link to="#">Pages</Link>
                     <ul className={isActive.key == 5 ? "dropdown" : "d-none"}>
                       <li>
-                        <Link href="/page-about">
-                          <a>About Us</a>
-                        </Link>
+                        <Link to="/page-about">About Us</Link>
                       </li>
                       <li>
-                        <Link href="/page-contact">
-                          <a>Contact</a>
-                        </Link>
+                        <Link to="/page-contact">Contact</Link>
                       </li>
                       <li>
-                        <Link href="/page-account">
-                          <a>My Account</a>
-                        </Link>
+                        <Link to="/page-account">My Account</Link>
                       </li>
                       <li>
-                        <Link href="/page-login-register">
-                          <a>login/register</a>
-                        </Link>
+                        <Link to="/page-login-register">login/register</Link>
                       </li>
                       <li>
-                        <Link href="/page-purchase-guide">
-                          <a>Purchase Guide</a>
-                        </Link>
+                        <Link to="/page-purchase-guide">Purchase Guide</Link>
                       </li>
                       <li>
-                        <Link href="/page-privacy-policy">
-                          <a>Privacy Policy</a>
-                        </Link>
+                        <Link to="/page-privacy-policy">Privacy Policy</Link>
                       </li>
                       <li>
-                        <Link href="/page-terms">
-                          <a>Terms of Service</a>
-                        </Link>
+                        <Link to="/page-terms">Terms of Service</Link>
                       </li>
                       <li>
-                        <Link href="/page-404">
-                          <a>404 Page</a>
-                        </Link>
+                        <Link to="/page-404">404 Page</Link>
                       </li>
                     </ul>
                   </li>
@@ -497,29 +403,19 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
                     >
                       <i className="fi-rs-angle-small-down"></i>
                     </span>
-                    <Link href="#">
-                      <a>Language</a>
-                    </Link>
+                    <Link to="#">Language</Link>
                     <ul className={isActive.key == 6 ? "dropdown" : "d-none"}>
                       <li>
-                        <Link href="#">
-                          <a>English</a>
-                        </Link>
+                        <Link to="#">English</Link>
                       </li>
                       <li>
-                        <Link href="#">
-                          <a>French</a>
-                        </Link>
+                        <Link to="#">French</Link>
                       </li>
                       <li>
-                        <Link href="#">
-                          <a>German</a>
-                        </Link>
+                        <Link to="#">German</Link>
                       </li>
                       <li>
-                        <Link href="#">
-                          <a>Spanish</a>
-                        </Link>
+                        <Link to="#">Spanish</Link>
                       </li>
                     </ul>
                   </li>
@@ -528,56 +424,31 @@ const MobileMenu = ({ isToggled, toggleClick }) => {
             </div>
             <div className="mobile-header-info-wrap mobile-header-border">
               <div className="single-mobile-header-info mt-30">
-                <Link href="/page-contact">
-                  <a> Our location </a>
-                </Link>
+                <Link to="/page-contact">Our location</Link>
               </div>
               <div className="single-mobile-header-info">
-                <Link href="/page-login-register">
-                  <a>Log In / Sign Up </a>
-                </Link>
+                <Link to="/page-login-register">Log In / Sign Up</Link>
               </div>
               <div className="single-mobile-header-info">
-                <Link href="#">
-                  <a>(+01) - 2345 - 6789 </a>
-                </Link>
+                <Link to="#">(+01) - 2345 - 6789</Link>
               </div>
             </div>
             <div className="mobile-social-icon">
               <h5 className="mb-15 text-grey-4">Follow Us</h5>
-              <Link href="#">
-                <a>
-                  <img
-                    src="/assets/imgs/theme/icons/icon-facebook.svg"
-                    alt=""
-                  />
-                </a>
+              <Link to="#">
+                <img src="/assets/imgs/theme/icons/icon-facebook.svg" alt="" />
               </Link>
-              <Link href="#">
-                <a>
-                  <img src="/assets/imgs/theme/icons/icon-twitter.svg" alt="" />
-                </a>
+              <Link to="#">
+                <img src="/assets/imgs/theme/icons/icon-twitter.svg" alt="" />
               </Link>
-              <Link href="#">
-                <a>
-                  <img
-                    src="/assets/imgs/theme/icons/icon-instagram.svg"
-                    alt=""
-                  />
-                </a>
+              <Link to="#">
+                <img src="/assets/imgs/theme/icons/icon-instagram.svg" alt="" />
               </Link>
-              <Link href="#">
-                <a>
-                  <img
-                    src="/assets/imgs/theme/icons/icon-pinterest.svg"
-                    alt=""
-                  />
-                </a>
+              <Link to="#">
+                <img src="/assets/imgs/theme/icons/icon-pinterest.svg" alt="" />
               </Link>
-              <Link href="#">
-                <a>
-                  <img src="/assets/imgs/theme/icons/icon-youtube.svg" alt="" />
-                </a>
+              <Link to="#">
+                <img src="/assets/imgs/theme/icons/icon-youtube.svg" alt="" />
               </Link>
             </div>
           </div>

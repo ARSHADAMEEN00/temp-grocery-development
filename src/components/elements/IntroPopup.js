@@ -42,9 +42,9 @@ const IntroPopup = () => {
                 <div className="deal-content  detail-info">
                   <h6 className="product-title">
                     <Link to="/shop-product-right">
-                      <a className="text-heading">
+                      <span className="text-heading">
                         Organic fruit for your family&apos;s health
-                      </a>
+                      </span>
                     </Link>
                   </h6>
                   <div className="clearfix product-price-cover">
@@ -79,9 +79,9 @@ const IntroPopup = () => {
                   </div>
 
                   <Link to="/shop-grid-right">
-                    <a className="btn hover-up">
+                    <span className="btn hover-up">
                       Shop Now <i className="fi-rs-arrow-right"></i>
-                    </a>
+                    </span>
                   </Link>
                 </div>
               </div>
