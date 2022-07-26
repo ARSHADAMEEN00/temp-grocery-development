@@ -80,14 +80,18 @@ const SingleProductList = ({
             </div>
 
             <div className="product-badges product-badges-position product-badges-mrg">
-              {product.trending && <span className="hot">Hot</span>}
-              {product.created && <span className="new">New</span>}
+              {product.trending && <span className="hot curvy">Hot</span>}
+              {product.created && <span className="new curvy">New</span>}
               {product.totalSell > 100 && (
-                <span className="best">Best Sell</span>
+                <span className="best curvy">Best Sell</span>
               )}
-              {product.discount.isActive && <span className="sale">Sale</span>}
+              {product.discount.isActive && (
+                <span className="sale curvy">Sale</span>
+              )}
               {product.discount.percentage >= 5 && (
-                <span className="hot">{product.discount.percentage}%</span>
+                <span className="hot curvy">
+                  {product.discount.percentage}%
+                </span>
               )}
             </div>
           </div>

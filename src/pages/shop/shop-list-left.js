@@ -10,6 +10,7 @@ import VendorFilter from "components/ecommerce/Filter/VendorFilter"
 import Pagination from "components/ecommerce/Pagination"
 import QuickView from "components/ecommerce/QuickView"
 import SingleProductList from "components/ecommerce/SingleProductList"
+import SingleProduct from "components/ecommerce/SingleProduct"
 import WishlistModal from "components/ecommerce/WishlistModal"
 import Layout from "components/layout/Layout"
 import React from "react"
@@ -120,14 +121,17 @@ const ProductsList = ({ productFilters, fetchProduct }) => {
                   </div>
                 </div>
                 <div className="row product-grid-3">
-                  {getPaginatedProducts?.length === 0 && (
+                  {getPaginatedProducts.length === 0 && (
                     <h3>No Products Found </h3>
                   )}
 
-                  {getPaginatedProducts?.map((item, i) => (
-                    <div className="" key={i}>
-                      {/* <SingleProduct product={item} /> */}
-                      <SingleProductList product={item} />
+                  {getPaginatedProducts.map((item, i) => (
+                    <div
+                      className="col-lg-1-5 col-md-4 col-12 col-sm-6"
+                      key={i}
+                    >
+                      <SingleProduct product={item} />
+                      {/* <SingleProductList product={item}/> */}
                     </div>
                   ))}
                 </div>

@@ -1,47 +1,61 @@
-import React from "react"
 import { Link } from "react-router-dom"
-import { Container, Row, Col } from "reactstrap"
-import MetaTags from "react-meta-tags"
+import Layout from "components/layout/Layout"
+import React from "react"
 
-//Import Images
-// import error from "../../assets/images/error-img.png"
-
-const Pages404 = () => {
+import notfound from "../../assets/imgs/page/page-404.png"
+function Custom404() {
   return (
-    <React.Fragment>
-      <div className="account-pages my-5 pt-5">
-        <MetaTags>
-          <title>
-            404 Error Page | osperb - React Admin & Dashboard Template
-          </title>
-        </MetaTags>
-        <Container>
-          <Row>
-            <Col lg="12">
-              <div className="text-center mb-5">
-                <h1 className="display-2 font-weight-medium">
-                  4<i className="bx bx-buoy bx-spin text-primary display-3" />4
-                </h1>
-                <h4 className="text-uppercase">Sorry, page not found</h4>
-                <div className="mt-5 text-center">
-                  <Link className="btn btn-primary " to="/dashboard">
-                    Back to Dashboard
+    <>
+      <Layout parent="Home" sub="Pages" subChild="404">
+        <main className="main page-404">
+          <div className="page-content pt-150 pb-150">
+            <div className="container">
+              <div className="row">
+                <div className="col-xl-8 col-lg-10 col-md-12 m-auto text-center">
+                  <p className="mb-20">
+                    <img src={notfound} alt="" className="hover-up" />
+                  </p>
+                  <h1 className="display-2 mb-30">Page Not Found</h1>
+                  <p className="font-lg text-grey-700 mb-30">
+                    The link you clicked may be broken or the page may have been
+                    removed.
+                    <br />
+                    visit the{" "}
+                    <Link to="/">
+                      <a>
+                        {" "}
+                        <span> Homepage</span>
+                      </a>
+                    </Link>
+                    or{" "}
+                    <Link to="/page-contact">
+                      <a>
+                        <span>Contact us</span>
+                      </a>
+                    </Link>
+                    about the problem
+                  </p>
+                  <div className="search-form">
+                    <form action="#">
+                      <input type="text" placeholder="Search…" />
+                      <button type="submit">
+                        <i className="fi-rs-search"></i>
+                      </button>
+                    </form>
+                  </div>
+                  <Link to="/">
+                    <a className="btn btn-default submit-auto-width font-xs hover-up mt-30">
+                      <i className="fi-rs-home mr-5"></i> Back To Home Page
+                    </a>
                   </Link>
                 </div>
               </div>
-            </Col>
-          </Row>
-          <Row className="justify-content-center">
-            <Col md="8" xl="6">
-              <div>
-                {/* <img src={error} alt="" className="img-fluid" /> */}
-              </div>
-            </Col>
-          </Row>
-        </Container>
-      </div>
-    </React.Fragment>
+            </div>
+          </div>
+        </main>
+      </Layout>
+    </>
   )
 }
 
-export default Pages404
+export default Custom404
