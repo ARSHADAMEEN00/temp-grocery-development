@@ -24,6 +24,7 @@ import "react-responsive-modal/styles.css"
 import "swiper/swiper-bundle.min.css"
 import "swiper/swiper.min.css"
 import "./assets/css/main.css"
+import "./assets/css/custom.css"
 
 const App = props => {
   const token = localStorage.getItem("token")
